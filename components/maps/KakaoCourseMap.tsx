@@ -12,8 +12,6 @@ import {
   type KakaoLatLngBounds,
 } from "@/lib/courseListUtils";
 import {
-  buildClusterStyles,
-  createClusterHitMarkerImage,
   createDetailMarkerImage,
   createLabelOverlayElement,
   createPinOverlayElement,
@@ -21,11 +19,18 @@ import {
   fitKakaoMapToCourses,
   getLabelDisplayMode,
   shouldShowLabel,
-  shouldShowPin,
   updatePinOverlayElement,
   type KakaoMapInstance,
   type KakaoMapsApi,
 } from "@/lib/kakaoMapUtils";
+import {
+  clusterGroupKey,
+  createClusterBadgeElement,
+  resolveClusterDisplay,
+  shouldShowPinForGroup,
+  updateClusterBadgeElement,
+  type ClusterGroup,
+} from "@/lib/kakaoClusterUtils";
 import { resolveCourseMapBindings } from "@/lib/courseMapBindings";
 import MapFallback from "@/components/maps/MapFallback";
 import CourseMarkerPopup from "@/components/maps/CourseMarkerPopup";
@@ -39,7 +44,7 @@ interface PinEventHandlers {
 }
 
 interface CourseMarkerEntry {
-  clusterMarker: {
+  detailMarker?: {
     setMap: (map: unknown | null) => void;
     setImage?: (image: unknown) => void;
     setOpacity?: (opacity: number) => void;
@@ -47,6 +52,7 @@ interface CourseMarkerEntry {
   pinOverlay: {
     setMap: (map: unknown | null) => void;
     setContent: (content: HTMLElement) => void;
+    setPosition?: (pos: unknown) => void;
     setZIndex: (z: number) => void;
   };
   pinEl: HTMLButtonElement;
@@ -57,6 +63,17 @@ interface CourseMarkerEntry {
   };
   course: Course;
   pinHandlers: PinEventHandlers;
+}
+
+interface ClusterOverlayEntry {
+  overlay: {
+    setMap: (map: unknown | null) => void;
+    setPosition: (pos: unknown) => void;
+    setZIndex: (z: number) => void;
+  };
+  badgeEl: HTMLButtonElement;
+  courseIds: string[];
+  clickHandler: (e: Event) => void;
 }
 
 function useIsMobile(breakpoint = 767) {
@@ -107,9 +124,8 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<KakaoMapInstance | null>(null);
   const mapsApiRef = useRef<KakaoMapsApi | null>(null);
-  const clustererRef = useRef<{ clear: () => void } | null>(null);
+  const clusterOverlaysRef = useRef<Map<string, ClusterOverlayEntry>>(new Map());
   const entriesRef = useRef<Map<string, CourseMarkerEntry>>(new Map());
-  const markerToCourseIdRef = useRef<Map<unknown, string>>(new Map());
   const mapReadyRef = useRef(false);
   const initialViewAppliedRef = useRef(false);
   const selectedCourseIdRef = useRef(selectedCourseId);
@@ -128,6 +144,7 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     isKakaoConfigured ? "loading" : "fallback",
   );
   const [selectedInBounds, setSelectedInBounds] = useState(true);
+  const [mapDisplayCount, setMapDisplayCount] = useState<number | null>(null);
 
   selectedCourseIdRef.current = selectedCourseId;
   hoveredCourseIdRef.current = hoveredCourseId;
@@ -205,20 +222,99 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     requestAnimationFrame(() => map.relayout?.());
   }, []);
 
+  const syncClusterOverlays = useCallback(
+    (
+      map: KakaoMapInstance,
+      groups: ClusterGroup[],
+      LatLng: new (lat: number, lng: number) => unknown,
+      CustomOverlay: new (opts: Record<string, unknown>) => ClusterOverlayEntry["overlay"],
+    ) => {
+      const nextKeys = new Set<string>();
+
+      for (const group of groups) {
+        if (group.courseIds.length < 2) continue;
+
+        const key = clusterGroupKey(group.courseIds);
+        nextKeys.add(key);
+
+        let entry = clusterOverlaysRef.current.get(key);
+        if (!entry) {
+          const courseIds = [...group.courseIds];
+          const badgeEl = createClusterBadgeElement(courseIds.length);
+          const clickHandler = (e: Event) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onClusterRef.current?.(courseIds);
+          };
+          badgeEl.addEventListener("click", clickHandler);
+
+          const overlay = new CustomOverlay({
+            position: new LatLng(group.lat, group.lng),
+            content: badgeEl,
+            xAnchor: 0.5,
+            yAnchor: 0.5,
+            zIndex: 80,
+            clickable: true,
+          });
+
+          entry = { overlay, badgeEl, courseIds, clickHandler };
+          clusterOverlaysRef.current.set(key, entry);
+        } else {
+          updateClusterBadgeElement(entry.badgeEl, group.courseIds.length);
+          entry.overlay.setPosition(new LatLng(group.lat, group.lng));
+        }
+
+        entry.overlay.setZIndex(80);
+        entry.overlay.setMap(map);
+      }
+
+      clusterOverlaysRef.current.forEach((entry, key) => {
+        if (!nextKeys.has(key)) {
+          entry.badgeEl.removeEventListener("click", entry.clickHandler);
+          entry.overlay.setMap(null);
+          clusterOverlaysRef.current.delete(key);
+        }
+      });
+    },
+    [],
+  );
+
   const syncMarkerVisuals = useCallback(() => {
     const map = mapRef.current;
-    if (!map || !window.kakao?.maps) return;
+    const maps = mapsApiRef.current;
+    if (!map || !window.kakao?.maps || !maps) return;
 
     if (isDetail) {
       entriesRef.current.forEach((entry) => {
-        entry.clusterMarker.setMap(map);
+        entry.detailMarker?.setMap(map);
         entry.pinOverlay.setMap(null);
         entry.labelOverlay.setMap(null);
       });
+      clusterOverlaysRef.current.forEach((entry) => entry.overlay.setMap(null));
       return;
     }
 
+    const bounds = map.getBounds?.();
+    if (!bounds) return;
+
+    const LatLng = maps.LatLng;
+    const CustomOverlay = (
+      window.kakao.maps as Record<string, unknown>
+    ).CustomOverlay as new (opts: Record<string, unknown>) => ClusterOverlayEntry["overlay"];
+
+    const visibleInBounds = coursesRef.current.filter((course) =>
+      isCourseInKakaoBounds(course, bounds, LatLng),
+    );
     const level = map.getLevel();
+    const visibleIdSet = new Set(visibleInBounds.map((c) => c.id));
+    const { clusters, pinGroupSizeMap } = resolveClusterDisplay(
+      visibleInBounds,
+      level,
+    );
+
+    syncClusterOverlays(map, clusters, LatLng, CustomOverlay);
+    setMapDisplayCount(visibleInBounds.length);
+
     const selectedId = selectedCourseIdRef.current;
     const hoveredId = hoveredCourseIdRef.current;
     const mobile = isMobileRef.current;
@@ -227,7 +323,20 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
       const isSel = id === selectedId;
       const isHov = id === hoveredId && !isSel;
       const variant = markerVariant(id, selectedId, hoveredId);
-      const showPin = shouldShowPin(level, isSel, isHov);
+
+      if (!visibleIdSet.has(id)) {
+        entry.pinOverlay.setMap(null);
+        entry.labelOverlay.setMap(null);
+        return;
+      }
+
+      const effectiveGroupSize = pinGroupSizeMap.get(id) ?? 1;
+      const showPin = shouldShowPinForGroup(
+        level,
+        effectiveGroupSize,
+        isSel,
+        isHov,
+      );
       const showLabel = shouldShowLabel(level, mobile, isSel, isHov);
 
       updatePinOverlayElement(entry.pinEl, variant);
@@ -253,25 +362,27 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
         entry.labelOverlay.setMap(null);
       }
     });
-  }, [isDetail]);
+  }, [isDetail, syncClusterOverlays]);
 
   syncMarkerVisualsRef.current = syncMarkerVisuals;
 
   const cleanupMarkers = useCallback(() => {
-    clustererRef.current?.clear();
-    clustererRef.current = null;
+    clusterOverlaysRef.current.forEach((entry) => {
+      entry.badgeEl.removeEventListener("click", entry.clickHandler);
+      entry.overlay.setMap(null);
+    });
+    clusterOverlaysRef.current.clear();
 
     entriesRef.current.forEach((entry) => {
       entry.pinEl.removeEventListener("click", entry.pinHandlers.click);
       entry.pinEl.removeEventListener("mouseenter", entry.pinHandlers.enter);
       entry.pinEl.removeEventListener("mouseleave", entry.pinHandlers.leave);
       entry.pinEl.removeEventListener("touchend", entry.pinHandlers.click);
-      entry.clusterMarker.setMap(null);
+      entry.detailMarker?.setMap(null);
       entry.pinOverlay.setMap(null);
       entry.labelOverlay.setMap(null);
     });
     entriesRef.current.clear();
-    markerToCourseIdRef.current.clear();
   }, []);
 
   useEffect(() => {
@@ -313,6 +424,7 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
         eventAdd(map, "dragend", () => {
           notifyViewportChange();
           reportVisibleRef.current();
+          syncMarkerVisualsRef.current();
         });
         eventAdd(map, "zoom_changed", () => {
           notifyViewportChange();
@@ -398,20 +510,8 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
       setContent: (content: HTMLElement) => void;
       setZIndex: (z: number) => void;
     };
-    const eventAdd = (
-      maps.event as {
-        addListener: (
-          target: unknown,
-          type: string,
-          handler: (...args: unknown[]) => void,
-        ) => void;
-      }
-    ).addListener;
 
     cleanupMarkers();
-
-    const clusterMarkerList: unknown[] = [];
-    const hitMarkerImage = createClusterHitMarkerImage(maps);
 
     courses.forEach((course) => {
       const position = new LatLng(course.latitude, course.longitude);
@@ -462,65 +562,25 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
         clickable: false,
       });
 
-      const clusterMarker = new Marker({
-        position,
-        image: hitMarkerImage,
-        clickable: false,
-        opacity: 0,
-        zIndex: 0,
-      });
-
-      markerToCourseIdRef.current.set(clusterMarker, course.id);
-      entriesRef.current.set(course.id, {
-        clusterMarker,
+      const entry: CourseMarkerEntry = {
         pinOverlay,
         pinEl,
         labelOverlay,
         course,
         pinHandlers,
-      });
-      clusterMarkerList.push(clusterMarker);
-    });
-
-    if (isDetail) {
-      const first = entriesRef.current.values().next().value as
-        | CourseMarkerEntry
-        | undefined;
-      if (first) {
-        first.clusterMarker.setImage?.(createDetailMarkerImage(maps));
-        first.clusterMarker.setOpacity?.(1);
-        first.clusterMarker.setMap(map);
-      }
-    } else {
-      const MarkerClusterer = maps.MarkerClusterer as new (opts: Record<
-        string,
-        unknown
-      >) => {
-        clear: () => void;
       };
 
-      const clusterer = new MarkerClusterer({
-        map,
-        markers: clusterMarkerList,
-        averageCenter: true,
-        gridSize: 52,
-        minLevel: 9,
-        styles: buildClusterStyles(),
-      });
+      if (isDetail) {
+        entry.detailMarker = new Marker({
+          position,
+          image: createDetailMarkerImage(maps),
+          clickable: false,
+          zIndex: 1,
+        });
+      }
 
-      eventAdd(clusterer, "clusterclick", (cluster: unknown) => {
-        const c = cluster as { getMarkers: () => unknown[] };
-        const ids = c
-          .getMarkers()
-          .map((m) => markerToCourseIdRef.current.get(m))
-          .filter((id): id is string => Boolean(id));
-        if (ids.length > 0) {
-          onClusterRef.current?.(ids);
-        }
-      });
-
-      clustererRef.current = clusterer;
-    }
+      entriesRef.current.set(course.id, entry);
+    });
 
     syncMarkerVisuals();
 
@@ -595,6 +655,11 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
       {showPopup && (
         <div className="pointer-events-auto absolute bottom-3 left-3 z-20 max-w-[14rem] animate-fade-in">
           <CourseMarkerPopup course={selected} onClose={clearSelection} />
+        </div>
+      )}
+      {mode === "kakao" && !isDetail && mapDisplayCount !== null && (
+        <div className="pointer-events-none absolute right-3 top-3 z-10 rounded-full border border-gray-200/80 bg-white/90 px-2.5 py-1 text-[11px] font-medium text-gray-600 shadow-sm backdrop-blur-sm">
+          지도에 {mapDisplayCount}곳 표시
         </div>
       )}
     </div>

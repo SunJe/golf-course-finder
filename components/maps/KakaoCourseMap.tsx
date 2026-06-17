@@ -74,6 +74,10 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
           level: DEFAULT_KAKAO_MAP_LEVEL,
         });
         mapRef.current = map;
+        // hidden 상태에서 초기화되면 타일이 깨지므로, 표시 후 relayout
+        requestAnimationFrame(() => {
+          (map as { relayout?: () => void }).relayout?.();
+        });
         setMode("kakao");
       })
       .catch(() => {
@@ -83,6 +87,21 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
       cancelled = true;
     };
   }, []);
+
+  // 컨테이너 크기 변경 시 지도 타일 재배치
+  useEffect(() => {
+    if (mode !== "kakao" || !mapRef.current || !containerRef.current) return;
+    const map = mapRef.current as { relayout?: () => void };
+    const relayout = () => map.relayout?.();
+    relayout();
+    const observer = new ResizeObserver(relayout);
+    observer.observe(containerRef.current);
+    window.addEventListener("resize", relayout);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", relayout);
+    };
+  }, [mode]);
 
   // 마커 생성/갱신
   useEffect(() => {
@@ -194,12 +213,9 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     <div
       className={`relative h-full w-full overflow-hidden rounded-2xl border border-gray-200 bg-gray-100 ${className}`}
     >
-      <div
-        ref={containerRef}
-        className={`h-full w-full ${mode === "kakao" ? "block" : "hidden"}`}
-      />
+      <div ref={containerRef} className="h-full w-full" />
       {mode === "loading" && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-gray-100">
           <div className="flex flex-col items-center gap-2 text-gray-400">
             <MapPinned className="h-8 w-8 animate-pulse" />
             <span className="text-sm">지도를 불러오는 중...</span>

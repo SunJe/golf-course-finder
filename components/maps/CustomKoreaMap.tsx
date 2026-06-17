@@ -21,7 +21,7 @@ import CourseMarkerPopup from "@/components/maps/CourseMarkerPopup";
  */
 export default function CustomKoreaMap(props: CourseMapBaseProps) {
   const { courses, className = "" } = props;
-  const { selectedCourseId, selectCourseById } =
+  const { selectedCourseId, selectCourseById, clearSelection } =
     resolveCourseMapBindings(props);
 
   const selected = courses.find((c) => c.id === selectedCourseId);
@@ -122,7 +122,7 @@ export default function CustomKoreaMap(props: CourseMapBaseProps) {
         >
           <CourseMarkerPopup
             course={selected}
-            onClose={() => selectCourseById(selected.id)}
+            onClose={clearSelection}
           />
         </div>
       )}

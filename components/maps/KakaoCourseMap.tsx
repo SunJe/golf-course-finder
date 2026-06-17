@@ -33,8 +33,8 @@ function kakaoMarkerHtml(course: Course, selected: boolean): string {
 }
 
 export default function KakaoCourseMap(props: CourseMapBaseProps) {
-  const { courses, center, className = "" } = props;
-  const { selectedCourseId, selectCourse, selectCourseById } =
+  const { courses, center, className = "", maxVisibleMarkers } = props;
+  const { selectedCourseId, selectCourse, selectCourseById, clearSelection } =
     resolveCourseMapBindings(props);
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -183,6 +183,8 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
           selectedCourseId={selectedCourseId}
           onSelectCourse={selectCourseById}
           provider="kakao"
+          maxVisibleMarkers={maxVisibleMarkers}
+          onClearSelection={clearSelection}
         />
       </div>
     );
@@ -208,7 +210,7 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
         <div className="absolute bottom-3 left-3 z-20 max-w-[16rem] animate-fade-in">
           <CourseMarkerPopup
             course={selected}
-            onClose={() => selectCourseById(selected.id)}
+            onClose={clearSelection}
           />
         </div>
       )}

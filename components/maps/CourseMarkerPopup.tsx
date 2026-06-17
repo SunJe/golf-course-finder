@@ -27,7 +27,10 @@ export default function CourseMarkerPopup({
         {onClose && (
           <button
             type="button"
-            onClick={onClose}
+            onClick={(e) => {
+              e.stopPropagation();
+              onClose();
+            }}
             aria-label="닫기"
             className="absolute right-2 top-2 rounded-full bg-black/40 p-1 text-white transition hover:bg-black/60"
           >

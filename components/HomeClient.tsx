@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useCallback } from "react";
+import { useMemo, useState, useCallback, useEffect } from "react";
 import { SlidersHorizontal } from "lucide-react";
 import type { Course, CourseFilters } from "@/types/course";
 import { EMPTY_FILTERS } from "@/types/course";
@@ -60,10 +60,29 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
 
   const resetFilters = useCallback(() => setFilters(EMPTY_FILTERS), []);
 
+  const clearSelection = useCallback(() => {
+    setSelectedId(null);
+  }, []);
+
   const handleSelect = useCallback((course: Course) => {
     setSelectedId((prev) => (prev === course.id ? null : course.id));
     setCenter({ lat: course.latitude, lng: course.longitude });
   }, []);
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      if (sheetOpen) {
+        setSheetOpen(false);
+        return;
+      }
+      if (selectedId) {
+        clearSelection();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [selectedId, sheetOpen, clearSelection]);
 
   return (
     <>
@@ -134,7 +153,7 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
 
       {/* 데스크탑: 리스트 + 지도 */}
       <div className="mx-auto hidden h-[calc(100vh-9.5rem)] max-w-[1600px] gap-4 px-6 py-3 md:flex">
-        <div className="flex w-[400px] flex-shrink-0 flex-col lg:w-[420px]">
+        <div className="flex w-[460px] flex-shrink-0 flex-col lg:w-[500px] xl:w-[520px]">
           <div className="mb-2 flex items-center justify-between">
             <ResultCount
               total={courses.length}
@@ -167,6 +186,8 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
             selectedId={selectedId}
             onSelect={handleSelect}
             center={center}
+            maxVisibleMarkers={50}
+            onClearSelection={clearSelection}
             className="h-full"
           />
         </div>
@@ -180,6 +201,8 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
             selectedId={selectedId}
             onSelect={handleSelect}
             center={center}
+            maxVisibleMarkers={20}
+            onClearSelection={clearSelection}
             className="h-full"
           />
         </div>

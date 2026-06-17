@@ -16,5 +16,9 @@ export function resolveCourseMapBindings(props: CourseMapBaseProps) {
     if (course) selectCourse(course);
   };
 
-  return { selectedCourseId, selectCourse, selectCourseById };
+  const clearSelection = () => {
+    props.onClearSelection?.();
+  };
+
+  return { selectedCourseId, selectCourse, selectCourseById, clearSelection };
 }

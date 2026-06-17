@@ -26,6 +26,7 @@ import {
 } from "@/lib/externalMapLinks";
 import Tag from "@/components/Tag";
 import CourseMap from "@/components/maps/CourseMap";
+import CourseImage from "@/components/CourseImage";
 
 function InfoStat({
   label,
@@ -129,11 +130,11 @@ export default function CourseDetail({ course }: { course: Course }) {
 
       {/* Hero 이미지 */}
       <div className="relative overflow-hidden rounded-2xl">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <CourseImage
           src={course.imageUrl}
           alt={course.name}
-          className="h-56 w-full object-cover sm:h-80"
+          loading="eager"
+          className="h-56 w-full object-cover object-[center_35%] sm:h-80"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-7">

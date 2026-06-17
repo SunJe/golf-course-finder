@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { Flag, Plus, Minus } from "lucide-react";
 import type { Course } from "@/types/course";
 import type { MapProvider } from "@/types/map";
@@ -8,6 +9,7 @@ import {
   FALLBACK_REGION_LABELS,
 } from "@/lib/mapProjection";
 import { formatGreenFeeShort } from "@/lib/format";
+import { selectFallbackMapCourses } from "@/lib/selectFallbackMapCourses";
 import CourseMarkerPopup from "@/components/maps/CourseMarkerPopup";
 
 interface MapFallbackProps {
@@ -17,6 +19,8 @@ interface MapFallbackProps {
   provider?: MapProvider;
   message?: string;
   className?: string;
+  maxVisibleMarkers?: number;
+  onClearSelection?: () => void;
 }
 
 const DEFAULT_MESSAGES: Record<MapProvider, string> = {
@@ -25,6 +29,8 @@ const DEFAULT_MESSAGES: Record<MapProvider, string> = {
   custom: "지도 API 키를 설정하면 실제 지도가 표시됩니다.",
 };
 
+const DEFAULT_MAX_MARKERS = 50;
+
 export default function MapFallback({
   courses,
   selectedCourseId,
@@ -32,11 +38,23 @@ export default function MapFallback({
   provider = "kakao",
   message,
   className = "",
+  maxVisibleMarkers = DEFAULT_MAX_MARKERS,
+  onClearSelection,
 }: MapFallbackProps) {
   const selected = courses.find((c) => c.id === selectedCourseId);
   const selectedPos = selected
     ? projectToPercent(selected.latitude, selected.longitude)
     : null;
+
+  const visibleCourses = useMemo(
+    () =>
+      selectFallbackMapCourses(
+        courses,
+        maxVisibleMarkers,
+        selectedCourseId,
+      ),
+    [courses, maxVisibleMarkers, selectedCourseId],
+  );
 
   const notice = message ?? DEFAULT_MESSAGES[provider];
 
@@ -94,7 +112,7 @@ export default function MapFallback({
         </span>
       </div>
 
-      {courses.map((course) => {
+      {visibleCourses.map((course) => {
         const pos = projectToPercent(course.latitude, course.longitude);
         const isSel = course.id === selectedCourseId;
         return (
@@ -110,27 +128,19 @@ export default function MapFallback({
             className="group absolute -translate-x-1/2 -translate-y-full focus:outline-none"
             aria-label={course.name}
           >
-            <span
-              className={`flex flex-col items-center transition-transform ${
-                isSel ? "scale-110" : "group-hover:scale-105"
-              }`}
-            >
-              <span
-                className={`flex items-center gap-1 rounded-full border-2 border-white font-bold text-white shadow-md ${
-                  isSel
-                    ? "bg-brand-600 px-2.5 py-1 text-xs"
-                    : "bg-brand-500 px-2 py-0.5 text-[11px] group-hover:bg-brand-600"
-                }`}
-              >
-                <Flag className={isSel ? "h-3.5 w-3.5" : "h-3 w-3"} />
-                {formatGreenFeeShort(course.weekdayGreenFeeMin)}
+            {isSel ? (
+              <span className="flex scale-125 flex-col items-center transition-transform">
+                <span className="flex items-center gap-1 rounded-full border-2 border-white bg-brand-600 px-2.5 py-1 text-xs font-bold text-white shadow-lg">
+                  <Flag className="h-3.5 w-3.5" />
+                  {formatGreenFeeShort(course.weekdayGreenFeeMin)}
+                </span>
+                <span className="-mt-0.5 h-2.5 w-2.5 rotate-45 border-b-2 border-r-2 border-white bg-brand-600" />
               </span>
-              <span
-                className={`-mt-0.5 h-2 w-2 rotate-45 border-b-2 border-r-2 border-white ${
-                  isSel ? "bg-brand-600" : "bg-brand-500"
-                }`}
-              />
-            </span>
+            ) : (
+              <span className="flex flex-col items-center transition-transform group-hover:scale-110">
+                <span className="h-3 w-3 rounded-full border-2 border-white bg-brand-500 shadow-md group-hover:bg-brand-600" />
+              </span>
+            )}
           </button>
         );
       })}
@@ -138,11 +148,11 @@ export default function MapFallback({
       {selected && selectedPos && (
         <div
           style={{ left: `${selectedPos.left}%`, top: `${selectedPos.top}%` }}
-          className="absolute z-40 w-64 -translate-x-1/2 -translate-y-[calc(100%+2.25rem)] animate-fade-in"
+          className="absolute z-40 w-64 -translate-x-1/2 -translate-y-[calc(100%+2.5rem)] animate-fade-in"
         >
           <CourseMarkerPopup
             course={selected}
-            onClose={() => onSelectCourse?.(selected.id)}
+            onClose={onClearSelection}
           />
         </div>
       )}

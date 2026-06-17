@@ -32,6 +32,10 @@ export interface CourseMapBaseProps {
   /** 리스트 클릭 시 지도 중심 이동 */
   center?: { lat: number; lng: number } | null;
   className?: string;
+  /** fallback 지도에서 표시할 마커 상한 (미설정 시 50) */
+  maxVisibleMarkers?: number;
+  /** 선택된 마커/카드 해제 (ESC, 팝업 닫기 등) */
+  onClearSelection?: () => void;
   /** @deprecated selectedCourseId 와 동일 — 하위 호환 */
   selectedId?: string | null;
   /** @deprecated onSelectCourse(id) 대신 Course 객체 — 하위 호환 */

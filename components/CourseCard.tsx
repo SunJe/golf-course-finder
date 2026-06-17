@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { MapPin, Flag, ChevronRight } from "lucide-react";
 import type { Course } from "@/types/course";
-import { formatPrice } from "@/lib/format";
+import { formatOptionalPrice, formatHoleCount } from "@/lib/courseDisplay";
 import {
   getKakaoMapSearchUrl,
   getNaverMapSearchUrl,
@@ -85,7 +85,7 @@ export default function CourseCard({
             <div className="mt-1 flex flex-wrap items-center gap-1.5">
               <span className="inline-flex items-center gap-0.5 rounded bg-gray-50 px-1.5 py-0.5 text-[11px] font-medium text-gray-600">
                 <Flag className="h-3 w-3 text-brand-600" />
-                {course.holeCount}홀
+                {formatHoleCount(course.holeCount)}
               </span>
               <CourseFeatureBadges course={course} />
             </div>
@@ -94,10 +94,11 @@ export default function CourseCard({
           <div className="flex flex-shrink-0 flex-col items-end justify-end text-right">
             <span className="text-[10px] text-gray-400">주중</span>
             <span className="text-base font-extrabold leading-tight text-brand-700">
-              {formatPrice(course.weekdayGreenFeeMin)}
+              {formatOptionalPrice(course.weekdayGreenFeeMin)}
             </span>
             <span className="mt-0.5 whitespace-nowrap text-[10px] text-gray-400">
-              주말 {formatPrice(course.weekendGreenFeeMin)}~
+              주말 {formatOptionalPrice(course.weekendGreenFeeMin)}
+              {course.weekendGreenFeeMin ? "~" : ""}
             </span>
           </div>
         </div>

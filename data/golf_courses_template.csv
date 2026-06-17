@@ -1,0 +1,2 @@
+id,name,region,city,address,latitude,longitude,phone,homepage_url,booking_url,hole_count,course_type,weekday_green_fee_min,weekend_green_fee_min,caddie_fee,cart_fee,night_round,no_caddie,two_player_allowed,resort,tags,image_url,description,business_status,source,updated_at,created_at
+seoul-example-cc,서울 예시 CC,서울·경기,경기 수원시,경기도 수원시 영통구 예시로 100,37.2636,127.0286,031-123-4567,https://example.com,,18,대중제,120000,180000,140000,90000,false,false,true,false,"{""야간가능"",""2인가능""}",https://example.com/image.jpg,예시 골프장 소개,영업중,public_data,2026-06-01T00:00:00Z,2026-06-01T00:00:00Z

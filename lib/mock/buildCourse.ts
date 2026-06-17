@@ -63,7 +63,7 @@ export function buildCourse(seed: CourseSeed): Course {
     homepageUrl: `https://example.com/${slug}`,
     bookingUrl:
       seed.hasBooking === false
-        ? ""
+        ? undefined
         : `https://example.com/${slug}/booking`,
     holeCount: seed.holeCount,
     courseType: seed.courseType,
@@ -80,7 +80,8 @@ export function buildCourse(seed: CourseSeed): Course {
     description:
       seed.description ??
       `${seed.name}은(는) ${seed.region} 지역에서 인기 있는 ${seed.holeCount}홀 ${seed.courseType} 골프장입니다. 코스 컨디션과 접근성을 겸비한 라운드가 가능합니다.`,
-    updatedAt: "2026-06-01",
+    source: "mock",
+    updatedAt: "2026-06-01T00:00:00.000Z",
   };
 }
 

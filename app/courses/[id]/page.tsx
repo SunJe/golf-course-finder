@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getCourseById, getAllCourseIds } from "@/lib/data";
+import { getCourseById, getAllCourseIds } from "@/lib/courseRepository";
+import { getCourseDescription } from "@/lib/courseDisplay";
 import CourseDetail from "@/components/CourseDetail";
 
 export async function generateStaticParams() {
@@ -17,7 +18,7 @@ export async function generateMetadata({
   if (!course) return { title: "골프장을 찾을 수 없습니다 — GolfMap Korea" };
   return {
     title: `${course.name} — GolfMap Korea`,
-    description: course.description,
+    description: course.description ?? getCourseDescription(course),
   };
 }
 

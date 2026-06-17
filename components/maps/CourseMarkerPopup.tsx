@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { X, MapPin, Flag, ChevronRight } from "lucide-react";
 import type { Course } from "@/types/course";
-import { formatPrice } from "@/lib/format";
+import { formatOptionalPrice, formatHoleCount } from "@/lib/courseDisplay";
+import { getCourseImageUrl } from "@/lib/courseImage";
 
 interface CourseMarkerPopupProps {
   course: Course;
@@ -20,7 +21,7 @@ export default function CourseMarkerPopup({
       <div className="relative">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={course.imageUrl}
+          src={getCourseImageUrl(course.imageUrl)}
           alt={course.name}
           className="h-20 w-full object-cover"
         />
@@ -53,7 +54,7 @@ export default function CourseMarkerPopup({
         <div className="mt-1 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-[11px] text-gray-600">
           <span className="inline-flex items-center gap-0.5 font-medium">
             <Flag className="h-3 w-3 text-brand-600" />
-            {course.holeCount}홀
+            {formatHoleCount(course.holeCount)}
           </span>
           <span className="text-gray-300">|</span>
           <span>{course.courseType}</span>
@@ -61,7 +62,7 @@ export default function CourseMarkerPopup({
           <span>
             주중{" "}
             <span className="font-semibold text-brand-700">
-              {formatPrice(course.weekdayGreenFeeMin)}
+              {formatOptionalPrice(course.weekdayGreenFeeMin)}
             </span>
           </span>
         </div>

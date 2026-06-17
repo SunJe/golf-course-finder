@@ -2,6 +2,8 @@ import type { Course, CourseFilters } from "@/types/course";
 import { PRICE_RANGES } from "@/lib/constants";
 
 function matchesHoleCount(course: Course, option: string): boolean {
+  if (option === "전체") return true;
+  if (course.holeCount == null) return false;
   switch (option) {
     case "9홀":
       return course.holeCount <= 9;
@@ -16,6 +18,7 @@ function matchesHoleCount(course: Course, option: string): boolean {
 
 function matchesPrice(course: Course, option: string): boolean {
   if (option === "전체") return true;
+  if (course.weekdayGreenFeeMin == null) return false;
   const range = PRICE_RANGES.find((r) => r.label === option);
   if (!range) return true;
   return (

@@ -1,5 +1,12 @@
 export type CourseType = "대중제" | "회원제" | "군 골프장" | "기타";
 
+export type CourseSource =
+  | "mock"
+  | "public_data"
+  | "manual"
+  | "naver"
+  | "kakao";
+
 export interface Course {
   id: string;
   name: string;
@@ -8,22 +15,24 @@ export interface Course {
   address: string;
   latitude: number;
   longitude: number;
-  phone: string;
-  homepageUrl: string;
-  bookingUrl: string;
-  holeCount: number;
+  phone?: string;
+  homepageUrl?: string;
+  bookingUrl?: string;
+  holeCount?: number;
   courseType: CourseType;
-  weekdayGreenFeeMin: number;
-  weekendGreenFeeMin: number;
-  caddieFee: number;
-  cartFee: number;
-  nightRound: boolean;
-  noCaddie: boolean;
-  twoPlayerAllowed: boolean;
-  resort: boolean;
+  weekdayGreenFeeMin?: number;
+  weekendGreenFeeMin?: number;
+  caddieFee?: number;
+  cartFee?: number;
+  nightRound?: boolean;
+  noCaddie?: boolean;
+  twoPlayerAllowed?: boolean;
+  resort?: boolean;
   tags: string[];
-  imageUrl: string;
-  description: string;
+  imageUrl?: string;
+  description?: string;
+  businessStatus?: string;
+  source: CourseSource;
   updatedAt: string;
 }
 

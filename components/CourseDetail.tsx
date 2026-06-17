@@ -19,7 +19,15 @@ import {
   MessageSquareText,
 } from "lucide-react";
 import type { Course } from "@/types/course";
-import { formatPrice, formatDate } from "@/lib/format";
+import {
+  formatOptionalPrice,
+  formatHoleCount,
+  getCourseDescription,
+  hasBookingUrl,
+  hasHomepage,
+  hasPhone,
+} from "@/lib/courseDisplay";
+import { formatDate } from "@/lib/format";
 import {
   getKakaoMapSearchUrl,
   getNaverMapSearchUrl,
@@ -102,6 +110,11 @@ const TYPE_STYLES: Record<string, string> = {
 };
 
 export default function CourseDetail({ course }: { course: Course }) {
+  const showPhone = hasPhone(course);
+  const showHomepage = hasHomepage(course);
+  const showBooking = hasBookingUrl(course);
+  const actionCount = [showPhone, showHomepage, showBooking].filter(Boolean).length;
+
   const nearby = [
     { name: `${course.city} 시내`, desc: "맛집 · 카페 밀집 지역", icon: MapPin },
     { name: "인근 숙박시설", desc: course.resort ? "리조트 내 숙박 가능" : "차량 15분 거리 호텔", icon: Building2 },
@@ -150,7 +163,7 @@ export default function CourseDetail({ course }: { course: Course }) {
               {course.region}
             </span>
             <span className="rounded-md bg-white/90 px-2.5 py-1 text-xs font-bold text-gray-800">
-              {course.holeCount}홀
+              {formatHoleCount(course.holeCount)}
             </span>
           </div>
           <h1 className="text-2xl font-extrabold text-white drop-shadow-sm sm:text-3xl">
@@ -164,33 +177,51 @@ export default function CourseDetail({ course }: { course: Course }) {
       </div>
 
       {/* 빠른 액션 */}
-      <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
-        <a
-          href={`tel:${course.phone}`}
-          className="flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-sm font-semibold text-gray-700 transition hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700"
+      {actionCount > 0 && (
+        <div
+          className={`mt-5 grid gap-2 ${
+            actionCount === 1
+              ? "grid-cols-1"
+              : actionCount === 2
+                ? "grid-cols-2"
+                : "grid-cols-2 sm:grid-cols-3"
+          }`}
         >
-          <Phone className="h-4 w-4" />
-          전화
-        </a>
-        <a
-          href={course.homepageUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-sm font-semibold text-gray-700 transition hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700"
-        >
-          <Globe className="h-4 w-4" />
-          홈페이지
-        </a>
-        <a
-          href={course.bookingUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="col-span-2 flex items-center justify-center gap-2 rounded-xl bg-brand-600 py-3 text-sm font-bold text-white transition hover:bg-brand-700 sm:col-span-1"
-        >
-          <CalendarCheck className="h-4 w-4" />
-          예약하기
-        </a>
-      </div>
+          {showPhone && (
+            <a
+              href={`tel:${course.phone}`}
+              className="flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-sm font-semibold text-gray-700 transition hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700"
+            >
+              <Phone className="h-4 w-4" />
+              전화
+            </a>
+          )}
+          {showHomepage && (
+            <a
+              href={course.homepageUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-sm font-semibold text-gray-700 transition hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700"
+            >
+              <Globe className="h-4 w-4" />
+              홈페이지
+            </a>
+          )}
+          {showBooking && (
+            <a
+              href={course.bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex items-center justify-center gap-2 rounded-xl bg-brand-600 py-3 text-sm font-bold text-white transition hover:bg-brand-700 ${
+                actionCount === 1 ? "" : "col-span-2 sm:col-span-1"
+              }`}
+            >
+              <CalendarCheck className="h-4 w-4" />
+              예약하기
+            </a>
+          )}
+        </div>
+      )}
 
       {/* 외부 지도 링크 */}
       <div className="mt-3 flex flex-wrap gap-2">
@@ -220,7 +251,7 @@ export default function CourseDetail({ course }: { course: Course }) {
           <section className="mb-8">
             <SectionTitle>기본 정보</SectionTitle>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-              <InfoStat label="홀수" value={`${course.holeCount}홀`} icon={Flag} />
+              <InfoStat label="홀수" value={formatHoleCount(course.holeCount)} icon={Flag} />
               <InfoStat
                 label="운영 방식"
                 value={course.courseType}
@@ -228,22 +259,22 @@ export default function CourseDetail({ course }: { course: Course }) {
               />
               <InfoStat
                 label="주중 그린피"
-                value={formatPrice(course.weekdayGreenFeeMin)}
+                value={formatOptionalPrice(course.weekdayGreenFeeMin)}
                 icon={Sun}
               />
               <InfoStat
                 label="주말 그린피"
-                value={formatPrice(course.weekendGreenFeeMin)}
+                value={formatOptionalPrice(course.weekendGreenFeeMin)}
                 icon={CircleDollarSign}
               />
               <InfoStat
                 label="카트비"
-                value={formatPrice(course.cartFee)}
+                value={formatOptionalPrice(course.cartFee)}
                 icon={Navigation}
               />
               <InfoStat
                 label="캐디피"
-                value={formatPrice(course.caddieFee)}
+                value={formatOptionalPrice(course.caddieFee)}
                 icon={Users}
               />
             </div>
@@ -253,10 +284,10 @@ export default function CourseDetail({ course }: { course: Course }) {
           <section className="mb-8">
             <SectionTitle>편의 정보</SectionTitle>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-              <Availability label="야간 라운드" available={course.nightRound} icon={Moon} />
-              <Availability label="노캐디" available={course.noCaddie} icon={UserX} />
-              <Availability label="2인 플레이" available={course.twoPlayerAllowed} icon={Users} />
-              <Availability label="리조트/숙박" available={course.resort} icon={Building2} />
+              <Availability label="야간 라운드" available={Boolean(course.nightRound)} icon={Moon} />
+              <Availability label="노캐디" available={Boolean(course.noCaddie)} icon={UserX} />
+              <Availability label="2인 플레이" available={Boolean(course.twoPlayerAllowed)} icon={Users} />
+              <Availability label="리조트/숙박" available={Boolean(course.resort)} icon={Building2} />
             </div>
           </section>
 
@@ -270,7 +301,7 @@ export default function CourseDetail({ course }: { course: Course }) {
                 ))}
               </div>
             )}
-            <p className="leading-relaxed text-gray-700">{course.description}</p>
+            <p className="leading-relaxed text-gray-700">{getCourseDescription(course)}</p>
             <p className="mt-3 text-xs text-gray-400">
               최종 업데이트 {formatDate(course.updatedAt)}
             </p>

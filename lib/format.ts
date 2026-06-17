@@ -10,8 +10,9 @@ export function formatPrice(value: number): string {
   return `${value.toLocaleString()}원`;
 }
 
-/** 그린피 범위를 짧게 표기 (카드용) */
-export function formatGreenFeeShort(weekday: number): string {
+/** 그린피 범위를 짧게 표기 (카드/지도 라벨용) */
+export function formatGreenFeeShort(weekday?: number): string {
+  if (weekday == null || weekday <= 0) return "가격 정보 없음";
   return `${Math.round(weekday / 10000)}만원~`;
 }
 

@@ -1,0 +1,2 @@
+error_reason,raw_name,raw_address,id,name,region,city,address,latitude,longitude,phone,homepage_url,booking_url,hole_count,course_type,weekday_green_fee_min,weekend_green_fee_min,caddie_fee,cart_fee,night_round,no_caddie,two_player_allowed,resort,tags,image_url,description,business_status,source,updated_at,created_at
+필수값 누락: name(골프장명),,주소없음골프장,,,,,주소없음골프장,,,,,,18,대중제,,,,,false,false,false,false,{},,은(는)  지역의 대중제 골프장입니다.,영업,public_data,2026-06-17T22:37:22.556Z,2026-06-17T22:37:22.556Z

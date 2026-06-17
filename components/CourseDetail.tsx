@@ -310,7 +310,11 @@ export default function CourseDetail({ course }: { course: Course }) {
             <section className="mb-6">
               <SectionTitle>위치</SectionTitle>
               <div className="h-64 w-full">
-                <CourseMap courses={[course]} selectedId={course.id} />
+                <CourseMap
+                  courses={[course]}
+                  selectedId={course.id}
+                  mapMode="detail"
+                />
               </div>
               <p className="mt-2 flex items-start gap-1.5 text-sm text-gray-600">
                 <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-brand-600" />

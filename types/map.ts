@@ -36,6 +36,8 @@ export interface CourseMapBaseProps {
   maxVisibleMarkers?: number;
   /** 선택된 마커/카드 해제 (ESC, 팝업 닫기 등) */
   onClearSelection?: () => void;
+  /** search: 메인 검색 지도, detail: 상세 페이지 소형 지도 */
+  mapMode?: "search" | "detail";
   /** @deprecated selectedCourseId 와 동일 — 하위 호환 */
   selectedId?: string | null;
   /** @deprecated onSelectCourse(id) 대신 Course 객체 — 하위 호환 */

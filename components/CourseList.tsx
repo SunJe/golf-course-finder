@@ -12,6 +12,10 @@ interface CourseListProps {
   onSelect?: (course: Course) => void;
   onHover?: (course: Course | null) => void;
   onReset?: () => void;
+  onFitResults?: () => void;
+  onShowAllFiltered?: () => void;
+  emptyTitle?: string;
+  emptyDescription?: string;
 }
 
 export default function CourseList({
@@ -21,6 +25,10 @@ export default function CourseList({
   onSelect,
   onHover,
   onReset,
+  onFitResults,
+  onShowAllFiltered,
+  emptyTitle,
+  emptyDescription,
 }: CourseListProps) {
   useEffect(() => {
     if (!selectedId) return;
@@ -30,7 +38,15 @@ export default function CourseList({
   }, [selectedId]);
 
   if (courses.length === 0) {
-    return <EmptyState onReset={onReset} />;
+    return (
+      <EmptyState
+        title={emptyTitle}
+        description={emptyDescription}
+        onReset={onReset}
+        onFitResults={onFitResults}
+        onShowAllFiltered={onShowAllFiltered}
+      />
+    );
   }
 
   return (

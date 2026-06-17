@@ -42,14 +42,14 @@ export const TAG_OPTIONS = [
   "초보추천",
 ] as const;
 
-/** 지도 기본 중심 (대한민국 중심부) */
-export const DEFAULT_MAP_CENTER = { lat: 36.5, lng: 127.8 };
+/** 지도 기본 중심 (대한민국 중심부, 북한 영역 최소화) */
+export const DEFAULT_MAP_CENTER = { lat: 36.2, lng: 127.8 };
 /** NAVER Maps zoom: 숫자가 클수록 확대. 전국 조망 ≈ 7, 골프장 선택 시 ≈ 11 */
 export const DEFAULT_MAP_ZOOM = 7;
 export const SELECTED_MAP_ZOOM = 11;
 
-/** Kakao Maps level: 숫자가 작을수록 확대. 전국 조망 ≈ 13, 선택 시 ≈ 5 */
-export const DEFAULT_KAKAO_MAP_LEVEL = 13;
+/** Kakao Maps level: 숫자가 클수록 줌아웃. 전국 조망 ≈ 12, 선택 시 ≈ 5 */
+export const DEFAULT_KAKAO_MAP_LEVEL = 12;
 export const SELECTED_KAKAO_MAP_LEVEL = 5;
 
 /** 카드/마커 선택 시 panTo 후 허용할 최대 줌아웃 level (Kakao: 숫자 클수록 멀리) */

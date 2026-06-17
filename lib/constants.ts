@@ -52,6 +52,9 @@ export const SELECTED_MAP_ZOOM = 11;
 export const DEFAULT_KAKAO_MAP_LEVEL = 13;
 export const SELECTED_KAKAO_MAP_LEVEL = 5;
 
+/** 카드/마커 선택 시 panTo 후 허용할 최대 줌아웃 level (Kakao: 숫자 클수록 멀리) */
+export const CARD_PAN_MAX_LEVEL = 8;
+
 /** fallback 지도가 사용하는 대략적인 대한민국 좌표 경계 */
 export const KOREA_BOUNDS = {
   minLat: 33.0,

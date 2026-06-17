@@ -8,14 +8,18 @@ import EmptyState from "@/components/EmptyState";
 interface CourseListProps {
   courses: Course[];
   selectedId?: string | null;
+  hoveredId?: string | null;
   onSelect?: (course: Course) => void;
+  onHover?: (course: Course | null) => void;
   onReset?: () => void;
 }
 
 export default function CourseList({
   courses,
   selectedId,
+  hoveredId,
   onSelect,
+  onHover,
   onReset,
 }: CourseListProps) {
   useEffect(() => {
@@ -36,7 +40,9 @@ export default function CourseList({
           key={course.id}
           course={course}
           selected={course.id === selectedId}
+          hovered={course.id === hoveredId}
           onSelect={onSelect}
+          onHover={onHover}
         />
       ))}
     </div>

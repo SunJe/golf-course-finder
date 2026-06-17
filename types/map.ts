@@ -38,6 +38,12 @@ export interface CourseMapBaseProps {
   onClearSelection?: () => void;
   /** search: 메인 검색 지도, detail: 상세 페이지 소형 지도 */
   mapMode?: "search" | "detail";
+  /** 지도 bounds 안에 보이는 course id 목록 변경 */
+  onVisibleCoursesChange?: (courseIds: string[]) => void;
+  /** 클러스터 클릭 시 해당 클러스터 course id 목록 */
+  onClusterSelect?: (courseIds: string[]) => void;
+  /** 리스트 카드 hover 시 강조할 course id */
+  hoveredCourseId?: string | null;
   /** @deprecated selectedCourseId 와 동일 — 하위 호환 */
   selectedId?: string | null;
   /** @deprecated onSelectCourse(id) 대신 Course 객체 — 하위 호환 */

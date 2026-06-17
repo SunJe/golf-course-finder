@@ -15,7 +15,9 @@ import CourseImage from "@/components/CourseImage";
 interface CourseCardProps {
   course: Course;
   selected?: boolean;
+  hovered?: boolean;
   onSelect?: (course: Course) => void;
+  onHover?: (course: Course | null) => void;
 }
 
 const TYPE_STYLES: Record<string, string> = {
@@ -28,16 +30,22 @@ const TYPE_STYLES: Record<string, string> = {
 export default function CourseCard({
   course,
   selected = false,
+  hovered = false,
   onSelect,
+  onHover,
 }: CourseCardProps) {
   return (
     <article
       id={`course-card-${course.id}`}
       onClick={() => onSelect?.(course)}
+      onMouseEnter={() => onHover?.(course)}
+      onMouseLeave={() => onHover?.(null)}
       className={`group cursor-pointer overflow-hidden rounded-2xl border bg-white transition-all ${
         selected
           ? "border-brand-500 bg-brand-50/50 shadow-card-hover ring-2 ring-brand-200"
-          : "border-gray-200 shadow-card hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-card-hover"
+          : hovered
+            ? "border-brand-300 bg-brand-50/30 shadow-card-hover"
+            : "border-gray-200 shadow-card hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-card-hover"
       }`}
     >
       <div className="flex gap-3 p-3">

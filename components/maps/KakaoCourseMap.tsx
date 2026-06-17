@@ -5,7 +5,11 @@ import { MapPinned } from "lucide-react";
 import type { Course } from "@/types/course";
 import type { CourseMapBaseProps } from "@/types/map";
 import { loadKakaoMaps, isKakaoConfigured } from "@/lib/kakaoLoader";
-import { SELECTED_KAKAO_MAP_LEVEL } from "@/lib/constants";
+import { CARD_PAN_MAX_LEVEL } from "@/lib/constants";
+import {
+  getCourseIdsInBounds,
+  parseKakaoBounds,
+} from "@/lib/courseListUtils";
 import {
   buildClusterStyles,
   createDetailMarkerImage,
@@ -50,6 +54,16 @@ function useIsMobile(breakpoint = 767) {
   return isMobile;
 }
 
+function markerVariant(
+  courseId: string,
+  selectedId: string | null | undefined,
+  hoveredId: string | null | undefined,
+): "default" | "selected" | "hovered" {
+  if (courseId === selectedId) return "selected";
+  if (courseId === hoveredId) return "hovered";
+  return "default";
+}
+
 export default function KakaoCourseMap(props: CourseMapBaseProps) {
   const {
     courses,
@@ -57,6 +71,9 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     className = "",
     maxVisibleMarkers,
     mapMode = "search",
+    onVisibleCoursesChange,
+    onClusterSelect,
+    hoveredCourseId,
   } = props;
   const { selectedCourseId, selectCourse, selectCourseById, clearSelection } =
     resolveCourseMapBindings(props);
@@ -69,22 +86,46 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
   const mapsApiRef = useRef<KakaoMapsApi | null>(null);
   const clustererRef = useRef<{ clear: () => void } | null>(null);
   const entriesRef = useRef<Map<string, CourseMarkerEntry>>(new Map());
+  const markerToCourseIdRef = useRef<Map<unknown, string>>(new Map());
   const skipNextBoundsRef = useRef(false);
   const selectedCourseIdRef = useRef(selectedCourseId);
+  const hoveredCourseIdRef = useRef(hoveredCourseId);
   const isMobileRef = useRef(isMobile);
+  const coursesRef = useRef(courses);
+  const onVisibleRef = useRef(onVisibleCoursesChange);
+  const onClusterRef = useRef(onClusterSelect);
 
   const [mode, setMode] = useState<MapMode>(
     isKakaoConfigured ? "loading" : "fallback",
   );
 
   selectedCourseIdRef.current = selectedCourseId;
+  hoveredCourseIdRef.current = hoveredCourseId;
   isMobileRef.current = isMobile;
+  coursesRef.current = courses;
+  onVisibleRef.current = onVisibleCoursesChange;
+  onClusterRef.current = onClusterSelect;
 
   const selected = courses.find((c) => c.id === selectedCourseId);
   const coursesKey = useMemo(
     () => courses.map((c) => c.id).join(","),
     [courses],
   );
+
+  const reportVisibleCourses = useCallback(() => {
+    const map = mapRef.current as KakaoMapInstance & {
+      getBounds?: () => {
+        getSouthWest: () => { getLat: () => number; getLng: () => number };
+        getNorthEast: () => { getLat: () => number; getLng: () => number };
+      };
+    };
+    if (!map?.getBounds || !onVisibleRef.current) return;
+    const bounds = map.getBounds();
+    if (!bounds) return;
+    const parsed = parseKakaoBounds(bounds);
+    const ids = getCourseIdsInBounds(coursesRef.current, parsed);
+    onVisibleRef.current(ids);
+  }, []);
 
   const applyBounds = useCallback(() => {
     const map = mapRef.current;
@@ -96,8 +137,11 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
       : { top: 48, right: 64, bottom: 48, left: 48 };
 
     fitKakaoMapToCourses(map, maps, courses, padding);
-    requestAnimationFrame(() => map.relayout?.());
-  }, [courses, isMobile]);
+    requestAnimationFrame(() => {
+      map.relayout?.();
+      reportVisibleCourses();
+    });
+  }, [courses, isMobile, reportVisibleCourses]);
 
   const syncMarkerVisuals = useCallback(() => {
     const map = mapRef.current;
@@ -105,25 +149,30 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
 
     const level = map.getLevel();
     const selectedId = selectedCourseIdRef.current;
+    const hoveredId = hoveredCourseIdRef.current;
     const mobile = isMobileRef.current;
+    const maps = window.kakao.maps as Record<string, unknown>;
 
     entriesRef.current.forEach((entry, id) => {
       const isSel = id === selectedId;
-      entry.marker.setImage(
-        createDotMarkerImage(
-          window.kakao!.maps as Record<string, unknown>,
-          isSel ? "selected" : "default",
-        ),
-      );
-      entry.marker.setZIndex(isSel ? 100 : 1);
+      const isHov = id === hoveredId && !isSel;
+      const variant = markerVariant(id, selectedId, hoveredId);
 
-      const labelMode = getLabelDisplayMode(level, mobile, isSel);
+      entry.marker.setImage(createDotMarkerImage(maps, variant));
+      entry.marker.setZIndex(isSel ? 200 : isHov ? 150 : 1);
+
+      const labelMode = getLabelDisplayMode(
+        level,
+        mobile,
+        isSel,
+        isHov && !mobile,
+      );
       if (labelMode.showLabel && !isDetail) {
         entry.labelOverlay.setContent(
           createLabelOverlayElement(entry.course, labelMode),
         );
         entry.labelOverlay.setMap(map);
-        entry.labelOverlay.setZIndex(isSel ? 1000 : 100);
+        entry.labelOverlay.setZIndex(isSel ? 1000 : 500);
       } else {
         entry.labelOverlay.setMap(null);
       }
@@ -139,6 +188,7 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
       entry.labelOverlay.setMap(null);
     });
     entriesRef.current.clear();
+    markerToCourseIdRef.current.clear();
   }, []);
 
   useEffect(() => {
@@ -178,6 +228,15 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
 
         eventAdd(map, "zoom_changed", () => syncMarkerVisuals());
 
+        let idleTimer: ReturnType<typeof setTimeout> | null = null;
+        eventAdd(map, "idle", () => {
+          if (idleTimer) clearTimeout(idleTimer);
+          idleTimer = setTimeout(() => {
+            reportVisibleCourses();
+            syncMarkerVisuals();
+          }, 120);
+        });
+
         requestAnimationFrame(() => {
           map.relayout?.();
           applyBounds();
@@ -216,7 +275,6 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     applyBounds();
   }, [mode, coursesKey, applyBounds]);
 
-  // 마커 + 클러스터 생성
   useEffect(() => {
     if (mode !== "kakao" || !mapRef.current || !window.kakao?.maps) return;
 
@@ -247,20 +305,22 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
 
     cleanupMarkers();
 
-    const markerList: InstanceType<typeof Marker>[] = [];
+    const markerList: unknown[] = [];
 
     courses.forEach((course) => {
       const position = new LatLng(course.latitude, course.longitude);
       const isSel = course.id === selectedCourseId;
+      const variant = markerVariant(
+        course.id,
+        selectedCourseId,
+        hoveredCourseId,
+      );
 
       const marker = new Marker({
         position,
-        image: createDotMarkerImage(
-          maps,
-          isSel ? "selected" : "default",
-        ),
+        image: createDotMarkerImage(maps, variant),
         clickable: true,
-        zIndex: isSel ? 100 : 1,
+        zIndex: isSel ? 200 : 1,
       });
 
       if (!isDetail) {
@@ -272,17 +332,21 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
       const labelOverlay = new CustomOverlay({
         position,
         yAnchor: 1,
-        zIndex: isSel ? 1000 : 100,
+        zIndex: isSel ? 1000 : 500,
       });
 
+      markerToCourseIdRef.current.set(marker, course.id);
       entriesRef.current.set(course.id, { marker, labelOverlay, course });
       markerList.push(marker);
     });
 
     if (isDetail) {
-      if (markerList[0]) {
-        markerList[0].setImage(createDetailMarkerImage(maps));
-        markerList[0].setMap(map);
+      const first = entriesRef.current.values().next().value as
+        | CourseMarkerEntry
+        | undefined;
+      if (first) {
+        first.marker.setImage(createDetailMarkerImage(maps));
+        first.marker.setMap(map);
       }
     } else {
       const MarkerClusterer = maps.MarkerClusterer as new (opts: Record<
@@ -290,7 +354,6 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
         unknown
       >) => {
         clear: () => void;
-        addMarkers: (markers: unknown[]) => void;
       };
 
       const clusterer = new MarkerClusterer({
@@ -303,13 +366,14 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
       });
 
       eventAdd(clusterer, "clusterclick", (cluster: unknown) => {
-        const c = cluster as {
-          getCenter: () => unknown;
-        };
-        skipNextBoundsRef.current = true;
-        const currentLevel = map.getLevel();
-        map.setCenter(c.getCenter());
-        map.setLevel(Math.max(1, currentLevel - 2));
+        const c = cluster as { getMarkers: () => unknown[] };
+        const ids = c
+          .getMarkers()
+          .map((m) => markerToCourseIdRef.current.get(m))
+          .filter((id): id is string => Boolean(id));
+        if (ids.length > 0) {
+          onClusterRef.current?.(ids);
+        }
       });
 
       clustererRef.current = clusterer;
@@ -329,26 +393,11 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     syncMarkerVisuals,
   ]);
 
-  // 선택 변경: 마커 스타일 + panTo (bounds 재조정 없음)
   useEffect(() => {
-    if (mode !== "kakao" || !mapRef.current || !window.kakao?.maps) return;
-
+    if (mode !== "kakao") return;
     syncMarkerVisuals();
+  }, [mode, selectedCourseId, hoveredCourseId, syncMarkerVisuals]);
 
-    const sel = courses.find((c) => c.id === selectedCourseId);
-    if (sel && !isDetail) {
-      skipNextBoundsRef.current = true;
-      const LatLng = (
-        window.kakao.maps as Record<string, unknown>
-      ).LatLng as new (lat: number, lng: number) => unknown;
-      mapRef.current.panTo(new LatLng(sel.latitude, sel.longitude));
-      if (mapRef.current.getLevel() > SELECTED_KAKAO_MAP_LEVEL) {
-        mapRef.current.setLevel(SELECTED_KAKAO_MAP_LEVEL);
-      }
-    }
-  }, [mode, selectedCourseId, courses, isDetail, syncMarkerVisuals]);
-
-  // 리스트 카드 클릭 center 이동
   useEffect(() => {
     if (mode !== "kakao" || !mapRef.current || !window.kakao?.maps || !center)
       return;
@@ -357,10 +406,11 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     ).LatLng as new (lat: number, lng: number) => unknown;
     skipNextBoundsRef.current = true;
     mapRef.current.panTo(new LatLng(center.lat, center.lng));
-    if (mapRef.current.getLevel() > SELECTED_KAKAO_MAP_LEVEL) {
-      mapRef.current.setLevel(SELECTED_KAKAO_MAP_LEVEL);
+    if (mapRef.current.getLevel() > CARD_PAN_MAX_LEVEL) {
+      mapRef.current.setLevel(CARD_PAN_MAX_LEVEL);
     }
-  }, [mode, center]);
+    syncMarkerVisuals();
+  }, [mode, center, syncMarkerVisuals]);
 
   if (mode === "fallback") {
     return (

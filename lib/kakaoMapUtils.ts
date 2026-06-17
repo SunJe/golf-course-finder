@@ -23,6 +23,10 @@ export interface KakaoMapInstance {
   ) => void;
   panTo: (pos: unknown) => void;
   getLevel: () => number;
+  getBounds?: () => {
+    getSouthWest: () => { getLat: () => number; getLng: () => number };
+    getNorthEast: () => { getLat: () => number; getLng: () => number };
+  };
   relayout?: () => void;
 }
 
@@ -36,15 +40,15 @@ export function getLabelDisplayMode(
   level: number,
   isMobile: boolean,
   isSelected: boolean,
+  isHovered = false,
 ): LabelDisplayMode {
-  if (!isSelected) {
-    return { showLabel: false, nameOnly: false };
-  }
-  if (isMobile) {
+  if (isSelected) {
+    if (isMobile) return { showLabel: true, nameOnly: true };
+    if (level <= 6) return { showLabel: true, nameOnly: false };
     return { showLabel: true, nameOnly: true };
   }
-  if (level <= 6) {
-    return { showLabel: true, nameOnly: false };
+  if (isHovered && !isMobile) {
+    return { showLabel: true, nameOnly: true };
   }
   return { showLabel: false, nameOnly: false };
 }
@@ -171,7 +175,7 @@ export function buildClusterStyles() {
 /** kakao.maps.Marker용 dot 이미지 */
 export function createDotMarkerImage(
   maps: Record<string, unknown>,
-  variant: "default" | "selected",
+  variant: "default" | "selected" | "hovered",
 ): unknown {
   const MarkerImage = maps.MarkerImage as new (
     src: string,
@@ -181,13 +185,20 @@ export function createDotMarkerImage(
   const Size = maps.Size as new (w: number, h: number) => unknown;
   const Point = maps.Point as new (x: number, y: number) => unknown;
 
-  const px = variant === "selected" ? 18 : 12;
-  const color = variant === "selected" ? "#15803d" : "#22c55e";
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${px}" height="${px}"><circle cx="${px / 2}" cy="${px / 2}" r="${px / 2 - 2}" fill="${color}" stroke="#fff" stroke-width="2"/></svg>`;
+  const sizes = { default: 12, selected: 18, hovered: 16 } as const;
+  const colors = {
+    default: "#22c55e",
+    selected: "#15803d",
+    hovered: "#16a34a",
+  } as const;
+  const px = sizes[variant];
+  const color = colors[variant];
+  const stroke = variant === "hovered" ? 3 : 2;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${px + 4}" height="${px + 4}"><circle cx="${(px + 4) / 2}" cy="${(px + 4) / 2}" r="${px / 2}" fill="${color}" stroke="#fff" stroke-width="${stroke}"/></svg>`;
   const url = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 
-  return new MarkerImage(url, new Size(px, px), {
-    offset: new Point(px / 2, px / 2),
+  return new MarkerImage(url, new Size(px + 4, px + 4), {
+    offset: new Point((px + 4) / 2, (px + 4) / 2),
   });
 }
 

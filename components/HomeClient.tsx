@@ -5,54 +5,148 @@ import { SlidersHorizontal } from "lucide-react";
 import type { Course, CourseFilters } from "@/types/course";
 import { EMPTY_FILTERS } from "@/types/course";
 import { filterCourses, countActiveFilters } from "@/lib/filterCourses";
+import { sortCoursesByName } from "@/lib/courseListUtils";
 import SearchBar from "@/components/SearchBar";
 import FilterBar from "@/components/FilterBar";
 import CourseList from "@/components/CourseList";
 import CourseMap from "@/components/maps/CourseMap";
 import MobileFilterSheet from "@/components/MobileFilterSheet";
 
-function ResultCount({
+type ListScope = "cluster" | "visible" | "filtered" | "all";
+
+function ListHeader({
+  scope,
+  count,
   total,
-  filtered,
+  searchFilteredCount,
   isFiltered,
+  clusterActive,
+  onClearCluster,
+  onResetFilters,
 }: {
+  scope: ListScope;
+  count: number;
   total: number;
-  filtered: number;
+  searchFilteredCount: number;
   isFiltered: boolean;
+  clusterActive: boolean;
+  onClearCluster: () => void;
+  onResetFilters?: () => void;
 }) {
+  let title: React.ReactNode;
+
+  if (clusterActive) {
+    title = (
+      <>
+        선택한 묶음의 골프장{" "}
+        <span className="text-brand-600">{count}</span>곳
+      </>
+    );
+  } else if (scope === "visible") {
+    title = (
+      <>
+        현재 지도에 보이는 골프장{" "}
+        <span className="text-brand-600">{count}</span>곳
+      </>
+    );
+  } else if (isFiltered) {
+    title = (
+      <>
+        검색 결과 <span className="text-brand-600">{searchFilteredCount}</span>
+        곳
+        <span className="ml-1 text-xs font-normal text-gray-400">
+          (전체 {total}곳)
+        </span>
+      </>
+    );
+  } else {
+    title = (
+      <>
+        전국 골프장 <span className="text-brand-600">{total}</span>곳
+      </>
+    );
+  }
+
   return (
-    <h2 className="text-sm font-bold text-gray-800">
-      {isFiltered ? (
-        <>
-          검색 결과{" "}
-          <span className="text-brand-600">{filtered}</span>곳
-          <span className="ml-1 text-xs font-normal text-gray-400">
-            (전체 {total}곳)
-          </span>
-        </>
-      ) : (
-        <>
-          전국 골프장 <span className="text-brand-600">{total}</span>곳
-        </>
-      )}
-    </h2>
+    <div className="mb-2 flex items-center justify-between gap-2">
+      <h2 className="min-w-0 text-sm font-bold text-gray-800">{title}</h2>
+      <div className="flex flex-shrink-0 items-center gap-2">
+        {clusterActive && (
+          <button
+            type="button"
+            onClick={onClearCluster}
+            className="text-xs font-medium text-brand-600 hover:text-brand-700"
+          >
+            전체 지도 결과 보기
+          </button>
+        )}
+        {isFiltered && onResetFilters && (
+          <button
+            type="button"
+            onClick={onResetFilters}
+            className="text-xs font-medium text-brand-600 hover:text-brand-700"
+          >
+            필터 초기화
+          </button>
+        )}
+      </div>
+    </div>
   );
 }
 
 export default function HomeClient({ courses }: { courses: Course[] }) {
   const [filters, setFilters] = useState<CourseFilters>(EMPTY_FILTERS);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [visibleCourseIds, setVisibleCourseIds] = useState<string[] | null>(
+    null,
+  );
+  const [selectedClusterCourseIds, setSelectedClusterCourseIds] = useState<
+    string[] | null
+  >(null);
   const [center, setCenter] = useState<{ lat: number; lng: number } | null>(
     null,
   );
   const [sheetOpen, setSheetOpen] = useState(false);
 
-  const filtered = useMemo(
+  const searchFiltered = useMemo(
     () => filterCourses(courses, filters),
     [courses, filters],
   );
   const activeCount = countActiveFilters(filters);
   const isFiltered = activeCount > 0 || filters.query.trim().length > 0;
+  const isClusterScopeActive = Boolean(
+    selectedClusterCourseIds && selectedClusterCourseIds.length > 0,
+  );
+
+  const listScope: ListScope = isClusterScopeActive
+    ? "cluster"
+    : visibleCourseIds !== null
+      ? "visible"
+      : isFiltered
+        ? "filtered"
+        : "all";
+
+  const displayCourses = useMemo(() => {
+    let source: Course[];
+
+    if (isClusterScopeActive && selectedClusterCourseIds) {
+      const idSet = new Set(selectedClusterCourseIds);
+      source = searchFiltered.filter((c) => idSet.has(c.id));
+    } else if (visibleCourseIds !== null) {
+      const idSet = new Set(visibleCourseIds);
+      source = searchFiltered.filter((c) => idSet.has(c.id));
+    } else {
+      source = searchFiltered;
+    }
+
+    return sortCoursesByName(source);
+  }, [
+    searchFiltered,
+    visibleCourseIds,
+    selectedClusterCourseIds,
+    isClusterScopeActive,
+  ]);
 
   const updateFilters = useCallback((patch: Partial<CourseFilters>) => {
     setFilters((prev) => ({ ...prev, ...patch }));
@@ -64,10 +158,41 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
     setSelectedId(null);
   }, []);
 
+  const clearClusterScope = useCallback(() => {
+    setSelectedClusterCourseIds(null);
+  }, []);
+
   const handleSelect = useCallback((course: Course) => {
     setSelectedId((prev) => (prev === course.id ? null : course.id));
     setCenter({ lat: course.latitude, lng: course.longitude });
   }, []);
+
+  const handleMapSelect = useCallback((course: Course) => {
+    setSelectedId(course.id);
+    setCenter({ lat: course.latitude, lng: course.longitude });
+  }, []);
+
+  const handleVisibleCoursesChange = useCallback((ids: string[]) => {
+    setVisibleCourseIds(ids);
+  }, []);
+
+  const handleClusterSelect = useCallback((ids: string[]) => {
+    setSelectedClusterCourseIds(ids);
+  }, []);
+
+  const handleHover = useCallback((course: Course | null) => {
+    setHoveredId(course?.id ?? null);
+  }, []);
+
+  const filtersKey = useMemo(() => JSON.stringify(filters), [filters]);
+
+  useEffect(() => {
+    setSelectedClusterCourseIds(null);
+    setSelectedId((prev) => {
+      if (!prev) return null;
+      return searchFiltered.some((c) => c.id === prev) ? prev : null;
+    });
+  }, [filtersKey, searchFiltered]);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -76,17 +201,46 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
         setSheetOpen(false);
         return;
       }
+      if (isClusterScopeActive) {
+        clearClusterScope();
+        return;
+      }
       if (selectedId) {
         clearSelection();
       }
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [selectedId, sheetOpen, clearSelection]);
+  }, [
+    selectedId,
+    sheetOpen,
+    clearSelection,
+    isClusterScopeActive,
+    clearClusterScope,
+  ]);
+
+  const mapProps = {
+    courses: searchFiltered,
+    selectedId,
+    onSelect: handleMapSelect,
+    center,
+    onClearSelection: clearSelection,
+    onVisibleCoursesChange: handleVisibleCoursesChange,
+    onClusterSelect: handleClusterSelect,
+    hoveredCourseId: hoveredId,
+  };
+
+  const listProps = {
+    courses: displayCourses,
+    selectedId,
+    hoveredId,
+    onSelect: handleSelect,
+    onHover: handleHover,
+    onReset: resetFilters,
+  };
 
   return (
     <>
-      {/* 컴팩트 Hero + 데스크탑 검색 */}
       <section className="border-b border-gray-200 bg-gradient-to-b from-brand-50/60 to-white">
         <div className="mx-auto flex max-w-[1600px] flex-col gap-2 px-4 py-3 sm:px-6 md:flex-row md:items-center md:justify-between md:gap-4">
           <div className="min-w-0">
@@ -107,7 +261,6 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
         </div>
       </section>
 
-      {/* 데스크탑 필터 */}
       <section className="hidden border-b border-gray-200 bg-white md:block">
         <div className="mx-auto max-w-[1600px] px-6 py-2.5">
           <FilterBar
@@ -119,7 +272,6 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
         </div>
       </section>
 
-      {/* 모바일 검색 + 필터 */}
       <section className="sticky top-16 z-20 border-b border-gray-200 bg-white/95 px-4 py-2.5 backdrop-blur md:hidden">
         <div className="flex items-center gap-2">
           <div className="flex-1">
@@ -143,85 +295,50 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
           </button>
         </div>
         <div className="mt-2">
-          <ResultCount
+          <ListHeader
+            scope={listScope}
+            count={displayCourses.length}
             total={courses.length}
-            filtered={filtered.length}
+            searchFilteredCount={searchFiltered.length}
             isFiltered={isFiltered}
+            clusterActive={isClusterScopeActive}
+            onClearCluster={clearClusterScope}
           />
         </div>
       </section>
 
-      {/* 데스크탑: 리스트 + 지도 */}
       <div className="mx-auto hidden h-[calc(100vh-9.5rem)] max-w-[1600px] gap-4 px-6 py-3 md:flex">
         <div className="flex w-[460px] flex-shrink-0 flex-col lg:w-[500px] xl:w-[520px]">
-          <div className="mb-2 flex items-center justify-between">
-            <ResultCount
-              total={courses.length}
-              filtered={filtered.length}
-              isFiltered={isFiltered}
-            />
-            {isFiltered && (
-              <button
-                type="button"
-                onClick={resetFilters}
-                className="text-xs font-medium text-brand-600 hover:text-brand-700"
-              >
-                필터 초기화
-              </button>
-            )}
-          </div>
+          <ListHeader
+            scope={listScope}
+            count={displayCourses.length}
+            total={courses.length}
+            searchFilteredCount={searchFiltered.length}
+            isFiltered={isFiltered}
+            clusterActive={isClusterScopeActive}
+            onClearCluster={clearClusterScope}
+            onResetFilters={resetFilters}
+          />
           <div className="min-h-0 flex-1 overflow-y-auto pr-1.5">
-            <CourseList
-              courses={filtered}
-              selectedId={selectedId}
-              onSelect={handleSelect}
-              onReset={resetFilters}
-            />
+            <CourseList {...listProps} />
           </div>
         </div>
 
         <div className="min-w-0 flex-1">
-          <CourseMap
-            courses={filtered}
-            selectedId={selectedId}
-            onSelect={handleSelect}
-            center={center}
-            maxVisibleMarkers={50}
-            onClearSelection={clearSelection}
-            className="h-full"
-          />
+          <CourseMap {...mapProps} maxVisibleMarkers={50} className="h-full" />
         </div>
       </div>
 
-      {/* 모바일: 지도 → 리스트 */}
       <div className="md:hidden">
         <div className="h-[38vh] w-full px-4 pt-3">
           <CourseMap
-            courses={filtered}
-            selectedId={selectedId}
-            onSelect={handleSelect}
-            center={center}
+            {...mapProps}
             maxVisibleMarkers={20}
-            onClearSelection={clearSelection}
             className="h-full"
           />
         </div>
         <div className="px-4 py-3">
-          {isFiltered && (
-            <button
-              type="button"
-              onClick={resetFilters}
-              className="mb-2 text-xs font-medium text-brand-600"
-            >
-              필터 초기화
-            </button>
-          )}
-          <CourseList
-            courses={filtered}
-            selectedId={selectedId}
-            onSelect={handleSelect}
-            onReset={resetFilters}
-          />
+          <CourseList {...listProps} />
         </div>
       </div>
 
@@ -232,7 +349,7 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
         onChange={updateFilters}
         onReset={resetFilters}
         activeCount={activeCount}
-        resultCount={filtered.length}
+        resultCount={displayCourses.length}
       />
     </>
   );

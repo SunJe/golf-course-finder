@@ -1,0 +1,39 @@
+import type { Course } from "@/types/course";
+
+/** 지도 표시 엔진 (골프장 데이터와 독립) */
+export type MapProvider = "kakao" | "naver" | "custom";
+
+/** 장소/맛집/숙소 등 POI 데이터 출처 (지도 provider와 분리) */
+export type PlaceDataProvider = "naver" | "kakao" | "manual" | "public";
+
+/**
+ * 추후 주변 맛집·숙소·카페 연동용 타입.
+ * UI에는 아직 사용하지 않으며, 데이터 레이어만 준비한다.
+ */
+export interface NearbyPlace {
+  id: string;
+  name: string;
+  category: "restaurant" | "cafe" | "hotel" | "other";
+  address: string;
+  latitude: number;
+  longitude: number;
+  phone?: string;
+  sourceProvider: PlaceDataProvider;
+  naverPlaceUrl?: string;
+  kakaoPlaceUrl?: string;
+  officialUrl?: string;
+}
+
+/** 모든 지도 구현체가 공유하는 props */
+export interface CourseMapBaseProps {
+  courses: Course[];
+  selectedCourseId?: string | null;
+  onSelectCourse?: (courseId: string) => void;
+  /** 리스트 클릭 시 지도 중심 이동 */
+  center?: { lat: number; lng: number } | null;
+  className?: string;
+  /** @deprecated selectedCourseId 와 동일 — 하위 호환 */
+  selectedId?: string | null;
+  /** @deprecated onSelectCourse(id) 대신 Course 객체 — 하위 호환 */
+  onSelect?: (course: Course) => void;
+}

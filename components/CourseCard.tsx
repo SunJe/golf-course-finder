@@ -32,6 +32,7 @@ export default function CourseCard({
 }: CourseCardProps) {
   return (
     <article
+      id={`course-card-${course.id}`}
       onClick={() => onSelect?.(course)}
       className={`group cursor-pointer overflow-hidden rounded-2xl border bg-white transition-all ${
         selected

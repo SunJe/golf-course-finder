@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import type { Course } from "@/types/course";
 import CourseCard from "@/components/CourseCard";
 import EmptyState from "@/components/EmptyState";
@@ -17,6 +18,13 @@ export default function CourseList({
   onSelect,
   onReset,
 }: CourseListProps) {
+  useEffect(() => {
+    if (!selectedId) return;
+    document
+      .getElementById(`course-card-${selectedId}`)
+      ?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }, [selectedId]);
+
   if (courses.length === 0) {
     return <EmptyState onReset={onReset} />;
   }

@@ -1,5 +1,11 @@
 -- GolfMap Korea — golf_courses table schema
 -- Run in Supabase SQL editor or via supabase db push
+--
+-- CSV import source: data/golf_courses_import_geocoded_final.csv (532 rows)
+-- Column order matches CSV header exactly (27 columns).
+-- tags: CSV uses "{}" for empty text[] — valid PostgreSQL array literal.
+-- booleans: CSV uses "true" / "false" strings — map on import or use SQL COPY.
+-- See supabase/IMPORT_GUIDE.md and supabase/verify_import.sql
 
 create table if not exists public.golf_courses (
   id text primary key,

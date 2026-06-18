@@ -1,0 +1,238 @@
+# Supabase Import Readiness
+
+> Generated: 2026-06-18T02:57:49.135Z
+
+## Summary
+
+- **target file:** `data/golf_courses_import_geocoded_final.csv`
+- **final row count:** 532
+- **rows with coordinates:** 532
+- **rows without coordinates:** 0
+- **duplicate id:** none
+- **schema/CSV columns match:** yes
+- **Supabase import ready:** yes
+
+## Pre-import checklist
+
+- [x] Final CSV generated
+- [x] Row count = 532
+- [x] No duplicate ids
+- [x] All rows have coordinates
+- [x] Coordinates within Korea bounds
+- [x] CSV headers match schema
+- [x] No blocking name quality errors
+- [x] All source = public_data
+
+## Known intentional differences from golf_courses_import.csv
+
+- Final row count is 532 (baseline import is 534)
+- Excluded: 로얄링스2 (`gc-dbaa28f7b44e`), 솔라고CC2 (`gc-d3a3acc83c4d`)
+- Renamed/patched: 청통골프장 → 골프존카운티 청통, 휘닉스대중골프장 → 태기산 나인CC
+- Merged: 로얄링스 CC (36), 솔라고CC (36), 블랙스톤제주 (27)
+
+## User review warnings
+
+- [name] gc-40bd08295048 "Oak Hills컨트리클럽" — unexpected_latin_in_name: Oak
+- [name] gc-40bd08295048 "Oak Hills컨트리클럽" — unexpected_latin_in_name: Hills
+- [name] gc-5b16502994d3 "O2리조트 골프장" — unexpected_latin_in_name: O
+- [name] gc-e6edfdd39527 "O2리조트 퍼블릭골프장" — unexpected_latin_in_name: O
+- [name] gc-8322ca96ec3b "세이지우드CC홍천" — allowed_latin_abbreviation: CC
+- [name] gc-716264430902 "태기산 나인CC" — allowed_latin_abbreviation: CC
+- [name] gc-4af8a2f8ed32 "플라자CC" — allowed_latin_abbreviation: CC
+- [name] gc-e684f84c8fa4 "레이크사이드CC(대중제)" — allowed_latin_abbreviation: CC
+- [name] gc-588d348bc962 "레이크사이드CC(회원제)" — allowed_latin_abbreviation: CC
+- [name] gc-a53c3fecd592 "신원CC" — allowed_latin_abbreviation: CC
+- [name] gc-0c833ff6d95f "블루원용인CC(회원제)" — allowed_latin_abbreviation: CC
+- [name] gc-2ef4e18d677b "블루원용인CC(비회원제)" — allowed_latin_abbreviation: CC
+- [name] gc-4487ee52808c "코리아대중CC" — allowed_latin_abbreviation: CC
+- [name] gc-8b59a320f132 "한림용인CC" — allowed_latin_abbreviation: CC
+- [name] gc-928514cac4c6 "용인CC" — allowed_latin_abbreviation: CC
+- [name] gc-fc0e80550b95 "석천CC" — allowed_latin_abbreviation: CC
+- [name] gc-af63c289d999 "세현CC" — allowed_latin_abbreviation: CC
+- [name] gc-4905c6ca9b75 "화성 상록G.C" — allowed_latin_abbreviation: G.C
+- [name] gc-73a2a3982c35 "광릉CC(회원제)" — allowed_latin_abbreviation: CC
+- [name] gc-66517960c8f8 "광릉CC(비회원제)" — allowed_latin_abbreviation: CC
+- [name] gc-7471c8142b1e "비전힐스CC" — allowed_latin_abbreviation: CC
+- [name] gc-29fa36946d15 "남양주CC" — allowed_latin_abbreviation: CC
+- [name] gc-a68be6870289 "김포SEASIDE 컨트리클럽" — unexpected_latin_in_name: SEASIDE
+- [name] gc-81becbdb274e "파주 J-Public 골프장" — unexpected_latin_in_name: J
+- [name] gc-81becbdb274e "파주 J-Public 골프장" — unexpected_latin_in_name: Public
+- [name] gc-d0e431ff250c "스마트KU 골프 파빌리온" — unexpected_latin_in_name: KU
+- [name] gc-9eb46dae9c9d "타이거CC 골프장" — allowed_latin_abbreviation: CC
+- [name] gc-b37c66474de6 "이스트밸리CC" — allowed_latin_abbreviation: CC
+- [name] gc-4cbc2f4feecc "로제비앙GC" — allowed_latin_abbreviation: GC
+- [name] gc-14e8979016a9 "곤지암GC" — allowed_latin_abbreviation: GC
+- [name] gc-06bb9165507c "사우스스프링스C.C" — unexpected_latin_in_name: C.C
+- [name] gc-cd449267e87f "파인크리크C.C" — unexpected_latin_in_name: C.C
+- [name] gc-152613ee89f3 "골프클럽Q" — unexpected_latin_in_name: Q
+- [name] gc-0151ec2b5b3a "마에스트로 CC" — allowed_latin_abbreviation: CC
+- [name] gc-2e3210c9d979 "안성베네스트G.C" — allowed_latin_abbreviation: G.C
+- [name] gc-2c90528d411e "신안 퍼블릭 CC" — allowed_latin_abbreviation: CC
+- [name] gc-5062dbcbfa1c "포웰CC 안성" — allowed_latin_abbreviation: CC
+- [name] gc-1f3e33adbac2 "이글몬트CC" — allowed_latin_abbreviation: CC
+- [name] gc-4884a38f1896 "포천아도니스 C.C" — unexpected_latin_in_name: C.C
+- [name] gc-5ca66aa29c0b "양평TPC GC" — unexpected_latin_in_name: TPC
+- [name] gc-5ca66aa29c0b "양평TPC GC" — allowed_latin_abbreviation: GC
+- [name] gc-88f7a6754606 "YJC골프클럽" — unexpected_latin_in_name: YJC
+- [name] gc-07b4c0178c39 "블루헤런G.C" — allowed_latin_abbreviation: G.C
+- [name] gc-30fa81244c96 "세라지오GC" — allowed_latin_abbreviation: GC
+- [name] gc-41b908991867 "ROUTE52CC" — unexpected_latin_in_name: ROUTE
+- [name] gc-41b908991867 "ROUTE52CC" — allowed_latin_abbreviation: CC
+- [name] gc-d14f87b6bb30 "썬힐G.C" — allowed_latin_abbreviation: G.C
+- [name] gc-a8d0095f2145 "가평 베네스트G.C" — allowed_latin_abbreviation: G.C
+- [name] gc-f0e079a5a368 "크리스탈밸리C.C" — unexpected_latin_in_name: C.C
+- [name] gc-8503021b2f0d "리앤리C.C" — unexpected_latin_in_name: C.C
+- [name] gc-068617149ff3 "베뉴지CC" — allowed_latin_abbreviation: CC
+- [name] gc-60d067e583df "포웰CC 김해" — allowed_latin_abbreviation: CC
+- [name] gc-afaf2442a07f "양산동원로얄CC" — allowed_latin_abbreviation: CC
+- [name] gc-11e571536868 "아난티남해CC" — allowed_latin_abbreviation: CC
+- [name] gc-a2ecc8249f1d "아난티남해GC" — allowed_latin_abbreviation: GC
+- [name] gc-64e6bf7be0a4 "경남스카이뷰CC" — allowed_latin_abbreviation: CC
+- [name] gc-dd8a710bd41c "청하이스턴C.C" — unexpected_latin_in_name: C.C
+- [name] gc-9c3aa425a935 "포항C.C" — unexpected_latin_in_name: C.C
+- [name] gc-4fc6d117b7f4 "경주신라C.C" — unexpected_latin_in_name: C.C
+- [name] gc-4b9a9d1f37d8 "보문G.C" — allowed_latin_abbreviation: G.C
+- [name] gc-a1d37ac059d4 "경주C.C" — unexpected_latin_in_name: C.C
+- [name] gc-4826ba3e38b9 "마우나오션C.C" — unexpected_latin_in_name: C.C
+- [name] gc-130f7b88bcf3 "우리G.C" — allowed_latin_abbreviation: G.C
+- [name] gc-881d18bae24f "디아너스C.C" — unexpected_latin_in_name: C.C
+- [name] gc-e67c48835b2a "선리치G.C" — allowed_latin_abbreviation: G.C
+- [name] gc-6ec3dc97bc62 "안강레전드G.C" — allowed_latin_abbreviation: G.C
+- [name] gc-d69bb1cfadc7 "이스트힐C.C" — unexpected_latin_in_name: C.C
+- [name] gc-6b7f785d4813 "힐스카이C.C" — unexpected_latin_in_name: C.C
+- [name] gc-bd2c2f813e31 "애플밸리C.C" — unexpected_latin_in_name: C.C
+- [name] gc-1e3e002ab2ce "포도C.C" — unexpected_latin_in_name: C.C
+- [name] gc-8894492ab1a6 "남안동C.C" — unexpected_latin_in_name: C.C
+- [name] gc-9adfe4aa2a07 "안동리버힐C.C" — unexpected_latin_in_name: C.C
+- [name] gc-ddc7e02567ba "구미C.C" — unexpected_latin_in_name: C.C
+- [name] gc-dac303292dae "오펠G.C" — allowed_latin_abbreviation: G.C
+- [name] gc-f7e7bf534d31 "영천C.C" — unexpected_latin_in_name: C.C
+- [name] gc-206bb0d5628c "시엘G.C" — allowed_latin_abbreviation: G.C
+- [name] gc-fe29a1584040 "대구C.C" — unexpected_latin_in_name: C.C
+- [name] gc-5607a255716b "파라지오C.C" — unexpected_latin_in_name: C.C
+- [name] gc-c781c317ede3 "오션비치C.C" — unexpected_latin_in_name: C.C
+- [name] gc-911caf331754 "그레이스C.C" — unexpected_latin_in_name: C.C
+- [name] gc-29c208d17553 "오션힐스청도G.C" — allowed_latin_abbreviation: G.C
+- [name] gc-0665bc0c6cce "유니밸리C.C" — unexpected_latin_in_name: C.C
+- [name] gc-8809b27cc2be "마스터피스CC" — allowed_latin_abbreviation: CC
+- [name] gc-043cdfb2fdcd "대가야CC" — allowed_latin_abbreviation: CC
+- [name] gc-385ee578118d "다산 샤인힐CC" — allowed_latin_abbreviation: CC
+- [name] gc-66dd9ef01893 "파미힐스C.C" — unexpected_latin_in_name: C.C
+- [name] gc-e2e76f635c4a "세븐밸리C.C" — unexpected_latin_in_name: C.C
+- [name] gc-bc41a2489944 "칠곡아이위시C.C" — unexpected_latin_in_name: C.C
+- [name] gc-a1c00071e4b8 "한맥C.C&노블리아" — unexpected_latin_in_name: C.C
+- [name] gc-078c6e56af3a "마린CC" — allowed_latin_abbreviation: CC
+- [name] gc-c9369c96907d "금실대덕밸리CC" — allowed_latin_abbreviation: CC
+- [name] gc-bb197f80e910 "베이스타즈CC" — allowed_latin_abbreviation: CC
+- [name] gc-043ae5d51851 "베르힐CC 영종" — allowed_latin_abbreviation: CC
+- [name] gc-4c57c6fd7298 "디오션CC" — allowed_latin_abbreviation: CC
+- [name] gc-95d86b96417d "파인힐스CC" — allowed_latin_abbreviation: CC
+- [name] gc-dfddaf985536 "순천CC" — allowed_latin_abbreviation: CC
+- [name] gc-a4b9d0a94686 "순천부영CC" — allowed_latin_abbreviation: CC
+- [name] gc-dcb20414b48e "나주CC" — allowed_latin_abbreviation: CC
+- [name] gc-2042973e4c2d "나주힐스CC" — allowed_latin_abbreviation: CC
+- [name] gc-e87bc5cc22aa "광양CC" — allowed_latin_abbreviation: CC
+- [name] gc-1236a882f178 "창평CC" — allowed_latin_abbreviation: CC
+- [name] gc-98d4ad236944 "레이나CC" — allowed_latin_abbreviation: CC
+- [name] gc-353e04416544 "죽향CC" — allowed_latin_abbreviation: CC
+- [name] gc-7be0893151f7 "광주CC" — allowed_latin_abbreviation: CC
+- [name] gc-39d4525a34c6 "옥과기안CC" — allowed_latin_abbreviation: CC
+- [name] gc-8c40f9db402e "르오네뜨CC" — allowed_latin_abbreviation: CC
+- [name] gc-496a04b9cf3f "보성CC" — allowed_latin_abbreviation: CC
+- [name] gc-2d39844d8485 "보성에덴CC" — allowed_latin_abbreviation: CC
+- [name] gc-658ae3503358 "엘리체CC" — allowed_latin_abbreviation: CC
+- [name] gc-a6fee0f415b7 "화순CC" — allowed_latin_abbreviation: CC
+- [name] gc-ecd9077e6622 "조아밸리CC" — allowed_latin_abbreviation: CC
+- [name] gc-e8468ec9b024 "무등산CC" — allowed_latin_abbreviation: CC
+- [name] gc-9885ff9a556f "JNJ골프리조트" — unexpected_latin_in_name: JNJ
+- [name] gc-5b534d8afc35 "솔라시도CC" — allowed_latin_abbreviation: CC
+- [name] gc-068d49f9d08c "아크로CC" — allowed_latin_abbreviation: CC
+- [name] gc-5085ddf672a6 "cosmos 1" — unexpected_latin_in_name: cosmos
+- [name] gc-138f4498623e "무안CC" — allowed_latin_abbreviation: CC
+- [name] gc-a043a2488af5 "클린밸리CC" — allowed_latin_abbreviation: CC
+- [name] gc-80a626b2053e "엘리체CC" — allowed_latin_abbreviation: CC
+- [name] gc-c8fc5eccf7b9 "천지CC" — allowed_latin_abbreviation: CC
+- [name] gc-cc31ca848991 "웨스트오션CC" — allowed_latin_abbreviation: CC
+- [name] gc-db3f5634c5ee "백양우리CC" — allowed_latin_abbreviation: CC
+- [name] gc-14ba1ad9ac28 "군산CC" — allowed_latin_abbreviation: CC
+- [name] gc-7e17709a629a "상떼힐CC" — allowed_latin_abbreviation: CC
+- [name] gc-93d79516b4dd "아네스빌CC" — allowed_latin_abbreviation: CC
+- [name] gc-236bf8a0310c "에스페란사GC" — allowed_latin_abbreviation: GC
+- [name] gc-8cda6b72d361 "김제스파힐스CC" — allowed_latin_abbreviation: CC
+- [name] gc-3dc796a63edd "OKCC" — unexpected_latin_in_name: OKCC
+- [name] gc-af220a47e9ad "써미트CC" — allowed_latin_abbreviation: CC
+- [name] gc-dede5bb789cf "무주덕유산CC" — allowed_latin_abbreviation: CC
+- [name] gc-a2c85434539e "전주샹그릴라CC" — allowed_latin_abbreviation: CC
+- [name] gc-e6f654f8efb6 "고창CC" — allowed_latin_abbreviation: CC
+- [name] gc-8f5c8d0f5d46 "석정힐CC" — allowed_latin_abbreviation: CC
+- [name] gc-c96a1655bd5c "타미우스cc" — allowed_latin_abbreviation: cc
+- [name] gc-7d2ed71b8086 "그린필드GC" — allowed_latin_abbreviation: GC
+- [name] gc-aff117457c45 "라헨느CC" — allowed_latin_abbreviation: CC
+- [name] gc-84bb21f2b77e "크라운CC" — allowed_latin_abbreviation: CC
+- [name] gc-5f82bbc964a8 "더시에나CC" — allowed_latin_abbreviation: CC
+- [name] gc-d03e2b710be0 "한라산CC" — allowed_latin_abbreviation: CC
+- [name] gc-baa4851e3f89 "플라자CC" — allowed_latin_abbreviation: CC
+- [name] gc-e0165d4e49cd "부영CC" — allowed_latin_abbreviation: CC
+- [name] gc-c96f2da1a4dc "중문GC" — allowed_latin_abbreviation: GC
+- [name] gc-a441de4b462a "더클래식CC" — allowed_latin_abbreviation: CC
+- [name] gc-af1917ce6948 "샤인빌파크CC" — allowed_latin_abbreviation: CC
+- [name] gc-46caa66a0c89 "골드리버CC" — allowed_latin_abbreviation: CC
+- [name] gc-5631e69db45e "보령베이스CC" — allowed_latin_abbreviation: CC
+- [name] gc-c0cdb2271518 "아리스타 CC" — allowed_latin_abbreviation: CC
+- [name] gc-5df84bcc3bd5 "플라밍고C.C" — unexpected_latin_in_name: C.C
+- [name] gc-41c9fac17790 "㈜호텔롯데 스카이힐 부여CC" — allowed_latin_abbreviation: CC
+- [name] gc-bf183cd699c7 "로얄링스 CC" — allowed_latin_abbreviation: CC
+- [name] gc-167a7f95d402 "솔라고CC" — allowed_latin_abbreviation: CC
+- [name] gc-81f36c789316 "그랜드cc" — allowed_latin_abbreviation: cc
+- [name] gc-a81df4ea7927 "천 룡cc" — allowed_latin_abbreviation: cc
+- [name] gc-8ccf3d19f9bb "세레니티cc" — allowed_latin_abbreviation: cc
+- [name] gc-ce7b0e81cf22 "스 타cc" — allowed_latin_abbreviation: cc
+- [name] gc-760b850e4451 "천 룡cc" — allowed_latin_abbreviation: cc
+- [name] gc-ac8ec878e912 "썬밸리cc" — allowed_latin_abbreviation: cc
+- [name] gc-54e8d6f41d3b "중 원cc" — allowed_latin_abbreviation: cc
+- [name] gc-8ded1998e36a "히든밸리cc" — allowed_latin_abbreviation: cc
+- [name] gc-663ebcd52f5e "골드나인cc" — allowed_latin_abbreviation: cc
+- [name] gc-3d68f1ae46e5 "센테리움cc" — allowed_latin_abbreviation: cc
+- [name] gc-f261ddd7cd1a "대호단양cc" — allowed_latin_abbreviation: cc
+- [name] gc-6bee4df56cf5 "대영베이스cc" — allowed_latin_abbreviation: cc
+- [name] gc-9c36390d43ba "이븐데일cc" — allowed_latin_abbreviation: cc
+- [name] gc-717efe03426f "킹즈락cc" — allowed_latin_abbreviation: cc
+- [name] gc-eec2e96ca1a7 "젠스필드cc" — allowed_latin_abbreviation: cc
+- [name] gc-c5f55ef01f20 "로얄포레cc" — allowed_latin_abbreviation: cc
+- [name] gc-1cfb7d6583c7 "대영힐스cc" — allowed_latin_abbreviation: cc
+- [name] gc-617f2f73c737 "진양밸리cc" — allowed_latin_abbreviation: cc
+- [name] gc-e02aaeea09ed "코스카cc" — allowed_latin_abbreviation: cc
+- [name] gc-2bace244ca44 "동 촌cc" — allowed_latin_abbreviation: cc
+- [name] gc-0a89c1c9b286 "세 일cc" — allowed_latin_abbreviation: cc
+- [name] gc-b86dec31683a "감곡CC" — allowed_latin_abbreviation: CC
+- [name] gc-e14661a32922 "일레븐cc" — allowed_latin_abbreviation: cc
+- [name] gc-8d9ee33d1f22 "킹스데일cc" — allowed_latin_abbreviation: cc
+- [name] gc-97d5d758dc31 "블랙스톤cc" — allowed_latin_abbreviation: cc
+- [name] gc-ab79864b5bdf "모나크cc" — allowed_latin_abbreviation: cc
+- [name] gc-cf2911a3e910 "음성 힐데스하임cc" — allowed_latin_abbreviation: cc
+- [name] gc-736ecb0e589a "세레니티cc" — allowed_latin_abbreviation: cc
+- [name] gc-a043ad4dfcf6 "서경타니CC" — allowed_latin_abbreviation: CC
+- [name] gc-1636db0b5c9f "오션힐스포항C.C (회원제)" — unexpected_latin_in_name: C.C
+- [name] gc-43ee7ee149ba "오션힐스포항C.C (대중제)" — unexpected_latin_in_name: C.C
+- [name] gc-28ff72e3fac8 "서라벌G.C" — allowed_latin_abbreviation: G.C
+- [name] gc-044a801a85d5 "골드레이크CC (대중제)" — allowed_latin_abbreviation: CC
+- [name] gc-990342c1d90c "골드레이크CC (회원제)" — allowed_latin_abbreviation: CC
+- [name] gc-53f5c270575b "해피니스CC (대중제)" — allowed_latin_abbreviation: CC
+- [name] gc-660ffc0f1f8d "해피니스CC (회원제)" — allowed_latin_abbreviation: CC
+- [name] gc-7c780d37c946 "태인CC" — allowed_latin_abbreviation: CC
+- [name] gc-81f3ec25ee6f "에버리스CC (회원제)" — allowed_latin_abbreviation: CC
+- [name] gc-57d2cac587d2 "에버리스CC (대중제)" — allowed_latin_abbreviation: CC
+- [name] gc-e51deb9a5cbf "해비치CC (회원제)" — allowed_latin_abbreviation: CC
+- [name] gc-a34d1218714a "해비치CC (대중제)" — allowed_latin_abbreviation: CC
+- [name] gc-41a0194846f8 "SK핀크스 (회원제)" — unexpected_latin_in_name: SK
+- [name] gc-b825d1073c5d "SK핀크스 (대중제)" — unexpected_latin_in_name: SK
+- [name] gc-1ce1b36ed2da "시그너스cc" — allowed_latin_abbreviation: cc
+- [name] gc-ba3362c686e4 "골프존카운티 안성H" — allowed_latin_abbreviation: H
+- [name] gc-411771a420e7 "골프존카운티 안성W" — allowed_latin_abbreviation: W
+- [name] gc-226b2263c6f6 "골프존카운티 진천cc" — allowed_latin_abbreviation: cc
+- [name] gc-ab22b2f16924 "골프존카운티 화랑cc" — allowed_latin_abbreviation: cc
+
+## Related reports
+
+- `data\review\final_import_validation_report.md`
+- `data\review\final_name_quality_warnings.csv`

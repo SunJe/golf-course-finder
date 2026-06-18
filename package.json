@@ -16,6 +16,7 @@
     "prepare:manual-geocoding-review": "tsx scripts/prepareManualGeocodingReview.ts",
     "apply:manual-geocoding": "tsx scripts/applyManualGeocodingDecisions.ts",
     "validate:final-import": "tsx scripts/validateFinalImport.ts",
+    "sanity:final-import": "tsx scripts/finalSanityCheck.ts",
     "download:golf-sources": "tsx scripts/downloadGolfSources.ts",
     "analyze:golf-raw": "tsx scripts/analyzeGolfCourseRawData.ts"
   },

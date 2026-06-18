@@ -108,6 +108,9 @@ export const SELECTED_KAKAO_MAP_LEVEL = 5;
 export const SEARCH_RESULT_FOCUS_LEVEL = 6;
 export const DETAIL_KAKAO_MAP_LEVEL = 6;
 
+/** 모바일에서 골프장 카드/핀 선택 시 지도 확대 level */
+export const MOBILE_SELECTED_MAP_LEVEL = 6;
+
 /**
  * 첫 화면(level 12)에서 확대 2단계(level 10)까지 cluster 허용.
  * level 9 이하(확대 3단계~)는 개별 pin만.

@@ -575,6 +575,45 @@ export function setInitialKakaoMapView(
   map.setLevel(DESKTOP_INITIAL_KAKAO_MAP_LEVEL);
 }
 
+export interface FocusCourseOnMapOptions {
+  level?: number;
+  /** level 미지정 시 줌아웃이 이 값보다 크면 이 level로 맞춤 (데스크탑 panTo) */
+  maxLevel?: number;
+}
+
+/** 골프장 좌표로 지도 중심 이동 (map 미준비·좌표 없으면 no-op) */
+export function focusCourseOnMap(
+  map: KakaoMapInstance | null | undefined,
+  maps: KakaoMapsApi | null | undefined,
+  target: { lat: number; lng: number },
+  options: FocusCourseOnMapOptions = {},
+): boolean {
+  if (!map || !maps) return false;
+  if (!Number.isFinite(target.lat) || !Number.isFinite(target.lng)) {
+    return false;
+  }
+
+  map.relayout?.();
+
+  const { LatLng } = maps;
+  const pos = new LatLng(target.lat, target.lng);
+
+  if (options.level != null) {
+    map.setLevel(options.level);
+    map.setCenter(pos);
+  } else {
+    map.panTo(pos);
+    if (
+      options.maxLevel != null &&
+      map.getLevel() > options.maxLevel
+    ) {
+      map.setLevel(options.maxLevel);
+    }
+  }
+
+  return true;
+}
+
 
 
 function escapeHtml(text: string): string {

@@ -15,6 +15,7 @@ import {
   createSplitMarkerDom,
   fitInitialMobileNationwideView,
   fitKakaoMapToCourses,
+  focusCourseOnMap,
   setInitialKakaoMapView,
   shouldShowLabel,
   shouldShowPin,
@@ -749,16 +750,13 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
   }, [mode, selectedCourseId, hoveredCourseId, syncMarkerVisuals]);
 
   useEffect(() => {
-    if (mode !== "kakao" || !mapRef.current || !window.kakao?.maps || !center)
+    if (mode !== "kakao" || !mapRef.current || !mapsApiRef.current || !center)
       return;
     userViewportTouchedRef.current = true;
-    const LatLng = (
-      window.kakao.maps as Record<string, unknown>
-    ).LatLng as new (lat: number, lng: number) => unknown;
-    mapRef.current.panTo(new LatLng(center.lat, center.lng));
-    if (mapRef.current.getLevel() > CARD_PAN_MAX_LEVEL) {
-      mapRef.current.setLevel(CARD_PAN_MAX_LEVEL);
-    }
+    focusCourseOnMap(mapRef.current, mapsApiRef.current, center, {
+      level: center.level,
+      maxLevel: center.level == null ? CARD_PAN_MAX_LEVEL : undefined,
+    });
     syncMarkerVisuals();
   }, [mode, center, syncMarkerVisuals]);
 

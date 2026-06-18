@@ -3,8 +3,10 @@
 import { useMemo, useState, useCallback, useEffect } from "react";
 import { SlidersHorizontal } from "lucide-react";
 import type { Course, CourseFilters } from "@/types/course";
+import type { MapFocusTarget } from "@/types/map";
 import { EMPTY_FILTERS } from "@/types/course";
 import { filterCourses, countActiveFilters } from "@/lib/filterCourses";
+import { MOBILE_SELECTED_MAP_LEVEL } from "@/lib/constants";
 import { getActiveFilterChips } from "@/lib/filterChips";
 import { sortCoursesByName } from "@/lib/courseListUtils";
 import SearchBar from "@/components/SearchBar";
@@ -185,9 +187,7 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
   >(null);
   const [isShowingAllFilteredResults, setIsShowingAllFilteredResults] =
     useState(false);
-  const [center, setCenter] = useState<{ lat: number; lng: number } | null>(
-    null,
-  );
+  const [center, setCenter] = useState<MapFocusTarget | null>(null);
   const [mapViewResetSignal, setMapViewResetSignal] = useState(0);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [mobileSheetExpanded, setMobileSheetExpanded] = useState(false);
@@ -311,12 +311,29 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
     setCenter({ lat: course.latitude, lng: course.longitude });
   }, []);
 
-  const handleMapSelect = useCallback((course: Course) => {
+  const handleMobileSelect = useCallback((course: Course) => {
+    setSelectedId(course.id);
+    setCenter({
+      lat: course.latitude,
+      lng: course.longitude,
+      level: MOBILE_SELECTED_MAP_LEVEL,
+    });
+    setMobileSheetExpanded(false);
+  }, []);
+
+  const handleDesktopMapSelect = useCallback((course: Course) => {
     setSelectedClusterCourseIds(null);
     setSelectedId(course.id);
     setCenter({ lat: course.latitude, lng: course.longitude });
-    setMobileSheetExpanded(false);
   }, []);
+
+  const handleMobileMapSelect = useCallback(
+    (course: Course) => {
+      setSelectedClusterCourseIds(null);
+      handleMobileSelect(course);
+    },
+    [handleMobileSelect],
+  );
 
   const handleVisibleCoursesChange = useCallback((ids: string[]) => {
     setVisibleCourseIds(ids);
@@ -379,7 +396,6 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
   const mapProps = {
     courses: searchFiltered,
     selectedId,
-    onSelect: handleMapSelect,
     center,
     onClearSelection: clearSelection,
     onVisibleCoursesChange: handleVisibleCoursesChange,
@@ -492,6 +508,7 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
         <div className="relative min-h-0 flex-1">
           <CourseMap
             {...mapProps}
+            onSelect={handleMobileMapSelect}
             maxVisibleMarkers={30}
             className="absolute inset-0 h-full w-full"
           />
@@ -502,7 +519,7 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
             title={mobileSheetTitle}
             selectedCourse={selectedCourse}
             selectedId={selectedId}
-            onSelect={handleSelect}
+            onSelect={handleMobileSelect}
             onClearSelection={clearSelection}
             courses={displayCourses}
             onReset={resetFilters}
@@ -525,7 +542,12 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
         </div>
 
         <div className="min-w-0 flex-1">
-          <CourseMap {...mapProps} maxVisibleMarkers={50} className="h-full" />
+          <CourseMap
+            {...mapProps}
+            onSelect={handleDesktopMapSelect}
+            maxVisibleMarkers={50}
+            className="h-full"
+          />
         </div>
       </div>
 

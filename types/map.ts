@@ -24,13 +24,20 @@ export interface NearbyPlace {
   officialUrl?: string;
 }
 
+/** 리스트/카드 클릭 시 지도 중심 이동 */
+export interface MapFocusTarget {
+  lat: number;
+  lng: number;
+  /** 지정 시 해당 level로 이동 (모바일 카드 선택 등) */
+  level?: number;
+}
+
 /** 모든 지도 구현체가 공유하는 props */
 export interface CourseMapBaseProps {
   courses: Course[];
   selectedCourseId?: string | null;
   onSelectCourse?: (courseId: string) => void;
-  /** 리스트 클릭 시 지도 중심 이동 */
-  center?: { lat: number; lng: number } | null;
+  center?: MapFocusTarget | null;
   className?: string;
   /** fallback 지도에서 표시할 마커 상한 (미설정 시 50) */
   maxVisibleMarkers?: number;

@@ -1,5 +1,6 @@
 "use client";
 
+import type { TouchEvent } from "react";
 import { ChevronUp, Map, X } from "lucide-react";
 import type { Course } from "@/types/course";
 import CourseList from "@/components/CourseList";
@@ -28,6 +29,10 @@ interface MobileBottomSheetProps {
   onShowAllFilteredToggle?: () => void;
 }
 
+function stopTouchPropagation(e: TouchEvent) {
+  e.stopPropagation();
+}
+
 export default function MobileBottomSheet({
   state,
   onExpand,
@@ -51,56 +56,56 @@ export default function MobileBottomSheet({
   const expanded = state === "expanded";
 
   return (
-    <div
-      className={`pointer-events-none absolute inset-x-0 bottom-0 z-20 flex flex-col ${
-        expanded ? "top-[30vh]" : "top-auto"
-      }`}
-    >
+    <>
       {expanded && (
         <button
           type="button"
           aria-label="바텀시트 닫기"
-          className="pointer-events-auto absolute inset-0 -top-[30vh] bg-black/20"
+          className="fixed inset-0 z-20 bg-black/20 md:hidden"
           onClick={onCollapse}
         />
       )}
 
       <div
-        className={`pointer-events-auto flex flex-col rounded-t-2xl border border-gray-200 bg-white shadow-sheet ${
-          expanded ? "h-full" : ""
+        className={`fixed bottom-0 left-0 right-0 z-30 flex flex-col overflow-hidden rounded-t-2xl border border-gray-200 bg-white shadow-sheet md:hidden ${
+          expanded ? "h-[70vh] max-h-[75vh]" : ""
         }`}
+        onTouchStart={stopTouchPropagation}
+        onTouchMove={stopTouchPropagation}
       >
-        <div className="flex items-center justify-center pt-2">
-          <div className="h-1 w-10 rounded-full bg-gray-300" />
-        </div>
+        <div className="shrink-0">
+          <div className="flex items-center justify-center pt-2">
+            <div className="h-1 w-10 rounded-full bg-gray-300" />
+          </div>
 
-        <div className="flex items-center justify-between gap-2 px-4 py-2">
-          <p className="min-w-0 flex-1 text-sm font-bold text-gray-800">
-            {title}
-          </p>
-          {expanded ? (
-            <button
-              type="button"
-              onClick={onCollapse}
-              className="flex min-h-[44px] items-center gap-1 rounded-full border border-gray-200 px-3 text-xs font-semibold text-gray-600"
-            >
-              <Map className="h-3.5 w-3.5" />
-              지도 크게
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={onExpand}
-              className="flex min-h-[44px] items-center gap-1 rounded-full bg-brand-600 px-3 text-xs font-bold text-white"
-            >
-              <ChevronUp className="h-3.5 w-3.5" />
-              목록 보기
-            </button>
-          )}
+          <div className="flex items-center justify-between gap-2 px-4 py-2">
+            <p className="min-w-0 flex-1 text-sm font-bold text-gray-800">
+              {title}
+            </p>
+            {expanded ? (
+              <button
+                type="button"
+                onClick={onCollapse}
+                className="flex min-h-[44px] items-center gap-1 rounded-full border border-gray-200 px-3 text-xs font-semibold text-gray-600"
+              >
+                <Map className="h-3.5 w-3.5" />
+                지도 크게
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={onExpand}
+                className="flex min-h-[44px] items-center gap-1 rounded-full bg-brand-600 px-3 text-xs font-bold text-white"
+              >
+                <ChevronUp className="h-3.5 w-3.5" />
+                목록 보기
+              </button>
+            )}
+          </div>
         </div>
 
         {showViewToggle && expanded && onShowMapBased && onShowAllFilteredToggle && (
-          <div className="flex items-center gap-1.5 px-4 pb-2">
+          <div className="flex shrink-0 items-center gap-1.5 px-4 pb-2">
             <button
               type="button"
               onClick={onShowMapBased}
@@ -127,7 +132,7 @@ export default function MobileBottomSheet({
         )}
 
         {!expanded && selectedCourse && (
-          <div className="border-t border-gray-100 px-3 pb-3 pt-2">
+          <div className="shrink-0 border-t border-gray-100 px-3 pb-3 pt-2">
             <div className="mb-2 flex items-center justify-between">
               <span className="text-[11px] font-semibold text-brand-700">
                 선택한 골프장
@@ -152,7 +157,7 @@ export default function MobileBottomSheet({
         )}
 
         {expanded && (
-          <div className="min-h-0 flex-1 overflow-y-auto px-3 pb-4 pt-1">
+          <div className="min-h-0 flex-1 touch-pan-y overflow-y-auto overscroll-contain px-3 pb-6 pt-1 [-webkit-overflow-scrolling:touch]">
             {courses.length === 0 ? (
               <CourseList
                 courses={[]}
@@ -177,6 +182,6 @@ export default function MobileBottomSheet({
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 }

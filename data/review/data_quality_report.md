@@ -122,4 +122,25 @@ Master-only conversion. **No supplement merge.**
 3. `.env.local`에 geocoding API key 설정
 4. `npm run geocode:golf-courses -- --execute` 로 실제 geocoding
 5. 좌표 보강 결과 확인 후 `golf_courses_import_geocoded.csv` 생성 (별도 단계)
+-
+-
+---
+
+## Phase 3 — Geocoding Sample
+
+- **실행 일시:** 2026-06-18T01:45:11.682Z
+- **geocoding sample completed:** true
+- **샘플 처리 행 수:** 20
+- **success:** 20
+- **no_result:** 0
+- **low_confidence:** 0
+- **multiple_candidates:** 0
+- **address search hits:** 20
+- **keyword search hits:** 0
+- **provider:** kakao
+- **KAKAO_REST_API_KEY:** true
+- **manual questions remaining:** 7
+- **전체 geocoding 전 manual_questions 검토:** 필수
+- **전체 geocoding 실행 가능:** 조건부 가능 (success>=10)
+- **golf_courses_import.csv 수정:** 없음
 

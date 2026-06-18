@@ -42,8 +42,8 @@ npm run convert:master-courses
 ```bash
 npm run prepare:phase25-review
 npm run apply:review-decisions      # review 판단 반영 → import CSV 수정
-npm run geocode:golf-courses          # dry-run (기본)
-npm run geocode:golf-courses -- --execute   # 실제 API (다음 단계)
+npm run geocode:golf-courses          # dry-run (기본, limit 20)
+npm run geocode:golf-courses -- --execute --limit 20 --provider kakao
 ```
 
 ### CSV 변환 (단일 raw → import 형식, 레거시)

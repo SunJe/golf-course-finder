@@ -1,1 +1,462 @@
-{}
+{
+  "gc-18f9f355721d|춘천시 신동면 칠전동길 72": {
+    "query": "강원특별자치도 춘천시 신동면 칠전동길 72",
+    "latitude": 37.8369429213366,
+    "longitude": 127.715838891863,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:45:11.682Z",
+    "matched_address": "강원특별자치도 춘천시 신동면 칠전동길 72",
+    "raw_place_name": ""
+  },
+  "gc-669d8ad13333|춘천시 남산면 북한강변길 688": {
+    "query": "강원특별자치도 춘천시 남산면 북한강변길 688",
+    "latitude": 37.8300557977982,
+    "longitude": 127.57878172946,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:45:11.682Z",
+    "matched_address": "강원특별자치도 춘천시 남산면 북한강변길 688",
+    "raw_place_name": ""
+  },
+  "gc-5acca8d60a68|춘천시 남산면 경춘로 212-30": {
+    "query": "강원특별자치도 춘천시 남산면 경춘로 212-30",
+    "latitude": 37.8307797553449,
+    "longitude": 127.548170460554,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:45:11.682Z",
+    "matched_address": "강원특별자치도 춘천시 남산면 경춘로 212-30",
+    "raw_place_name": ""
+  },
+  "gc-fa1419df8b1e|춘천시 신동면 오봉길 156": {
+    "query": "강원특별자치도 춘천시 신동면 오봉길 156",
+    "latitude": 37.7855926209548,
+    "longitude": 127.700960366465,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:45:11.682Z",
+    "matched_address": "강원특별자치도 춘천시 신동면 오봉길 156",
+    "raw_place_name": ""
+  },
+  "gc-3526f59318a4|춘천시 남산면 동촌로 501": {
+    "query": "강원특별자치도 춘천시 남산면 동촌로 501",
+    "latitude": 37.7730612102808,
+    "longitude": 127.669709976041,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:45:11.682Z",
+    "matched_address": "강원특별자치도 춘천시 남산면 동촌로 501",
+    "raw_place_name": ""
+  },
+  "gc-3ae54b5361c3|춘천시 남산면 동촌로 667": {
+    "query": "강원특별자치도 춘천시 남산면 동촌로 667",
+    "latitude": 37.7721785570099,
+    "longitude": 127.654200050879,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:45:11.682Z",
+    "matched_address": "강원특별자치도 춘천시 남산면 동촌로 667",
+    "raw_place_name": ""
+  },
+  "gc-9e436bbbf364|춘천시 남면 소주고개로 145-10": {
+    "query": "강원특별자치도 춘천시 남면 소주고개로 145-10",
+    "latitude": 37.7497160475065,
+    "longitude": 127.619928617296,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:45:11.682Z",
+    "matched_address": "강원특별자치도 춘천시 남면 소주고개로 145-10",
+    "raw_place_name": ""
+  },
+  "gc-56c3be8c5a61|춘천시 동산면 새술막길 438": {
+    "query": "강원특별자치도 춘천시 동산면 새술막길 438",
+    "latitude": 37.7776204120147,
+    "longitude": 127.750533991715,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:45:11.682Z",
+    "matched_address": "강원특별자치도 춘천시 동산면 새술막길 438",
+    "raw_place_name": ""
+  },
+  "gc-6b8298356e4e|춘천시 동산면 종자리로 148-16": {
+    "query": "강원특별자치도 춘천시 동산면 종자리로 148-16",
+    "latitude": 37.747575327588,
+    "longitude": 127.725551235643,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:45:11.682Z",
+    "matched_address": "강원특별자치도 춘천시 동산면 종자리로 148-16",
+    "raw_place_name": ""
+  },
+  "gc-a78a36b9d428|춘천시 동산면 종자리로 436": {
+    "query": "강원특별자치도 춘천시 동산면 종자리로 436",
+    "latitude": 37.7411958192197,
+    "longitude": 127.757369977231,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:45:11.682Z",
+    "matched_address": "강원특별자치도 춘천시 동산면 종자리로 436",
+    "raw_place_name": ""
+  },
+  "gc-d7a401a860d3|춘천시 신동면 김유정로 730": {
+    "query": "강원특별자치도 춘천시 신동면 김유정로 730",
+    "latitude": 37.76903936688,
+    "longitude": 127.719301183153,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:45:11.682Z",
+    "matched_address": "강원특별자치도 춘천시 신동면 김유정로 730",
+    "raw_place_name": ""
+  },
+  "gc-9a7cb8103191|원주시 지정면 오크밸리1길 66": {
+    "query": "강원특별자치도 원주시 지정면 오크밸리1길 66",
+    "latitude": 37.4343240018003,
+    "longitude": 127.817512733666,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:45:11.682Z",
+    "matched_address": "강원특별자치도 원주시 지정면 오크밸리1길 66",
+    "raw_place_name": ""
+  },
+  "gc-7b4833dc4475|원주시 지정면 오크밸리2길 250": {
+    "query": "강원특별자치도 원주시 지정면 오크밸리2길 250",
+    "latitude": 37.413907787106,
+    "longitude": 127.822367179311,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:45:11.682Z",
+    "matched_address": "강원특별자치도 원주시 지정면 오크밸리2길 250",
+    "raw_place_name": ""
+  },
+  "gc-40bd08295048|원주시 지정면 오크밸리2길 58": {
+    "query": "강원특별자치도 원주시 지정면 오크밸리2길 58",
+    "latitude": 37.4078166869562,
+    "longitude": 127.808904182453,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:45:11.682Z",
+    "matched_address": "강원특별자치도 원주시 지정면 오크밸리2길 58",
+    "raw_place_name": ""
+  },
+  "gc-3b9faaf01e87|원주시 지정면 월송석화로 431": {
+    "query": "강원특별자치도 원주시 지정면 월송석화로 431",
+    "latitude": 37.3945186687561,
+    "longitude": 127.834946399203,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:45:11.682Z",
+    "matched_address": "강원특별자치도 원주시 지정면 월송석화로 431",
+    "raw_place_name": ""
+  },
+  "gc-920a66bac706|원주시 문막읍 궁말길 193": {
+    "query": "강원특별자치도 원주시 문막읍 궁말길 193",
+    "latitude": 37.2814501148934,
+    "longitude": 127.842416839704,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:45:11.682Z",
+    "matched_address": "강원특별자치도 원주시 문막읍 궁말길 193",
+    "raw_place_name": ""
+  },
+  "gc-120fdf5098ca|원주시 문막읍 궁말길 193": {
+    "query": "강원특별자치도 원주시 문막읍 궁말길 193",
+    "latitude": 37.2814501148934,
+    "longitude": 127.842416839704,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:45:11.682Z",
+    "matched_address": "강원특별자치도 원주시 문막읍 궁말길 193",
+    "raw_place_name": ""
+  },
+  "gc-d2426892b3a5|원주시 문막읍 궁말길 193": {
+    "query": "강원특별자치도 원주시 문막읍 궁말길 193",
+    "latitude": 37.2814501148934,
+    "longitude": 127.842416839704,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:45:11.682Z",
+    "matched_address": "강원특별자치도 원주시 문막읍 궁말길 193",
+    "raw_place_name": ""
+  },
+  "gc-52110494ceac|원주시 소초면 바우실길 281": {
+    "query": "강원특별자치도 원주시 소초면 바우실길 281",
+    "latitude": 37.388890315126,
+    "longitude": 128.013156594133,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:45:11.682Z",
+    "matched_address": "강원특별자치도 원주시 소초면 바우실길 281",
+    "raw_place_name": ""
+  },
+  "gc-3eb069c5fb2a|원주시 지정면 신평석화로 236": {
+    "query": "강원특별자치도 원주시 지정면 신평석화로 236",
+    "latitude": 37.4008288189658,
+    "longitude": 127.879409601494,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:45:11.682Z",
+    "matched_address": "강원특별자치도 원주시 지정면 신평석화로 236",
+    "raw_place_name": ""
+  },
+  "gc-dd6fca373d1b|서울특별시 강서구 오정로 443-198": {
+    "query": "서울특별시 강서구 오정로 443-198",
+    "latitude": 37.5467197403361,
+    "longitude": 126.795778721308,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "서울 강서구 오정로 443-198",
+    "raw_place_name": ""
+  },
+  "gc-9a7ff16abcee|경기도 용인시 처인구 남사읍 전나무골길2번길 94": {
+    "query": "경기도 용인시 처인구 남사읍 전나무골길2번길 94",
+    "latitude": 37.157103731538,
+    "longitude": 127.13056142746,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "경기 용인시 처인구 남사읍 전나무골길2번길 94",
+    "raw_place_name": ""
+  },
+  "gc-897c73dbf41b|경기도 용인시 처인구 양지면 남평로 112": {
+    "query": "경기도 용인시 처인구 양지면 남평로 112",
+    "latitude": 37.210689138288,
+    "longitude": 127.29364692962,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "경기 용인시 처인구 양지읍 남평로 112",
+    "raw_place_name": ""
+  },
+  "gc-38b838344176|경기도 용인시 기흥구 중부대로 495": {
+    "query": "경기도 용인시 기흥구 중부대로 495",
+    "latitude": 37.2813343609608,
+    "longitude": 127.120332640766,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "경기 용인시 기흥구 중부대로 495",
+    "raw_place_name": ""
+  },
+  "gc-4af8a2f8ed32|경기도 용인시 처인구 남사읍 봉무로 153번길 79": {
+    "query": "경기도 용인시 처인구 남사읍 봉무로 153번길 79",
+    "latitude": 37.1336283949433,
+    "longitude": 127.14698226012,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "경기 용인시 처인구 남사읍 봉무로153번길 79",
+    "raw_place_name": ""
+  },
+  "gc-9da6f2a0f2d9|경기도 용인시 기흥구 흥덕4로 77": {
+    "query": "경기도 용인시 기흥구 흥덕4로 77",
+    "latitude": 37.2785734665911,
+    "longitude": 127.089081801998,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "경기 용인시 기흥구 흥덕4로 77",
+    "raw_place_name": ""
+  },
+  "gc-28ed803e0e26|대전 유성구 현충원로 200(덕명동 215-7번지)": {
+    "query": "대전 유성구 현충원로 200",
+    "latitude": 36.3537342042459,
+    "longitude": 127.290313578278,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "대전 유성구 현충원로 200",
+    "raw_place_name": ""
+  },
+  "gc-4906278997cc|대전 유성구 유성대로 1689번길 69(전민동 463번지)": {
+    "query": "대전 유성구 유성대로 1689번길 69",
+    "latitude": 36.4039896147136,
+    "longitude": 127.395094219166,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "대전 유성구 유성대로1689번길 69",
+    "raw_place_name": ""
+  },
+  "gc-c9369c96907d|대전 유성구 테크노중앙로 210(용산동 676번지)": {
+    "query": "대전 유성구 테크노중앙로 210",
+    "latitude": 36.4207308307018,
+    "longitude": 127.403448694155,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "대전 유성구 테크노중앙로 210",
+    "raw_place_name": ""
+  },
+  "gc-2b09ff38b37c|세종특별자치시 전의면 운주산로 1510": {
+    "query": "세종특별자치시 전의면 운주산로 1510",
+    "latitude": 36.6969492070113,
+    "longitude": 127.185332809642,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "세종특별자치시 전의면 운주산로 1510",
+    "raw_place_name": ""
+  },
+  "gc-dc3aed15fe4c|세종특별자치시 정안세종로  1569": {
+    "query": "세종특별자치시 정안세종로 1569",
+    "latitude": 36.5385858687258,
+    "longitude": 127.261911994898,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "세종특별자치시 정안세종로 1569",
+    "raw_place_name": ""
+  },
+  "gc-abff7021616b|광주광역시 남구 효우로 153(노대동)": {
+    "query": "광주광역시 남구 효우로 153",
+    "latitude": 35.1003327130013,
+    "longitude": 126.899115799239,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "광주 남구 효우로 153",
+    "raw_place_name": ""
+  },
+  "gc-2159121d90f9|광주광역시 광산구 오목내길 26(연산동)": {
+    "query": "광주광역시 광산구 오목내길 26",
+    "latitude": 35.1068396396447,
+    "longitude": 126.741808823782,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "광주 광산구 오목내길 26",
+    "raw_place_name": ""
+  },
+  "gc-96881a9924c5|광주광역시 광산구 무진대로 31(운수동)": {
+    "query": "광주광역시 광산구 무진대로 31",
+    "latitude": 35.1746968003012,
+    "longitude": 126.773062727702,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "광주 광산구 무진대로 31",
+    "raw_place_name": ""
+  },
+  "gc-4c57c6fd7298|전남 여수시 화양면 안포리 1917": {
+    "query": "전라남도 전남 여수시 화양면 안포리 1917",
+    "latitude": 34.6476255568712,
+    "longitude": 127.629759271186,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "전남 여수시 화양면 안포리 1917",
+    "raw_place_name": ""
+  },
+  "gc-349a94f1be3f|전남 여수시 대경도길 111": {
+    "query": "전라남도 전남 여수시 대경도길 111",
+    "latitude": 34.7139138479231,
+    "longitude": 127.725536348487,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "전남 여수시 대경도길 111",
+    "raw_place_name": ""
+  },
+  "gc-ba63455c375f|창원시 의창구 대봉로 137": {
+    "query": "경상남도 창원시 의창구 대봉로 137",
+    "latitude": 35.2603549181413,
+    "longitude": 128.664104192699,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "경남 창원시 의창구 대봉로 137",
+    "raw_place_name": ""
+  },
+  "gc-bfc85ba9acd0|창원시 진해구 가주로 133": {
+    "query": "경상남도 창원시 진해구 가주로 133",
+    "latitude": 35.1136520233281,
+    "longitude": 128.825488553508,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "경남 창원시 진해구 가주로 133",
+    "raw_place_name": ""
+  },
+  "gc-745bb2ca1c75|창원시 진해구 수제로 36": {
+    "query": "경상남도 창원시 진해구 수제로 36",
+    "latitude": 35.0885701282544,
+    "longitude": 128.747862908254,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "경남 창원시 진해구 수제로 36",
+    "raw_place_name": ""
+  },
+  "gc-25bf0a715d27|진주시 진성면 진성로 464번길 82": {
+    "query": "경상남도 진주시 진성면 진성로 464번길 82",
+    "latitude": 35.1762553567221,
+    "longitude": 128.232929408042,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "경남 진주시 진성면 진성로464번길 82",
+    "raw_place_name": ""
+  },
+  "gc-d18fa63ecde3|통영시 산양읍 담안길 240": {
+    "query": "경상남도 통영시 산양읍 담안길 240",
+    "latitude": 34.8101335211616,
+    "longitude": 128.427671319115,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "경남 통영시 산양읍 담안길 240",
+    "raw_place_name": ""
+  },
+  "gc-c96a1655bd5c|제주특별자치도 제주시 애월읍 화전길 201": {
+    "query": "제주특별자치도 제주시 애월읍 화전길 201",
+    "latitude": 33.3482636532172,
+    "longitude": 126.385652476576,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "제주특별자치도 제주시 애월읍 화전길 201",
+    "raw_place_name": ""
+  },
+  "gc-7d2ed71b8086|제주특별자치도 제주시 조천읍 번영로 1040-70": {
+    "query": "제주특별자치도 제주시 조천읍 번영로 1040-70",
+    "latitude": 33.4638600500371,
+    "longitude": 126.645487163873,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "제주특별자치도 제주시 조천읍 번영로 1040-70",
+    "raw_place_name": ""
+  },
+  "gc-aff117457c45|제주특별자치도 제주시 봉개동 241-13": {
+    "query": "제주특별자치도 제주시 봉개동 241-13",
+    "latitude": 33.4541450430555,
+    "longitude": 126.611786537072,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "제주특별자치도 제주시 봉개동 241-13",
+    "raw_place_name": ""
+  },
+  "gc-ed4f10d4c149|제주특별자치도 서귀포시 산록남로 1391": {
+    "query": "제주특별자치도 서귀포시 산록남로 1391",
+    "latitude": 33.2971177279609,
+    "longitude": 126.435385898389,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "제주특별자치도 서귀포시 산록남로 1391",
+    "raw_place_name": ""
+  },
+  "gc-7860808d29d1|제주특별자치도 서귀포시 한창로 365": {
+    "query": "제주특별자치도 서귀포시 한창로 365",
+    "latitude": 33.288986163678,
+    "longitude": 126.351409555697,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:51:38.678Z",
+    "matched_address": "제주특별자치도 서귀포시 안덕면 한창로 365",
+    "raw_place_name": ""
+  }
+}

@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { parseCsv, readFileUtf8, rowsToCsv, writeFileUtf8 } from "./csvUtils";
+import { buildAddressSearchQuery } from "./addressNormalize";
 
 export const GEOCODING_INPUT_HEADERS = [
   "id",
@@ -60,34 +61,24 @@ export interface GeocodingCacheEntry {
   provider: string;
   confidence: "high" | "medium" | "low";
   geocoded_at: string;
+  matched_address?: string;
+  raw_place_name?: string;
 }
 
 export type GeocodingCache = Record<string, GeocodingCacheEntry>;
 
-const MIN_ADDRESS_LENGTH = 12;
-const PROVINCE_PATTERN = /(특별|광역|자치|도)/;
-
-/** address가 짧거나 행정구역 접두가 없으면 name+city를 보조해 query 생성 */
+/** geocoding API용 query — 정규화된 주소 우선 */
 export function buildGeocodingQuery(
   name: string,
   city: string,
   address: string,
+  region = "",
 ): string {
-  const trimmedAddress = address.trim();
-  if (!trimmedAddress) return "";
+  const normalized = buildAddressSearchQuery(address, region, city);
+  if (normalized) return normalized;
 
-  const needsAugment =
-    trimmedAddress.length < MIN_ADDRESS_LENGTH ||
-    !PROVINCE_PATTERN.test(trimmedAddress);
-
-  if (!needsAugment) return trimmedAddress;
-
-  const parts = [name.trim()];
-  if (city.trim() && !trimmedAddress.startsWith(city.trim())) {
-    parts.push(city.trim());
-  }
-  parts.push(trimmedAddress);
-  return parts.filter(Boolean).join(" ");
+  const parts = [name.trim(), city.trim(), address.trim()].filter(Boolean);
+  return parts.join(" ");
 }
 
 export function loadGeocodingCache(cachePath: string): GeocodingCache {
@@ -165,7 +156,7 @@ export function prepareGeocodingFiles(
       continue;
     }
 
-    const query = buildGeocodingQuery(name, city, address);
+    const query = buildGeocodingQuery(name, city, address, region);
     if (!query.trim()) {
       failureRows.push([
         id,

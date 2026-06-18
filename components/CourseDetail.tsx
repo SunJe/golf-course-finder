@@ -152,10 +152,10 @@ export default function CourseDetail({ course }: { course: Course }) {
           alt={course.name}
           seed={course.id}
           loading="eager"
-          className="h-56 w-full object-cover object-[center_35%] sm:h-80"
+          className="h-40 w-full object-cover object-[center_35%] sm:h-56 md:h-80"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-7">
+        <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-7">
           <div className="mb-2 flex flex-wrap items-center gap-2">
             <span
               className={`rounded-md px-2.5 py-1 text-xs font-bold ${
@@ -171,7 +171,7 @@ export default function CourseDetail({ course }: { course: Course }) {
               {formatHoleCount(course.holeCount)}
             </span>
           </div>
-          <h1 className="text-2xl font-extrabold text-white drop-shadow-sm sm:text-3xl">
+          <h1 className="text-xl font-extrabold text-white drop-shadow-sm sm:text-3xl">
             {course.name}
           </h1>
           <p className="mt-1.5 flex items-center gap-1.5 text-sm text-white/90">
@@ -195,7 +195,7 @@ export default function CourseDetail({ course }: { course: Course }) {
           {showPhone && (
             <a
               href={`tel:${course.phone}`}
-              className="flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-sm font-semibold text-gray-700 transition hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700"
+              className="flex min-h-[44px] items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-sm font-semibold text-gray-700 transition hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700"
             >
               <Phone className="h-4 w-4" />
               전화
@@ -206,7 +206,7 @@ export default function CourseDetail({ course }: { course: Course }) {
               href={course.homepageUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-sm font-semibold text-gray-700 transition hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700"
+              className="flex min-h-[44px] items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-sm font-semibold text-gray-700 transition hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700"
             >
               <Globe className="h-4 w-4" />
               홈페이지
@@ -355,7 +355,7 @@ export default function CourseDetail({ course }: { course: Course }) {
           <div className="lg:sticky lg:top-20">
             <section className="mb-6">
               <SectionTitle>위치</SectionTitle>
-              <div className="h-64 w-full">
+              <div className="h-48 w-full sm:h-64">
                 <CourseMap
                   courses={[course]}
                   selectedId={course.id}
@@ -371,7 +371,7 @@ export default function CourseDetail({ course }: { course: Course }) {
                   href={getKakaoMapSearchUrl(course)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-gray-200 py-2.5 text-sm font-semibold text-gray-700 transition hover:border-[#fee500] hover:bg-[#fee500]/10"
+                  className="flex min-h-[44px] flex-1 items-center justify-center gap-1.5 rounded-xl border border-gray-200 py-2.5 text-sm font-semibold text-gray-700 transition hover:border-[#fee500] hover:bg-[#fee500]/10"
                 >
                   <ExternalLink className="h-4 w-4" />
                   카카오맵
@@ -380,7 +380,7 @@ export default function CourseDetail({ course }: { course: Course }) {
                   href={getNaverMapSearchUrl(course)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-gray-200 py-2.5 text-sm font-semibold text-gray-700 transition hover:border-[#03c75a] hover:bg-[#03c75a]/5 hover:text-[#03c75a]"
+                  className="flex min-h-[44px] flex-1 items-center justify-center gap-1.5 rounded-xl border border-gray-200 py-2.5 text-sm font-semibold text-gray-700 transition hover:border-[#03c75a] hover:bg-[#03c75a]/5 hover:text-[#03c75a]"
                 >
                   <ExternalLink className="h-4 w-4" />
                   네이버지도

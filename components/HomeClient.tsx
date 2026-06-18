@@ -5,14 +5,36 @@ import { SlidersHorizontal } from "lucide-react";
 import type { Course, CourseFilters } from "@/types/course";
 import { EMPTY_FILTERS } from "@/types/course";
 import { filterCourses, countActiveFilters } from "@/lib/filterCourses";
+import { getActiveFilterChips } from "@/lib/filterChips";
 import { sortCoursesByName } from "@/lib/courseListUtils";
 import SearchBar from "@/components/SearchBar";
 import FilterBar from "@/components/FilterBar";
 import CourseList from "@/components/CourseList";
 import CourseMap from "@/components/maps/CourseMap";
 import MobileFilterSheet from "@/components/MobileFilterSheet";
+import MobileFilterChips from "@/components/MobileFilterChips";
+import MobileBottomSheet from "@/components/MobileBottomSheet";
 
 type ListMode = "cluster" | "allFiltered" | "visible" | "fallback";
+
+function getMobileSheetTitle(
+  mode: ListMode,
+  count: number,
+  total: number,
+  isFiltered: boolean,
+): string {
+  if (mode === "cluster") return `선택한 묶음의 골프장 ${count}곳`;
+  if (mode === "allFiltered") {
+    return isFiltered ? `필터 결과 전체 ${count}곳` : `전체 결과 ${count}곳`;
+  }
+  if (mode === "visible") {
+    return isFiltered
+      ? `이 지역 검색 결과 ${count}곳`
+      : `이 지역 골프장 ${count}곳`;
+  }
+  if (isFiltered) return `검색 결과 ${count}곳`;
+  return `전국 골프장 ${total}곳`;
+}
 
 function ListHeader({
   mode,
@@ -168,6 +190,7 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
   );
   const [mapViewResetSignal, setMapViewResetSignal] = useState(0);
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [mobileSheetExpanded, setMobileSheetExpanded] = useState(false);
 
   const searchFiltered = useMemo(
     () => filterCourses(courses, filters),
@@ -226,12 +249,33 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
 
   const isNoFilterResults = searchFiltered.length === 0;
 
+  const activeFilterChips = useMemo(
+    () => getActiveFilterChips(filters),
+    [filters],
+  );
+
+  const selectedCourse = useMemo(() => {
+    if (!selectedId) return null;
+    return (
+      searchFiltered.find((c) => c.id === selectedId) ??
+      courses.find((c) => c.id === selectedId) ??
+      null
+    );
+  }, [selectedId, searchFiltered, courses]);
+
   const listHeaderCount =
     listMode === "fallback" && !isFiltered
       ? courses.length
       : listMode === "fallback" && isFiltered
         ? searchFiltered.length
         : displayCourses.length;
+
+  const mobileSheetTitle = getMobileSheetTitle(
+    listMode,
+    listHeaderCount,
+    courses.length,
+    isFiltered,
+  );
 
   const updateFilters = useCallback((patch: Partial<CourseFilters>) => {
     setFilters((prev) => ({ ...prev, ...patch }));
@@ -271,6 +315,7 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
     setSelectedClusterCourseIds(null);
     setSelectedId(course.id);
     setCenter({ lat: course.latitude, lng: course.longitude });
+    setMobileSheetExpanded(false);
   }, []);
 
   const handleVisibleCoursesChange = useCallback((ids: string[]) => {
@@ -308,6 +353,10 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
         setSheetOpen(false);
         return;
       }
+      if (mobileSheetExpanded) {
+        setMobileSheetExpanded(false);
+        return;
+      }
       if (isClusterScopeActive) {
         clearClusterScope();
         return;
@@ -321,6 +370,7 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
   }, [
     selectedId,
     sheetOpen,
+    mobileSheetExpanded,
     clearSelection,
     isClusterScopeActive,
     clearClusterScope,
@@ -381,7 +431,7 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
 
   return (
     <>
-      <section className="border-b border-gray-200 bg-gradient-to-b from-brand-50/60 to-white">
+      <section className="hidden border-b border-gray-200 bg-gradient-to-b from-brand-50/60 to-white md:block">
         <div className="mx-auto flex max-w-[1600px] flex-col gap-2 px-4 py-3 sm:px-6 md:flex-row md:items-center md:justify-between md:gap-4">
           <div className="min-w-0">
             <h1 className="text-lg font-extrabold tracking-tight text-gray-900 sm:text-xl">
@@ -412,33 +462,60 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
         </div>
       </section>
 
-      <section className="sticky top-16 z-20 border-b border-gray-200 bg-white/95 px-4 py-2.5 backdrop-blur md:hidden">
-        <div className="flex items-center gap-2">
-          <div className="flex-1">
-            <SearchBar
-              value={filters.query}
-              onChange={(query) => updateFilters({ query })}
-            />
+      <div className="flex h-[calc(100dvh-4rem)] flex-col overflow-hidden md:hidden">
+        <div className="flex-shrink-0 border-b border-gray-200 bg-white/95 px-4 py-2.5 backdrop-blur">
+          <div className="flex items-center gap-2">
+            <div className="flex-1">
+              <SearchBar
+                value={filters.query}
+                onChange={(query) => updateFilters({ query })}
+                placeholder="골프장명, 지역, 주소로 검색"
+              />
+            </div>
+            <button
+              type="button"
+              onClick={() => setSheetOpen(true)}
+              className="relative flex h-11 min-w-[44px] items-center justify-center rounded-full border border-gray-200 bg-white px-3 text-sm font-semibold text-gray-600"
+            >
+              <SlidersHorizontal className="h-4 w-4" />
+              <span className="ml-1">필터</span>
+              {activeCount > 0 && (
+                <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-brand-600 text-[10px] font-bold text-white">
+                  {activeCount}
+                </span>
+              )}
+            </button>
           </div>
-          <button
-            type="button"
-            onClick={() => setSheetOpen(true)}
-            className="relative flex h-11 min-w-[44px] items-center justify-center rounded-full border border-gray-200 bg-white px-3 text-sm font-semibold text-gray-600"
-          >
-            <SlidersHorizontal className="h-4 w-4" />
-            <span className="ml-1">필터</span>
-            {activeCount > 0 && (
-              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-brand-600 text-[10px] font-bold text-white">
-                {activeCount}
-              </span>
-            )}
-          </button>
+          <MobileFilterChips chips={activeFilterChips} />
         </div>
-        <div className="mt-2">
-          <ListHeader {...headerProps} />
-        </div>
-      </section>
 
+        <div className="relative min-h-0 flex-1">
+          <CourseMap
+            {...mapProps}
+            maxVisibleMarkers={30}
+            className="absolute inset-0 h-full w-full"
+          />
+          <MobileBottomSheet
+            state={mobileSheetExpanded ? "expanded" : "collapsed"}
+            onExpand={() => setMobileSheetExpanded(true)}
+            onCollapse={() => setMobileSheetExpanded(false)}
+            title={mobileSheetTitle}
+            selectedCourse={selectedCourse}
+            selectedId={selectedId}
+            onSelect={handleSelect}
+            onClearSelection={clearSelection}
+            courses={displayCourses}
+            onReset={resetFilters}
+            onFitResults={handleFitResults}
+            onShowAllFilteredEmpty={handleShowAllFiltered}
+            showViewToggle={listMode !== "cluster" && visibleReady}
+            isShowingAllFilteredResults={isShowingAllFilteredResults}
+            onShowMapBased={handleShowMapBased}
+            onShowAllFilteredToggle={handleShowAllFiltered}
+            {...listEmptyProps}
+          />
+        </div>
+      </div>
       <div className="mx-auto hidden h-[calc(100vh-9.5rem)] max-w-[1600px] gap-4 px-6 py-3 md:flex">
         <div className="flex w-[460px] flex-shrink-0 flex-col lg:w-[500px] xl:w-[520px]">
           <ListHeader {...headerProps} onResetFilters={resetFilters} />
@@ -449,19 +526,6 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
 
         <div className="min-w-0 flex-1">
           <CourseMap {...mapProps} maxVisibleMarkers={50} className="h-full" />
-        </div>
-      </div>
-
-      <div className="md:hidden">
-        <div className="h-[38vh] w-full px-4 pt-3">
-          <CourseMap
-            {...mapProps}
-            maxVisibleMarkers={20}
-            className="h-full"
-          />
-        </div>
-        <div className="px-4 py-3">
-          <CourseList {...listProps} />
         </div>
       </div>
 

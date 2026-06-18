@@ -2,7 +2,13 @@ import type { Course } from "@/types/course";
 
 import {
   DEFAULT_MAP_CENTER,
+  DESKTOP_INITIAL_MAP_CENTER,
+  DESKTOP_INITIAL_KAKAO_MAP_LEVEL,
+  DEFAULT_FIT_GEO_PADDING,
   INITIAL_KAKAO_MAP_LEVEL,
+  MOBILE_FIT_GEO_PADDING,
+  MOBILE_INITIAL_KAKAO_MAP_LEVEL,
+  MOBILE_INITIAL_MAP_CENTER,
   SEARCH_RESULT_FOCUS_LEVEL,
 } from "@/lib/constants";
 
@@ -99,9 +105,9 @@ export function shouldShowLabel(ctx: MarkerDisplayContext): boolean {
 
   if (!shouldShowPin(ctx)) return false;
 
-  if (ctx.isSelected || ctx.isHovered) return true;
-
   if (ctx.isMobile) return false;
+
+  if (ctx.isSelected || ctx.isHovered) return true;
 
   if (ctx.level <= 6) return true;
 
@@ -361,39 +367,44 @@ export function createClusterHitMarkerImage(
 
 
 /** courses 좌표로 경계 계산 */
-
 export function getCoursesBounds(courses: Course[]) {
-
   if (courses.length === 0) return null;
 
-
-
   let minLat = Infinity;
-
   let maxLat = -Infinity;
-
   let minLng = Infinity;
-
   let maxLng = -Infinity;
 
-
-
   for (const course of courses) {
-
+    if (
+      !Number.isFinite(course.latitude) ||
+      !Number.isFinite(course.longitude)
+    ) {
+      continue;
+    }
     minLat = Math.min(minLat, course.latitude);
-
     maxLat = Math.max(maxLat, course.latitude);
-
     minLng = Math.min(minLng, course.longitude);
-
     maxLng = Math.max(maxLng, course.longitude);
-
   }
 
-
+  if (!Number.isFinite(minLat)) return null;
 
   return { minLat, maxLat, minLng, maxLng };
+}
 
+export interface MapViewPadding {
+  top: number;
+  right: number;
+  bottom: number;
+  left: number;
+}
+
+export interface GeoFitPadding {
+  latSouth: number;
+  latNorth: number;
+  lngWest: number;
+  lngEast: number;
 }
 
 
@@ -495,67 +506,73 @@ export function fitKakaoMapToCourses(
 
 
 /** 최초 로딩: 전체 course bounds로 fit (제주 포함) */
-
 export function fitInitialNationwideView(
-
   map: KakaoMapInstance,
-
   maps: KakaoMapsApi,
-
   courses: Course[],
-
-  padding = { top: 56, right: 48, bottom: 64, left: 48 },
-
-) {
-
-  if (courses.length === 0) return;
-
-
+  padding: MapViewPadding = { top: 56, right: 48, bottom: 64, left: 48 },
+  geoPadding: GeoFitPadding = DEFAULT_FIT_GEO_PADDING,
+): boolean {
+  if (courses.length === 0) return false;
 
   const bounds = getCoursesBounds(courses);
-
-  if (!bounds) return;
-
-
+  if (!bounds) return false;
 
   const { LatLng, LatLngBounds } = maps;
-
-  const latPad = 0.12;
-
-  const lngPad = 0.1;
-
-  const sw = new LatLng(bounds.minLat - latPad, bounds.minLng - lngPad);
-
-  const ne = new LatLng(bounds.maxLat + latPad, bounds.maxLng + lngPad);
-
-
-
-  map.setBounds(
-
-    new LatLngBounds(sw, ne),
-
-    padding.top,
-
-    padding.right,
-
-    padding.bottom,
-
-    padding.left,
-
+  const sw = new LatLng(
+    bounds.minLat - geoPadding.latSouth,
+    bounds.minLng - geoPadding.lngWest,
+  );
+  const ne = new LatLng(
+    bounds.maxLat + geoPadding.latNorth,
+    bounds.maxLng + geoPadding.lngEast,
   );
 
+  map.setBounds(
+    new LatLngBounds(sw, ne),
+    padding.top,
+    padding.right,
+    padding.bottom,
+    padding.left,
+  );
+
+  return true;
 }
 
+/** 모바일 첫 화면: 전체 course bounds + UI/지리 padding */
+export function fitInitialMobileNationwideView(
+  map: KakaoMapInstance,
+  maps: KakaoMapsApi,
+  courses: Course[],
+  padding: MapViewPadding,
+): boolean {
+  const fitted = fitInitialNationwideView(
+    map,
+    maps,
+    courses,
+    padding,
+    MOBILE_FIT_GEO_PADDING,
+  );
+  if (fitted) return true;
 
+  const { LatLng } = maps;
+  map.setCenter(
+    new LatLng(MOBILE_INITIAL_MAP_CENTER.lat, MOBILE_INITIAL_MAP_CENTER.lng),
+  );
+  map.setLevel(MOBILE_INITIAL_KAKAO_MAP_LEVEL);
+  return false;
+}
 
-/** 메인 첫 화면: 고정 center + level (전국 조망) */
+/** 메인 첫 화면: 데스크탑 고정 center + level (전국 조망) */
 export function setInitialKakaoMapView(
   map: KakaoMapInstance,
   maps: KakaoMapsApi,
 ): void {
   const { LatLng } = maps;
-  map.setCenter(new LatLng(DEFAULT_MAP_CENTER.lat, DEFAULT_MAP_CENTER.lng));
-  map.setLevel(INITIAL_KAKAO_MAP_LEVEL);
+  map.setCenter(
+    new LatLng(DESKTOP_INITIAL_MAP_CENTER.lat, DESKTOP_INITIAL_MAP_CENTER.lng),
+  );
+  map.setLevel(DESKTOP_INITIAL_KAKAO_MAP_LEVEL);
 }
 
 

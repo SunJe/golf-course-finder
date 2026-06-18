@@ -5,35 +5,35 @@ import { MapPinned } from "lucide-react";
 import type { Course } from "@/types/course";
 import type { CourseMapBaseProps } from "@/types/map";
 import { loadKakaoMaps, isKakaoConfigured } from "@/lib/kakaoLoader";
-import { CARD_PAN_MAX_LEVEL, DEFAULT_MAP_CENTER, DEFAULT_KAKAO_MAP_LEVEL } from "@/lib/constants";
+import { CARD_PAN_MAX_LEVEL, DEFAULT_MAP_CENTER, DETAIL_KAKAO_MAP_LEVEL, INITIAL_KAKAO_MAP_LEVEL } from "@/lib/constants";
 import {
   getCourseIdsInKakaoBounds,
   isCourseInKakaoBounds,
   type KakaoLatLngBounds,
 } from "@/lib/courseListUtils";
 import {
-  createDetailMarkerImage,
-  createLabelOverlayElement,
-  createPinOverlayElement,
-  fitInitialNationwideView,
+  createSplitMarkerDom,
   fitKakaoMapToCourses,
-  getLabelDisplayMode,
+  setInitialKakaoMapView,
   shouldShowLabel,
+  shouldShowPin,
+  splitMarkerVisualKey,
   updatePinOverlayElement,
+  updateSplitMarkerVisuals,
   type KakaoMapInstance,
   type KakaoMapsApi,
+  type MarkerDisplayContext,
+  type SplitMarkerDom,
 } from "@/lib/kakaoMapUtils";
 import {
   clusterGroupKey,
   createClusterBadgeElement,
   resolveClusterDisplay,
-  shouldShowPinForGroup,
   updateClusterBadgeElement,
   type ClusterGroup,
 } from "@/lib/kakaoClusterUtils";
 import { resolveCourseMapBindings } from "@/lib/courseMapBindings";
 import MapFallback from "@/components/maps/MapFallback";
-import CourseMarkerPopup from "@/components/maps/CourseMarkerPopup";
 
 type MapMode = "loading" | "kakao" | "fallback";
 
@@ -43,26 +43,21 @@ interface PinEventHandlers {
   leave: () => void;
 }
 
+type MarkerOverlay = {
+  setMap: (map: unknown | null) => void;
+  setContent?: (content: HTMLElement) => void;
+  setPosition?: (pos: unknown) => void;
+  setZIndex: (z: number) => void;
+};
+
 interface CourseMarkerEntry {
-  detailMarker?: {
-    setMap: (map: unknown | null) => void;
-    setImage?: (image: unknown) => void;
-    setOpacity?: (opacity: number) => void;
-  };
-  pinOverlay: {
-    setMap: (map: unknown | null) => void;
-    setContent: (content: HTMLElement) => void;
-    setPosition?: (pos: unknown) => void;
-    setZIndex: (z: number) => void;
-  };
-  pinEl: HTMLButtonElement;
-  labelOverlay: {
-    setMap: (map: unknown | null) => void;
-    setContent: (content: HTMLElement) => void;
-    setZIndex: (z: number) => void;
-  };
+  pinOverlay: MarkerOverlay;
+  labelOverlay: MarkerOverlay;
+  popupOverlay: MarkerOverlay;
+  dom: SplitMarkerDom;
   course: Course;
   pinHandlers: PinEventHandlers;
+  lastVisualKey?: string;
 }
 
 interface ClusterOverlayEntry {
@@ -114,6 +109,8 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     hoveredCourseId,
     mapViewResetSignal = 0,
     initialViewportCourses = [],
+    searchKeyword = "",
+    clusterScopeCourseIds = null,
   } = props;
   const { selectedCourseId, selectCourse, selectCourseById, clearSelection } =
     resolveCourseMapBindings(props);
@@ -132,6 +129,8 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
   const hoveredCourseIdRef = useRef(hoveredCourseId);
   const isMobileRef = useRef(isMobile);
   const coursesRef = useRef(courses);
+  const searchKeywordRef = useRef(searchKeyword);
+  const clusterScopeRef = useRef(clusterScopeCourseIds);
   const onVisibleRef = useRef(onVisibleCoursesChange);
   const onClusterRef = useRef(onClusterSelect);
   const onViewportChangeRef = useRef(onMapViewportChange);
@@ -139,24 +138,50 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
   const selectCourseRef = useRef(selectCourse);
   const reportVisibleRef = useRef<() => void>(() => {});
   const syncMarkerVisualsRef = useRef<() => void>(() => {});
+  const hoverClearTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const HOVER_CLEAR_DELAY_MS = 120;
+
+  const cancelHoverClear = useCallback(() => {
+    if (hoverClearTimerRef.current) {
+      clearTimeout(hoverClearTimerRef.current);
+      hoverClearTimerRef.current = null;
+    }
+  }, []);
+
+  const scheduleHoverClear = useCallback(
+    (courseId: string) => {
+      cancelHoverClear();
+      hoverClearTimerRef.current = setTimeout(() => {
+        if (
+          hoveredCourseIdRef.current === courseId &&
+          selectedCourseIdRef.current !== courseId
+        ) {
+          onHoverRef.current?.(null);
+        }
+        hoverClearTimerRef.current = null;
+      }, HOVER_CLEAR_DELAY_MS);
+    },
+    [cancelHoverClear],
+  );
 
   const [mode, setMode] = useState<MapMode>(
     isKakaoConfigured ? "loading" : "fallback",
   );
-  const [selectedInBounds, setSelectedInBounds] = useState(true);
   const [mapDisplayCount, setMapDisplayCount] = useState<number | null>(null);
 
   selectedCourseIdRef.current = selectedCourseId;
   hoveredCourseIdRef.current = hoveredCourseId;
   isMobileRef.current = isMobile;
   coursesRef.current = courses;
+  searchKeywordRef.current = searchKeyword;
+  clusterScopeRef.current = clusterScopeCourseIds;
   onVisibleRef.current = onVisibleCoursesChange;
   onClusterRef.current = onClusterSelect;
   onViewportChangeRef.current = onMapViewportChange;
   onHoverRef.current = onHoverCourseChange;
   selectCourseRef.current = selectCourse;
 
-  const selected = courses.find((c) => c.id === selectedCourseId);
   const coursesKey = useMemo(
     () => courses.map((c) => c.id).join(","),
     [courses],
@@ -170,18 +195,10 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
 
   const updateSelectedInBounds = useCallback((bounds: KakaoLatLngBounds) => {
     const selId = selectedCourseIdRef.current;
-    if (!selId) {
-      setSelectedInBounds(false);
-      return;
-    }
+    if (!selId) return;
     const sel = coursesRef.current.find((c) => c.id === selId);
-    if (!sel || !mapsApiRef.current) {
-      setSelectedInBounds(false);
-      return;
-    }
-    setSelectedInBounds(
-      isCourseInKakaoBounds(sel, bounds, mapsApiRef.current.LatLng),
-    );
+    if (!sel || !mapsApiRef.current) return;
+    isCourseInKakaoBounds(sel, bounds, mapsApiRef.current.LatLng);
   }, []);
 
   const reportVisibleCourses = useCallback(() => {
@@ -285,12 +302,14 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     if (!map || !window.kakao?.maps || !maps) return;
 
     if (isDetail) {
-      entriesRef.current.forEach((entry) => {
-        entry.detailMarker?.setMap(map);
-        entry.pinOverlay.setMap(null);
-        entry.labelOverlay.setMap(null);
-      });
       clusterOverlaysRef.current.forEach((entry) => entry.overlay.setMap(null));
+      entriesRef.current.forEach((entry) => {
+        updatePinOverlayElement(entry.dom.pinEl, "selected");
+        entry.labelOverlay.setMap(null);
+        entry.popupOverlay.setMap(null);
+        entry.pinOverlay.setZIndex(2500);
+        entry.pinOverlay.setMap(map);
+      });
       return;
     }
 
@@ -307,9 +326,18 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     );
     const level = map.getLevel();
     const visibleIdSet = new Set(visibleInBounds.map((c) => c.id));
-    const { clusters, pinGroupSizeMap } = resolveClusterDisplay(
-      visibleInBounds,
+    const forceIndividualIds = clusterScopeRef.current?.length
+      ? new Set(clusterScopeRef.current)
+      : undefined;
+    const displayOptions = {
       level,
+      displayedCount: coursesRef.current.length,
+      hasSearchKeyword: Boolean(searchKeywordRef.current.trim()),
+      forceIndividualIds,
+    };
+    const { clusters, pinGroupSizeMap, clusteringEnabled } = resolveClusterDisplay(
+      visibleInBounds,
+      displayOptions,
     );
 
     syncClusterOverlays(map, clusters, LatLng, CustomOverlay);
@@ -327,39 +355,64 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
       if (!visibleIdSet.has(id)) {
         entry.pinOverlay.setMap(null);
         entry.labelOverlay.setMap(null);
+        entry.popupOverlay.setMap(null);
         return;
       }
 
-      const effectiveGroupSize = pinGroupSizeMap.get(id) ?? 1;
-      const showPin = shouldShowPinForGroup(
-        level,
-        effectiveGroupSize,
-        isSel,
-        isHov,
-      );
-      const showLabel = shouldShowLabel(level, mobile, isSel, isHov);
-
-      updatePinOverlayElement(entry.pinEl, variant);
-
-      if (showPin) {
-        entry.pinEl.style.display = "block";
-        entry.pinEl.style.visibility = "visible";
-        entry.pinEl.style.opacity = "1";
-        entry.pinOverlay.setZIndex(isSel ? 2000 : isHov ? 1500 : 100);
-        entry.pinOverlay.setMap(map);
-      } else {
-        entry.pinOverlay.setMap(null);
+      let effectiveGroupSize = pinGroupSizeMap.get(id) ?? 1;
+      if (isSel || isHov) {
+        effectiveGroupSize = 1;
       }
 
-      if (showLabel) {
-        const labelMode = getLabelDisplayMode(level, mobile, isSel, isHov);
-        entry.labelOverlay.setContent(
-          createLabelOverlayElement(entry.course, labelMode),
-        );
+      const displayCtx: MarkerDisplayContext = {
+        level,
+        isMobile: mobile,
+        isSelected: isSel,
+        isHovered: isHov,
+        effectiveGroupSize,
+        clusteringEnabled,
+      };
+
+      const showPin = shouldShowPin(displayCtx);
+      const showLabel = shouldShowLabel(displayCtx);
+      const showSelectedPopup = isSel;
+      const showHoverLabel = showLabel && !showSelectedPopup;
+
+      const visualUpdate = {
+        variant,
+        showHoverLabel,
+        showSelectedPopup,
+      };
+      const visualKey = splitMarkerVisualKey(id, visualUpdate);
+
+      if (!showPin) {
+        entry.pinOverlay.setMap(null);
+        entry.labelOverlay.setMap(null);
+        entry.popupOverlay.setMap(null);
+        entry.lastVisualKey = undefined;
+        return;
+      }
+
+      if (entry.lastVisualKey !== visualKey) {
+        updateSplitMarkerVisuals(entry.dom, entry.course, visualUpdate);
+        entry.lastVisualKey = visualKey;
+      }
+
+      entry.pinOverlay.setZIndex(isSel ? 2500 : isHov ? 1800 : 100);
+      entry.pinOverlay.setMap(map);
+
+      if (showHoverLabel) {
+        entry.labelOverlay.setZIndex(isHov ? 1900 : 500);
         entry.labelOverlay.setMap(map);
-        entry.labelOverlay.setZIndex(isSel ? 2100 : isHov ? 1600 : 500);
       } else {
         entry.labelOverlay.setMap(null);
+      }
+
+      if (showSelectedPopup) {
+        entry.popupOverlay.setZIndex(2600);
+        entry.popupOverlay.setMap(map);
+      } else {
+        entry.popupOverlay.setMap(null);
       }
     });
   }, [isDetail, syncClusterOverlays]);
@@ -374,16 +427,17 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     clusterOverlaysRef.current.clear();
 
     entriesRef.current.forEach((entry) => {
-      entry.pinEl.removeEventListener("click", entry.pinHandlers.click);
-      entry.pinEl.removeEventListener("mouseenter", entry.pinHandlers.enter);
-      entry.pinEl.removeEventListener("mouseleave", entry.pinHandlers.leave);
-      entry.pinEl.removeEventListener("touchend", entry.pinHandlers.click);
-      entry.detailMarker?.setMap(null);
+      entry.dom.pinEl.removeEventListener("pointerenter", entry.pinHandlers.enter);
+      entry.dom.pinEl.removeEventListener("pointerleave", entry.pinHandlers.leave);
+      entry.dom.pinEl.removeEventListener("click", entry.pinHandlers.click);
+      entry.dom.pinEl.removeEventListener("touchend", entry.pinHandlers.click);
       entry.pinOverlay.setMap(null);
       entry.labelOverlay.setMap(null);
+      entry.popupOverlay.setMap(null);
     });
     entriesRef.current.clear();
-  }, []);
+    cancelHoverClear();
+  }, [cancelHoverClear]);
 
   useEffect(() => {
     if (!isKakaoConfigured) {
@@ -406,9 +460,17 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
 
         const map = new MapCtor(containerRef.current, {
           center: new LatLng(DEFAULT_MAP_CENTER.lat, DEFAULT_MAP_CENTER.lng),
-          level: DEFAULT_KAKAO_MAP_LEVEL,
+          level: isDetail ? DETAIL_KAKAO_MAP_LEVEL : INITIAL_KAKAO_MAP_LEVEL,
         });
         mapRef.current = map;
+
+        if (isDetail && coursesRef.current.length > 0) {
+          const detailCourse = coursesRef.current[0];
+          map.setCenter(
+            new LatLng(detailCourse.latitude, detailCourse.longitude),
+          );
+          map.setLevel(DETAIL_KAKAO_MAP_LEVEL);
+        }
 
         const eventAdd = (
           maps.event as {
@@ -443,11 +505,7 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
         requestAnimationFrame(() => {
           map.relayout?.();
           if (!initialViewAppliedRef.current && !isDetail) {
-            const fitCourses =
-              initialViewportCourses.length > 0
-                ? initialViewportCourses
-                : coursesRef.current;
-            fitInitialNationwideView(map, mapsApiRef.current!, fitCourses);
+            setInitialKakaoMapView(map, mapsApiRef.current!);
             initialViewAppliedRef.current = true;
           }
         });
@@ -498,11 +556,6 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     const maps = window.kakao.maps as Record<string, unknown>;
     const map = mapRef.current;
     const LatLng = maps.LatLng as new (lat: number, lng: number) => unknown;
-    const Marker = maps.Marker as new (opts: Record<string, unknown>) => {
-      setMap: (m: unknown | null) => void;
-      setImage?: (image: unknown) => void;
-      setOpacity?: (opacity: number) => void;
-    };
     const CustomOverlay = maps.CustomOverlay as new (
       opts: Record<string, unknown>,
     ) => {
@@ -515,68 +568,71 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
 
     courses.forEach((course) => {
       const position = new LatLng(course.latitude, course.longitude);
-      const variant = markerVariant(
-        course.id,
-        selectedCourseId,
-        hoveredCourseId,
-      );
-
-      const pinEl = createPinOverlayElement(variant);
+      const dom = createSplitMarkerDom();
       const pinHandlers: PinEventHandlers = {
         click: (e: Event) => {
           e.preventDefault();
           e.stopPropagation();
+          cancelHoverClear();
           selectCourseRef.current(course);
         },
         enter: () => {
-          onHoverRef.current?.(course.id);
+          cancelHoverClear();
+          if (selectedCourseIdRef.current !== course.id) {
+            onHoverRef.current?.(course.id);
+          }
         },
         leave: () => {
-          if (hoveredCourseIdRef.current === course.id) {
-            onHoverRef.current?.(null);
-          }
+          if (selectedCourseIdRef.current === course.id) return;
+          scheduleHoverClear(course.id);
         },
       };
 
       if (!isDetail) {
-        pinEl.addEventListener("click", pinHandlers.click);
-        pinEl.addEventListener("mouseenter", pinHandlers.enter);
-        pinEl.addEventListener("mouseleave", pinHandlers.leave);
-        pinEl.addEventListener("touchend", pinHandlers.click);
+        dom.pinEl.addEventListener("click", pinHandlers.click);
+        dom.pinEl.addEventListener("pointerenter", pinHandlers.enter);
+        dom.pinEl.addEventListener("pointerleave", pinHandlers.leave);
+        dom.pinEl.addEventListener("touchend", pinHandlers.click);
       }
 
       const pinOverlay = new CustomOverlay({
         position,
-        content: pinEl,
+        content: dom.pinEl,
         xAnchor: 0.5,
         yAnchor: 1,
-        zIndex: variant === "selected" ? 300 : 1,
+        zIndex: 1,
         clickable: true,
       });
 
       const labelOverlay = new CustomOverlay({
         position,
+        content: dom.labelRoot,
         xAnchor: 0.5,
         yAnchor: 1,
-        zIndex: variant === "selected" ? 1000 : 500,
+        zIndex: 500,
         clickable: false,
+      });
+
+      const popupOverlay = new CustomOverlay({
+        position,
+        content: dom.popupRoot,
+        xAnchor: 0.5,
+        yAnchor: 1,
+        zIndex: 2600,
+        clickable: true,
       });
 
       const entry: CourseMarkerEntry = {
         pinOverlay,
-        pinEl,
         labelOverlay,
+        popupOverlay,
+        dom,
         course,
         pinHandlers,
       };
 
       if (isDetail) {
-        entry.detailMarker = new Marker({
-          position,
-          image: createDetailMarkerImage(maps),
-          clickable: false,
-          zIndex: 1,
-        });
+        updatePinOverlayElement(dom.pinEl, "selected");
       }
 
       entriesRef.current.set(course.id, entry);
@@ -597,14 +653,18 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     isDetail,
     cleanupMarkers,
     syncMarkerVisuals,
+    cancelHoverClear,
+    scheduleHoverClear,
   ]);
 
   useEffect(() => {
     if (mode !== "kakao") return;
     syncMarkerVisuals();
-    if (selectedCourseId) {
-      setSelectedInBounds(true);
-    }
+  }, [mode, searchKeyword, clusterScopeCourseIds, syncMarkerVisuals]);
+
+  useEffect(() => {
+    if (mode !== "kakao") return;
+    syncMarkerVisuals();
   }, [mode, selectedCourseId, hoveredCourseId, syncMarkerVisuals]);
 
   useEffect(() => {
@@ -619,6 +679,20 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     }
     syncMarkerVisuals();
   }, [mode, center, syncMarkerVisuals]);
+
+  /** 상세 페이지: 단일 골프장 중심 + 확대 (클러스터 없음) */
+  useEffect(() => {
+    if (mode !== "kakao" || !mapRef.current || !isDetail || courses.length === 0) {
+      return;
+    }
+    const maps = mapsApiRef.current;
+    if (!maps) return;
+    const course = courses[0];
+    const LatLng = maps.LatLng;
+    mapRef.current.setCenter(new LatLng(course.latitude, course.longitude));
+    mapRef.current.setLevel(DETAIL_KAKAO_MAP_LEVEL);
+    syncMarkerVisuals();
+  }, [mode, isDetail, coursesKey, courses, syncMarkerVisuals]);
 
   if (mode === "fallback") {
     return (
@@ -637,8 +711,6 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     );
   }
 
-  const showPopup = !isDetail && selected && selectedInBounds;
-
   return (
     <div
       className={`relative h-full w-full overflow-hidden rounded-2xl border border-gray-200 bg-gray-100 ${className}`}
@@ -650,11 +722,6 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
             <MapPinned className="h-8 w-8 animate-pulse" />
             <span className="text-sm">지도를 불러오는 중...</span>
           </div>
-        </div>
-      )}
-      {showPopup && (
-        <div className="pointer-events-auto absolute bottom-3 left-3 z-20 max-w-[14rem] animate-fade-in">
-          <CourseMarkerPopup course={selected} onClose={clearSelection} />
         </div>
       )}
       {mode === "kakao" && !isDetail && mapDisplayCount !== null && (

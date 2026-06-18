@@ -157,6 +157,7 @@ select id, count(*) from public.golf_courses group by id having count(*) > 1;
 ## 9. 문제 없으면 다음 단계
 
 - [ ] `verify_import.sql` 모든 검증 통과
+- [ ] **`supabase/enable_public_read.sql` 실행** — anon key로 앱 fetch 가능 (RLS SELECT policy)
 - [ ] `final_sanity_check_report.md` 재확인
 - [ ] `.env.local`에 Supabase URL / anon key 설정 (값은 커밋하지 않음)
 - [ ] **그 다음 PR/작업:** `courseRepository` 등을 Supabase fetch로 전환

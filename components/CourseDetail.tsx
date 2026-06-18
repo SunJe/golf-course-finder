@@ -26,6 +26,7 @@ import {
   hasBookingUrl,
   hasHomepage,
   hasPhone,
+  isPriceAvailable,
 } from "@/lib/courseDisplay";
 import { formatDate } from "@/lib/format";
 import {
@@ -40,10 +41,12 @@ function InfoStat({
   label,
   value,
   icon: Icon,
+  muted = false,
 }: {
   label: string;
   value: string;
   icon: typeof Flag;
+  muted?: boolean;
 }) {
   return (
     <div className="flex items-center gap-3 rounded-xl border border-gray-100 bg-gray-50/60 px-4 py-3">
@@ -52,7 +55,13 @@ function InfoStat({
       </span>
       <div className="min-w-0">
         <div className="text-xs text-gray-500">{label}</div>
-        <div className="truncate text-sm font-bold text-gray-900">{value}</div>
+        <div
+          className={`truncate text-sm font-bold ${
+            muted ? "text-gray-500" : "text-gray-900"
+          }`}
+        >
+          {value}
+        </div>
       </div>
     </div>
   );
@@ -114,12 +123,7 @@ export default function CourseDetail({ course }: { course: Course }) {
   const showHomepage = hasHomepage(course);
   const showBooking = hasBookingUrl(course);
   const actionCount = [showPhone, showHomepage, showBooking].filter(Boolean).length;
-
-  const nearby = [
-    { name: `${course.city} 시내`, desc: "맛집 · 카페 밀집 지역", icon: MapPin },
-    { name: "인근 숙박시설", desc: course.resort ? "리조트 내 숙박 가능" : "차량 15분 거리 호텔", icon: Building2 },
-    { name: "주변 관광지", desc: `${course.region} 대표 명소`, icon: Navigation },
-  ];
+  const hasDescription = Boolean(course.description?.trim());
 
   const blogReviews = [
     { title: `${course.name} 라운드 후기 - 코스 컨디션 총정리`, author: "골프블로거 라운드킹" },
@@ -146,6 +150,7 @@ export default function CourseDetail({ course }: { course: Course }) {
         <CourseImage
           src={course.imageUrl}
           alt={course.name}
+          seed={course.id}
           loading="eager"
           className="h-56 w-full object-cover object-[center_35%] sm:h-80"
         />
@@ -261,21 +266,25 @@ export default function CourseDetail({ course }: { course: Course }) {
                 label="주중 그린피"
                 value={formatOptionalPrice(course.weekdayGreenFeeMin)}
                 icon={Sun}
+                muted={!isPriceAvailable(course.weekdayGreenFeeMin)}
               />
               <InfoStat
                 label="주말 그린피"
                 value={formatOptionalPrice(course.weekendGreenFeeMin)}
                 icon={CircleDollarSign}
+                muted={!isPriceAvailable(course.weekendGreenFeeMin)}
               />
               <InfoStat
                 label="카트비"
                 value={formatOptionalPrice(course.cartFee)}
                 icon={Navigation}
+                muted={!isPriceAvailable(course.cartFee)}
               />
               <InfoStat
                 label="캐디피"
                 value={formatOptionalPrice(course.caddieFee)}
                 icon={Users}
+                muted={!isPriceAvailable(course.caddieFee)}
               />
             </div>
           </section>
@@ -301,7 +310,13 @@ export default function CourseDetail({ course }: { course: Course }) {
                 ))}
               </div>
             )}
-            <p className="leading-relaxed text-gray-700">{getCourseDescription(course)}</p>
+            <p
+              className={`leading-relaxed ${
+                hasDescription ? "text-gray-700" : "text-gray-500 italic"
+              }`}
+            >
+              {getCourseDescription(course)}
+            </p>
             <p className="mt-3 text-xs text-gray-400">
               최종 업데이트 {formatDate(course.updatedAt)}
             </p>
@@ -375,25 +390,14 @@ export default function CourseDetail({ course }: { course: Course }) {
 
             <section>
               <SectionTitle>주변 정보</SectionTitle>
-              <div className="flex flex-col gap-2">
-                {nearby.map((n) => (
-                  <div
-                    key={n.name}
-                    className="flex items-center gap-3 rounded-xl border border-gray-100 bg-gray-50/60 px-4 py-3"
-                  >
-                    <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-white text-brand-600 shadow-sm">
-                      <n.icon className="h-4.5 w-4.5" />
-                    </span>
-                    <div className="min-w-0">
-                      <div className="text-sm font-semibold text-gray-800">
-                        {n.name}
-                      </div>
-                      <div className="truncate text-xs text-gray-500">
-                        {n.desc}
-                      </div>
-                    </div>
-                  </div>
-                ))}
+              <div className="rounded-xl border border-dashed border-gray-200 bg-gray-50/80 px-4 py-8 text-center">
+                <Navigation className="mx-auto mb-2 h-8 w-8 text-gray-300" />
+                <p className="text-sm font-medium text-gray-600">
+                  주변 맛집·숙소 정보는 준비 중입니다.
+                </p>
+                <p className="mt-1 text-xs text-gray-400">
+                  {course.city} · {course.region} 지역
+                </p>
               </div>
             </section>
           </div>

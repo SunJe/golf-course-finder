@@ -338,6 +338,8 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
     hoveredCourseId: hoveredId,
     mapViewResetSignal,
     initialViewportCourses: courses,
+    searchKeyword: filters.query,
+    clusterScopeCourseIds: selectedClusterCourseIds,
   };
 
   const listEmptyProps = isMapBoundsEmpty

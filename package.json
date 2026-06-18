@@ -17,6 +17,7 @@
     "apply:manual-geocoding": "tsx scripts/applyManualGeocodingDecisions.ts",
     "validate:final-import": "tsx scripts/validateFinalImport.ts",
     "sanity:final-import": "tsx scripts/finalSanityCheck.ts",
+    "debug:supabase-read": "tsx scripts/debugSupabaseRead.ts",
     "download:golf-sources": "tsx scripts/downloadGolfSources.ts",
     "analyze:golf-raw": "tsx scripts/analyzeGolfCourseRawData.ts"
   },

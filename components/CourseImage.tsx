@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import {
-  DEFAULT_COURSE_IMAGE,
   getCourseImageUrl,
 } from "@/lib/courseImage";
 
@@ -11,6 +10,8 @@ interface CourseImageProps {
   alt: string;
   className?: string;
   loading?: "lazy" | "eager";
+  /** placeholder 선택용 — id 등 고유값 */
+  seed?: string;
 }
 
 export default function CourseImage({
@@ -18,9 +19,12 @@ export default function CourseImage({
   alt,
   className = "",
   loading = "lazy",
+  seed,
 }: CourseImageProps) {
   const [failed, setFailed] = useState(false);
-  const resolved = failed ? DEFAULT_COURSE_IMAGE : getCourseImageUrl(src);
+  const resolved = failed
+    ? getCourseImageUrl(null, seed ?? alt)
+    : getCourseImageUrl(src, seed ?? alt);
 
   return (
     // eslint-disable-next-line @next/next/no-img-element

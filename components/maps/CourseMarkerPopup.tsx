@@ -45,7 +45,13 @@ export default function CourseMarkerPopup({
 
       <div className="p-2.5">
         <h4 className="truncate text-sm font-bold text-gray-900">
-          {course.name}
+          <Link
+            href={`/courses/${course.id}`}
+            onClick={(e) => e.stopPropagation()}
+            className="text-gray-900 transition hover:text-brand-700"
+          >
+            {course.name}
+          </Link>
         </h4>
         <p className="mt-0.5 flex items-center gap-1 text-[11px] text-gray-500">
           <MapPin className="h-3 w-3 flex-shrink-0" />

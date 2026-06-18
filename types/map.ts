@@ -52,6 +52,10 @@ export interface CourseMapBaseProps {
   onMapViewportChange?: () => void;
   /** 지도 핀 hover 시 (리스트 카드 hover와 동기화) */
   onHoverCourseChange?: (courseId: string | null) => void;
+  /** 검색어 — 있으면 클러스터 해제 */
+  searchKeyword?: string;
+  /** 클러스터 클릭 후 묶음 내 course id — 개별 pin 우선 */
+  clusterScopeCourseIds?: string[] | null;
   /** @deprecated selectedCourseId 와 동일 — 하위 호환 */
   selectedId?: string | null;
   /** @deprecated onSelectCourse(id) 대신 Course 객체 — 하위 호환 */

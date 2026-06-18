@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { MapPin, Flag, ChevronRight } from "lucide-react";
 import type { Course } from "@/types/course";
-import { formatOptionalPrice, formatHoleCount } from "@/lib/courseDisplay";
+import { formatOptionalPrice, formatHoleCount, isPriceAvailable } from "@/lib/courseDisplay";
 import {
   getKakaoMapSearchUrl,
   getNaverMapSearchUrl,
@@ -34,6 +34,9 @@ export default function CourseCard({
   onSelect,
   onHover,
 }: CourseCardProps) {
+  const hasWeekdayPrice = isPriceAvailable(course.weekdayGreenFeeMin);
+  const hasWeekendPrice = isPriceAvailable(course.weekendGreenFeeMin);
+
   return (
     <article
       id={`course-card-${course.id}`}
@@ -53,6 +56,7 @@ export default function CourseCard({
           <CourseImage
             src={course.imageUrl}
             alt={course.name}
+            seed={course.id}
             className="h-full w-full rounded-xl object-cover object-[center_35%]"
           />
           <span
@@ -83,8 +87,8 @@ export default function CourseCard({
             </p>
 
             <div className="mt-1 flex flex-wrap items-center gap-1.5">
-              <span className="inline-flex items-center gap-0.5 rounded bg-gray-50 px-1.5 py-0.5 text-[11px] font-medium text-gray-600">
-                <Flag className="h-3 w-3 text-brand-600" />
+              <span className="inline-flex items-center gap-0.5 rounded-md bg-brand-50 px-1.5 py-0.5 text-[11px] font-semibold text-brand-700">
+                <Flag className="h-3 w-3" />
                 {formatHoleCount(course.holeCount)}
               </span>
               <CourseFeatureBadges course={course} />
@@ -93,13 +97,23 @@ export default function CourseCard({
 
           <div className="flex flex-shrink-0 flex-col items-end justify-end text-right">
             <span className="text-[10px] text-gray-400">주중</span>
-            <span className="text-base font-extrabold leading-tight text-brand-700">
+            <span
+              className={`text-base font-extrabold leading-tight ${
+                hasWeekdayPrice ? "text-brand-700" : "text-gray-500"
+              }`}
+            >
               {formatOptionalPrice(course.weekdayGreenFeeMin)}
             </span>
-            <span className="mt-0.5 whitespace-nowrap text-[10px] text-gray-400">
-              주말 {formatOptionalPrice(course.weekendGreenFeeMin)}
-              {course.weekendGreenFeeMin ? "~" : ""}
-            </span>
+            {hasWeekdayPrice || hasWeekendPrice ? (
+              <span className="mt-0.5 whitespace-nowrap text-[10px] text-gray-400">
+                주말 {formatOptionalPrice(course.weekendGreenFeeMin)}
+                {hasWeekendPrice ? "~" : ""}
+              </span>
+            ) : (
+              <span className="mt-0.5 whitespace-nowrap text-[10px] text-gray-400">
+                요금 정보 준비 중
+              </span>
+            )}
           </div>
         </div>
       </div>

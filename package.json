@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "check:deploy-env": "tsx scripts/checkDeployEnv.ts",
     "convert:golf-courses": "tsx scripts/convertGolfCourses.ts",
     "convert:master-courses": "tsx scripts/convertMasterGolfCourses.ts",
     "prepare:phase25-review": "tsx scripts/preparePhase25Review.ts",

@@ -4,7 +4,40 @@
 
 ## 현재 구현됨
 
-### CSV 변환 (단일 raw → import 형식)
+### Phase 1 — Source 다운로드
+
+```bash
+npm run download:golf-sources
+```
+
+- `data/sources/golf_course_sources.json` 읽기
+- master source 우선 처리
+- URL 없음 / 로그인 필요 → `download_failures.md` (manual required)
+- API 키 필요 & 미설정 → skipped (not failure)
+- 성공 시 `data/raw/<expected_file_name>` 저장
+- master 미확보 시 exit code 1
+
+### Phase 1 — Raw CSV 분석
+
+```bash
+npm run analyze:golf-raw
+```
+
+- `data/raw/*.csv` 인코딩·컬럼·행 수·샘플 5행 분석
+- `data/review/data_quality_report.md` 갱신
+- 병합/import 생성 **하지 않음**
+
+### Phase 2 — Master CSV 변환
+
+```bash
+npm run convert:master-courses
+```
+
+- 입력: `data/raw/ministry_golf_courses.csv`
+- 출력: `data/golf_courses_import.csv`, `golf_courses_needs_geocoding.csv`, review CSV
+- supplement 병합 **하지 않음**
+
+### CSV 변환 (단일 raw → import 형식, 레거시)
 
 ```bash
 npm run convert:golf-courses

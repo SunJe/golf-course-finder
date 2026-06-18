@@ -1,1 +1,27 @@
 reason,name,address,source,detected_category
+excluded_keyword:아카데미,스프링베일리조트,춘천시 동면 금베이길 93-27,ministry_national_golf_courses,아카데미
+excluded_keyword:골프존,골프존카운티 안성H,경기도 안성시 보개면 보삼로 302,ministry_national_golf_courses,골프존
+excluded_keyword:골프존,골프존카운티 안성W,경기도 안성시 양성면 교동길 19-70,ministry_national_golf_courses,골프존
+excluded_keyword:골프존,골프존카운티 사천,사천시 서포면 구송로 151,ministry_national_golf_courses,골프존
+excluded_keyword:파크골프,밀양에스파크골프리조트,밀양시 단장면 미촌리 889,ministry_national_golf_courses,파크골프
+excluded_keyword:골프존,골프존카운티 경남,함안군 칠원면 운무로 470,ministry_national_golf_courses,골프존
+excluded_keyword:골프존,골프존카운티 감포,경상북도 경주시 감포읍 동해안로 1819-59,ministry_national_golf_courses,골프존
+excluded_keyword:골프존,골프존카운티 선산,경상북도 구미시 산동면 강동로 953-73,ministry_national_golf_courses,골프존
+excluded_keyword:골프존,골프존카운티 구미,경상북도 구미시 산동면 강동로 953-74,ministry_national_golf_courses,골프존
+excluded_keyword:골프존,청통골프장,경상북도 영천시 청통면 청통로 733,ministry_national_golf_courses,골프존
+excluded_keyword:아카데미,마이다스 구미 골프아카데미,경상북도 칠곡군 가산면 학하2길 54-171,ministry_national_golf_courses,아카데미
+excluded_keyword:아카데미,잭 니클라우스 골프클럽 코리아,인천시 연수구 아카데미로 209,ministry_national_golf_courses,아카데미
+excluded_keyword:파크골프,드림파크골프장,인천시 서구 거월로 61,ministry_national_golf_courses,파크골프
+excluded_keyword:골프존,골프존카운티 송도 골프장,인천시 연수구 인천신항대로 1120,ministry_national_golf_courses,골프존
+excluded_keyword:파크골프,여수시티파크골프&호텔,전남 여수시 좌수영로 641,ministry_national_golf_courses,파크골프
+excluded_keyword:골프존,골프존카운티,전남 순천시 주암면 행정1길 77,ministry_national_golf_courses,골프존
+excluded_keyword:골프존,골프존카운티 영암,영암군 삼호읍 에프원로 121-1,ministry_national_golf_courses,골프존
+excluded_keyword:골프존,골프존 카운티 드래곤,전북특별자치도 남원시 대산면 대사로 498,ministry_national_golf_courses,골프존
+excluded_keyword:골프존,골프존 카운티 드래곤,전북특별자치도 남원시 대산면 대사로 498,ministry_national_golf_courses,골프존
+excluded_keyword:골프존,골프존카운티무주,전북특별자치도 무주군 안성면 장무로 1537-21,ministry_national_golf_courses,골프존
+excluded_keyword:골프존,골프존카운티선운,전북특별자치도 고창군 아산면 운곡로 418,ministry_national_golf_courses,골프존
+excluded_keyword:골프존,골프존카운티오라,제주특별자치도 제주시 오라남로 130-16,ministry_national_golf_courses,골프존
+excluded_keyword:골프존,골프존카운티오라,제주특별자치도 제주시 오라남로 130-16,ministry_national_golf_courses,골프존
+excluded_keyword:골프존,골프존카운티 천안,병천면 매성2길 103,ministry_national_golf_courses,골프존
+excluded_keyword:골프존,골프존카운티 진천cc,진천군 진천읍 송강로 783-51,ministry_national_golf_courses,골프존
+excluded_keyword:골프존,골프존카운티 화랑cc,진천군 문백면 농다리로 809,ministry_national_golf_courses,골프존

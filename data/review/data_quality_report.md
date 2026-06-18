@@ -1,53 +1,73 @@
-# Data Quality Report
+# Data Quality Report — Phase 2 (Master Conversion)
 
-> 병합 실행 후 이 템플릿을 채워 품질을 기록합니다.  
-> 자동 생성은 미래 `npm run merge:golf-courses`에서 수행 예정.
+> Generated: 2026-06-18T00:01:20.599Z
+
+Master-only conversion. **No supplement merge.**
+
+---
 
 ## 실행 정보
 
-- **실행일:**
-- **실행 명령:** (예: `npm run merge:golf-courses`)
-- **master source:** (예: `ministry_national_golf_courses`)
-- **supplement sources:** (예: `localdata_golf_courses`, `gyeonggi_golf_courses`)
+- **실행 일시:** 2026-06-18T00:01:20.599Z
+- **실행 명령:** `npm run convert:master-courses`
+- **Master source:** `ministry_national_golf_courses`
+- **Master raw file:** `data/raw/ministry_golf_courses.csv`
 
----
+## Phase 2 변환 결과
 
-## 행 수 요약
+| 항목 | 값 |
+|------|-----|
+| master 원본 행 수 | 541 |
+| 정상 변환(import) 행 수 | 515 |
+| golf_courses_import.csv 행 수 | 515 |
+| 좌표 보유 행 수 | 0 |
+| 좌표 없는 행 수 | 515 |
+| geocoding 필요 행 수 | 515 |
+| excluded_non_golf_courses 행 수 | 26 |
+| ambiguous_courses 행 수 | 20 |
+| 오류 행 수 | 0 |
 
-| 항목 | 값 | 비고 |
-|------|-----|------|
-| master 원본 행 수 | | |
-| supplement 원본별 행 수 | | source id별로 기록 |
-| 최종 import 행 수 | | `golf_courses_import.csv` |
-| 좌표 보유 행 수 | | lat/lng 모두 있음 |
-| 좌표 없는 행 수 | | `golf_courses_needs_geocoding.csv` |
-| 좌표계 확인 필요 행 수 | | `ambiguous_courses.csv` |
-| 자동 보강된 필드 수 | | 필드별로 세부 기록 가능 |
-| 신규 후보 수 | | `new_course_candidates.csv` |
-| 중복 후보 수 | | `duplicate_candidates.csv` |
-| 애매한 행 수 | | `ambiguous_courses.csv` |
-| 제외한 연습장/스크린/파크골프 수 | | `excluded_non_golf_courses.csv` |
+## Supabase import 가능 여부
 
----
+- **좌표 보강 전 업로드 불가** — schema.sql에서 latitude/longitude가 NOT NULL입니다. 현재 515행은 geocoding이 필요합니다.
 
-## Supplement별 매칭 통계
+## region별 행 수
 
-| source id | 원본 행 | master 매칭 | 보강 필드 | candidate | ambiguous |
-|-----------|---------|-------------|-----------|-----------|-------------|
-| | | | | | |
+- 경기: 164
+- 경상: 108
+- 충청: 72
+- 전라: 68
+- 강원: 63
+- 제주: 39
+- 서울: 1
 
----
+## course_type별 행 수
 
-## 사용자 확인 필요 질문
+- 대중제: 364
+- 회원제: 151
 
-1. 
-2. 
-3. 
+## hole_count 분포 (상위)
 
----
+- 18: 232
+- 27: 124
+- 9: 113
+- 36: 25
+- 6: 8
+- 24: 2
+- 45: 2
+- 8: 1
+- 10: 1
+- 12: 1
+- 21: 1
+- 30: 1
+- 41: 1
+- 54: 1
+- 63: 1
 
-## 결정 사항
+## 다음 단계 필요 작업
 
-- [ ] review 파일 검토 완료
-- [ ] `golf_courses_import.csv` Supabase 업로드 승인
-- [ ] 좌표 geocoding 완료 (필요 시)
+1. `data/review/excluded_non_golf_courses.csv` 검토
+2. `data/review/ambiguous_courses.csv` 검토
+3. `data/golf_courses_needs_geocoding.csv` 기준 geocoding (또는 supplement 좌표 보강)
+4. Supplement 병합 (Phase 3, 별도 작업)
+5. Review 통과 후 Supabase CSV import

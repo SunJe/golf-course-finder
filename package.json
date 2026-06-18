@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "convert:golf-courses": "tsx scripts/convertGolfCourses.ts",
-    "download:golf-sources": "tsx scripts/downloadGolfSources.ts"
+    "convert:master-courses": "tsx scripts/convertMasterGolfCourses.ts",
+    "download:golf-sources": "tsx scripts/downloadGolfSources.ts",
+    "analyze:golf-raw": "tsx scripts/analyzeGolfCourseRawData.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",

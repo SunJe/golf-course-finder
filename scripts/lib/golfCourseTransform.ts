@@ -39,7 +39,17 @@ export const ERROR_HEADERS = [
 
 /** 원본 CSV 컬럼명 후보 (공공데이터 포맷 차이 대응) */
 export const COLUMN_ALIASES = {
-  name: ["업소명", "사업장명", "골프장명", "시설명", "명칭", "name", "NAME"],
+  name: [
+    "업소명",
+    "사업장명",
+    "골프장명",
+    "시설명",
+    "명칭",
+    "이름",
+    "name",
+    "NAME",
+  ],
+  rawRegion: ["지역", "광역", "region", "REGION", "시도"],
   address: [
     "소재지",
     "소재지주소",
@@ -89,6 +99,17 @@ export function rowToRecord(
   return record;
 }
 
+export function findColumnByAliases(
+  headerMap: Map<string, string>,
+  aliases: readonly string[],
+): string | null {
+  for (const alias of aliases) {
+    const originalKey = headerMap.get(normalizeHeader(alias));
+    if (originalKey) return originalKey;
+  }
+  return null;
+}
+
 export function pickColumn(
   record: Record<string, string>,
   headerMap: Map<string, string>,
@@ -109,11 +130,95 @@ export function parseHoleCount(raw: string): string {
   return match ? match[1] : "";
 }
 
+/** 여러 홀수 표기(18/27, 18·27 등)면 ambiguous */
+export function parseHoleCountStrict(raw: string): {
+  value: string;
+  ambiguous: boolean;
+  reason?: string;
+} {
+  const trimmed = raw.trim();
+  if (!trimmed) return { value: "", ambiguous: false };
+
+  if (/(\d+)\s*[\/·,]\s*(\d+)/.test(trimmed)) {
+    return {
+      value: "",
+      ambiguous: true,
+      reason: `hole_count 다중 표기: ${trimmed}`,
+    };
+  }
+
+  const numbers = trimmed.match(/\d+/g);
+  if (!numbers || numbers.length === 0) {
+    if (trimmed) {
+      return { value: "", ambiguous: true, reason: `hole_count 파싱 불가: ${trimmed}` };
+    }
+    return { value: "", ambiguous: false };
+  }
+
+  if (numbers.length > 1) {
+    return {
+      value: "",
+      ambiguous: true,
+      reason: `hole_count 숫자 다중: ${trimmed}`,
+    };
+  }
+
+  return { value: numbers[0], ambiguous: false };
+}
+
+const RAW_REGION_MAP: Record<string, string> = {
+  서울: "서울",
+  서울특별시: "서울",
+  경기: "경기",
+  경기도: "경기",
+  인천: "경기",
+  인천광역시: "경기",
+  강원: "강원",
+  강원도: "강원",
+  강원특별자치도: "강원",
+  충청: "충청",
+  충북: "충청",
+  충남: "충청",
+  충청북도: "충청",
+  충청남도: "충청",
+  대전: "충청",
+  세종: "충청",
+  전라: "전라",
+  전북: "전라",
+  전남: "전라",
+  전라북도: "전라",
+  전라남도: "전라",
+  광주: "전라",
+  경상: "경상",
+  경북: "경상",
+  경남: "경상",
+  경상북도: "경상",
+  경상남도: "경상",
+  부산: "경상",
+  대구: "경상",
+  울산: "경상",
+  제주: "제주",
+  제주특별자치도: "제주",
+};
+
+export function mapRawRegionToFilterRegion(rawRegion: string): string | null {
+  const key = rawRegion.trim().replace(/\s+/g, "");
+  if (!key) return null;
+  if (RAW_REGION_MAP[key]) return RAW_REGION_MAP[key];
+
+  for (const [pattern, region] of Object.entries(RAW_REGION_MAP)) {
+    if (key.startsWith(pattern) || key.includes(pattern)) return region;
+  }
+
+  return null;
+}
+
 export function normalizeCourseType(raw: string): string {
   const value = raw.trim().toLowerCase();
   if (!value) return "기타";
 
   if (
+    value.includes("비회원") ||
     value.includes("대중") ||
     value.includes("퍼블릭") ||
     value.includes("public")
@@ -166,26 +271,36 @@ const REGION_RULES: RegionRule[] = [
 const PROVINCE_PREFIX =
   /^(서울특별시|부산광역시|대구광역시|인천광역시|광주광역시|대전광역시|울산광역시|세종특별자치시|제주특별자치도|경기도|강원특별자치도|강원도|충청북도|충청남도|전라북도|전라남도|경상북도|경상남도)\s*/;
 
-export function extractRegionCity(address: string): {
+export function extractRegionCity(
+  address: string,
+  regionHint = "",
+): {
   region: string;
   city: string;
 } | null {
   const trimmed = address.trim();
-  if (!trimmed) return null;
+  if (!trimmed && !regionHint.trim()) return null;
 
-  let region = "";
-  for (const rule of REGION_RULES) {
-    if (rule.patterns.some((pattern) => pattern.test(trimmed))) {
-      region = rule.region;
-      break;
+  let region = mapRawRegionToFilterRegion(regionHint) ?? "";
+
+  if (!region) {
+    for (const rule of REGION_RULES) {
+      if (rule.patterns.some((pattern) => pattern.test(trimmed))) {
+        region = rule.region;
+        break;
+      }
     }
   }
 
   if (!region) return null;
 
   const withoutProvince = trimmed.replace(PROVINCE_PREFIX, "").trim();
-  const cityMatch = withoutProvince.match(/^(\S+?(?:시|군|구))/);
-  const city = cityMatch?.[1] ?? withoutProvince.split(/\s+/)[0] ?? region;
+  const cityMatch = (withoutProvince || trimmed).match(/^(\S+?(?:시|군|구))/);
+  const city =
+    cityMatch?.[1] ??
+    withoutProvince.split(/\s+/)[0] ??
+    trimmed.split(/\s+/)[0] ??
+    region;
 
   return { region, city };
 }
@@ -213,6 +328,123 @@ export function dedupeId(baseId: string, used: Map<string, number>): string {
   used.set(baseId, count + 1);
   if (count === 0) return baseId;
   return `${baseId}-${count + 1}`;
+}
+
+export interface MasterTransformInput {
+  name: string;
+  address: string;
+  rawRegion: string;
+  holeCountRaw: string;
+  courseTypeRaw: string;
+  phone: string;
+  businessStatus: string;
+  latitudeRaw: string;
+  longitudeRaw: string;
+  timestamp: string;
+}
+
+export type MasterTransformResult =
+  | {
+      kind: "import";
+      row: string[];
+      needsGeocoding: boolean;
+      id: string;
+      baseId: string;
+    }
+  | { kind: "excluded"; reason: string; category: string; name: string; address: string }
+  | { kind: "ambiguous"; reason: string; name: string; address: string; conflictingValues: string }
+  | { kind: "error"; reason: string; name: string; address: string; partialRow: string[] };
+
+export function transformMasterRow(
+  input: MasterTransformInput,
+  idRegistry: Map<string, number>,
+): MasterTransformResult {
+  const name = input.name.trim();
+  const address = input.address.trim();
+
+  if (!name) {
+    return {
+      kind: "error",
+      reason: "필수값 누락: name",
+      name,
+      address,
+      partialRow: [],
+    };
+  }
+
+  if (!address) {
+    return {
+      kind: "error",
+      reason: "필수값 누락: address",
+      name,
+      address,
+      partialRow: [],
+    };
+  }
+
+  const holeParsed = parseHoleCountStrict(input.holeCountRaw);
+  if (holeParsed.ambiguous) {
+    return {
+      kind: "ambiguous",
+      reason: holeParsed.reason ?? "hole_count ambiguous",
+      name,
+      address,
+      conflictingValues: input.holeCountRaw,
+    };
+  }
+
+  const courseType = normalizeCourseType(input.courseTypeRaw);
+  const courseTypeRaw = input.courseTypeRaw.trim();
+  if (
+    courseTypeRaw &&
+    courseType === "기타" &&
+    !["기타", ""].includes(courseTypeRaw)
+  ) {
+    return {
+      kind: "ambiguous",
+      reason: "course_type 정규화 불명확",
+      name,
+      address,
+      conflictingValues: courseTypeRaw,
+    };
+  }
+
+  const regionCity = extractRegionCity(address, input.rawRegion);
+  if (!regionCity) {
+    return {
+      kind: "ambiguous",
+      reason: "region/city 추출 실패",
+      name,
+      address,
+      conflictingValues: `region_hint=${input.rawRegion}, address=${address}`,
+    };
+  }
+
+  const baseId = createStableId(name, regionCity.city, address);
+  const id = dedupeId(baseId, idRegistry);
+
+  const latitude = parseCoordinate(input.latitudeRaw);
+  const longitude = parseCoordinate(input.longitudeRaw);
+  const needsGeocoding = !latitude || !longitude;
+
+  const row = buildOutputRow({
+    id,
+    name,
+    region: regionCity.region,
+    city: regionCity.city,
+    address,
+    latitude,
+    longitude,
+    phone: input.phone.trim(),
+    homepageUrl: "",
+    description: "",
+    holeCount: holeParsed.value,
+    courseType,
+    businessStatus: input.businessStatus.trim(),
+    timestamp: input.timestamp,
+  });
+
+  return { kind: "import", row, needsGeocoding, id, baseId };
 }
 
 export interface TransformInput {

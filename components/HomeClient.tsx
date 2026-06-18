@@ -1,20 +1,19 @@
 "use client";
 
 import { useMemo, useState, useCallback, useEffect } from "react";
-import { SlidersHorizontal } from "lucide-react";
 import type { Course, CourseFilters } from "@/types/course";
 import type { MapFocusTarget } from "@/types/map";
 import { EMPTY_FILTERS } from "@/types/course";
 import { filterCourses, countActiveFilters } from "@/lib/filterCourses";
 import { MOBILE_SELECTED_MAP_LEVEL } from "@/lib/constants";
-import { getActiveFilterChips } from "@/lib/filterChips";
 import { sortCoursesByName } from "@/lib/courseListUtils";
 import SearchBar from "@/components/SearchBar";
 import FilterBar from "@/components/FilterBar";
 import CourseList from "@/components/CourseList";
 import CourseMap from "@/components/maps/CourseMap";
 import MobileFilterSheet from "@/components/MobileFilterSheet";
-import MobileFilterChips from "@/components/MobileFilterChips";
+import MobileTopBar from "@/components/MobileTopBar";
+import MobileTabBar from "@/components/MobileTabBar";
 import MobileBottomSheet from "@/components/MobileBottomSheet";
 
 type ListMode = "cluster" | "allFiltered" | "visible" | "fallback";
@@ -249,11 +248,6 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
 
   const isNoFilterResults = searchFiltered.length === 0;
 
-  const activeFilterChips = useMemo(
-    () => getActiveFilterChips(filters),
-    [filters],
-  );
-
   const selectedCourse = useMemo(() => {
     if (!selectedId) return null;
     return (
@@ -478,60 +472,49 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
         </div>
       </section>
 
-      <div className="flex h-[calc(100dvh-4rem)] flex-col overflow-hidden md:hidden">
-        <div className="flex-shrink-0 border-b border-gray-200 bg-white/95 px-4 py-2.5 backdrop-blur">
-          <div className="flex items-center gap-2">
-            <div className="flex-1">
-              <SearchBar
-                value={filters.query}
-                onChange={(query) => updateFilters({ query })}
-                placeholder="골프장명, 지역, 주소로 검색"
-              />
-            </div>
-            <button
-              type="button"
-              onClick={() => setSheetOpen(true)}
-              className="relative flex h-11 min-w-[44px] items-center justify-center rounded-full border border-gray-200 bg-white px-3 text-sm font-semibold text-gray-600"
-            >
-              <SlidersHorizontal className="h-4 w-4" />
-              <span className="ml-1">필터</span>
-              {activeCount > 0 && (
-                <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-brand-600 text-[10px] font-bold text-white">
-                  {activeCount}
-                </span>
-              )}
-            </button>
+      <div className="flex h-[calc(100dvh-3rem)] flex-col overflow-hidden bg-app-warm pb-14 md:hidden">
+        <MobileTopBar
+          query={filters.query}
+          onQueryChange={(query) => updateFilters({ query })}
+          onFilterOpen={() => setSheetOpen(true)}
+          activeFilterCount={activeCount}
+        />
+
+        <div className="flex min-h-0 flex-1 flex-col gap-2 px-3 pb-2">
+          <div className="min-h-0 flex-[11] overflow-hidden rounded-2xl border border-stone-200/50 shadow-sm">
+            <CourseMap
+              {...mapProps}
+              onSelect={handleMobileMapSelect}
+              maxVisibleMarkers={30}
+              className="h-full w-full !rounded-2xl"
+            />
           </div>
-          <MobileFilterChips chips={activeFilterChips} />
+
+          <div className="min-h-0 flex-[9]">
+            <MobileBottomSheet
+              state={mobileSheetExpanded ? "expanded" : "collapsed"}
+              onExpand={() => setMobileSheetExpanded(true)}
+              onCollapse={() => setMobileSheetExpanded(false)}
+              title={mobileSheetTitle}
+              count={listHeaderCount}
+              selectedCourse={selectedCourse}
+              selectedId={selectedId}
+              onSelect={handleMobileSelect}
+              onClearSelection={clearSelection}
+              courses={displayCourses}
+              onReset={resetFilters}
+              onFitResults={handleFitResults}
+              onShowAllFilteredEmpty={handleShowAllFiltered}
+              showViewToggle={listMode !== "cluster" && visibleReady}
+              isShowingAllFilteredResults={isShowingAllFilteredResults}
+              onShowMapBased={handleShowMapBased}
+              onShowAllFilteredToggle={handleShowAllFiltered}
+              {...listEmptyProps}
+            />
+          </div>
         </div>
 
-        <div className="relative min-h-0 flex-1">
-          <CourseMap
-            {...mapProps}
-            onSelect={handleMobileMapSelect}
-            maxVisibleMarkers={30}
-            className="absolute inset-0 h-full w-full"
-          />
-          <MobileBottomSheet
-            state={mobileSheetExpanded ? "expanded" : "collapsed"}
-            onExpand={() => setMobileSheetExpanded(true)}
-            onCollapse={() => setMobileSheetExpanded(false)}
-            title={mobileSheetTitle}
-            selectedCourse={selectedCourse}
-            selectedId={selectedId}
-            onSelect={handleMobileSelect}
-            onClearSelection={clearSelection}
-            courses={displayCourses}
-            onReset={resetFilters}
-            onFitResults={handleFitResults}
-            onShowAllFilteredEmpty={handleShowAllFiltered}
-            showViewToggle={listMode !== "cluster" && visibleReady}
-            isShowingAllFilteredResults={isShowingAllFilteredResults}
-            onShowMapBased={handleShowMapBased}
-            onShowAllFilteredToggle={handleShowAllFiltered}
-            {...listEmptyProps}
-          />
-        </div>
+        <MobileTabBar />
       </div>
       <div className="mx-auto hidden h-[calc(100vh-9.5rem)] max-w-[1600px] gap-4 px-6 py-3 md:flex">
         <div className="flex w-[460px] flex-shrink-0 flex-col lg:w-[500px] xl:w-[520px]">

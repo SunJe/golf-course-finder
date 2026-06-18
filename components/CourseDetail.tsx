@@ -136,7 +136,7 @@ export default function CourseDetail({ course }: { course: Course }) {
   )}`;
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8">
+    <div className="mx-auto max-w-5xl bg-app-warm px-4 py-5 sm:bg-white sm:px-6 sm:py-8 md:py-8">
       <Link
         href="/"
         className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 transition hover:text-gray-800"

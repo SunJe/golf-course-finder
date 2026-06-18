@@ -438,6 +438,7 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
         variant,
         showHoverLabel,
         showSelectedPopup,
+        labelVariant: isSel ? ("selected" as const) : ("normal" as const),
       };
       const visualKey = splitMarkerVisualKey(id, visualUpdate);
 

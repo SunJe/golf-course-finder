@@ -8,6 +8,10 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        app: {
+          warm: "#f8f7ef",
+          surface: "#ffffff",
+        },
         brand: {
           50: "#f0fdf4",
           100: "#dcfce7",

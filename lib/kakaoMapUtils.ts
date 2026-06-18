@@ -105,7 +105,11 @@ export function shouldShowLabel(ctx: MarkerDisplayContext): boolean {
 
   if (!shouldShowPin(ctx)) return false;
 
-  if (ctx.isMobile) return false;
+  if (ctx.isMobile) {
+    if (ctx.isSelected) return true;
+    if (ctx.level <= 6) return true;
+    return false;
+  }
 
   if (ctx.isSelected || ctx.isHovered) return true;
 
@@ -847,16 +851,28 @@ function createZeroAnchorRoot(): HTMLDivElement {
   return root;
 }
 
-const HOVER_LABEL_PILL =
-  "background:#ffffff;color:#111827;font-weight:700;padding:5px 9px;font-size:13px;line-height:1.2;" +
-  "border:1px solid rgba(0,0,0,0.08);border-radius:999px;font-family:inherit;" +
-  "box-shadow:0 4px 12px rgba(0,0,0,0.12);display:inline-block;" +
+const LABEL_PILL_NORMAL =
+  "background:#ffffff;color:#1c1917;font-weight:600;padding:5px 10px;font-size:12px;line-height:1.2;" +
+  "border:1px solid rgba(0,0,0,0.06);border-radius:999px;font-family:inherit;" +
+  "box-shadow:0 2px 8px rgba(0,0,0,0.1);display:inline-block;" +
   "max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" +
   "pointer-events:none;user-select:none;";
 
-function buildHoverLabelHtml(name: string): string {
+const LABEL_PILL_SELECTED =
+  "background:#15803d;color:#ffffff;font-weight:600;padding:5px 10px;font-size:12px;line-height:1.2;" +
+  "border:1px solid rgba(21,128,61,0.5);border-radius:999px;font-family:inherit;" +
+  "box-shadow:0 2px 10px rgba(21,128,61,0.35);display:inline-block;" +
+  "max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" +
+  "pointer-events:none;user-select:none;";
+
+function buildMapLabelHtml(name: string, variant: "normal" | "selected"): string {
   const truncated = name.length > 22 ? `${name.slice(0, 22)}…` : name;
-  return `<span style="${HOVER_LABEL_PILL}">${escapeHtml(truncated)}</span>`;
+  const style = variant === "selected" ? LABEL_PILL_SELECTED : LABEL_PILL_NORMAL;
+  return `<span style="${style}">${escapeHtml(truncated)}</span>`;
+}
+
+function buildHoverLabelHtml(name: string): string {
+  return buildMapLabelHtml(name, "normal");
 }
 
 function buildSelectedPopupHtml(course: Course): string {
@@ -884,6 +900,7 @@ export interface SplitMarkerVisualUpdate {
   variant: "default" | "hovered" | "selected";
   showHoverLabel: boolean;
   showSelectedPopup: boolean;
+  labelVariant?: "normal" | "selected";
 }
 
 export function createSplitMarkerDom(): SplitMarkerDom {
@@ -930,7 +947,10 @@ export function updateSplitMarkerVisuals(
 
   if (update.showHoverLabel) {
     dom.labelSlot.style.display = "block";
-    const html = buildHoverLabelHtml(course.name);
+    const labelVariant =
+      update.labelVariant ??
+      (update.variant === "selected" ? "selected" : "normal");
+    const html = buildMapLabelHtml(course.name, labelVariant);
     if (dom.labelSlot.innerHTML !== html) {
       dom.labelSlot.innerHTML = html;
     }
@@ -943,7 +963,7 @@ export function splitMarkerVisualKey(
   courseId: string,
   update: SplitMarkerVisualUpdate,
 ): string {
-  return `${courseId}:${update.variant}:${update.showHoverLabel}:${update.showSelectedPopup}`;
+  return `${courseId}:${update.variant}:${update.showHoverLabel}:${update.showSelectedPopup}:${update.labelVariant ?? ""}`;
 }
 
 /** @deprecated SplitMarkerDom 사용 */

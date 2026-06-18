@@ -37,6 +37,15 @@ npm run convert:master-courses
 - 출력: `data/golf_courses_import.csv`, `golf_courses_needs_geocoding.csv`, review CSV
 - supplement 병합 **하지 않음**
 
+### Phase 2.5 — Review & Geocoding 준비
+
+```bash
+npm run prepare:phase25-review
+npm run apply:review-decisions      # review 판단 반영 → import CSV 수정
+npm run geocode:golf-courses          # dry-run (기본)
+npm run geocode:golf-courses -- --execute   # 실제 API (다음 단계)
+```
+
 ### CSV 변환 (단일 raw → import 형식, 레거시)
 
 ```bash

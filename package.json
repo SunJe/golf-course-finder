@@ -9,6 +9,10 @@
     "lint": "next lint",
     "convert:golf-courses": "tsx scripts/convertGolfCourses.ts",
     "convert:master-courses": "tsx scripts/convertMasterGolfCourses.ts",
+    "prepare:phase25-review": "tsx scripts/preparePhase25Review.ts",
+    "apply:review-decisions": "tsx scripts/applyReviewDecisions.ts",
+    "apply:manual-answers": "tsx scripts/applyManualAnswers.ts",
+    "geocode:golf-courses": "tsx scripts/geocodeGolfCourses.ts",
     "download:golf-sources": "tsx scripts/downloadGolfSources.ts",
     "analyze:golf-raw": "tsx scripts/analyzeGolfCourseRawData.ts"
   },

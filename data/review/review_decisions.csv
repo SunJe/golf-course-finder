@@ -1,0 +1,72 @@
+type,name,address,original_id,decision,course_type,hole_count,note
+ambiguous_duplicate,서경타니CC,사천시 곤양면 흥신로 210,gc-a043ad4dfcf6|gc-a043ad4dfcf6-2,merge_expanded_holes,대중제,36,"동일 course_type(대중제) — 홀수 27+9=36 병합; removed=gc-a043ad4dfcf6(27홀), gc-a043ad4dfcf6-2(9홀)"
+ambiguous_duplicate,가야컨트리클럽 (회원제),김해시 인제로 495,gc-61025f47372c,keep_separate_membership_public,회원제,45,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,가야컨트리클럽 (대중제),김해시 인제로 495,gc-61025f47372c-2,keep_separate_membership_public,대중제,9,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,힐마루컨트리클럽 (회원제),창녕군 장마면 영산계성로 469-195,gc-7f189b884e86,keep_separate_membership_public,회원제,18,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,힐마루컨트리클럽 (대중제),창녕군 장마면 영산계성로 469-195,gc-7f189b884e86-2,keep_separate_membership_public,대중제,18,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,오션힐스포항C.C (회원제),경상북도 포항시 북구 송라면 대전길 7,gc-a4a31193651d,keep_separate_membership_public,회원제,18,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,오션힐스포항C.C (대중제),경상북도 포항시 북구 송라면 대전길 7,gc-a4a31193651d-2,keep_separate_membership_public,대중제,9,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,서라벌G.C,경상북도 경주시 외동읍 내외로 577-189,gc-28ff72e3fac8|gc-28ff72e3fac8-2,merge_expanded_holes,대중제,45,"동일 course_type(대중제) — 홀수 36+9=45 병합; removed=gc-28ff72e3fac8(36홀), gc-28ff72e3fac8-2(9홀)"
+ambiguous_duplicate,엠스클럽의성,경상북도 의성군 봉양면 농공마전길 125-78,gc-783a937fe067|gc-783a937fe067-2,merge_expanded_holes,대중제,27,"동일 course_type(대중제) — 홀수 18+9=27 병합; removed=gc-783a937fe067(18홀), gc-783a937fe067-2(9홀)"
+ambiguous_duplicate,골드레이크CC (대중제),전남 나주시 남평읍 나주호로 442-129,gc-c605dfd13df5,keep_separate_membership_public,대중제,18,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,골드레이크CC (회원제),전남 나주시 남평읍 나주호로 442-129,gc-c605dfd13df5-2,keep_separate_membership_public,회원제,18,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,해피니스CC (대중제),전남 나주시 다도면 다도로 171-60,gc-3be94ce769f8,keep_separate_membership_public,대중제,18,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,해피니스CC (회원제),전남 나주시 다도면 다도로 171-60,gc-3be94ce769f8-2,keep_separate_membership_public,회원제,18,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,태인CC,전북특별자치도 정읍시 태인면 상증길 28,gc-7c780d37c946|gc-7c780d37c946-2,merge_expanded_holes,대중제,27,"동일 course_type(대중제) — 홀수 18+9=27 병합; removed=gc-7c780d37c946(18홀), gc-7c780d37c946-2(9홀)"
+ambiguous_duplicate,엘리시안제주 (회원제),제주특별자치도 제주시 평화로 1738-116,gc-b4648629edca,keep_separate_membership_public,회원제,18,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,엘리시안제주 (대중제),제주특별자치도 제주시 평화로 1738-116,gc-b4648629edca-2,keep_separate_membership_public,대중제,18,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,에버리스CC (회원제),제주특별자치도 제주시 평화로 1693-75,gc-89d4c7dacba1,keep_separate_membership_public,회원제,18,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,에버리스CC (대중제),제주특별자치도 제주시 평화로 1693-75,gc-89d4c7dacba1-2,keep_separate_membership_public,대중제,9,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,아난티클럽제주 (회원제),제주특별자치도 제주시 선유로 445-55,gc-0731682e569e,keep_separate_membership_public,회원제,9,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,아난티클럽제주 (대중제),제주특별자치도 제주시 선유로 445-55,gc-0731682e569e-2,keep_separate_membership_public,대중제,27,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,블랙스톤제주,제주특별자치도 제주시 한창로 925-122,gc-74de2175f831,keep_ambiguous,회원제,18,동일 회원제·동일 주소 — 리조트 내 별도 코스 vs 증설 홀 합산 여부 애매 (18홀 vs 9홀)
+ambiguous_duplicate,블랙스톤제주,제주특별자치도 제주시 한창로 925-122,gc-74de2175f831-2,keep_ambiguous,회원제,9,동일 회원제·동일 주소 — 리조트 내 별도 코스 vs 증설 홀 합산 여부 애매 (18홀 vs 9홀)
+ambiguous_duplicate,캐슬렉스제주 (회원제),제주특별자치도 서귀포시 안덕면 평화로 1241,gc-b0bf7e6858f0,keep_separate_membership_public,회원제,18,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,캐슬렉스제주 (대중제),제주특별자치도 서귀포시 안덕면 평화로 1241,gc-b0bf7e6858f0-2,keep_separate_membership_public,대중제,9,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,해비치CC (회원제),제주특별자치도 서귀포시 남원읍 원님로 399번길 319,gc-0d15e5952df9,keep_separate_membership_public,회원제,18,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,해비치CC (대중제),제주특별자치도 서귀포시 남원읍 원님로 399번길 319,gc-0d15e5952df9-2,keep_separate_membership_public,대중제,18,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,롯데스카이힐제주 (회원제),제주특별자치도 서귀포시 상예로 530,gc-557d7e73f166,keep_separate_membership_public,회원제,18,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,롯데스카이힐제주 (대중제),제주특별자치도 서귀포시 상예로 530,gc-557d7e73f166-2,keep_separate_membership_public,대중제,18,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,사이프러스골프 (회원제),제주특별자치도 서귀포시 번영로 2300,gc-96113ac3ce1f,keep_separate_membership_public,회원제,18,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,사이프러스골프 (대중제),제주특별자치도 서귀포시 번영로 2300,gc-96113ac3ce1f-2,keep_separate_membership_public,대중제,18,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,나인브릿지 (회원제),제주특별자치도 서귀포시 안덕면 광평로 34-156,gc-7934a4e2a1b8,keep_separate_membership_public,회원제,18,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,나인브릿지 (대중제),제주특별자치도 서귀포시 안덕면 광평로 34-156,gc-7934a4e2a1b8-2,keep_separate_membership_public,대중제,6,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,SK핀크스 (회원제),제주특별자치도 서귀포시 안덕면 산록남로 863,gc-79bfb62318c4,keep_separate_membership_public,회원제,18,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,SK핀크스 (대중제),제주특별자치도 서귀포시 안덕면 산록남로 863,gc-79bfb62318c4-2,keep_separate_membership_public,대중제,9,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,시그너스cc,충주시 앙성면 중방곡길 57-44,gc-1ce1b36ed2da|gc-1ce1b36ed2da-2,merge_expanded_holes,대중제,27,"동일 course_type(대중제) — 홀수 9+18=27 병합; removed=gc-1ce1b36ed2da(9홀), gc-1ce1b36ed2da-2(18홀)"
+excluded_restore,스프링베일리조트,춘천시 동면 금베이길 93-27,,restore_as_golf_course,대중제,9,excluded(아카데미)에서 import 복귀
+excluded_restore,골프존카운티 안성H,경기도 안성시 보개면 보삼로 302,,restore_as_golf_course,대중제,18,excluded(골프존)에서 import 복귀
+excluded_restore,골프존카운티 안성W,경기도 안성시 양성면 교동길 19-70,,restore_as_golf_course,대중제,18,excluded(골프존)에서 import 복귀
+excluded_restore,골프존카운티 사천,사천시 서포면 구송로 151,,restore_as_golf_course,대중제,27,excluded(골프존)에서 import 복귀
+excluded_restore,밀양에스파크골프리조트,밀양시 단장면 미촌리 889,,restore_as_golf_course,대중제,18,excluded(파크골프)에서 import 복귀
+excluded_restore,골프존카운티 경남,함안군 칠원면 운무로 470,,restore_as_golf_course,대중제,18,excluded(골프존)에서 import 복귀
+excluded_restore,골프존카운티 감포,경상북도 경주시 감포읍 동해안로 1819-59,,restore_as_golf_course,대중제,18,excluded(골프존)에서 import 복귀
+excluded_restore,골프존카운티 선산,경상북도 구미시 산동면 강동로 953-73,,restore_as_golf_course,회원제,18,excluded(골프존)에서 import 복귀
+excluded_restore,골프존카운티 구미,경상북도 구미시 산동면 강동로 953-74,,restore_as_golf_course,대중제,18,excluded(골프존)에서 import 복귀
+excluded_restore,청통골프장,경상북도 영천시 청통면 청통로 733,,restore_as_golf_course,대중제,18,excluded(골프존)에서 import 복귀
+excluded_restore,마이다스 구미 골프아카데미,경상북도 칠곡군 가산면 학하2길 54-171,,restore_as_golf_course,대중제,9,excluded(아카데미)에서 import 복귀
+excluded_restore,잭 니클라우스 골프클럽 코리아,인천시 연수구 아카데미로 209,,restore_as_golf_course,회원제,18,excluded(아카데미)에서 import 복귀
+excluded_restore,드림파크골프장,인천시 서구 거월로 61,,restore_as_golf_course,대중제,36,excluded(파크골프)에서 import 복귀
+excluded_restore,골프존카운티 송도 골프장,인천시 연수구 인천신항대로 1120,,restore_as_golf_course,대중제,18,excluded(골프존)에서 import 복귀
+excluded_restore,여수시티파크골프&호텔,전남 여수시 좌수영로 641,,restore_as_golf_course,대중제,18,excluded(파크골프)에서 import 복귀
+excluded_restore,골프존카운티,전남 순천시 주암면 행정1길 77,,restore_as_golf_course,대중제,36,excluded(골프존)에서 import 복귀
+excluded_restore,골프존카운티 영암,영암군 삼호읍 에프원로 121-1,,restore_as_golf_course,대중제,45,excluded(골프존)에서 import 복귀
+excluded_restore,골프존 카운티 드래곤,전북특별자치도 남원시 대산면 대사로 498,,restore_as_golf_course,대중제,18,excluded(골프존)에서 import 복귀
+excluded_restore,골프존 카운티 드래곤,전북특별자치도 남원시 대산면 대사로 498,,restore_as_golf_course,대중제,9,excluded(골프존)에서 import 복귀
+excluded_restore,골프존카운티무주,전북특별자치도 무주군 안성면 장무로 1537-21,,restore_as_golf_course,대중제,18,excluded(골프존)에서 import 복귀
+excluded_restore,골프존카운티선운,전북특별자치도 고창군 아산면 운곡로 418,,restore_as_golf_course,대중제,18,excluded(골프존)에서 import 복귀
+excluded_restore,골프존카운티오라,제주특별자치도 제주시 오라남로 130-16,,restore_as_golf_course,회원제,18,excluded(골프존)에서 import 복귀
+excluded_restore,골프존카운티오라,제주특별자치도 제주시 오라남로 130-16,,restore_as_golf_course,대중제,18,excluded(골프존)에서 import 복귀
+excluded_restore,골프존카운티 천안,병천면 매성2길 103,,restore_as_golf_course,대중제,18,excluded(골프존)에서 import 복귀
+excluded_restore,골프존카운티 진천cc,진천군 진천읍 송강로 783-51,,restore_as_golf_course,대중제,27,excluded(골프존)에서 import 복귀
+excluded_restore,골프존카운티 화랑cc,진천군 문백면 농다리로 809,,restore_as_golf_course,대중제,18,excluded(골프존)에서 import 복귀
+ambiguous_duplicate,골프존 카운티 드래곤,전북특별자치도 남원시 대산면 대사로 498,gc-01762fe809b0|gc-01762fe809b0-2,merge_expanded_holes,대중제,27,"동일 course_type(대중제) — 홀수 18+9=27 병합; removed=gc-01762fe809b0(18홀), gc-01762fe809b0-2(9홀)"
+ambiguous_duplicate,골프존카운티오라 (회원제),제주특별자치도 제주시 오라남로 130-16,gc-c1ec2cce38bb,keep_separate_membership_public,회원제,18,회원제/대중제 분리 — suffix 추가 후 각각 유지
+ambiguous_duplicate,골프존카운티오라 (대중제),제주특별자치도 제주시 오라남로 130-16,gc-c1ec2cce38bb-2,keep_separate_membership_public,대중제,18,회원제/대중제 분리 — suffix 추가 후 각각 유지
+manual_answer,블랙스톤제주,제주특별자치도 제주시 한창로 925-122,gc-74de2175f831|gc-74de2175f831-2,merge_expanded_holes,회원제,27,사용자 manual Q1 답변: 2(하나로 병합) — 18홀+9홀 회원제 → 27홀
+manual_answer,스프링베일리조트,,,restore_as_golf_course,,,사용자 답변: 유지 — import 변경 없음
+manual_answer,밀양에스파크골프리조트,,,restore_as_golf_course,,,사용자 답변: 유지 — import 변경 없음
+manual_answer,마이다스 구미 골프아카데미,,,restore_as_golf_course,,,사용자 답변: 유지 — import 변경 없음
+manual_answer,잭 니클라우스 골프클럽 코리아,,,restore_as_golf_course,,,사용자 답변: 유지 — import 변경 없음
+manual_answer,드림파크골프장,,,restore_as_golf_course,,,사용자 답변: 유지 — import 변경 없음
+manual_answer,여수시티파크골프&호텔,,,restore_as_golf_course,,,사용자 답변: 유지 — import 변경 없음

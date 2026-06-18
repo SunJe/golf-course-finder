@@ -552,7 +552,7 @@ function buildPartialRow(
   });
 }
 
-function buildOutputRow(values: {
+export function buildOutputRow(values: {
   id: string;
   name: string;
   region: string;

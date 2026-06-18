@@ -13,6 +13,9 @@
     "apply:review-decisions": "tsx scripts/applyReviewDecisions.ts",
     "apply:manual-answers": "tsx scripts/applyManualAnswers.ts",
     "geocode:golf-courses": "tsx scripts/geocodeGolfCourses.ts",
+    "prepare:manual-geocoding-review": "tsx scripts/prepareManualGeocodingReview.ts",
+    "apply:manual-geocoding": "tsx scripts/applyManualGeocodingDecisions.ts",
+    "validate:final-import": "tsx scripts/validateFinalImport.ts",
     "download:golf-sources": "tsx scripts/downloadGolfSources.ts",
     "analyze:golf-raw": "tsx scripts/analyzeGolfCourseRawData.ts"
   },

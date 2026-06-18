@@ -1,0 +1,7 @@
+id,name,status,winning_query,endpoint,confidence,candidate_count,top_place_name,top_latitude,top_longitude,note
+gc-716264430902,휘닉스대중골프장,no_result,,,0,0,,,,no_result 유지
+gc-9d709ff43c33,몽베르 컨트리클럽(비회원제),multiple_candidates,몽베르 컨트리클럽,keyword,110,5,몽베르컨트리클럽,38.08433182966815,127.3117509555886,multiple_candidates — 후보 비교 후 decision 입력
+gc-bf183cd699c7,로얄링스1,no_result,,,0,0,,,,no_result 유지
+gc-dbaa28f7b44e,로얄링스2,no_result,,,0,0,,,,no_result 유지
+gc-167a7f95d402,솔라고CC1,no_result,,,0,0,,,,no_result 유지
+gc-d3a3acc83c4d,솔라고CC2,no_result,,,0,0,,,,no_result 유지

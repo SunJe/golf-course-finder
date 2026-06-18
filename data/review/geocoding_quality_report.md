@@ -1,16 +1,17 @@
-# Geocoding Quality Report — Phase 3 Sample
+# Geocoding Quality Report — Full Run
 
-> Generated: 2026-06-18T01:45:11.682Z
+> Generated: 2026-06-18T01:59:00.028Z
 
 ## 실행 정보
 
-- **mode:** execute
 - **provider:** kakao
-- **limit:** 20
-- **offset:** 0
-- **geocoding_input 총 행 수:** 534
-- **샘플 처리 행 수:** 20
-- **실제 API 호출 실행:** true
+- **총 대상 행 수:** 534
+- **처리 완료 행 수:** 534
+- **자동 중단:** 아니오
+- **API step calls:** 172
+- **cache hit:** 415
+- **address search hits:** 90
+- **keyword search hits:** 78
 
 ## API key 존재 여부 (값 미표시)
 
@@ -20,48 +21,75 @@
 
 ## status별 개수
 
-- success: 20
-- no_result: 0
+- success: 92
+- no_result: 6
 - low_confidence: 0
-- multiple_candidates: 0
+- multiple_candidates: 21
 - api_error: 0
-- skipped: 0
+- skipped (cache): 415
+- import 반영 가능 (success+캐시): 507
+- **평균 confidence:** 85.6
+- **좌표 한국 범위 밖:** 0
 
-## 좌표 품질 검증
+## region별 통계
 
-- 한국 WGS84 범위 검증: 통과
-- success 건 region/city 일치: 20건
-- low_confidence / multiple_candidates는 **최종 import 미반영**
+| region | rows | success | no_result | low_confidence | multiple_candidates | api_error |
+|--------|------|---------|-----------|----------------|---------------------|-----------|
+| 서울 | 1 | 1 | 0 | 0 | 0 | 0 |
+| 경기 | 169 | 166 | 1 | 0 | 2 | 0 |
+| 강원 | 64 | 62 | 1 | 0 | 1 | 0 |
+| 충청 | 74 | 62 | 4 | 0 | 8 | 0 |
+| 전라 | 73 | 68 | 0 | 0 | 5 | 0 |
+| 경상 | 113 | 108 | 0 | 0 | 5 | 0 |
+| 제주 | 40 | 40 | 0 | 0 | 0 | 0 |
 
-## success 목록 (상위 10)
+## geocoded import
 
-- 라데나골프클럽 (강원/춘천시) → 37.8369429213366, 127.715838891863 — 강원특별자치도 춘천시 신동면 칠전동길 72
-- 엘리시안 강촌컨트리클럽 (강원/춘천시) → 37.8300557977982, 127.57878172946 — 강원특별자치도 춘천시 남산면 북한강변길 688
-- 제이드팰리스 골프클럽 (강원/춘천시) → 37.8307797553449, 127.548170460554 — 강원특별자치도 춘천시 남산면 경춘로 212-30
-- 남춘천컨트리클럽 (강원/춘천시) → 37.7855926209548, 127.700960366465 — 강원특별자치도 춘천시 신동면 오봉길 156
-- 휘슬링락컨트리클럽 (강원/춘천시) → 37.7730612102808, 127.669709976041 — 강원특별자치도 춘천시 남산면 동촌로 501
-- 오너스골프클럽 (강원/춘천시) → 37.7721785570099, 127.654200050879 — 강원특별자치도 춘천시 남산면 동촌로 667
-- 파가니카컨트리클럽 (강원/춘천시) → 37.7497160475065, 127.619928617296 — 강원특별자치도 춘천시 남면 소주고개로 145-10
-- 더플레이어스 골프클럽 (강원/춘천시) → 37.7776204120147, 127.750533991715 — 강원특별자치도 춘천시 동산면 새술막길 438
-- 로드힐스골프클럽 (강원/춘천시) → 37.747575327588, 127.725551235643 — 강원특별자치도 춘천시 동산면 종자리로 148-16
-- 라비에벨컨트리클럽 (강원/춘천시) → 37.7411958192197, 127.757369977231 — 강원특별자치도 춘천시 동산면 종자리로 436
+- **golf_courses_import_geocoded.csv 행 수:** 534
+- **좌표 없는 행 수:** 27
+- **golf_courses_import.csv 수정:** 없음 (원본 유지)
 
-## 검토 필요 목록
+## Supabase import 가능 여부
 
+- **불가** — 27행 좌표 없음. schema NOT NULL 조건 때문에 바로 import 불가. 실패 행 수동 보정 또는 schema nullable 변경 필요.
 
-## 전체 geocoding 실행 가능 여부
+## 실패/미반영 항목
 
-- **조건부 가능** — 샘플 success 비율 양호. manual_questions 검토 후 전체 실행 권장.
+- **휘닉스 컨트리클럽** (강원/평창군) [multiple_candidates] — 후보 4건, top=110 vs next=110; endpoint=https://dapi.kakao.com/v2/local/search/keyword.json; steps=2
+- **휘닉스대중골프장** (강원/평창군) [no_result] — API 결과 0건; endpoint=none; steps=6
+- **로제비앙GC** (경기/광주시) [multiple_candidates] — 후보 4건, top=110 vs next=110; endpoint=https://dapi.kakao.com/v2/local/search/keyword.json; steps=2
+- **몽베르 컨트리클럽(비회원제)** (경기/포천시) [no_result] — API 결과 0건; endpoint=none; steps=6
+- **의령 리온컨트리클럽** (경상/의령군) [multiple_candidates] — 후보 4건, top=110 vs next=110; endpoint=https://dapi.kakao.com/v2/local/search/keyword.json; steps=2
+- **칠곡아이위시C.C** (경상/칠곡군) [multiple_candidates] — 후보 2건, top=110 vs next=110; endpoint=https://dapi.kakao.com/v2/local/search/keyword.json; steps=2
+- **부산컨트리클럽** (경상/금정구) [multiple_candidates] — 후보 5건, top=110 vs next=110; endpoint=https://dapi.kakao.com/v2/local/search/keyword.json; steps=2
+- **기장동원로얄컨트리클럽** (경상/기장군) [multiple_candidates] — 후보 3건, top=110 vs next=110; endpoint=https://dapi.kakao.com/v2/local/search/keyword.json; steps=2
+- **오렌지듄스 영종골프클럽** (경기/인천시) [multiple_candidates] — 후보 2건, top=110 vs next=110; endpoint=https://dapi.kakao.com/v2/local/search/keyword.json; steps=2
+- **파인힐스CC** (전라/전남) [multiple_candidates] — 후보 3건, top=110 vs next=110; endpoint=https://dapi.kakao.com/v2/local/search/keyword.json; steps=2
+- **나주CC** (전라/전남) [multiple_candidates] — 후보 5건, top=80 vs next=80; endpoint=https://dapi.kakao.com/v2/local/search/keyword.json; steps=2
+- **나주힐스CC** (전라/전남) [multiple_candidates] — 후보 2건, top=110 vs next=110; endpoint=https://dapi.kakao.com/v2/local/search/keyword.json; steps=2
+- **보성에덴CC** (전라/전남) [multiple_candidates] — 후보 2건, top=110 vs next=110; endpoint=https://dapi.kakao.com/v2/local/search/keyword.json; steps=2
+- **군산CC** (전라/전북특별자치도) [multiple_candidates] — 후보 5건, top=110 vs next=110; endpoint=https://dapi.kakao.com/v2/local/search/keyword.json; steps=2
+- **골드리버CC** (충청/공주시) [multiple_candidates] — 후보 3건, top=110 vs next=110; endpoint=https://dapi.kakao.com/v2/local/search/keyword.json; steps=2
+- **골든베이골프&리조트** (충청/태안군) [multiple_candidates] — 후보 2건, top=110 vs next=110; endpoint=https://dapi.kakao.com/v2/local/search/keyword.json; steps=2
+- **스톤비치컨트리클럽** (충청/태안군) [multiple_candidates] — 후보 2건, top=110 vs next=110; endpoint=https://dapi.kakao.com/v2/local/search/keyword.json; steps=2
+- **로얄링스1** (충청/태안군) [no_result] — API 결과 0건; endpoint=none; steps=6
+- **로얄링스2** (충청/태안군) [no_result] — API 결과 0건; endpoint=none; steps=6
+- **솔라고CC1** (충청/태안군) [no_result] — API 결과 0건; endpoint=none; steps=6
+- **솔라고CC2** (충청/태안군) [no_result] — API 결과 0건; endpoint=none; steps=6
+- **그랜드cc** (충청/청주시) [multiple_candidates] — 후보 4건, top=110 vs next=110; endpoint=https://dapi.kakao.com/v2/local/search/keyword.json; steps=2
+- **썬밸리cc** (충청/음성군) [multiple_candidates] — 후보 5건, top=110 vs next=110; endpoint=https://dapi.kakao.com/v2/local/search/keyword.json; steps=2
+- **골드나인cc** (충청/청주시) [multiple_candidates] — 후보 4건, top=110 vs next=110; endpoint=https://dapi.kakao.com/v2/local/search/keyword.json; steps=2
+- **일레븐cc** (충청/충주시) [multiple_candidates] — 후보 4건, top=110 vs next=110; endpoint=https://dapi.kakao.com/v2/local/search/keyword.json; steps=2
+- **킹스데일cc** (충청/충주시) [multiple_candidates] — 후보 3건, top=110 vs next=110; endpoint=https://dapi.kakao.com/v2/local/search/keyword.json; steps=2
+- **청통골프장** (경상/영천시) [multiple_candidates] — 후보 5건, top=80 vs next=80; endpoint=https://dapi.kakao.com/v2/local/search/keyword.json; steps=2
 
 ## 다음 단계
 
-1. manual_questions.md 7건 사용자 확인 유지
-2. low_confidence / multiple_candidates 수동 검토
-3. 전체 실행: `npm run geocode:golf-courses -- --execute --provider kakao`
-4. 결과: `data/golf_courses_import_geocoded.csv` (별도 파일, import 원본 유지)
+1. 실패/low_confidence 항목 수동 검토
+2. golf_courses_import_geocoded.csv 품질 확인
+3. Supabase import (별도 단계)
 
-## Fallback 통계
+## 참고
 
-- address search 총 hit: 20
-- keyword search 총 hit: 0
-- API step calls: 20
+- low_confidence / multiple_candidates / no_result 행은 import_geocoded에서 좌표 비움
+- 재실행 시 geocoding_cache.json으로 API 호출 최소화

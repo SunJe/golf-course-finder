@@ -458,5 +458,4615 @@
     "geocoded_at": "2026-06-18T01:51:38.678Z",
     "matched_address": "제주특별자치도 서귀포시 안덕면 한창로 365",
     "raw_place_name": ""
+  },
+  "gc-cbe46e8a03a2|원주시 동부순환로 200(반곡동)": {
+    "query": "강원특별자치도 원주시 동부순환로 200",
+    "latitude": 37.3324424690963,
+    "longitude": 127.974460088067,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 원주시 동부순환로 200",
+    "raw_place_name": ""
+  },
+  "gc-aca146079a3b|원주시 신림면 구학산로 1520": {
+    "query": "강원특별자치도 원주시 신림면 구학산로 1520",
+    "latitude": 37.2029107834726,
+    "longitude": 128.043154645841,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 원주시 신림면 구학산로 1520",
+    "raw_place_name": ""
+  },
+  "gc-076abf5ece38|강릉시 저동등길 53(저동)": {
+    "query": "강원특별자치도 강릉시 저동등길 53",
+    "latitude": 37.7962246482484,
+    "longitude": 128.881013850573,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 강릉시 저동등길 53",
+    "raw_place_name": ""
+  },
+  "gc-b768a2002431|강릉시 강동면 풍호길 300-78": {
+    "query": "강원특별자치도 강릉시 강동면 풍호길 300-78",
+    "latitude": 37.746647824005,
+    "longitude": 128.968989626277,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 강릉시 강동면 풍호길 300-78",
+    "raw_place_name": ""
+  },
+  "gc-5b16502994d3|태백시 서학로 861": {
+    "query": "강원특별자치도 태백시 서학로 861",
+    "latitude": 37.1706733779187,
+    "longitude": 128.948085384031,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 태백시 서학로 861",
+    "raw_place_name": ""
+  },
+  "gc-e6edfdd39527|태백시 서학로 861": {
+    "query": "강원특별자치도 태백시 서학로 861",
+    "latitude": 37.1706733779187,
+    "longitude": 128.948085384031,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 태백시 서학로 861",
+    "raw_place_name": ""
+  },
+  "gc-716535d8799a|속초시 미시령로2983번길 56-20": {
+    "query": "강원특별자치도 속초시 미시령로2983번길 56-20",
+    "latitude": 38.2082572330671,
+    "longitude": 128.53083474954,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 속초시 미시령로2983번길 56-20",
+    "raw_place_name": ""
+  },
+  "gc-d4f47a219511|속초시 영랑호반길 170": {
+    "query": "강원특별자치도 속초시 영랑호반길 170",
+    "latitude": 38.2135488364885,
+    "longitude": 128.577407452379,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 속초시 영랑호반길 170",
+    "raw_place_name": ""
+  },
+  "gc-5d96ff075544|삼척시 근덕면 미근로 1629": {
+    "query": "강원특별자치도 삼척시 근덕면 미근로 1629",
+    "latitude": 37.3765019984105,
+    "longitude": 129.204773468152,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 삼척시 근덕면 미근로 1629",
+    "raw_place_name": ""
+  },
+  "gc-788ff880fb4f|삼척시 도계읍 도상로 307-84": {
+    "query": "강원특별자치도 삼척시 도계읍 도상로 307-84",
+    "latitude": 37.2181825168724,
+    "longitude": 129.07343341363,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 삼척시 도계읍 도상로 307-84",
+    "raw_place_name": ""
+  },
+  "gc-e9127c84ddf1|홍천군 서면 한치골길 200": {
+    "query": "강원특별자치도 홍천군 서면 한치골길 200",
+    "latitude": 37.6386558071944,
+    "longitude": 127.673647946883,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 홍천군 서면 한치골길 200",
+    "raw_place_name": ""
+  },
+  "gc-56adaea8c265|홍천군 서면 한치골길 264": {
+    "query": "강원특별자치도 홍천군 서면 한치골길 264",
+    "latitude": 37.6482244968436,
+    "longitude": 127.685789397041,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 홍천군 서면 한치골길 264",
+    "raw_place_name": ""
+  },
+  "gc-ae905ec6b25f|홍천군 서면 한치골길 541-123": {
+    "query": "강원특별자치도 홍천군 서면 한치골길 541-123",
+    "latitude": 37.666999762252,
+    "longitude": 127.686354618555,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 홍천군 서면 한치골길 541-123",
+    "raw_place_name": ""
+  },
+  "gc-3447dbe87ddc|홍천군 홍천읍 높은터로 533": {
+    "query": "강원특별자치도 홍천군 홍천읍 높은터로 533",
+    "latitude": 37.6283077469114,
+    "longitude": 127.864179453774,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 홍천군 홍천읍 높은터로 533",
+    "raw_place_name": ""
+  },
+  "gc-d7beeda963dd|홍천군 남면 한서로 2840": {
+    "query": "강원특별자치도 홍천군 남면 한서로 2840",
+    "latitude": 37.5960686856879,
+    "longitude": 127.717710032456,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 홍천군 남면 한서로 2840",
+    "raw_place_name": ""
+  },
+  "gc-426fc575906a|홍천군 서면 장락동길 111": {
+    "query": "강원특별자치도 홍천군 서면 장락동길 111",
+    "latitude": 37.6923845644555,
+    "longitude": 127.566832092226,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 홍천군 서면 장락동길 111",
+    "raw_place_name": ""
+  },
+  "gc-8322ca96ec3b|홍천군 두촌면 광석로 898-160": {
+    "query": "강원특별자치도 홍천군 두촌면 광석로 898-160",
+    "latitude": 37.8860055264791,
+    "longitude": 128.118713519224,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 홍천군 두촌면 광석로 898-160",
+    "raw_place_name": ""
+  },
+  "gc-690b34d2b582|홍천군 서면 한서로 247-156": {
+    "query": "강원특별자치도 홍천군 서면 한서로 247-156",
+    "latitude": 37.6680275187538,
+    "longitude": 127.558889051236,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 홍천군 서면 한서로 247-156",
+    "raw_place_name": ""
+  },
+  "gc-568fcaa60a5e|홍천군 북방면 팔봉산로 1759": {
+    "query": "강원특별자치도 홍천군 북방면 팔봉산로 1759",
+    "latitude": 37.7251226642374,
+    "longitude": 127.744259757592,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 홍천군 북방면 팔봉산로 1759",
+    "raw_place_name": ""
+  },
+  "gc-bbf51fd6cc91|횡성군 둔내면 고원로 451": {
+    "query": "강원특별자치도 횡성군 둔내면 고원로 451",
+    "latitude": 37.4901264775059,
+    "longitude": 128.250138360949,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 횡성군 둔내면 고원로 451",
+    "raw_place_name": ""
+  },
+  "gc-ec8024eb7955|횡성군 둔내면 고원로 451": {
+    "query": "강원특별자치도 횡성군 둔내면 고원로 451",
+    "latitude": 37.4901264775059,
+    "longitude": 128.250138360949,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 횡성군 둔내면 고원로 451",
+    "raw_place_name": ""
+  },
+  "gc-e494f9e1ff69|횡성군 서원면 서원서로339번길 90": {
+    "query": "강원특별자치도 횡성군 서원면 서원서로339번길 90",
+    "latitude": 37.4840310259039,
+    "longitude": 127.796494720937,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 횡성군 서원면 서원서로339번길 90",
+    "raw_place_name": ""
+  },
+  "gc-17aba5f4eb83|횡성군 우천면 한우로 1295": {
+    "query": "강원특별자치도 횡성군 우천면 한우로 1295",
+    "latitude": 37.4642253472193,
+    "longitude": 128.072535937277,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 횡성군 우천면 한우로 1295",
+    "raw_place_name": ""
+  },
+  "gc-43114c6913bc|횡성군 서원면 옥계9길 124": {
+    "query": "강원특별자치도 횡성군 서원면 옥계9길 124",
+    "latitude": 37.4503213484851,
+    "longitude": 127.831193513791,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 횡성군 서원면 옥계9길 124",
+    "raw_place_name": ""
+  },
+  "gc-535182f1f0fa|횡성군 서원면 경강로 유현6길 28": {
+    "query": "강원특별자치도 횡성군 서원면 경강로 유현6길 28",
+    "latitude": 37.5237776486479,
+    "longitude": 127.842012139714,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 횡성군 서원면 경강로유현6길 28",
+    "raw_place_name": ""
+  },
+  "gc-fac50b03683e|횡성군 서원면 창촌리 산132": {
+    "query": "강원특별자치도 횡성군 서원면 창촌리 산132",
+    "latitude": 37.471476509974,
+    "longitude": 127.859579718745,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 횡성군 서원면 창촌리 산 132",
+    "raw_place_name": ""
+  },
+  "gc-a09581c58781|횡성군 서원면 창촌리 산124": {
+    "query": "강원특별자치도 횡성군 서원면 창촌리 산124",
+    "latitude": 37.4717174711798,
+    "longitude": 127.866076608968,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 횡성군 서원면 창촌리 산 124",
+    "raw_place_name": ""
+  },
+  "gc-908385d35939|영월군 영월읍 사지막길 160": {
+    "query": "강원특별자치도 영월군 영월읍 사지막길 160",
+    "latitude": 37.2177943871239,
+    "longitude": 128.51873186171,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 영월군 영월읍 사지막길 160",
+    "raw_place_name": ""
+  },
+  "gc-11423b427515|평창군 대관령면 올림픽로 715": {
+    "query": "강원특별자치도 평창군 대관령면 올림픽로 715",
+    "latitude": 37.6509448898618,
+    "longitude": 128.705556644413,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 평창군 대관령면 올림픽로 715",
+    "raw_place_name": ""
+  },
+  "gc-1e4b4a02117e|평창군 대관령면 올림픽로 715": {
+    "query": "강원특별자치도 평창군 대관령면 올림픽로 715",
+    "latitude": 37.6509448898618,
+    "longitude": 128.705556644413,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 평창군 대관령면 올림픽로 715",
+    "raw_place_name": ""
+  },
+  "gc-07cd3007c683|평창군 대관령면 올림픽로 715": {
+    "query": "강원특별자치도 평창군 대관령면 올림픽로 715",
+    "latitude": 37.6509448898618,
+    "longitude": 128.705556644413,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 평창군 대관령면 올림픽로 715",
+    "raw_place_name": ""
+  },
+  "gc-2b5762bfc60c|평창군 대관령면 솔봉로 325": {
+    "query": "강원특별자치도 평창군 대관령면 솔봉로 325",
+    "latitude": 37.6592541743687,
+    "longitude": 128.684010667163,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 평창군 대관령면 솔봉로 325",
+    "raw_place_name": ""
+  },
+  "gc-88fd5807de80|평창군 대관령면 솔봉로 325": {
+    "query": "강원특별자치도 평창군 대관령면 솔봉로 325",
+    "latitude": 37.6592541743687,
+    "longitude": 128.684010667163,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 평창군 대관령면 솔봉로 325",
+    "raw_place_name": ""
+  },
+  "gc-658a43bb77b8|정선군 고한읍 고한7길 399": {
+    "query": "강원특별자치도 정선군 고한읍 고한7길 399",
+    "latitude": 37.1742297977261,
+    "longitude": 128.842570754473,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 정선군 고한읍 고한7길 399",
+    "raw_place_name": ""
+  },
+  "gc-c97aebfdffe3|정선군 신동읍 새골길 112-49": {
+    "query": "강원특별자치도 정선군 신동읍 새골길 112-49",
+    "latitude": 37.2221149999408,
+    "longitude": 128.679457715709,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 정선군 신동읍 새골길 112-49",
+    "raw_place_name": ""
+  },
+  "gc-57059262e040|철원군 갈말읍 순담길 59": {
+    "query": "강원특별자치도 철원군 갈말읍 순담길 59",
+    "latitude": 38.1709445946776,
+    "longitude": 127.293555015694,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 철원군 갈말읍 순담길 59",
+    "raw_place_name": ""
+  },
+  "gc-af74a0cb154f|고성군 죽왕면 순포로 188": {
+    "query": "강원특별자치도 고성군 죽왕면 순포로 188",
+    "latitude": 38.3161744774221,
+    "longitude": 128.511503806851,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 고성군 죽왕면 순포로 188",
+    "raw_place_name": ""
+  },
+  "gc-da4ac7ff9f91|고성군 토성면 미시령옛길 1153": {
+    "query": "강원특별자치도 고성군 토성면 미시령옛길 1153",
+    "latitude": 38.2131162786595,
+    "longitude": 128.493440366843,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 고성군 토성면 미시령옛길 1153",
+    "raw_place_name": ""
+  },
+  "gc-4454a258c3a6|고성군 토성면 잼버리동로 267": {
+    "query": "강원특별자치도 고성군 토성면 잼버리동로 267",
+    "latitude": 38.243216190298,
+    "longitude": 128.537580723637,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 고성군 토성면 잼버리동로 267",
+    "raw_place_name": ""
+  },
+  "gc-318abdb864d5|양양군 손양면 공항로 230": {
+    "query": "강원특별자치도 양양군 손양면 공항로 230",
+    "latitude": 38.0555897450385,
+    "longitude": 128.664155057919,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 양양군 손양면 공항로 230",
+    "raw_place_name": ""
+  },
+  "gc-67d0f65e6b2d|양양군 손양면 공항로 230": {
+    "query": "강원특별자치도 양양군 손양면 공항로 230",
+    "latitude": 38.0555897450385,
+    "longitude": 128.664155057919,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "강원특별자치도 양양군 손양면 공항로 230",
+    "raw_place_name": ""
+  },
+  "gc-3d63d3179c0f|경기도 용인시 기흥구 흥덕4로 77": {
+    "query": "경기도 용인시 기흥구 흥덕4로 77",
+    "latitude": 37.2785734665911,
+    "longitude": 127.089081801998,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 용인시 기흥구 흥덕4로 77",
+    "raw_place_name": ""
+  },
+  "gc-c2ad879f8193|경기도 용인시 기흥구 구교동로 151": {
+    "query": "경기도 용인시 기흥구 구교동로 151",
+    "latitude": 37.3070400686232,
+    "longitude": 127.12311440438,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 용인시 기흥구 구교동로 151",
+    "raw_place_name": ""
+  },
+  "gc-254a1c054bbe|경기도 용인시 기흥구 기흥단지로 398": {
+    "query": "경기도 용인시 기흥구 기흥단지로 398",
+    "latitude": 37.217404056926,
+    "longitude": 127.138614334162,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 용인시 기흥구 기흥단지로 398",
+    "raw_place_name": ""
+  },
+  "gc-0f218a599984|경기도 용인시 기흥구 석성로 521번길 169": {
+    "query": "경기도 용인시 기흥구 석성로 521번길 169",
+    "latitude": 37.306732671299,
+    "longitude": 127.160462250868,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 용인시 기흥구 석성로521번길 169",
+    "raw_place_name": ""
+  },
+  "gc-e684f84c8fa4|경기도 용인시 처인구 모현읍 능원로 181": {
+    "query": "경기도 용인시 처인구 모현읍 능원로 181",
+    "latitude": 37.3241166580753,
+    "longitude": 127.175268275755,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 용인시 처인구 모현읍 능원로 181",
+    "raw_place_name": ""
+  },
+  "gc-588d348bc962|경기도 용인시 처인구 모현읍 능원로 181": {
+    "query": "경기도 용인시 처인구 모현읍 능원로 181",
+    "latitude": 37.3241166580753,
+    "longitude": 127.175268275755,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 용인시 처인구 모현읍 능원로 181",
+    "raw_place_name": ""
+  },
+  "gc-1475a1d902d7|경기도 용인시 기흥구 사은로 163": {
+    "query": "경기도 용인시 기흥구 사은로 163",
+    "latitude": 37.2676071141644,
+    "longitude": 127.118628245742,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 용인시 기흥구 사은로 163",
+    "raw_place_name": ""
+  },
+  "gc-a53c3fecd592|경기도 용인시 이동읍 이원로 225": {
+    "query": "경기도 용인시 이동읍 이원로 225",
+    "latitude": 37.1818091297286,
+    "longitude": 127.241377177765,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 용인시 처인구 이동읍 이원로 225",
+    "raw_place_name": ""
+  },
+  "gc-120c785ee7a3|경기도 용인시 처인구 백옥대로 860-38": {
+    "query": "경기도 용인시 처인구 백옥대로 860-38",
+    "latitude": 37.2153647111834,
+    "longitude": 127.218965499884,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 용인시 처인구 백옥대로 860-38",
+    "raw_place_name": ""
+  },
+  "gc-25de9ff08a30|경기도 용인시 처인구 양지면 양대로 290": {
+    "query": "경기도 용인시 처인구 양지면 양대로 290",
+    "latitude": 37.2546997034963,
+    "longitude": 127.292670608818,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 용인시 처인구 양지읍 양대로 290",
+    "raw_place_name": ""
+  },
+  "gc-0c833ff6d95f|경기도 용인시 처인구 원삼면 보개원삼로 1534번길 40": {
+    "query": "경기도 용인시 처인구 원삼면 보개원삼로 1534번길 40",
+    "latitude": 37.134173221852,
+    "longitude": 127.325900163183,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 용인시 처인구 원삼면 보개원삼로1534번길 40",
+    "raw_place_name": ""
+  },
+  "gc-2ef4e18d677b|경기도 용인시 처인구 원삼면 보개원삼로 1534번길 40": {
+    "query": "경기도 용인시 처인구 원삼면 보개원삼로 1534번길 40",
+    "latitude": 37.134173221852,
+    "longitude": 127.325900163183,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 용인시 처인구 원삼면 보개원삼로1534번길 40",
+    "raw_place_name": ""
+  },
+  "gc-0086afc84101|경기도 용인시 처인구 이동읍 기흥단지로 579": {
+    "query": "경기도 용인시 처인구 이동읍 기흥단지로 579",
+    "latitude": 37.2194071623658,
+    "longitude": 127.154846656677,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 용인시 처인구 이동읍 기흥단지로 579",
+    "raw_place_name": ""
+  },
+  "gc-4487ee52808c|경기도 용인시 기흥구 기흥단지로 224": {
+    "query": "경기도 용인시 기흥구 기흥단지로 224",
+    "latitude": 37.2235240855674,
+    "longitude": 127.119046263181,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 용인시 기흥구 기흥단지로 224",
+    "raw_place_name": ""
+  },
+  "gc-20c1df4aa8fb|경기도 용인시 처인구 원삼면 죽양대로 2000번길 60": {
+    "query": "경기도 용인시 처인구 원삼면 죽양대로 2000번길 60",
+    "latitude": 37.2098757294811,
+    "longitude": 127.335844920046,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 용인시 처인구 원삼면 죽양대로2000번길 60",
+    "raw_place_name": ""
+  },
+  "gc-4687a4044d34|경기도 용인시 처인구 원삼면 죽양대로 2100번길 60": {
+    "query": "지산퍼블릭 용인시",
+    "latitude": 37.2131778614014,
+    "longitude": 127.328786786275,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 용인시 처인구 원삼면 맹리 1-29",
+    "raw_place_name": "지산리조트(퍼블릭하우스) 전기차충전소"
+  },
+  "gc-ab63350a5577|경기도 용인시 처인구 이동읍 화산로 239": {
+    "query": "경기도 용인시 처인구 이동읍 화산로 239",
+    "latitude": 37.1479778314976,
+    "longitude": 127.232274251736,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 용인시 처인구 이동읍 화산로 239",
+    "raw_place_name": ""
+  },
+  "gc-8b59a320f132|경기도 용인시 처인구 남사읍 경기동로 628": {
+    "query": "경기도 용인시 처인구 남사읍 경기동로 628",
+    "latitude": 37.1255868069866,
+    "longitude": 127.182905425438,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 용인시 처인구 남사읍 경기동로 628",
+    "raw_place_name": ""
+  },
+  "gc-748b687096d1|경기도 용인시 처인구 포곡읍 에버랜드로 562번길 69": {
+    "query": "경기도 용인시 처인구 포곡읍 에버랜드로 562번길 69",
+    "latitude": 37.2944664882956,
+    "longitude": 127.185738968163,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 용인시 처인구 포곡읍 에버랜드로562번길 69",
+    "raw_place_name": ""
+  },
+  "gc-928514cac4c6|경기도 용인시 처인구 백암면 황새울로 255": {
+    "query": "경기도 용인시 처인구 백암면 황새울로 255",
+    "latitude": 37.1106698727256,
+    "longitude": 127.344084710645,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 용인시 처인구 백암면 황새울로 255",
+    "raw_place_name": ""
+  },
+  "gc-fc0e80550b95|경기도 용인시 처인구 백암면 황새울로 255": {
+    "query": "경기도 용인시 처인구 백암면 황새울로 255",
+    "latitude": 37.1106698727256,
+    "longitude": 127.344084710645,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 용인시 처인구 백암면 황새울로 255",
+    "raw_place_name": ""
+  },
+  "gc-c45d3f5d316d|경기도 용인시 처인구 백암면 고안로 51번길 205": {
+    "query": "경기도 용인시 처인구 백암면 고안로 51번길 205",
+    "latitude": 37.143104041341,
+    "longitude": 127.420208502611,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 용인시 처인구 백암면 고안로51번길 205",
+    "raw_place_name": ""
+  },
+  "gc-f4bb9638f567|경기도 용인시 처인구 이동읍 백자로 369": {
+    "query": "경기도 용인시 처인구 이동읍 백자로 369",
+    "latitude": 37.2048498724339,
+    "longitude": 127.202059393005,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 용인시 처인구 이동읍 백자로 369",
+    "raw_place_name": ""
+  },
+  "gc-af63c289d999|경기도 용인시 처인구 이동읍 백자로 450": {
+    "query": "경기도 용인시 처인구 이동읍 백자로 450",
+    "latitude": 37.1898307350743,
+    "longitude": 127.195381124056,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 용인시 처인구 이동읍 백자로 450",
+    "raw_place_name": ""
+  },
+  "gc-27324df1736a|경기도 고양시 덕양구 고양대로1643번길 164": {
+    "query": "경기도 고양시 덕양구 고양대로1643번길 164",
+    "latitude": 37.6574943302532,
+    "longitude": 126.863513025624,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 고양시 덕양구 고양대로1643번길 164",
+    "raw_place_name": ""
+  },
+  "gc-3b60b2dadb3f|경기도 고양시 덕양구 신원2로 57": {
+    "query": "경기도 고양시 덕양구 신원2로 57",
+    "latitude": 37.6649146499635,
+    "longitude": 126.876705846025,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 고양시 덕양구 신원2로 57",
+    "raw_place_name": ""
+  },
+  "gc-8fbc2ee961a0|경기도 고양시 덕양구 흥도로 304-23": {
+    "query": "경기도 고양시 덕양구 흥도로 304-23",
+    "latitude": 37.6368795660515,
+    "longitude": 126.858462589824,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 고양시 덕양구 흥도로 304-23",
+    "raw_place_name": ""
+  },
+  "gc-a80360466b97|경기도 고양시 덕양구 통일로 43-168": {
+    "query": "경기도 고양시 덕양구 통일로 43-168",
+    "latitude": 37.6414052244714,
+    "longitude": 126.903049154807,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 고양시 덕양구 통일로 43-168",
+    "raw_place_name": ""
+  },
+  "gc-18640b625b94|경기도 고양시 덕양구 혜음로 301": {
+    "query": "경기도 고양시 덕양구 혜음로 301",
+    "latitude": 37.7205884358877,
+    "longitude": 126.894884319054,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 고양시 덕양구 혜음로 301",
+    "raw_place_name": ""
+  },
+  "gc-41b5c15f44da|경기도 고양시 일산동구 산황로 108": {
+    "query": "경기도 고양시 일산동구 산황로 108",
+    "latitude": 37.6562303208462,
+    "longitude": 126.812685665254,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 고양시 일산동구 산황로 108",
+    "raw_place_name": ""
+  },
+  "gc-1faa083d0616|경기도 고양시 덕양구 고양대로 1591": {
+    "query": "경기도 고양시 덕양구 고양대로 1591",
+    "latitude": 37.6520363551289,
+    "longitude": 126.863195294978,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 고양시 덕양구 고양대로 1591",
+    "raw_place_name": ""
+  },
+  "gc-210de13c89f8|경기도 성남시 분당구 판교백현로 161": {
+    "query": "경기도 성남시 분당구 판교백현로 161",
+    "latitude": 37.3817595132597,
+    "longitude": 127.082273076959,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 성남시 분당구 판교백현로 161",
+    "raw_place_name": ""
+  },
+  "gc-4731f8c98a6d|경기도 화성시 중리길 183": {
+    "query": "경기도 화성시 중리길 183",
+    "latitude": 37.1904720176185,
+    "longitude": 127.11260439051,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 화성시 동탄구 중리길 183",
+    "raw_place_name": ""
+  },
+  "gc-7701abd77260|경기도 화성시 풀무골로106번길 244": {
+    "query": "경기도 화성시 풀무골로106번길 244",
+    "latitude": 37.1914005140878,
+    "longitude": 127.146651875767,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 화성시 동탄구 풀무골로106번길 244",
+    "raw_place_name": ""
+  },
+  "gc-ccb45b4f27e1|경기도 화성시 팔탄면 3.1만세로 641-28": {
+    "query": "경기도 화성시 팔탄면 3.1만세로 641-28",
+    "latitude": 37.1165485863229,
+    "longitude": 126.860409015903,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 화성시 만세구 팔탄면 3.1만세로 641-28",
+    "raw_place_name": ""
+  },
+  "gc-2db2d6cad688|경기도 화성시 팔탄면 3.1만세로 641-28": {
+    "query": "경기도 화성시 팔탄면 3.1만세로 641-28",
+    "latitude": 37.1165485863229,
+    "longitude": 126.860409015903,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 화성시 만세구 팔탄면 3.1만세로 641-28",
+    "raw_place_name": ""
+  },
+  "gc-ee03e5ddbe9f|경기도 화성시 정남면 세자로 286": {
+    "query": "경기도 화성시 정남면 세자로 286",
+    "latitude": 37.1870993834287,
+    "longitude": 126.984152259603,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 화성시 효행구 정남면 세자로 286",
+    "raw_place_name": ""
+  },
+  "gc-4905c6ca9b75|경기도 화성시 풀무골로60번길 80": {
+    "query": "경기도 화성시 풀무골로60번길 80",
+    "latitude": 37.1970826229314,
+    "longitude": 127.133319881059,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 화성시 동탄구 풀무골로60번길 80",
+    "raw_place_name": ""
+  },
+  "gc-5ec5b76d3c22|경기도 화성시 남양읍 화성로 1393-27": {
+    "query": "경기도 화성시 남양읍 화성로 1393-27",
+    "latitude": 37.2247867348522,
+    "longitude": 126.834979307377,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 화성시 만세구 남양읍 화성로 1393-27",
+    "raw_place_name": ""
+  },
+  "gc-c77232b99bd6|경기도 화성시 마도면 해운로630번길 49": {
+    "query": "경기도 화성시 마도면 해운로630번길 49",
+    "latitude": 37.1718065568336,
+    "longitude": 126.753337859465,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 화성시 만세구 마도면 해운로630번길 49",
+    "raw_place_name": ""
+  },
+  "gc-24a9087d99d6|경기도 남양주시 화도읍 북한강로 1525-52": {
+    "query": "경기도 남양주시 화도읍 북한강로 1525-52",
+    "latitude": 37.636203858404,
+    "longitude": 127.348021618198,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 남양주시 화도읍 북한강로 1525-52",
+    "raw_place_name": ""
+  },
+  "gc-73a2a3982c35|경기도 남양주시 진접읍 팔야로 280": {
+    "query": "경기도 남양주시 진접읍 팔야로 280",
+    "latitude": 37.7589072273144,
+    "longitude": 127.244583657531,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 남양주시 진접읍 팔야로 280",
+    "raw_place_name": ""
+  },
+  "gc-66517960c8f8|경기도 남양주시 진접읍 팔야로 280": {
+    "query": "경기도 남양주시 진접읍 팔야로 280",
+    "latitude": 37.7589072273144,
+    "longitude": 127.244583657531,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 남양주시 진접읍 팔야로 280",
+    "raw_place_name": ""
+  },
+  "gc-7471c8142b1e|경기도 남양주시 화도읍 마치로 226-220": {
+    "query": "경기도 남양주시 화도읍 마치로 226-220",
+    "latitude": 37.6480306678415,
+    "longitude": 127.269615062632,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 남양주시 화도읍 마치로 226-220",
+    "raw_place_name": ""
+  },
+  "gc-01a5e4501db9|경기도 남양주시 화도읍 재재기로 190번길 160": {
+    "query": "경기도 남양주시 화도읍 재재기로 190번길 160",
+    "latitude": 37.6134587063097,
+    "longitude": 127.289894027742,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 남양주시 화도읍 재재기로190번길 160",
+    "raw_place_name": ""
+  },
+  "gc-29fa36946d15|경기도 남양주시 오남읍 진건오남로 516-31": {
+    "query": "경기도 남양주시 오남읍 진건오남로 516-31",
+    "latitude": 37.6790108308916,
+    "longitude": 127.216144674262,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 남양주시 오남읍 진건오남로 516-31",
+    "raw_place_name": ""
+  },
+  "gc-63e74643a178|경기도 안산시 단원구 대선로466(대부남동)": {
+    "query": "경기도 안산시 단원구 대선로466",
+    "latitude": 37.2290533778255,
+    "longitude": 126.56532297369,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 안산시 단원구 대선로 466",
+    "raw_place_name": ""
+  },
+  "gc-5e74f5c1f4b5|경기도 안산시 상록구 태마당로28(부곡동)": {
+    "query": "경기도 안산시 상록구 태마당로28",
+    "latitude": 37.3226430233511,
+    "longitude": 126.868529955967,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 안산시 상록구 태마당로 28",
+    "raw_place_name": ""
+  },
+  "gc-df2b984b36c9|경기도 시흥시 마유로 987 (장곡동)": {
+    "query": "경기도 시흥시 마유로 987",
+    "latitude": 37.3911056218121,
+    "longitude": 126.77732135435,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 시흥시 마유로 987",
+    "raw_place_name": ""
+  },
+  "gc-d5533edff8e8|경기도 시흥시 마전로 307 (거모동)": {
+    "query": "경기도 시흥시 마전로 307",
+    "latitude": 37.3678166265456,
+    "longitude": 126.771375724119,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 시흥시 마전로 307",
+    "raw_place_name": ""
+  },
+  "gc-a68be6870289|경기도 김포시 월곶면 김포대로 2081번길 219": {
+    "query": "김포SEASIDE 컨트리클럽 김포시",
+    "latitude": 37.710117534444116,
+    "longitude": 126.53416592511554,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 김포시 월곶면 포내리 220-4",
+    "raw_place_name": "시사이드컨트리클럽"
+  },
+  "gc-962dc7cafd46|경기도 파주시 광탄면 혜음로 324": {
+    "query": "경기도 파주시 광탄면 혜음로 324",
+    "latitude": 37.731325450055,
+    "longitude": 126.896468880386,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 파주시 광탄면 혜음로 324",
+    "raw_place_name": ""
+  },
+  "gc-0ab02fc6c813|경기도 파주시 광탄면 서원길 333": {
+    "query": "경기도 파주시 광탄면 서원길 333",
+    "latitude": 37.8157490998746,
+    "longitude": 126.895247196106,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 파주시 광탄면 서원길 333",
+    "raw_place_name": ""
+  },
+  "gc-fabeaa53a815|경기도 파주시 광탄면 서원길 333": {
+    "query": "경기도 파주시 광탄면 서원길 333",
+    "latitude": 37.8157490998746,
+    "longitude": 126.895247196106,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 파주시 광탄면 서원길 333",
+    "raw_place_name": ""
+  },
+  "gc-81becbdb274e|경기도 파주시 조리읍 장곡로 100": {
+    "query": "경기도 파주시 조리읍 장곡로 100",
+    "latitude": 37.7496971545265,
+    "longitude": 126.84459205832,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 파주시 조리읍 장곡로 100",
+    "raw_place_name": ""
+  },
+  "gc-34f4d067cfc2|경기도 파주시 법원읍 화합로 306": {
+    "query": "경기도 파주시 법원읍 화합로 306",
+    "latitude": 37.8478800003825,
+    "longitude": 126.899866945317,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 파주시 법원읍 화합로 306",
+    "raw_place_name": ""
+  },
+  "gc-fb2e8a3b34d8|경기도 파주시 광탄면 장지산로200번길 32-41": {
+    "query": "경기도 파주시 광탄면 장지산로200번길 32-41",
+    "latitude": 37.7551620425719,
+    "longitude": 126.884754027525,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 파주시 광탄면 장지산로200번길 32-41",
+    "raw_place_name": ""
+  },
+  "gc-d5cd483c8c94|경기도 파주시 광탄면 쇠장이길 265": {
+    "query": "경기도 파주시 광탄면 쇠장이길 265",
+    "latitude": 37.7888580628362,
+    "longitude": 126.91101554382,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 파주시 광탄면 쇠장이길 265",
+    "raw_place_name": ""
+  },
+  "gc-d0e431ff250c|경기도 파주시 법원읍 보광로 1616": {
+    "query": "경기도 파주시 법원읍 보광로 1616",
+    "latitude": 37.8285800785851,
+    "longitude": 126.877596953566,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 파주시 법원읍 보광로 1616",
+    "raw_place_name": ""
+  },
+  "gc-9eb46dae9c9d|경기도 파주시 법원읍 술이홀로 1803": {
+    "query": "경기도 파주시 법원읍 술이홀로 1803",
+    "latitude": 37.9239813269278,
+    "longitude": 126.89713153987,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 파주시 법원읍 술이홀로 1803",
+    "raw_place_name": ""
+  },
+  "gc-e04bb1d7bba9|경기도 광주시 곤지암읍 부항길 135-38": {
+    "query": "경기도 광주시 곤지암읍 부항길 135-38",
+    "latitude": 37.3535860770814,
+    "longitude": 127.413945844469,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 광주시 곤지암읍 부항길 135-38",
+    "raw_place_name": ""
+  },
+  "gc-b37c66474de6|경기도 광주시 곤지암읍 건업길 195": {
+    "query": "경기도 광주시 곤지암읍 건업길 195",
+    "latitude": 37.4058005976175,
+    "longitude": 127.384660543938,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 광주시 곤지암읍 건업길 195",
+    "raw_place_name": ""
+  },
+  "gc-bed5fc0dc1f2|경기도 광주시 곤지암읍 내선길 176": {
+    "query": "경기도 광주시 곤지암읍 내선길 176",
+    "latitude": 37.3595254809028,
+    "longitude": 127.42470873023,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 광주시 곤지암읍 내선길 176",
+    "raw_place_name": ""
+  },
+  "gc-2fa514959418|경기도 광주시 새말길 353(목동)": {
+    "query": "경기도 광주시 새말길 353",
+    "latitude": 37.3869501969731,
+    "longitude": 127.182381902422,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 광주시 새말길 353",
+    "raw_place_name": ""
+  },
+  "gc-14e8979016a9|경기도 광주시 도척면 도척윗로 280": {
+    "query": "경기도 광주시 도척면 도척윗로 280",
+    "latitude": 37.3332936402777,
+    "longitude": 127.295447423946,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 광주시 도척면 도척윗로 280",
+    "raw_place_name": ""
+  },
+  "gc-f28133275bb9|경기도 광주시 곤지암읍 경충대로 451": {
+    "query": "경기도 광주시 곤지암읍 경충대로 451",
+    "latitude": 37.3382816386251,
+    "longitude": 127.357428897444,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 광주시 곤지암읍 경충대로 451",
+    "raw_place_name": ""
+  },
+  "gc-3c54aee76615|경기도 광주시 삼지곡길 95(삼동)": {
+    "query": "경기도 광주시 삼지곡길 95",
+    "latitude": 37.4252253615502,
+    "longitude": 127.20953176314,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 광주시 삼지곡길 95",
+    "raw_place_name": ""
+  },
+  "gc-3e570fca0614|경기도 하남시 감이로 317(감이동)": {
+    "query": "경기도 하남시 감이로 317",
+    "latitude": 37.4970187745443,
+    "longitude": 127.169110033575,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 하남시 감이로 317",
+    "raw_place_name": ""
+  },
+  "gc-9944c1872c71|경기도 군포시 군포로364(부곡동)": {
+    "query": "경기도 군포시 군포로364",
+    "latitude": 37.3394048025688,
+    "longitude": 126.939288363083,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 군포시 군포로 364",
+    "raw_place_name": ""
+  },
+  "gc-f2cf5d51eba9|경기도 양주시 만송로 244": {
+    "query": "경기도 양주시 만송로 244",
+    "latitude": 37.7847589940837,
+    "longitude": 127.087125498452,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 양주시 만송로 244",
+    "raw_place_name": ""
+  },
+  "gc-310ce4be2e54|경기도 양주시 만송로 244": {
+    "query": "경기도 양주시 만송로 244",
+    "latitude": 37.7847589940837,
+    "longitude": 127.087125498452,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 양주시 만송로 244",
+    "raw_place_name": ""
+  },
+  "gc-9bb0cbe01084|경기도 양주시 광적면 쇠장이길 435": {
+    "query": "경기도 양주시 광적면 쇠장이길 435",
+    "latitude": 37.7932070318248,
+    "longitude": 126.910459002129,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 양주시 광적면 쇠장이길 435",
+    "raw_place_name": ""
+  },
+  "gc-82563fee9804|경기도 이천시 호법면 장자터로 115": {
+    "query": "경기도 이천시 호법면 장자터로 115",
+    "latitude": 37.1882506916944,
+    "longitude": 127.402626361033,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 이천시 호법면 장자터로 115",
+    "raw_place_name": ""
+  },
+  "gc-eb40a22304aa|경기도 이천시 모가면 사실로 527번길 158": {
+    "query": "경기도 이천시 모가면 사실로 527번길 158",
+    "latitude": 37.1542685904751,
+    "longitude": 127.431405094081,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 이천시 모가면 사실로527번길 158",
+    "raw_place_name": ""
+  },
+  "gc-9b37cfc9caa8|경기도 이천시 모가면 사실로 527번길 158": {
+    "query": "경기도 이천시 모가면 사실로 527번길 158",
+    "latitude": 37.1542685904751,
+    "longitude": 127.431405094081,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 이천시 모가면 사실로527번길 158",
+    "raw_place_name": ""
+  },
+  "gc-bcdfbfe815c7|경기도 이천시 모가면 어농로 272": {
+    "query": "경기도 이천시 모가면 어농로 272",
+    "latitude": 37.1805963585474,
+    "longitude": 127.416935178868,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 이천시 모가면 어농로 272",
+    "raw_place_name": ""
+  },
+  "gc-2f2cc6b9afe3|경기도 이천시 모가면 어농로 272": {
+    "query": "경기도 이천시 모가면 어농로 272",
+    "latitude": 37.1805963585474,
+    "longitude": 127.416935178868,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 이천시 모가면 어농로 272",
+    "raw_place_name": ""
+  },
+  "gc-b046571c4182|경기도 이천시 대월면 대월로 627-141": {
+    "query": "경기도 이천시 대월면 대월로 627-141",
+    "latitude": 37.2092449728206,
+    "longitude": 127.492204112019,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 이천시 대월면 대월로 627-141",
+    "raw_place_name": ""
+  },
+  "gc-06bb9165507c|경기도 이천시 모가면 공원로 64": {
+    "query": "경기도 이천시 모가면 공원로 64",
+    "latitude": 37.1752014628916,
+    "longitude": 127.450643026036,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 이천시 모가면 공원로 64",
+    "raw_place_name": ""
+  },
+  "gc-014659dabae9|경기도 이천시 장호원읍 장여로 459-160": {
+    "query": "경기도 이천시 장호원읍 장여로 459-160",
+    "latitude": 37.1615537861069,
+    "longitude": 127.617878033558,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 이천시 장호원읍 장여로 459-160",
+    "raw_place_name": ""
+  },
+  "gc-9de1c40fef77|경기도 이천시 장호원읍 장여로 459-160": {
+    "query": "경기도 이천시 장호원읍 장여로 459-160",
+    "latitude": 37.1615537861069,
+    "longitude": 127.617878033558,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 이천시 장호원읍 장여로 459-160",
+    "raw_place_name": ""
+  },
+  "gc-403c1dbe574a|경기도 이천시 율면 임오산로 296": {
+    "query": "경기도 이천시 율면 임오산로 296",
+    "latitude": 37.0810572247696,
+    "longitude": 127.572420700688,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 이천시 율면 임오산로 296",
+    "raw_place_name": ""
+  },
+  "gc-fde386e28664|경기도 이천시 설성면 설가로 602": {
+    "query": "경기도 이천시 설성면 설가로 602",
+    "latitude": 37.1770667765958,
+    "longitude": 127.524470407658,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 이천시 설성면 설가로 602",
+    "raw_place_name": ""
+  },
+  "gc-085e92730123|경기도 이천시 모가면 사실로 725번길 119-73": {
+    "query": "경기도 이천시 모가면 사실로 725번길 119-73",
+    "latitude": 37.1711213231586,
+    "longitude": 127.418968520644,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 이천시 모가면 사실로725번길 119-73",
+    "raw_place_name": ""
+  },
+  "gc-d76bd69feda5|경기도 이천시 호법면 중부대로798번길 177": {
+    "query": "경기도 이천시 호법면 중부대로798번길 177",
+    "latitude": 37.2339122073526,
+    "longitude": 127.41109216876,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 이천시 호법면 중부대로798번길 177",
+    "raw_place_name": ""
+  },
+  "gc-cd449267e87f|경기도 안성시 양성면 안성맞춤대로 2417-13": {
+    "query": "경기도 안성시 양성면 안성맞춤대로 2417-13",
+    "latitude": 37.103514847839,
+    "longitude": 127.23398405272,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 안성시 양성면 안성맞춤대로 2417-13",
+    "raw_place_name": ""
+  },
+  "gc-152613ee89f3|경기도 안성시 죽산면 장계길 20-229": {
+    "query": "경기도 안성시 죽산면 장계길 20-229",
+    "latitude": 37.0468242865336,
+    "longitude": 127.389582749216,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 안성시 죽산면 장계길 20-229",
+    "raw_place_name": ""
+  },
+  "gc-0151ec2b5b3a|경기도 안성시 양성면 안성맞춤대로 2134-36": {
+    "query": "경기도 안성시 양성면 안성맞춤대로 2134-36",
+    "latitude": 37.1021784370267,
+    "longitude": 127.258022875352,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 안성시 양성면 안성맞춤대로 2134-36",
+    "raw_place_name": ""
+  },
+  "gc-adc16ee54b54|경기도 안성시 죽산면 걸미로 487": {
+    "query": "경기도 안성시 죽산면 걸미로 487",
+    "latitude": 37.0385945146848,
+    "longitude": 127.41316477995,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 안성시 죽산면 걸미로 487",
+    "raw_place_name": ""
+  },
+  "gc-2e3210c9d979|경기도 안성시 금광면 삼흥로 660": {
+    "query": "경기도 안성시 금광면 삼흥로 660",
+    "latitude": 37.0270525296906,
+    "longitude": 127.383944820507,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 안성시 금광면 삼흥로 660",
+    "raw_place_name": ""
+  },
+  "gc-8f72ace0d89a|경기도 안성시 금광면 삼흥로 660": {
+    "query": "경기도 안성시 금광면 삼흥로 660",
+    "latitude": 37.0270525296906,
+    "longitude": 127.383944820507,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 안성시 금광면 삼흥로 660",
+    "raw_place_name": ""
+  },
+  "gc-2c8ffe1e182d|경기도 안성시 고삼면 개울말길 149": {
+    "query": "경기도 안성시 고삼면 개울말길 149",
+    "latitude": 37.0927595447355,
+    "longitude": 127.25442201867,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 안성시 고삼면 개울말길 149",
+    "raw_place_name": ""
+  },
+  "gc-2c90528d411e|경기도 안성시 고삼면 개울말길 149": {
+    "query": "경기도 안성시 고삼면 개울말길 149",
+    "latitude": 37.0927595447355,
+    "longitude": 127.25442201867,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 안성시 고삼면 개울말길 149",
+    "raw_place_name": ""
+  },
+  "gc-a026faeee8ac|경기도 안성시 서운면 오촌길 97-31": {
+    "query": "경기도 안성시 서운면 오촌길 97-31",
+    "latitude": 36.9595879439075,
+    "longitude": 127.281860567298,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 안성시 서운면 오촌길 97-31",
+    "raw_place_name": ""
+  },
+  "gc-5062dbcbfa1c|경기도 안성시 양성면 약산길 67-6": {
+    "query": "경기도 안성시 양성면 약산길 67-6",
+    "latitude": 37.1175038882089,
+    "longitude": 127.261523658546,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 안성시 양성면 약산길 67-6",
+    "raw_place_name": ""
+  },
+  "gc-16fca0551d98|경기도 안성시 양성면 양성로 349-61": {
+    "query": "경기도 안성시 양성면 양성로 349-61",
+    "latitude": 37.0852223122103,
+    "longitude": 127.200640109728,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 안성시 양성면 양성로 349-61",
+    "raw_place_name": ""
+  },
+  "gc-5495f8d48bf7|경기도 안성시 죽산면 녹배길 175": {
+    "query": "경기도 안성시 죽산면 녹배길 175",
+    "latitude": 37.0599504972085,
+    "longitude": 127.380537654302,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 안성시 죽산면 녹배길 175",
+    "raw_place_name": ""
+  },
+  "gc-1f3e33adbac2|경기도 안성시 보개면 보삼로 106": {
+    "query": "경기도 안성시 보개면 보삼로 106",
+    "latitude": 37.0916860319311,
+    "longitude": 127.33016456169,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 안성시 보개면 보삼로 106",
+    "raw_place_name": ""
+  },
+  "gc-b46ed64b80b6|경기도 포천시 일동면 운악청계로 1507": {
+    "query": "경기도 포천시 일동면 운악청계로 1507",
+    "latitude": 37.9332321023118,
+    "longitude": 127.333863948104,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 포천시 일동면 운악청계로 1507",
+    "raw_place_name": ""
+  },
+  "gc-4884a38f1896|경기도 포천시 신북면 포천로 2499": {
+    "query": "경기도 포천시 신북면 포천로 2499",
+    "latitude": 37.9708954325836,
+    "longitude": 127.171996614016,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 포천시 신북면 포천로 2499",
+    "raw_place_name": ""
+  },
+  "gc-e2614722e86e|경기도 포천시 신북면 포천로 2499": {
+    "query": "경기도 포천시 신북면 포천로 2499",
+    "latitude": 37.9708954325836,
+    "longitude": 127.171996614016,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 포천시 신북면 포천로 2499",
+    "raw_place_name": ""
+  },
+  "gc-fb0d61e3914d|경기도 포천시 화현면 달인동로 35": {
+    "query": "경기도 포천시 화현면 달인동로 35",
+    "latitude": 37.90170273355,
+    "longitude": 127.278763456244,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 포천시 화현면 달인동로 35",
+    "raw_place_name": ""
+  },
+  "gc-1914b4243487|경기도 포천시 영북면 산정호수로 359-12": {
+    "query": "경기도 포천시 영북면 산정호수로 359-12",
+    "latitude": 38.073341480809,
+    "longitude": 127.305682662082,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 포천시 영북면 산정호수로 359-12",
+    "raw_place_name": ""
+  },
+  "gc-02352ab50684|경기도 포천시 일동면 화동로 738": {
+    "query": "경기도 포천시 일동면 화동로 738",
+    "latitude": 37.9264650825377,
+    "longitude": 127.325012078319,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 포천시 일동면 화동로 738",
+    "raw_place_name": ""
+  },
+  "gc-d569726d2503|경기도 포천시 일동면 화동로 738": {
+    "query": "경기도 포천시 일동면 화동로 738",
+    "latitude": 37.9264650825377,
+    "longitude": 127.325012078319,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 포천시 일동면 화동로 738",
+    "raw_place_name": ""
+  },
+  "gc-f2158c0fa417|경기도 포천시 가산면 금우로276": {
+    "query": "경기도 포천시 가산면 금우로276",
+    "latitude": 37.8414254659181,
+    "longitude": 127.234742117735,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 포천시 가산면 금우로 276",
+    "raw_place_name": ""
+  },
+  "gc-564e2ae6067a|경기도 포천시 군내면 반월산성로 375번길 34": {
+    "query": "경기도 포천시 군내면 반월산성로 375번길 34",
+    "latitude": 37.886412480582,
+    "longitude": 127.230709816214,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 포천시 군내면 반월산성로375번길 34",
+    "raw_place_name": ""
+  },
+  "gc-b7fd5ee009ca|경기도 포천시 화현면 봉화로 253": {
+    "query": "경기도 포천시 화현면 봉화로 253",
+    "latitude": 37.8731490235485,
+    "longitude": 127.276009090634,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 포천시 화현면 봉화로 253",
+    "raw_place_name": ""
+  },
+  "gc-825e9c261de2|경기도 포천시 삼육사로 1982": {
+    "query": "경기도 포천시 삼육사로 1982",
+    "latitude": 37.8668399230398,
+    "longitude": 127.136107459732,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 포천시 삼육사로 1982",
+    "raw_place_name": ""
+  },
+  "gc-7c76a7546834|경기도 포천시 군내면 청군로 2856-93": {
+    "query": "경기도 포천시 군내면 청군로 2856-93",
+    "latitude": 37.8715019549309,
+    "longitude": 127.255307204316,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 포천시 군내면 청군로 2856-93",
+    "raw_place_name": ""
+  },
+  "gc-81ecacc0ae41|경기도 포천시 이동면 제비울2길 161": {
+    "query": "경기도 포천시 이동면 제비울2길 161",
+    "latitude": 37.99572279655,
+    "longitude": 127.385961386318,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 포천시 이동면 제비울2길 161",
+    "raw_place_name": ""
+  },
+  "gc-7ef394db717b|경기도 포천시 영중면 금화봉 4길 77-1": {
+    "query": "경기도 포천시 영중면 금화봉 4길 77-1",
+    "latitude": 37.9909689606756,
+    "longitude": 127.224976213855,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 포천시 영중면 금화봉4길 77-1",
+    "raw_place_name": ""
+  },
+  "gc-a15f33b9f89a|경기도 양평군 양동면 양동로 756": {
+    "query": "경기도 양평군 양동면 양동로 756",
+    "latitude": 37.4765591198711,
+    "longitude": 127.700437634401,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 양평군 양동면 양동로 756",
+    "raw_place_name": ""
+  },
+  "gc-5ca66aa29c0b|경기도 양평군 지평면 대평평장길 113-8": {
+    "query": "경기도 양평군 지평면 대평평장길 113-8",
+    "latitude": 37.413668994346,
+    "longitude": 127.639814572236,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 양평군 지평면 대평평장길 113-8",
+    "raw_place_name": ""
+  },
+  "gc-88f7a6754606|경기도 여주시 월평로 78": {
+    "query": "경기도 여주시 월평로 78",
+    "latitude": 37.278546085351,
+    "longitude": 127.602624993789,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 여주시 월평로 78",
+    "raw_place_name": ""
+  },
+  "gc-59ee5f28d2c8|경기도 여주시 가여로 532": {
+    "query": "경기도 여주시 가여로 532",
+    "latitude": 37.2284125840512,
+    "longitude": 127.633511005887,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 여주시 가여로 532",
+    "raw_place_name": ""
+  },
+  "gc-7e1dadf46eaa|경기도 여주시 점동면 소피아그린길 84": {
+    "query": "경기도 여주시 점동면 소피아그린길 84",
+    "latitude": 37.1717624693416,
+    "longitude": 127.701434722273,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 여주시 점동면 소피아그린길 84",
+    "raw_place_name": ""
+  },
+  "gc-b55900a1fcf9|경기도 여주시 가남읍 솔모로그린길 171": {
+    "query": "경기도 여주시 가남읍 솔모로그린길 171",
+    "latitude": 37.1920122274856,
+    "longitude": 127.588336195624,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 여주시 가남읍 솔모로그린길 171",
+    "raw_place_name": ""
+  },
+  "gc-8a797fe2213a|경기도 여주시 가남읍 여주남로 541": {
+    "query": "경기도 여주시 가남읍 여주남로 541",
+    "latitude": 37.242996981679,
+    "longitude": 127.593146405693,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 여주시 가남읍 여주남로 541",
+    "raw_place_name": ""
+  },
+  "gc-3f6cace5bf14|경기도 여주시 가남읍 여주남로 541": {
+    "query": "경기도 여주시 가남읍 여주남로 541",
+    "latitude": 37.242996981679,
+    "longitude": 127.593146405693,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 여주시 가남읍 여주남로 541",
+    "raw_place_name": ""
+  },
+  "gc-51bfec26aa96|경기도 여주시 가남읍 자유그린길 69": {
+    "query": "경기도 여주시 가남읍 자유그린길 69",
+    "latitude": 37.2082820693303,
+    "longitude": 127.563188941372,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 여주시 가남읍 자유그린길 69",
+    "raw_place_name": ""
+  },
+  "gc-a862e6d054f2|경기도 여주시 가남읍 송삼로 191": {
+    "query": "경기도 여주시 가남읍 송삼로 191",
+    "latitude": 37.180823064092,
+    "longitude": 127.63100021793,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 여주시 가남읍 송삼로 191",
+    "raw_place_name": ""
+  },
+  "gc-c0e3c44b953c|경기도 여주시 가남읍 아리지그린길 68": {
+    "query": "경기도 여주시 가남읍 아리지그린길 68",
+    "latitude": 37.2116040297241,
+    "longitude": 127.602218134271,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 여주시 가남읍 아리지그린길 68",
+    "raw_place_name": ""
+  },
+  "gc-75ecca302d46|경기도 여주시 금사면 장흥로 416": {
+    "query": "경기도 여주시 금사면 장흥로 416",
+    "latitude": 37.3924777716886,
+    "longitude": 127.497457573878,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 여주시 금사면 장흥로 416",
+    "raw_place_name": ""
+  },
+  "gc-61ba4f976442|경기도 여주시 산북면 광여로 1115": {
+    "query": "경기도 여주시 산북면 광여로 1115",
+    "latitude": 37.3988920709185,
+    "longitude": 127.431395053386,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 여주시 산북면 광여로 1115",
+    "raw_place_name": ""
+  },
+  "gc-657d8f5d1426|경기도 여주시 산북면 광여로 1115": {
+    "query": "경기도 여주시 산북면 광여로 1115",
+    "latitude": 37.3988920709185,
+    "longitude": 127.431395053386,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 여주시 산북면 광여로 1115",
+    "raw_place_name": ""
+  },
+  "gc-07b4c0178c39|경기도 여주시 대신면 고달사로 67": {
+    "query": "경기도 여주시 대신면 고달사로 67",
+    "latitude": 37.3833461325324,
+    "longitude": 127.64378607957,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 여주시 대신면 고달사로 67",
+    "raw_place_name": ""
+  },
+  "gc-d388a17be449|경기도 여주시 북내면 신라그린길 84": {
+    "query": "경기도 여주시 북내면 신라그린길 84",
+    "latitude": 37.358100734042,
+    "longitude": 127.691896053855,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 여주시 북내면 신라그린길 84",
+    "raw_place_name": ""
+  },
+  "gc-ddb3947686d1|경기도 여주시 북내면 운촌길 254": {
+    "query": "경기도 여주시 북내면 운촌길 254",
+    "latitude": 37.3334050283559,
+    "longitude": 127.726592566142,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 여주시 북내면 운촌길 254",
+    "raw_place_name": ""
+  },
+  "gc-6259847b3bba|경기도 여주시 북내면 운촌길 254": {
+    "query": "경기도 여주시 북내면 운촌길 254",
+    "latitude": 37.3334050283559,
+    "longitude": 127.726592566142,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 여주시 북내면 운촌길 254",
+    "raw_place_name": ""
+  },
+  "gc-2cf253808f7a|경기도 여주시 강천면 부평로 580": {
+    "query": "경기도 여주시 강천면 부평로 580",
+    "latitude": 37.2982412390275,
+    "longitude": 127.743417468918,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 여주시 강천면 부평로 580",
+    "raw_place_name": ""
+  },
+  "gc-c6db7aa6cbe6|경기도 여주시 명품1로 76": {
+    "query": "경기도 여주시 명품1로 76",
+    "latitude": 37.2580290076329,
+    "longitude": 127.616562294831,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 여주시 명품1로 76",
+    "raw_place_name": ""
+  },
+  "gc-30fa81244c96|경기도 여주시 여양로 530": {
+    "query": "경기도 여주시 여양로 530",
+    "latitude": 37.3290253826025,
+    "longitude": 127.656093393689,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 여주시 여양로 530",
+    "raw_place_name": ""
+  },
+  "gc-13ed08c1c42b|경기도 여주시 강천면 부평로 609": {
+    "query": "경기도 여주시 강천면 부평로 609",
+    "latitude": 37.3025719696415,
+    "longitude": 127.73931898398,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 여주시 강천면 부평로 609",
+    "raw_place_name": ""
+  },
+  "gc-417ae947fa4c|경기도 여주시 강천면 강문로 872": {
+    "query": "경기도 여주시 강천면 강문로 872",
+    "latitude": 37.2716050291563,
+    "longitude": 127.733978633871,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 여주시 강천면 강문로 872",
+    "raw_place_name": ""
+  },
+  "gc-bd3f6011928e|경기도 여주시 점동면 점동로 181": {
+    "query": "경기도 여주시 점동면 점동로 181",
+    "latitude": 37.2055142816242,
+    "longitude": 127.69071303361,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 여주시 점동면 점동로 181",
+    "raw_place_name": ""
+  },
+  "gc-41b908991867|경기도 여주시 북내면 중암1길 36": {
+    "query": "경기도 여주시 북내면 중암1길 36",
+    "latitude": 37.350234298327,
+    "longitude": 127.720137845936,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 여주시 북내면 중암1길 36",
+    "raw_place_name": ""
+  },
+  "gc-79abd327c051|경기도 동두천시 평화로 3202": {
+    "query": "경기도 동두천시 평화로 3202",
+    "latitude": 37.9677965712269,
+    "longitude": 127.089243801491,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 동두천시 평화로 3202",
+    "raw_place_name": ""
+  },
+  "gc-d14f87b6bb30|경기도 가평군 조종면 운악청계로 809": {
+    "query": "경기도 가평군 조종면 운악청계로 809",
+    "latitude": 37.8797738004161,
+    "longitude": 127.351064283282,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 가평군 조종면 운악청계로 809",
+    "raw_place_name": ""
+  },
+  "gc-14a40331e62c|경기도 가평군 설악면 다락재로 73-111": {
+    "query": "경기도 가평군 설악면 다락재로 73-111",
+    "latitude": 37.6657763485634,
+    "longitude": 127.458696923265,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 가평군 설악면 다락재로 73-111",
+    "raw_place_name": ""
+  },
+  "gc-b4f940680084|경기도 가평군 설악면 유명로 1243-199": {
+    "query": "경기도 가평군 설악면 유명로 1243-199",
+    "latitude": 37.6607471218653,
+    "longitude": 127.456395141719,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 가평군 설악면 유명로 1243-199",
+    "raw_place_name": ""
+  },
+  "gc-aa2c41b33610|경기도 가평군 설악면 유명로 961-34": {
+    "query": "경기도 가평군 설악면 유명로 961-34",
+    "latitude": 37.6201197734476,
+    "longitude": 127.482403979672,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 가평군 설악면 유명로 961-34",
+    "raw_place_name": ""
+  },
+  "gc-a8d0095f2145|경기도 가평군 상면 둔덕말길 232": {
+    "query": "경기도 가평군 상면 둔덕말길 232",
+    "latitude": 37.7971307979864,
+    "longitude": 127.305446420872,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 가평군 상면 둔덕말길 232",
+    "raw_place_name": ""
+  },
+  "gc-f0e079a5a368|경기도 가평군 상면 대보간선로 602-111": {
+    "query": "경기도 가평군 상면 대보간선로 602-111",
+    "latitude": 37.7941321606329,
+    "longitude": 127.387322213717,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 가평군 상면 대보간선로 602-111",
+    "raw_place_name": ""
+  },
+  "gc-8503021b2f0d|경기도 가평군 조종면 운악청계로 702-24": {
+    "query": "경기도 가평군 조종면 운악청계로 702-24",
+    "latitude": 37.8730300012694,
+    "longitude": 127.362351368664,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 가평군 조종면 운악청계로 702-24",
+    "raw_place_name": ""
+  },
+  "gc-068617149ff3|경기도 가평군 가평읍 용추로 171번길 100": {
+    "query": "경기도 가평군 가평읍 용추로 171번길 100",
+    "latitude": 37.8467648847804,
+    "longitude": 127.471699554307,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 가평군 가평읍 용추로171번길 100",
+    "raw_place_name": ""
+  },
+  "gc-1635f231cd12|경기도 연천군 백학면 노아로297번길 179-55": {
+    "query": "경기도 연천군 백학면 노아로297번길 179-55",
+    "latitude": 37.997454081042,
+    "longitude": 126.953553745248,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경기 연천군 백학면 노아로297번길 179-55",
+    "raw_place_name": ""
+  },
+  "gc-d052d2018eeb|사천시 축동면 화당산로 224": {
+    "query": "경상남도 사천시 축동면 화당산로 224",
+    "latitude": 35.1106005479291,
+    "longitude": 128.044510021762,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 사천시 축동면 화당산로 224",
+    "raw_place_name": ""
+  },
+  "gc-7c631a53804f|김해시 주촌면 서부로 1637번길 299-194": {
+    "query": "경상남도 김해시 주촌면 서부로 1637번길 299-194",
+    "latitude": 35.25562633667,
+    "longitude": 128.80569074338,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 김해시 주촌면 서부로1637번길 299-194",
+    "raw_place_name": ""
+  },
+  "gc-60d067e583df|김해시 진례면 고모로 134번길 54-49": {
+    "query": "경상남도 김해시 진례면 고모로 134번길 54-49",
+    "latitude": 35.2321664789129,
+    "longitude": 128.783994267516,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 김해시 진례면 고모로134번길 54-49",
+    "raw_place_name": ""
+  },
+  "gc-49239d9192d1|김해시 한림면 김해대로 974번길 198": {
+    "query": "경상남도 김해시 한림면 김해대로 974번길 198",
+    "latitude": 35.2763222711031,
+    "longitude": 128.797406595199,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 김해시 한림면 김해대로974번길 198",
+    "raw_place_name": ""
+  },
+  "gc-57ce42c5a27d|밀양시 활성로 455": {
+    "query": "경상남도 밀양시 활성로 455",
+    "latitude": 35.4780841739985,
+    "longitude": 128.812951274484,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 밀양시 활성로 455",
+    "raw_place_name": ""
+  },
+  "gc-db7809fe87b9|밀양시 부북면 전사포리 832": {
+    "query": "밀양컨트리클럽 밀양시",
+    "latitude": 35.4600173636596,
+    "longitude": 128.732301414516,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 밀양시 부북면 전사포리 산 25-5",
+    "raw_place_name": "밀양 컨트리클럽 퍼블릭"
+  },
+  "gc-a33f55e2efe0|밀양시 단장면 단장로 946": {
+    "query": "경상남도 밀양시 단장면 단장로 946",
+    "latitude": 35.4778266645103,
+    "longitude": 128.858381493828,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 밀양시 단장면 단장로 946",
+    "raw_place_name": ""
+  },
+  "gc-2b0f0302ba03|거제시 장목면 거제북로 1573": {
+    "query": "경상남도 거제시 장목면 거제북로 1573",
+    "latitude": 35.017577391518,
+    "longitude": 128.677406079506,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 거제시 장목면 거제북로 1573",
+    "raw_place_name": ""
+  },
+  "gc-cc0251be98e6|거제시 거제면 두동로 259-80": {
+    "query": "경상남도 거제시 거제면 두동로 259-80",
+    "latitude": 34.8810744173147,
+    "longitude": 128.590614753417,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 거제시 거제면 두동로 259-80",
+    "raw_place_name": ""
+  },
+  "gc-37a17c98d697|양산시 하북면 신평남부길 78-130": {
+    "query": "경상남도 양산시 하북면 신평남부길 78-130",
+    "latitude": 35.4920173773429,
+    "longitude": 129.094980374055,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 양산시 하북면 신평남부길 78-130",
+    "raw_place_name": ""
+  },
+  "gc-7031ce912de8|양산시 매곡외산로 282": {
+    "query": "경상남도 양산시 매곡외산로 282",
+    "latitude": 35.3637094787638,
+    "longitude": 129.18328654139,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 양산시 매곡외산로 282",
+    "raw_place_name": ""
+  },
+  "gc-e85969d2e40c|양산시 덕명로 190": {
+    "query": "경상남도 양산시 덕명로 190",
+    "latitude": 35.3780549857528,
+    "longitude": 129.175806283732,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 양산시 덕명로 190",
+    "raw_place_name": ""
+  },
+  "gc-68d69c3be5e4|양산시 원동면 어실로 910": {
+    "query": "경상남도 양산시 원동면 어실로 910",
+    "latitude": 35.4244124497992,
+    "longitude": 128.991305907513,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 양산시 어실로 910",
+    "raw_place_name": ""
+  },
+  "gc-68aed81d1384|양산시 상북면 충렬로 687": {
+    "query": "경상남도 양산시 상북면 충렬로 687",
+    "latitude": 35.4023286556628,
+    "longitude": 129.040155963673,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 양산시 상북면 충렬로 687",
+    "raw_place_name": ""
+  },
+  "gc-e33531fed221|양산시 상북면 공원로 305-391": {
+    "query": "경상남도 양산시 상북면 공원로 305-391",
+    "latitude": 35.4195722938982,
+    "longitude": 129.029682759684,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 양산시 상북면 공원로 305-391",
+    "raw_place_name": ""
+  },
+  "gc-afaf2442a07f|양산시 어실로 380-45": {
+    "query": "경상남도 양산시 어실로 380-45",
+    "latitude": 35.3940115571281,
+    "longitude": 129.021766468623,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 양산시 어실로 380-45",
+    "raw_place_name": ""
+  },
+  "gc-1a979a076b10|의령군 의령읍 남강로 417": {
+    "query": "의령군 의령읍 남강로 417",
+    "latitude": 35.2930800969432,
+    "longitude": 128.28771756206,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 의령군 의령읍 남강로 417",
+    "raw_place_name": ""
+  },
+  "gc-5aff806af4f9|창녕군 부곡면 온천로 445": {
+    "query": "경상남도 창녕군 부곡면 온천로 445",
+    "latitude": 35.4439229118112,
+    "longitude": 128.578067287853,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 창녕군 부곡면 온천로 445",
+    "raw_place_name": ""
+  },
+  "gc-60336c4fc30b|고성군 회화면 회진로 567": {
+    "query": "고성군 회화면 회진로 567",
+    "latitude": 35.0698092366265,
+    "longitude": 128.405372459703,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 고성군 회화면 회진로 567",
+    "raw_place_name": ""
+  },
+  "gc-5eecfb4b22ad|고성군 고성읍 월평3길 250": {
+    "query": "고성군 고성읍 월평3길 250",
+    "latitude": 34.9477531276383,
+    "longitude": 128.356977851093,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 고성군 고성읍 월평3길 250",
+    "raw_place_name": ""
+  },
+  "gc-11e571536868|남해군 남면 남서대로 1179번길 40-109": {
+    "query": "남해군 남면 남서대로 1179번길 40-109",
+    "latitude": 34.7777182696291,
+    "longitude": 127.854726446021,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 남해군 남면 남서대로1179번길 40-109",
+    "raw_place_name": ""
+  },
+  "gc-a2ecc8249f1d|남해군 남면 남서대로 1179번길 40-109": {
+    "query": "남해군 남면 남서대로 1179번길 40-109",
+    "latitude": 34.7777182696291,
+    "longitude": 127.854726446021,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 남해군 남면 남서대로1179번길 40-109",
+    "raw_place_name": ""
+  },
+  "gc-69fe3eb3e177|남해군 창선면 흥선로 1545": {
+    "query": "남해군 창선면 흥선로 1545",
+    "latitude": 34.8406275935052,
+    "longitude": 128.061331128818,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 남해군 창선면 흥선로 1545",
+    "raw_place_name": ""
+  },
+  "gc-64e6bf7be0a4|함양군 서상면 소로길 226": {
+    "query": "함양군 서상면 소로길 226",
+    "latitude": 35.6878232065779,
+    "longitude": 127.717005915665,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 함양군 서상면 소로길 226",
+    "raw_place_name": ""
+  },
+  "gc-cd6b63162f39|거창군 가조면 우륵길 410-284": {
+    "query": "거창군 가조면 우륵길 410-284",
+    "latitude": 35.6937788660433,
+    "longitude": 128.056404511949,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 거창군 가조면 우륵길 410-284",
+    "raw_place_name": ""
+  },
+  "gc-993e536ad4ee|거창군 신원면 덕산리 산 13번지": {
+    "query": "거창군 신원면 덕산리 산 13번지",
+    "latitude": 35.6000221504631,
+    "longitude": 127.911259364564,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 거창군 신원면 덕산리 산 13",
+    "raw_place_name": ""
+  },
+  "gc-2a08fd4bdc5e|합천군 가야면 가조가야로 1916-35": {
+    "query": "합천군 가야면 가조가야로 1916-35",
+    "latitude": 35.7065238255265,
+    "longitude": 128.088529635253,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경남 합천군 가야면 가조가야로 1916-35",
+    "raw_place_name": ""
+  },
+  "gc-dd8a710bd41c|경상북도 포항시 청하면 용산길 94": {
+    "query": "경상북도 포항시 청하면 용산길 94",
+    "latitude": 36.1651510448635,
+    "longitude": 129.361048980089,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 포항시 북구 청하면 용산길 94",
+    "raw_place_name": ""
+  },
+  "gc-9c3aa425a935|경상북도 포항시 송라면 동해대로 2751번길 123": {
+    "query": "포항C.C 포항시",
+    "latitude": 36.22397147843987,
+    "longitude": 129.34217575527472,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 포항시 북구 송라면 상송리 산 48",
+    "raw_place_name": "포항cc"
+  },
+  "gc-4fc6d117b7f4|경상북도 경주시 보문로 319": {
+    "query": "경상북도 경주시 보문로 319",
+    "latitude": 35.8587074335372,
+    "longitude": 129.281633887864,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 경주시 보문로 319",
+    "raw_place_name": ""
+  },
+  "gc-4b9a9d1f37d8|경상북도 경주시 보문로 182-14": {
+    "query": "경상북도 경주시 보문로 182-14",
+    "latitude": 35.8538689764214,
+    "longitude": 129.27685412865,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 경주시 보문로 182-14",
+    "raw_place_name": ""
+  },
+  "gc-a1d37ac059d4|경상북도 경주시 보문로 182-98": {
+    "query": "경상북도 경주시 보문로 182-98",
+    "latitude": 35.8691255436334,
+    "longitude": 129.255788587053,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 경주시 보문로 182-98",
+    "raw_place_name": ""
+  },
+  "gc-4826ba3e38b9|경상북도 경주시 양남면 동남로 982": {
+    "query": "경상북도 경주시 양남면 동남로 982",
+    "latitude": 35.6909287451166,
+    "longitude": 129.375464190088,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 경주시 양남면 동남로 982",
+    "raw_place_name": ""
+  },
+  "gc-16c25d6f3f20|경상북도 경주시 양남면 동남로 982": {
+    "query": "경상북도 경주시 양남면 동남로 982",
+    "latitude": 35.6909287451166,
+    "longitude": 129.375464190088,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 경주시 양남면 동남로 982",
+    "raw_place_name": ""
+  },
+  "gc-eb9124b06908|경상북도 경주시 불국로 289-17": {
+    "query": "경상북도 경주시 불국로 289-17",
+    "latitude": 35.7876928003298,
+    "longitude": 129.321972908133,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 경주시 불국로 289-17",
+    "raw_place_name": ""
+  },
+  "gc-130f7b88bcf3|경상북도 경주시 양남면 동남로 972": {
+    "query": "경상북도 경주시 양남면 동남로 972",
+    "latitude": 35.6793271916167,
+    "longitude": 129.376995261083,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 경주시 양남면 동남로 972",
+    "raw_place_name": ""
+  },
+  "gc-881d18bae24f|경상북도 경주시 보불로 391": {
+    "query": "경상북도 경주시 보불로 391",
+    "latitude": 35.8227629527473,
+    "longitude": 129.295266157737,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 경주시 보불로 391",
+    "raw_place_name": ""
+  },
+  "gc-e67c48835b2a|경상북도 경주시 안강읍 검단장골길 181-17": {
+    "query": "경상북도 경주시 안강읍 검단장골길 181-17",
+    "latitude": 35.9475500754807,
+    "longitude": 129.208153755249,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 경주시 안강읍 검단장골길 181-17",
+    "raw_place_name": ""
+  },
+  "gc-6ec3dc97bc62|경상북도 경주시 안강읍 낙산길 85": {
+    "query": "경상북도 경주시 안강읍 낙산길 85",
+    "latitude": 35.995885315847,
+    "longitude": 129.164489915587,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 경주시 안강읍 낙산길 85",
+    "raw_place_name": ""
+  },
+  "gc-d69bb1cfadc7|경상북도 경주시 양남면 외남로 1377": {
+    "query": "경상북도 경주시 양남면 외남로 1377",
+    "latitude": 35.7202771858766,
+    "longitude": 129.375635996022,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 경주시 양남면 외남로 1377",
+    "raw_place_name": ""
+  },
+  "gc-6b7f785d4813|경상북도 경주시 천북면 천강로 412-299": {
+    "query": "경상북도 경주시 천북면 천강로 412-299",
+    "latitude": 35.9104700303636,
+    "longitude": 129.314449722478,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 경주시 천북면 천강로 412-299",
+    "raw_place_name": ""
+  },
+  "gc-bd2c2f813e31|경상북도 김천시 어모면 작점로 606": {
+    "query": "경상북도 김천시 어모면 작점로 606",
+    "latitude": 36.2207904935878,
+    "longitude": 128.057066303717,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 김천시 어모면 작점로 606",
+    "raw_place_name": ""
+  },
+  "gc-1e3e002ab2ce|경상북도 김천시 구성면 남김천대로 2532": {
+    "query": "경상북도 김천시 구성면 남김천대로 2532",
+    "latitude": 36.0420986798066,
+    "longitude": 128.05669666121,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 김천시 구성면 남김천대로 2532",
+    "raw_place_name": ""
+  },
+  "gc-8894492ab1a6|경상북도 안동시 일직면 풍일로 1887": {
+    "query": "경상북도 안동시 일직면 풍일로 1887",
+    "latitude": 36.4779869639344,
+    "longitude": 128.605653674006,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 안동시 일직면 풍일로 1887",
+    "raw_place_name": ""
+  },
+  "gc-9adfe4aa2a07|경상북도 안동시 풍천면 풍일로 1572": {
+    "query": "경상북도 안동시 풍천면 풍일로 1572",
+    "latitude": 36.4893094626202,
+    "longitude": 128.575575027616,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 안동시 풍천면 풍일로 1572",
+    "raw_place_name": ""
+  },
+  "gc-94b561c2c97d|경상북도 안동시 관광단지로 316": {
+    "query": "경상북도 안동시 관광단지로 316",
+    "latitude": 36.5678490361928,
+    "longitude": 128.773669181101,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 안동시 관광단지로 316",
+    "raw_place_name": ""
+  },
+  "gc-ddc7e02567ba|경상북도 구미시 장천면 송백로 229": {
+    "query": "경상북도 구미시 장천면 송백로 229",
+    "latitude": 36.1697301860141,
+    "longitude": 128.486875110989,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 구미시 장천면 송백로 229",
+    "raw_place_name": ""
+  },
+  "gc-dac303292dae|경상북도 영천시 고경면 호국로 1221-24": {
+    "query": "경상북도 영천시 고경면 호국로 1221-24",
+    "latitude": 36.0092424038247,
+    "longitude": 129.05780013585,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 영천시 고경면 호국로 1221-24",
+    "raw_place_name": ""
+  },
+  "gc-f7e7bf534d31|경상북도 영천시 임고면 방목길 34-2": {
+    "query": "경상북도 영천시 임고면 방목길 34-2",
+    "latitude": 36.0480593479672,
+    "longitude": 129.012366763808,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 영천시 임고면 방목길 34-2",
+    "raw_place_name": ""
+  },
+  "gc-206bb0d5628c|경상북도 영천시 청통면 청통로 334-41": {
+    "query": "경상북도 영천시 청통면 청통로 334-41",
+    "latitude": 35.9937007052008,
+    "longitude": 128.857214002593,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 영천시 청통면 청통로 334-41",
+    "raw_place_name": ""
+  },
+  "gc-91f353d46004|경상북도 상주시 모서면 화현3길 127": {
+    "query": "경상북도 상주시 모서면 화현3길 127",
+    "latitude": 36.3340087121988,
+    "longitude": 127.94438219774,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 상주시 모서면 화현3길 127",
+    "raw_place_name": ""
+  },
+  "gc-1730ca5fe304|경상북도 상주시 모서면 백화로 40": {
+    "query": "경상북도 상주시 모서면 백화로 40",
+    "latitude": 36.2805712952864,
+    "longitude": 127.86022243403,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 상주시 모서면 백화로 40",
+    "raw_place_name": ""
+  },
+  "gc-77f7a5893fb0|경상북도 문경시 마성면 문경골프장길 240": {
+    "query": "경상북도 문경시 마성면 문경골프장길 240",
+    "latitude": 36.7154628392048,
+    "longitude": 128.161873090713,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 문경시 마성면 문경골프장길 240",
+    "raw_place_name": ""
+  },
+  "gc-fe29a1584040|경상북도 경산시 진량읍 일연로 718-42": {
+    "query": "경상북도 경산시 진량읍 일연로 718-42",
+    "latitude": 35.865359548748,
+    "longitude": 128.815618922603,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 경산시 진량읍 일연로 718-42",
+    "raw_place_name": ""
+  },
+  "gc-addca096eb8a|경상북도 경산시 삼성현로 614-26": {
+    "query": "경상북도 경산시 삼성현로 614-26",
+    "latitude": 35.7987802564923,
+    "longitude": 128.764369025696,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 경산시 삼성현로 614-26",
+    "raw_place_name": ""
+  },
+  "gc-5607a255716b|경상북도 의성군 봉양면 농공마전길 167": {
+    "query": "경상북도 의성군 봉양면 농공마전길 167",
+    "latitude": 36.2927570722123,
+    "longitude": 128.553438068074,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 의성군 봉양면 농공마전길 167",
+    "raw_place_name": ""
+  },
+  "gc-c781c317ede3|경상북도 영덕군 강구면 동해대로 4265-43": {
+    "query": "경상북도 영덕군 강구면 동해대로 4265-43",
+    "latitude": 36.3401724675117,
+    "longitude": 129.373865973808,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 영덕군 강구면 동해대로 4265-43",
+    "raw_place_name": ""
+  },
+  "gc-911caf331754|경상북도 청도군 이서면 서녁길 91": {
+    "query": "경상북도 청도군 이서면 서녁길 91",
+    "latitude": 35.6641827973626,
+    "longitude": 128.647767553548,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 청도군 이서면 서녁길 91",
+    "raw_place_name": ""
+  },
+  "gc-29c208d17553|경상북도 청도군 매전면 곰티로 370-204": {
+    "query": "경상북도 청도군 매전면 곰티로 370-204",
+    "latitude": 35.6711804959138,
+    "longitude": 128.820890512353,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 청도군 매전면 곰티로 370-204",
+    "raw_place_name": ""
+  },
+  "gc-96fce8122d04|경상북도 청도군 금천면 금천로 709": {
+    "query": "경상북도 청도군 금천면 금천로 709",
+    "latitude": 35.7421292040348,
+    "longitude": 128.861732818863,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 청도군 금천면 금천로 709",
+    "raw_place_name": ""
+  },
+  "gc-0665bc0c6cce|경상북도 고령군 고령읍 일량로 588": {
+    "query": "경상북도 고령군 고령읍 일량로 588",
+    "latitude": 35.6815348942738,
+    "longitude": 128.293898352433,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 고령군 대가야읍 일량로 588",
+    "raw_place_name": ""
+  },
+  "gc-8809b27cc2be|경상북도 고령군 쌍림면 산막길 47-80": {
+    "query": "경상북도 고령군 쌍림면 산막길 47-80",
+    "latitude": 35.7043767638521,
+    "longitude": 128.216210786482,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 고령군 쌍림면 산막길 47-80",
+    "raw_place_name": ""
+  },
+  "gc-043cdfb2fdcd|경상북도 고령군 대가야읍 대가야로 1103": {
+    "query": "경상북도 고령군 대가야읍 대가야로 1103",
+    "latitude": 35.7188918335394,
+    "longitude": 128.250355799825,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 고령군 대가야읍 대가야로 1103",
+    "raw_place_name": ""
+  },
+  "gc-385ee578118d|경상북도 고령군 다산면 벌지로 175-115": {
+    "query": "경상북도 고령군 다산면 벌지로 175-115",
+    "latitude": 35.8150102239767,
+    "longitude": 128.382904817328,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 고령군 다산면 벌지로 175-115",
+    "raw_place_name": ""
+  },
+  "gc-66dd9ef01893|경상북도 칠곡군 왜관읍 봉계로 263": {
+    "query": "경상북도 칠곡군 왜관읍 봉계로 263",
+    "latitude": 35.9981058454328,
+    "longitude": 128.446683037431,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 칠곡군 왜관읍 봉계로 263",
+    "raw_place_name": ""
+  },
+  "gc-e2e76f635c4a|경상북도 칠곡군 왜관읍 봉계3길 180": {
+    "query": "경상북도 칠곡군 왜관읍 봉계3길 180",
+    "latitude": 36.0152661375184,
+    "longitude": 128.465119459882,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 칠곡군 왜관읍 봉계3길 180",
+    "raw_place_name": ""
+  },
+  "gc-a1c00071e4b8|경상북도 예천군 호명면 한맥골프장길 72": {
+    "query": "경상북도 예천군 호명면 한맥골프장길 72",
+    "latitude": 36.659937103134,
+    "longitude": 128.518382202991,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 예천군 호명읍 한맥골프장길 72",
+    "raw_place_name": ""
+  },
+  "gc-078c6e56af3a|경상북도 울진군 매화면 매화로 115-99": {
+    "query": "경상북도 울진군 매화면 매화로 115-99",
+    "latitude": 36.8901357580634,
+    "longitude": 129.399700188855,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "경북 울진군 매화면 매화로 115-99",
+    "raw_place_name": ""
+  },
+  "gc-3b059ef8ec97|대구광역시 동구 팔공산로 237길 186": {
+    "query": "대구광역시 동구 팔공산로 237길 186",
+    "latitude": 35.9898734147535,
+    "longitude": 128.719737445127,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "대구 동구 팔공산로237길 186",
+    "raw_place_name": ""
+  },
+  "gc-7b7b0fc1d2dd|대구광역시 달성군 가창면 가창로 1037-9": {
+    "query": "대구광역시 달성군 가창면 가창로 1037-9",
+    "latitude": 35.7966214912283,
+    "longitude": 128.624520505857,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "대구 달성군 가창면 가창로 1037-9",
+    "raw_place_name": ""
+  },
+  "gc-5164e33152d9|대구광역시 군위군 군위읍 도군로 2450": {
+    "query": "대구광역시 군위군 군위읍 도군로 2450",
+    "latitude": 36.2539675879605,
+    "longitude": 128.542905025036,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "대구 군위군 군위읍 도군로 2450",
+    "raw_place_name": ""
+  },
+  "gc-15dd2e00d6c7|대구광역시 군위군 산성면 부흥로 227": {
+    "query": "대구광역시 군위군 산성면 부흥로 227",
+    "latitude": 36.1122625509396,
+    "longitude": 128.679793042412,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "대구 군위군 산성면 부흥로 227",
+    "raw_place_name": ""
+  },
+  "gc-7b483fb0f2d1|대구광역시 군위군 군위읍 대흥1길 48-100": {
+    "query": "대구광역시 군위군 군위읍 대흥1길 48-100",
+    "latitude": 36.289125167459,
+    "longitude": 128.539546330945,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "대구 군위군 군위읍 대흥1길 48-100",
+    "raw_place_name": ""
+  },
+  "gc-38215b654b62|부산광역시 금정구 하정로 66": {
+    "query": "부산광역시 금정구 하정로 66",
+    "latitude": 35.2651920311287,
+    "longitude": 129.100410655539,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "부산 금정구 하정로 66",
+    "raw_place_name": ""
+  },
+  "gc-9262179bfeaa|부산광역시 강서구 과학산단1로 172": {
+    "query": "부산광역시 강서구 과학산단1로 172",
+    "latitude": 35.139119508178,
+    "longitude": 128.815049309755,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "부산 강서구 과학산단1로 172",
+    "raw_place_name": ""
+  },
+  "gc-de756338755f|부산광역시 강서구 과학산단로 306번길 77": {
+    "query": "부산광역시 강서구 과학산단로 306번길 77",
+    "latitude": 35.1552692522626,
+    "longitude": 128.838157017504,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "부산 강서구 과학산단로306번길 77",
+    "raw_place_name": ""
+  },
+  "gc-2070c1511760|부산광역시 기장군 일광읍 차양길 26": {
+    "query": "부산광역시 기장군 일광읍 차양길 26",
+    "latitude": 35.2871769019865,
+    "longitude": 129.240169066116,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "부산 기장군 일광읍 차양길 26",
+    "raw_place_name": ""
+  },
+  "gc-0cacc131d4d7|부산광역시 기장군 정관면 병산2로 265": {
+    "query": "부산광역시 기장군 정관면 병산2로 265",
+    "latitude": 35.3637062942455,
+    "longitude": 129.20414767368,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "부산 기장군 정관읍 병산2로 265",
+    "raw_place_name": ""
+  },
+  "gc-dceb317bb674|부산광역시 기장군 일광읍 이천8길 100": {
+    "query": "부산광역시 기장군 일광읍 이천8길 100",
+    "latitude": 35.2818467709586,
+    "longitude": 129.239535357132,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "부산 기장군 일광읍 이천8길 100",
+    "raw_place_name": ""
+  },
+  "gc-a9d6992e56d4|부산광역시 기장군 기장읍 대변로 74": {
+    "query": "부산광역시 기장군 기장읍 대변로 74",
+    "latitude": 35.2299926137699,
+    "longitude": 129.221612829403,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "부산 기장군 기장읍 대변로 74",
+    "raw_place_name": ""
+  },
+  "gc-4fba6a0ae29e|부산광역시 기장군 일광읍 곡천길 317": {
+    "query": "부산광역시 기장군 일광읍 곡천길 317",
+    "latitude": 35.2822423175627,
+    "longitude": 129.201510405607,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "부산 기장군 일광읍 곡천길 317",
+    "raw_place_name": ""
+  },
+  "gc-1e8879a575c1|세종특별자치시 전의면 의당전의로 252": {
+    "query": "세종특별자치시 전의면 의당전의로 252",
+    "latitude": 36.6181755687316,
+    "longitude": 127.19082091708,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "세종특별자치시 전의면 의당전의로 252",
+    "raw_place_name": ""
+  },
+  "gc-312ef6603be3|울주군 삼동면 삼동로 404": {
+    "query": "울주군 삼동면 삼동로 404",
+    "latitude": 35.4969566616876,
+    "longitude": 129.12837497686,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "울산 울주군 삼동면 삼동로 404",
+    "raw_place_name": ""
+  },
+  "gc-8c92f9985671|울주군 삼남면 방기가천로 179": {
+    "query": "울주군 삼남면 방기가천로 179",
+    "latitude": 35.5098282780735,
+    "longitude": 129.071020709634,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "울산 울주군 삼남읍 방기가천로 179",
+    "raw_place_name": ""
+  },
+  "gc-9407b216837c|울주군 서생면 용연길 206-52": {
+    "query": "울주군 서생면 용연길 206-52",
+    "latitude": 35.3652777099493,
+    "longitude": 129.310406839136,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "울산 울주군 서생면 용연길 206-52",
+    "raw_place_name": ""
+  },
+  "gc-3d725200e925|울주군 웅촌면 웅촌로 1": {
+    "query": "울주군 웅촌면 웅촌로 1",
+    "latitude": 35.4499124497015,
+    "longitude": 129.188001730736,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "울산 울주군 웅촌면 웅촌로 1",
+    "raw_place_name": ""
+  },
+  "gc-bb197f80e910|북구 미포산업로 800": {
+    "query": "북구 미포산업로 800",
+    "latitude": 35.5849482822952,
+    "longitude": 129.433327366033,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "울산 북구 미포산업로 800",
+    "raw_place_name": ""
+  },
+  "gc-442afb70220e|울주군 온양읍 망양리 산14-9": {
+    "query": "울주군 온양읍 망양리 산14-9",
+    "latitude": 35.4491591360138,
+    "longitude": 129.275957270126,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "울산 울주군 온양읍 망양리 산 14-9",
+    "raw_place_name": ""
+  },
+  "gc-fa1a5b7b0f98|인천시 서구 도요지로 37": {
+    "query": "인천광역시 인천시 서구 도요지로 37",
+    "latitude": 37.5628238881646,
+    "longitude": 126.659824793588,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "인천 서구 도요지로 37",
+    "raw_place_name": ""
+  },
+  "gc-68bd427a4957|인천시 연수구 능허대로 236": {
+    "query": "인천광역시 인천시 연수구 능허대로 236",
+    "latitude": 37.4148715306309,
+    "longitude": 126.650561495942,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "인천 연수구 능허대로 236",
+    "raw_place_name": ""
+  },
+  "gc-60319bf1693c|인천시 서구 원석로 195": {
+    "query": "인천광역시 인천시 서구 원석로 195",
+    "latitude": 37.5137587411859,
+    "longitude": 126.641172301129,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "인천 서구 원석로 195",
+    "raw_place_name": ""
+  },
+  "gc-b0d53a657195|인천시 중구 공항동로 392": {
+    "query": "인천광역시 인천시 중구 공항동로 392",
+    "latitude": 37.4845900396053,
+    "longitude": 126.46929277658,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "인천 중구 공항동로 392",
+    "raw_place_name": ""
+  },
+  "gc-a7bb99a4bcec|인천시 중구 공항동로135번길 267": {
+    "query": "인천광역시 인천시 중구 공항동로135번길 267",
+    "latitude": 37.4538394151484,
+    "longitude": 126.483958911552,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "인천 중구 공항동로135번길 267",
+    "raw_place_name": ""
+  },
+  "gc-fa55dbc73e9b|인천시 서구 청라대로 316번길 45": {
+    "query": "인천광역시 인천시 서구 청라대로 316번길 45",
+    "latitude": 37.5486560424509,
+    "longitude": 126.635928268879,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "인천 서구 청라대로316번길 45",
+    "raw_place_name": ""
+  },
+  "gc-781728826076|인천시 강화군 어류정길 177": {
+    "query": "석모도컨트리클럽",
+    "latitude": 37.65368088056977,
+    "longitude": 126.34461559131444,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "인천 강화군 삼산면 매음리 1168",
+    "raw_place_name": "유니아일랜드 골프&스파리조트"
+  },
+  "gc-868a31e611a3|인천시 강화군 해안남로 474번길 59": {
+    "query": "인천광역시 인천시 강화군 해안남로 474번길 59",
+    "latitude": 37.602858480072,
+    "longitude": 126.506561003866,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "인천 강화군 길상면 해안남로474번길 59",
+    "raw_place_name": ""
+  },
+  "gc-043ae5d51851|인천시 중구 한상중앙로 66(중산동)": {
+    "query": "인천광역시 인천시 중구 한상중앙로 66",
+    "latitude": 37.5258296353539,
+    "longitude": 126.562698539353,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "인천 중구 한상중앙로 66",
+    "raw_place_name": ""
+  },
+  "gc-295d6bb19311|전남 순천시 별량면 오실길 333": {
+    "query": "전라남도 순천시 별량면 오실길 333",
+    "latitude": 34.8947808413632,
+    "longitude": 127.448205259027,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 순천시 별량면 오실길 333",
+    "raw_place_name": ""
+  },
+  "gc-dfddaf985536|전남 순천시 별량면 동화사길 85": {
+    "query": "전라남도 순천시 별량면 동화사길 85",
+    "latitude": 34.8665346567596,
+    "longitude": 127.405960357161,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 순천시 별량면 동화사길 85",
+    "raw_place_name": ""
+  },
+  "gc-a4b9d0a94686|전남 순천시 해룡면 신대로 188": {
+    "query": "전라남도 순천시 해룡면 신대로 188",
+    "latitude": 34.9400541615755,
+    "longitude": 127.555508654944,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 순천시 해룡면 신대로 188",
+    "raw_place_name": ""
+  },
+  "gc-e87bc5cc22aa|전남 광양시 가야로 223": {
+    "query": "전라남도 광양시 가야로 223",
+    "latitude": 34.956640613427,
+    "longitude": 127.710252718765,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 광양시 가야로 223",
+    "raw_place_name": ""
+  },
+  "gc-1236a882f178|전남 담양군 창평면 오강리 27-2": {
+    "query": "전라남도 담양군 창평면 오강리 27-2",
+    "latitude": 35.2227349813439,
+    "longitude": 127.014475378088,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 담양군 창평면 오강리 27-2",
+    "raw_place_name": ""
+  },
+  "gc-98d4ad236944|전남 담양군 담양읍 깊은실길 169": {
+    "query": "전라남도 담양군 담양읍 깊은실길 169",
+    "latitude": 35.3103160190929,
+    "longitude": 127.017294612833,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 담양군 담양읍 깊은실길 169",
+    "raw_place_name": ""
+  },
+  "gc-353e04416544|전남 담양군 창평면 창평로 159": {
+    "query": "전라남도 담양군 창평면 창평로 159",
+    "latitude": 35.2676397174275,
+    "longitude": 126.99234453756,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 담양군 창평면 창평로 159",
+    "raw_place_name": ""
+  },
+  "gc-7be0893151f7|전남 곡성군 옥과면 입면로 455": {
+    "query": "전라남도 곡성군 옥과면 입면로 455",
+    "latitude": 35.3101553221846,
+    "longitude": 127.169929617905,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 곡성군 옥과면 입면로 455",
+    "raw_place_name": ""
+  },
+  "gc-39d4525a34c6|전남 곡성군 옥과면 소룡리 427-2": {
+    "query": "전라남도 곡성군 옥과면 소룡리 427-2",
+    "latitude": 35.289413952499,
+    "longitude": 127.163367213014,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 곡성군 옥과면 소룡리 427-2",
+    "raw_place_name": ""
+  },
+  "gc-8c40f9db402e|전남 곡성군 오산면 오산로 819-126": {
+    "query": "전라남도 곡성군 오산면 오산로 819-126",
+    "latitude": 35.2515187402352,
+    "longitude": 127.098353147998,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 곡성군 오산면 오산로 819-126",
+    "raw_place_name": ""
+  },
+  "gc-496a04b9cf3f|전남 보성군 조성면 대곡리 1117": {
+    "query": "전라남도 보성군 조성면 대곡리 1117",
+    "latitude": 34.816346479659,
+    "longitude": 127.224650096473,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 보성군 조성면 대곡리 1117",
+    "raw_place_name": ""
+  },
+  "gc-658ae3503358|전남 화순군 춘양면 장곡길 55": {
+    "query": "전라남도 화순군 춘양면 장곡길 55",
+    "latitude": 34.9570450022567,
+    "longitude": 126.916126044049,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 화순군 춘양면 장곡길 55",
+    "raw_place_name": ""
+  },
+  "gc-a6fee0f415b7|전남 화순군 도곡면 천태로 1000-151": {
+    "query": "전라남도 화순군 도곡면 천태로 1000-151",
+    "latitude": 34.9769304183796,
+    "longitude": 126.899375559468,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 화순군 도곡면 천태로 1000-151",
+    "raw_place_name": ""
+  },
+  "gc-ecd9077e6622|전남 화순군 도곡면 고인돌2로 450": {
+    "query": "전라남도 화순군 도곡면 고인돌2로 450",
+    "latitude": 34.9893119781903,
+    "longitude": 126.937028398751,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 화순군 도곡면 고인돌2로 450",
+    "raw_place_name": ""
+  },
+  "gc-e8468ec9b024|전남 화순군 화순읍 오성로 292-90": {
+    "query": "전라남도 화순군 화순읍 오성로 292-90",
+    "latitude": 35.0474823722355,
+    "longitude": 126.935958637583,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 화순군 화순읍 오성로 292-90",
+    "raw_place_name": ""
+  },
+  "gc-9885ff9a556f|장흥군 장평면 제산기동로 326": {
+    "query": "장흥군 장평면 제산기동로 326",
+    "latitude": 34.8027049406644,
+    "longitude": 126.970800075955,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 장흥군 장평면 제산기동로 326",
+    "raw_place_name": ""
+  },
+  "gc-d5a6f91a588a|전남 강진군 도암면 학장용산길 101": {
+    "query": "전라남도 강진군 도암면 학장용산길 101",
+    "latitude": 34.5480223406807,
+    "longitude": 126.758502323598,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 강진군 도암면 학장용산길 101",
+    "raw_place_name": ""
+  },
+  "gc-050aa8bd6c6f|해남군 화원면 시아로 224": {
+    "query": "해남군 화원면 시아로 224",
+    "latitude": 34.6967179585997,
+    "longitude": 126.262401126232,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 해남군 화원면 시아로 224",
+    "raw_place_name": ""
+  },
+  "gc-437ea8156737|해남군 화원면 시아로 224": {
+    "query": "해남군 화원면 시아로 224",
+    "latitude": 34.6967179585997,
+    "longitude": 126.262401126232,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 해남군 화원면 시아로 224",
+    "raw_place_name": ""
+  },
+  "gc-5b534d8afc35|해남군 산이면 산이로 2247": {
+    "query": "해남군 산이면 산이로 2247",
+    "latitude": 34.7065884369992,
+    "longitude": 126.387729866188,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 해남군 산이면 산이로 2247",
+    "raw_place_name": ""
+  },
+  "gc-068d49f9d08c|전남 영암군 금정면 안적동길 403": {
+    "query": "전라남도 영암군 금정면 안적동길 403",
+    "latitude": 34.8731457396883,
+    "longitude": 126.784352116105,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 영암군 금정면 안적동길 403",
+    "raw_place_name": ""
+  },
+  "gc-5085ddf672a6|영암군 삼호읍 에프원로 121-4": {
+    "query": "전라남도 영암군 삼호읍 에프원로 121-4",
+    "latitude": 34.7342809371332,
+    "longitude": 126.46482037056,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 영암군 삼호읍 에프원로 121-4",
+    "raw_place_name": ""
+  },
+  "gc-138f4498623e|전남 무안군 청계면 도대리 818": {
+    "query": "전라남도 무안군 청계면 도대리 818",
+    "latitude": 34.9577459287041,
+    "longitude": 126.401131968298,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 무안군 청계면 도대리 818",
+    "raw_place_name": ""
+  },
+  "gc-a043a2488af5|전남 무안군 청계면 태봉길 33-100": {
+    "query": "전라남도 무안군 청계면 태봉길 33-100",
+    "latitude": 34.9446689574825,
+    "longitude": 126.458164938823,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 무안군 청계면 태봉길 33-100",
+    "raw_place_name": ""
+  },
+  "gc-80a626b2053e|전남 함평군 학교면 서당매길 242": {
+    "query": "전라남도 함평군 학교면 서당매길 242",
+    "latitude": 35.0053983866296,
+    "longitude": 126.558318994596,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 함평군 학교면 서당매길 242",
+    "raw_place_name": ""
+  },
+  "gc-c8fc5eccf7b9|전남 함평군 함장로 889-11": {
+    "query": "전라남도 함평군 함장로 889-11",
+    "latitude": 35.0502180075752,
+    "longitude": 126.49912356728,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 함평군 함평읍 함장로 889-11",
+    "raw_place_name": ""
+  },
+  "gc-e50b3c8c38c0|전남 함평군 대동면 대동길 408": {
+    "query": "전라남도 함평군 대동면 대동길 408",
+    "latitude": 35.0782592663044,
+    "longitude": 126.564189483075,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 함평군 대동면 대동길 408",
+    "raw_place_name": ""
+  },
+  "gc-cc31ca848991|영광군 백수읍 해안로 1362-70": {
+    "query": "영광군 백수읍 해안로 1362-70",
+    "latitude": 35.3553396694714,
+    "longitude": 126.411422006391,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 영광군 백수읍 해안로 1362-70",
+    "raw_place_name": ""
+  },
+  "gc-3355d2573fd4|영광군 영광읍 월현로 1길 40": {
+    "query": "영광군 영광읍 월현로 1길 40",
+    "latitude": 35.2946104210983,
+    "longitude": 126.501258746287,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 영광군 영광읍 월현로1길 40",
+    "raw_place_name": ""
+  },
+  "gc-667fefd06c3f|전남 장성군 동화면 임정로 155": {
+    "query": "전라남도 장성군 동화면 임정로 155",
+    "latitude": 35.252596512445,
+    "longitude": 126.716121328578,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 장성군 동화면 임정로 155",
+    "raw_place_name": ""
+  },
+  "gc-db3f5634c5ee|전남 장성군 북이면 사거리 752-1": {
+    "query": "전라남도 장성군 북이면 사거리 752-1",
+    "latitude": 35.4231416470752,
+    "longitude": 126.808430125127,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전남 장성군 북이면 사거리 752-1",
+    "raw_place_name": ""
+  },
+  "gc-0b047be49f03|전북특별자치도 전주시 덕진구 온고을로 672": {
+    "query": "전북특별자치도 전주시 덕진구 온고을로 672",
+    "latitude": 35.8637892738735,
+    "longitude": 127.064866232265,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전북특별자치도 전주시 덕진구 온고을로 672",
+    "raw_place_name": ""
+  },
+  "gc-e66e37a5892a|전북특별자치도 익산시 무왕로38길 111": {
+    "query": "전북특별자치도 익산시 무왕로38길 111",
+    "latitude": 35.9617622439429,
+    "longitude": 127.026652973766,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전북특별자치도 익산시 무왕로38길 111",
+    "raw_place_name": ""
+  },
+  "gc-7e17709a629a|전북특별자치도 익산시 무왕로38길 111": {
+    "query": "전북특별자치도 익산시 무왕로38길 111",
+    "latitude": 35.9617622439429,
+    "longitude": 127.026652973766,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전북특별자치도 익산시 무왕로38길 111",
+    "raw_place_name": ""
+  },
+  "gc-45a6c468cd91|전북특별자치도 익산시 웅포면 강변로 130": {
+    "query": "전북특별자치도 익산시 웅포면 강변로 130",
+    "latitude": 36.0698119563331,
+    "longitude": 126.891501581389,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전북특별자치도 익산시 웅포면 강변로 130",
+    "raw_place_name": ""
+  },
+  "gc-11d936495fd4|전북특별자치도 익산시 웅포면 강변로 130": {
+    "query": "전북특별자치도 익산시 웅포면 강변로 130",
+    "latitude": 36.0698119563331,
+    "longitude": 126.891501581389,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전북특별자치도 익산시 웅포면 강변로 130",
+    "raw_place_name": ""
+  },
+  "gc-db9ee81a1a70|전북특별자치도 정읍시 첨단과학로 476": {
+    "query": "전북특별자치도 정읍시 첨단과학로 476",
+    "latitude": 35.5026154650012,
+    "longitude": 126.865877631961,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전북특별자치도 정읍시 첨단과학로 476",
+    "raw_place_name": ""
+  },
+  "gc-555dca97c252|전북특별자치도 남원시 대산면 월계길 11": {
+    "query": "전북특별자치도 남원시 대산면 월계길 11",
+    "latitude": 35.4171515505676,
+    "longitude": 127.297192458702,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전북특별자치도 남원시 대산면 월계길 11",
+    "raw_place_name": ""
+  },
+  "gc-93d79516b4dd|전북특별자치도 김제시 황산면 높은메길 160-39": {
+    "query": "전북특별자치도 김제시 황산면 높은메길 160-39",
+    "latitude": 35.7863110783146,
+    "longitude": 126.959544414137,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전북특별자치도 김제시 황산면 높은메길 160-39",
+    "raw_place_name": ""
+  },
+  "gc-236bf8a0310c|전북특별자치도 김제시 금구면 낙산로 120": {
+    "query": "전북특별자치도 김제시 금구면 낙산로 120",
+    "latitude": 35.8069693519376,
+    "longitude": 127.008255764988,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전북특별자치도 김제시 금구면 낙산로 120",
+    "raw_place_name": ""
+  },
+  "gc-8cda6b72d361|전북특별자치도 김제시 온천길 37": {
+    "query": "전북특별자치도 김제시 온천길 37",
+    "latitude": 35.8277496994561,
+    "longitude": 126.915764235508,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전북특별자치도 김제시 온천길 37",
+    "raw_place_name": ""
+  },
+  "gc-51bc2ed864d2|전북특별자치도 김제시 금구면 대화1길 8-75": {
+    "query": "전북특별자치도 김제시 금구면 대화1길 8-75",
+    "latitude": 35.7952682184055,
+    "longitude": 127.034665189618,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전북특별자치도 김제시 금구면 대화1길 8-75",
+    "raw_place_name": ""
+  },
+  "gc-3dc796a63edd|전북특별자치도 완주군 소양면 화심리 300": {
+    "query": "전북특별자치도 완주군 소양면 화심리 300",
+    "latitude": 35.8169122160294,
+    "longitude": 127.261361253124,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전북특별자치도 완주군 소양면 화심리 300",
+    "raw_place_name": ""
+  },
+  "gc-0bd7dd5c03df|전북특별자치도 완주군 운주면 산북리 65-4": {
+    "query": "전북특별자치도 완주군 운주면 산북리 65-4",
+    "latitude": 36.0766401997069,
+    "longitude": 127.354599302375,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전북특별자치도 완주군 운주면 산북리 65-4",
+    "raw_place_name": ""
+  },
+  "gc-af220a47e9ad|전북특별자치도 진안군 부귀면 부귀로 72-161": {
+    "query": "전북특별자치도 진안군 부귀면 부귀로 72-161",
+    "latitude": 35.8408563308977,
+    "longitude": 127.325185288209,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전북특별자치도 진안군 부귀면 부귀로 72-161",
+    "raw_place_name": ""
+  },
+  "gc-dede5bb789cf|전북특별자치도 무주군 설천면 만선로 185": {
+    "query": "전북특별자치도 무주군 설천면 만선로 185",
+    "latitude": 35.8897985848155,
+    "longitude": 127.73138999061,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전북특별자치도 무주군 설천면 만선로 185",
+    "raw_place_name": ""
+  },
+  "gc-6d636874e191|전북특별자치도 장수군 계남면 장안산로 303": {
+    "query": "전북특별자치도 장수군 계남면 장안산로 303",
+    "latitude": 35.6784956259927,
+    "longitude": 127.595675347913,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전북특별자치도 장수군 계남면 장안산로 303",
+    "raw_place_name": ""
+  },
+  "gc-a2c85434539e|전북특별자치도 임실군 신덕면 수지로 559-90": {
+    "query": "전북특별자치도 임실군 신덕면 수지로 559-90",
+    "latitude": 35.6947019033968,
+    "longitude": 127.208048527354,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전북특별자치도 임실군 신덕면 수지로 559-90",
+    "raw_place_name": ""
+  },
+  "gc-6d34f609ed90|전북특별자치도 순창군 금과면 담순로 716": {
+    "query": "전북특별자치도 순창군 금과면 담순로 716",
+    "latitude": 35.3544912571573,
+    "longitude": 127.083779195231,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전북특별자치도 순창군 금과면 담순로 716",
+    "raw_place_name": ""
+  },
+  "gc-fd40b7bf3b76|전북특별자치도 순창군 순창읍 금산로 152": {
+    "query": "전북특별자치도 순창군 순창읍 금산로 152",
+    "latitude": 35.3867645534204,
+    "longitude": 127.125519045226,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전북특별자치도 순창군 순창읍 금산로 152",
+    "raw_place_name": ""
+  },
+  "gc-e6f654f8efb6|전북특별자치도 고창군 심원면 애향갯벌로 70": {
+    "query": "전북특별자치도 고창군 심원면 애향갯벌로 70",
+    "latitude": 35.5159575435727,
+    "longitude": 126.502268050201,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전북특별자치도 고창군 심원면 애향갯벌로 70",
+    "raw_place_name": ""
+  },
+  "gc-8f5c8d0f5d46|전북특별자치도 고창군 고창읍 석정2로 192": {
+    "query": "전북특별자치도 고창군 고창읍 석정2로 192",
+    "latitude": 35.4300780280256,
+    "longitude": 126.74162742877,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "전북특별자치도 고창군 고창읍 석정2로 192",
+    "raw_place_name": ""
+  },
+  "gc-cf50ab88350d|제주특별자치도 제주시 516로 2596-117": {
+    "query": "제주특별자치도 제주시 516로 2596-117",
+    "latitude": 33.4383123925104,
+    "longitude": 126.599471222969,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "제주특별자치도 제주시 516로 2596-117",
+    "raw_place_name": ""
+  },
+  "gc-464e4a545027|제주특별자치도 제주시 조천읍 번영로 1278-169": {
+    "query": "제주특별자치도 제주시 조천읍 번영로 1278-169",
+    "latitude": 33.4553485144602,
+    "longitude": 126.668852765522,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "제주특별자치도 제주시 조천읍 번영로 1278-169",
+    "raw_place_name": ""
+  },
+  "gc-0e0131544801|제주특별자치도 제주시 한경면 용금로 998": {
+    "query": "제주특별자치도 제주시 한경면 용금로 998",
+    "latitude": 33.3446191070975,
+    "longitude": 126.278270296289,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "제주특별자치도 제주시 한경면 용금로 998",
+    "raw_place_name": ""
+  },
+  "gc-84bb21f2b77e|제주특별자치도 제주시 조천읍 북선로 125": {
+    "query": "제주특별자치도 제주시 조천읍 북선로 125",
+    "latitude": 33.5328261441026,
+    "longitude": 126.699337553719,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "제주특별자치도 제주시 조천읍 북선로 125",
+    "raw_place_name": ""
+  },
+  "gc-5f82bbc964a8|제주특별자치도 제주시 516로 2695": {
+    "query": "제주특별자치도 제주시 516로 2695",
+    "latitude": 33.4305556486873,
+    "longitude": 126.583737525344,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "제주특별자치도 제주시 516로 2695",
+    "raw_place_name": ""
+  },
+  "gc-ad576aa399b4|제주특별자치도 제주시 화전길 82": {
+    "query": "제주특별자치도 제주시 화전길 82",
+    "latitude": 33.3475328879275,
+    "longitude": 126.368892810347,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "제주특별자치도 제주시 한림읍 화전길 82",
+    "raw_place_name": ""
+  },
+  "gc-d03e2b710be0|제주특별자치도 제주시 선돌목동길 56-46": {
+    "query": "제주특별자치도 제주시 선돌목동길 56-46",
+    "latitude": 33.4441227029338,
+    "longitude": 126.544710028678,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "제주특별자치도 제주시 선돌목동길 56-46",
+    "raw_place_name": ""
+  },
+  "gc-baa4851e3f89|제주특별자치도 제주시 명림로 575-107": {
+    "query": "제주특별자치도 제주시 명림로 575-107",
+    "latitude": 33.4490025432113,
+    "longitude": 126.637358132958,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "제주특별자치도 제주시 명림로 575-107",
+    "raw_place_name": ""
+  },
+  "gc-e0165d4e49cd|제주특별자치도 서귀포시 남원읍 남조로 960": {
+    "query": "제주특별자치도 서귀포시 남원읍 남조로 960",
+    "latitude": 33.3592182965721,
+    "longitude": 126.712464223483,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "제주특별자치도 서귀포시 남원읍 남조로 960",
+    "raw_place_name": ""
+  },
+  "gc-7dcfb1b60ab9|제주특별자치도 서귀포시 산록남로 2914": {
+    "query": "제주특별자치도 서귀포시 산록남로 2914",
+    "latitude": 33.3103680938349,
+    "longitude": 126.588773640634,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "제주특별자치도 서귀포시 산록남로 2914",
+    "raw_place_name": ""
+  },
+  "gc-c96f2da1a4dc|제주특별자치도 서귀포시 중문관광로 72번길 60": {
+    "query": "제주특별자치도 서귀포시 중문관광로 72번길 60",
+    "latitude": 33.254218609132,
+    "longitude": 126.411434347695,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "제주특별자치도 서귀포시 중문관광로72번길 60",
+    "raw_place_name": ""
+  },
+  "gc-2372496c2665|제주특별자치도 서귀포시 남원읍 서성로 459": {
+    "query": "제주특별자치도 서귀포시 남원읍 서성로 459",
+    "latitude": 33.3295510824481,
+    "longitude": 126.638487909207,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "제주특별자치도 서귀포시 남원읍 서성로 459",
+    "raw_place_name": ""
+  },
+  "gc-a441de4b462a|제주특별자치도 서귀포시 남원읍 남조로 1105": {
+    "query": "제주특별자치도 서귀포시 남원읍 남조로 1105",
+    "latitude": 33.3706270995717,
+    "longitude": 126.679888916578,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "제주특별자치도 서귀포시 남원읍 남조로 1105",
+    "raw_place_name": ""
+  },
+  "gc-af1917ce6948|제주특별자치도 서귀포시 표선면 가시로 384": {
+    "query": "제주특별자치도 서귀포시 표선면 가시로 384",
+    "latitude": 33.3451972184832,
+    "longitude": 126.788290795301,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "제주특별자치도 서귀포시 표선면 가시로 384",
+    "raw_place_name": ""
+  },
+  "gc-e401cda7a8ad|목천읍 충절로 1048-68": {
+    "query": "목천읍 충절로 1048-68",
+    "latitude": 36.7697371359643,
+    "longitude": 127.222832303948,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "충남 천안시 동남구 목천읍 충절로 1048-68",
+    "raw_place_name": ""
+  },
+  "gc-7681bcbcf45d|수신면 수신로 576": {
+    "query": "수신면 수신로 576",
+    "latitude": 36.7401762862144,
+    "longitude": 127.285546921205,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "충남 천안시 동남구 수신면 수신로 576",
+    "raw_place_name": ""
+  },
+  "gc-2c27b8854e6b|동남구 북면 납안5길 74": {
+    "query": "동남구 북면 납안5길 74",
+    "latitude": 36.8660647058933,
+    "longitude": 127.256979447377,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "충남 천안시 동남구 북면 납안5길 74",
+    "raw_place_name": ""
+  },
+  "gc-9655898af6a6|공주시 정안면 방자들길 81-50(인풍리)": {
+    "query": "공주시 정안면 방자들길 81-50",
+    "latitude": 36.6493650199748,
+    "longitude": 127.116178554693,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "충남 공주시 정안면 방자들길 81-50",
+    "raw_place_name": ""
+  },
+  "gc-25f812ff383a|공주시 계룡면 아랫난댕이길 17(내흥리)": {
+    "query": "공주시 계룡면 아랫난댕이길 17",
+    "latitude": 36.4070094082741,
+    "longitude": 127.184553179947,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "충남 공주시 계룡면 아랫난댕이길 17",
+    "raw_place_name": ""
+  },
+  "gc-5631e69db45e|보령시 옥마벚길 10": {
+    "query": "충청남도 보령시 옥마벚길 10",
+    "latitude": 36.3319722823917,
+    "longitude": 126.622983623675,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "충남 보령시 옥마벚길 10",
+    "raw_place_name": ""
+  },
+  "gc-de2b5fc511da|보령시 남포면 양항리 650-2": {
+    "query": "충청남도 보령시 남포면 양항리 650-2",
+    "latitude": 36.2870352407353,
+    "longitude": 126.553209661043,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "충남 보령시 남포면 양항리 650-2",
+    "raw_place_name": ""
+  },
+  "gc-e91593f65b4b|선장면 삼봉산길 188": {
+    "query": "선장면 삼봉산길 188",
+    "latitude": 36.7776858877581,
+    "longitude": 126.890352162078,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "충남 아산시 선장면 삼봉산길 188",
+    "raw_place_name": ""
+  },
+  "gc-7c044b23d1a4|영인면 영인산로 440": {
+    "query": "영인면 영인산로 440",
+    "latitude": 36.8462680776647,
+    "longitude": 126.918644640822,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "충남 아산시 영인면 영인산로 440",
+    "raw_place_name": ""
+  },
+  "gc-c9dda49e7539|서산시 대산읍 삼길포7로 8": {
+    "query": "충청남도 서산시 대산읍 삼길포7로 8",
+    "latitude": 36.9955891178713,
+    "longitude": 126.448629227429,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "충남 서산시 대산읍 삼길포7로 8",
+    "raw_place_name": ""
+  },
+  "gc-e3f0db78167a|논산시 상월면 선비로 1079": {
+    "query": "충청남도 논산시 상월면 선비로 1079",
+    "latitude": 36.2773296168141,
+    "longitude": 127.170572780596,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "충남 논산시 상월면 선비로 1079",
+    "raw_place_name": ""
+  },
+  "gc-c0cdb2271518|연무읍 황화정리 산100": {
+    "query": "연무읍 황화정리 산100",
+    "latitude": 36.0876202256154,
+    "longitude": 127.130672158469,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "충남 논산시 연무읍 황화정리 산 100",
+    "raw_place_name": ""
+  },
+  "gc-699579941cf6|당진시 송산면 무수들길 90": {
+    "query": "충청남도 당진시 송산면 무수들길 90",
+    "latitude": 36.9646585543513,
+    "longitude": 126.667729295314,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "충남 당진시 송산면 무수들길 90",
+    "raw_place_name": ""
+  },
+  "gc-95696dbd5d40|당진시 신평면 계명길 33": {
+    "query": "충청남도 당진시 신평면 계명길 33",
+    "latitude": 36.8840371140406,
+    "longitude": 126.794460294727,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "충남 당진시 신평면 계명길 33",
+    "raw_place_name": ""
+  },
+  "gc-5df84bcc3bd5|당진시 석문면 산단8로 299": {
+    "query": "충청남도 당진시 석문면 산단8로 299",
+    "latitude": 37.011687161382,
+    "longitude": 126.58159117569,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "충남 당진시 석문면 산단8로 299",
+    "raw_place_name": ""
+  },
+  "gc-b48ba0827aa2|금산군 진산면 살구정길 167": {
+    "query": "금산군 진산면 살구정길 167",
+    "latitude": 36.1527062837259,
+    "longitude": 127.326031572159,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "충남 금산군 진산면 살구정길 167",
+    "raw_place_name": ""
+  },
+  "gc-19f328d2bc87|부여군 은산면 충절로 3734-82": {
+    "query": "부여군 은산면 충절로 3734-82",
+    "latitude": 36.3475004142716,
+    "longitude": 126.790696813223,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "충남 부여군 은산면 충절로 3734-82",
+    "raw_place_name": ""
+  },
+  "gc-41c9fac17790|부여군 규암면 백제문로 470": {
+    "query": "부여군 규암면 백제문로 470",
+    "latitude": 36.3041707572953,
+    "longitude": 126.909307996803,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:56:08.524Z",
+    "matched_address": "충남 부여군 규암면 백제문로 470",
+    "raw_place_name": ""
+  },
+  "gc-04b372ccad13|예산군 삽교읍 산수길 242(목리 1420)": {
+    "query": "충청남도 예산군 삽교읍 산수길 242",
+    "latitude": 36.6743245772113,
+    "longitude": 126.669824704344,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충남 예산군 삽교읍 산수길 242",
+    "raw_place_name": ""
+  },
+  "gc-6ea98adb1954|진천군 백곡면 배티로 818-105": {
+    "query": "충청북도 진천군 백곡면 배티로 818-105",
+    "latitude": 36.9406017353876,
+    "longitude": 127.337290417719,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 진천군 백곡면 배티로 818-105",
+    "raw_place_name": ""
+  },
+  "gc-a81df4ea7927|진천군 이월면 진안로 347-123": {
+    "query": "충청북도 진천군 이월면 진안로 347-123",
+    "latitude": 36.94742557628,
+    "longitude": 127.386771279558,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 진천군 이월면 진안로 347-123",
+    "raw_place_name": ""
+  },
+  "gc-8ccf3d19f9bb|청주시 서원구 남이면 문곡구절골길 235": {
+    "query": "충청북도 청주시 서원구 남이면 문곡구절골길 235",
+    "latitude": 36.5457271995704,
+    "longitude": 127.390408510493,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 청주시 서원구 남이면 문곡구절골길 235",
+    "raw_place_name": ""
+  },
+  "gc-ce7b0e81cf22|충주시 앙성면 상대촌1길 198": {
+    "query": "충청북도 충주시 앙성면 상대촌1길 198",
+    "latitude": 37.0828337941042,
+    "longitude": 127.700611112981,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 충주시 앙성면 상대촌1길 198",
+    "raw_place_name": ""
+  },
+  "gc-ae86fbe36e97|충주시 금가면 다래울길 52": {
+    "query": "충청북도 충주시 금가면 다래울길 52",
+    "latitude": 37.0287161116907,
+    "longitude": 127.867720774431,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 충주시 금가면 다래울길 52",
+    "raw_place_name": ""
+  },
+  "gc-760b850e4451|진천군 이월면 진안로 425": {
+    "query": "충청북도 진천군 이월면 진안로 425",
+    "latitude": 36.953556651274,
+    "longitude": 127.395820498984,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 진천군 이월면 진안로 425",
+    "raw_place_name": ""
+  },
+  "gc-606fb4b33249|청주시 흥덕구 옥산면 동림2길 149": {
+    "query": "충청북도 청주시 흥덕구 옥산면 동림2길 149",
+    "latitude": 36.6654954514899,
+    "longitude": 127.319018623107,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 청주시 흥덕구 옥산면 동림2길 149",
+    "raw_place_name": ""
+  },
+  "gc-54e8d6f41d3b|충주시 산척면 인등로 392": {
+    "query": "충청북도 충주시 산척면 인등로 392",
+    "latitude": 37.069050885051,
+    "longitude": 127.997382549563,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 충주시 산척면 인등로 392",
+    "raw_place_name": ""
+  },
+  "gc-d0e3ce523b5f|음성군 생극면 차생로 168": {
+    "query": "충청북도 음성군 생극면 차생로 168",
+    "latitude": 37.032345557273,
+    "longitude": 127.643175611192,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 음성군 생극면 차생로 168",
+    "raw_place_name": ""
+  },
+  "gc-8ded1998e36a|진천군 백곡면 소토골길 61": {
+    "query": "충청북도 진천군 백곡면 소토골길 61",
+    "latitude": 36.9022738419159,
+    "longitude": 127.312385390985,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 진천군 백곡면 소토골길 61",
+    "raw_place_name": ""
+  },
+  "gc-3d68f1ae46e5|충주시 노은면 솔고개로 750": {
+    "query": "충청북도 충주시 노은면 솔고개로 750",
+    "latitude": 37.0328934891847,
+    "longitude": 127.77778277092,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 충주시 노은면 솔고개로 750",
+    "raw_place_name": ""
+  },
+  "gc-f261ddd7cd1a|단양군 매포읍 고양5길 43": {
+    "query": "단양군 매포읍 고양5길 43",
+    "latitude": 37.09106931992,
+    "longitude": 128.278246117502,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 단양군 매포읍 고양5길 43",
+    "raw_place_name": ""
+  },
+  "gc-6bee4df56cf5|충주시 대소원면 성종두담길 113": {
+    "query": "충청북도 충주시 대소원면 성종두담길 113",
+    "latitude": 36.9468591614492,
+    "longitude": 127.839137632767,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 충주시 대소원면 성종두담길 113",
+    "raw_place_name": ""
+  },
+  "gc-facbcadf0522|청주시 청원구 오창읍 두릉유리로 846": {
+    "query": "충청북도 청주시 청원구 오창읍 두릉유리로 846",
+    "latitude": 36.7366787079199,
+    "longitude": 127.427867143909,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 청주시 청원구 오창읍 두릉유리로 846",
+    "raw_place_name": ""
+  },
+  "gc-9c36390d43ba|청주시 상당구 미원면 대신2길 31": {
+    "query": "충청북도 청주시 상당구 미원면 대신2길 31",
+    "latitude": 36.68294979598,
+    "longitude": 127.60363688116,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 청주시 상당구 미원면 대신2길 31",
+    "raw_place_name": ""
+  },
+  "gc-717efe03426f|제천시 천남동 내토로7길 136": {
+    "query": "충청북도 제천시 천남동 내토로7길 136",
+    "latitude": 37.1383615964065,
+    "longitude": 128.178411700764,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 제천시 내토로7길 136",
+    "raw_place_name": ""
+  },
+  "gc-eec2e96ca1a7|음성군 삼성면 덕호로 382": {
+    "query": "충청북도 음성군 삼성면 덕호로 382",
+    "latitude": 37.0418948825339,
+    "longitude": 127.516062351528,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 음성군 삼성면 덕호로 382",
+    "raw_place_name": ""
+  },
+  "gc-c5f55ef01f20|충주시 신니면 화치3길 35": {
+    "query": "충청북도 충주시 신니면 화치3길 35",
+    "latitude": 36.9944549086077,
+    "longitude": 127.678015413141,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 충주시 신니면 화치3길 35",
+    "raw_place_name": ""
+  },
+  "gc-1cfb7d6583c7|충주시 대소원면 성종두담길 114": {
+    "query": "충청북도 충주시 대소원면 성종두담길 114",
+    "latitude": 36.9504092248416,
+    "longitude": 127.849685359291,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 충주시 대소원면 성종두담길 114",
+    "raw_place_name": ""
+  },
+  "gc-617f2f73c737|음성군 삼성면 금일로 1195": {
+    "query": "충청북도 음성군 삼성면 금일로 1195",
+    "latitude": 37.0336174496984,
+    "longitude": 127.467255123809,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 음성군 삼성면 금일로 1195",
+    "raw_place_name": ""
+  },
+  "gc-3d728357d622|제천시 고암동 송학 주천로 102": {
+    "query": "충청북도 제천시 고암동 송학 주천로 102",
+    "latitude": 37.1744542225737,
+    "longitude": 128.236615825186,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 제천시 송학주천로 102",
+    "raw_place_name": ""
+  },
+  "gc-e02aaeea09ed|음성군 음성읍 동음로 318": {
+    "query": "충청북도 음성군 음성읍 동음로 318",
+    "latitude": 36.9318271275074,
+    "longitude": 127.621099088119,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 음성군 음성읍 동음로 318",
+    "raw_place_name": ""
+  },
+  "gc-914eaef995a0|보은군 탄부면 평각상장로 230": {
+    "query": "보은군 탄부면 평각상장로 230",
+    "latitude": 36.4488287329975,
+    "longitude": 127.774085233727,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 보은군 탄부면 평각상장로 230",
+    "raw_place_name": ""
+  },
+  "gc-2bace244ca44|충주시 노은면 감노로 1327": {
+    "query": "충청북도 충주시 노은면 감노로 1327",
+    "latitude": 37.0567966473176,
+    "longitude": 127.744667271762,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 충주시 노은면 감노로 1327",
+    "raw_place_name": ""
+  },
+  "gc-0a89c1c9b286|충주시 신니면 동락길 207": {
+    "query": "충청북도 충주시 신니면 동락길 207",
+    "latitude": 37.0198967372521,
+    "longitude": 127.675815648035,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 충주시 신니면 동락길 207",
+    "raw_place_name": ""
+  },
+  "gc-746ebce39dd0|보은군 보은읍 장속중초로 386": {
+    "query": "보은군 보은읍 장속중초로 386",
+    "latitude": 36.5096812946396,
+    "longitude": 127.690541925281,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 보은군 보은읍 장속중초로 386",
+    "raw_place_name": ""
+  },
+  "gc-ca6baf196057|충주시 앙성면 비내길 189": {
+    "query": "충청북도 충주시 앙성면 비내길 189",
+    "latitude": 37.1085767768558,
+    "longitude": 127.787139757705,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 충주시 앙성면 비내길 189",
+    "raw_place_name": ""
+  },
+  "gc-b86dec31683a|음성군 감곡면 문촌리 산81-6": {
+    "query": "충청북도 음성군 감곡면 문촌리 산81-6",
+    "latitude": 37.1298905300724,
+    "longitude": 127.693506132587,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 음성군 감곡면 문촌리 산 81-6",
+    "raw_place_name": ""
+  },
+  "gc-a8e246e93ac3|영동군 영동읍 매천리 산 35-1": {
+    "query": "영동군 영동읍 매천리 산 35-1",
+    "latitude": 36.1553491817334,
+    "longitude": 127.784692775827,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 영동군 영동읍 매천리 산 35-1",
+    "raw_place_name": ""
+  },
+  "gc-97d5d758dc31|증평군 도안면 벼루재길 334": {
+    "query": "블랙스톤cc 증평군",
+    "latitude": 36.845323216739466,
+    "longitude": 127.58270866015243,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 증평군 도안면 연촌리 산 58",
+    "raw_place_name": "블랙스톤벨포레CC"
+  },
+  "gc-ab79864b5bdf|음성군 금왕읍 대금로 1851번길 3-14": {
+    "query": "충청북도 음성군 금왕읍 대금로 1851번길 3-14",
+    "latitude": 37.0018713709384,
+    "longitude": 127.628376230213,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 음성군 금왕읍 대금로1851번길 3-14",
+    "raw_place_name": ""
+  },
+  "gc-cf2911a3e910|음성군 소이면 후미리 산40-4": {
+    "query": "충청북도 음성군 소이면 후미리 산40-4",
+    "latitude": 36.9297181582041,
+    "longitude": 127.779106961639,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 음성군 소이면 후미리 산 40-4",
+    "raw_place_name": ""
+  },
+  "gc-736ecb0e589a|청주시 서원구 남이면 산막리 산 128": {
+    "query": "충청북도 청주시 서원구 남이면 산막리 산 128",
+    "latitude": 36.5434085691017,
+    "longitude": 127.388361151408,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 청주시 서원구 남이면 산막리 산 128",
+    "raw_place_name": ""
+  },
+  "gc-a043ad4dfcf6|사천시 곤양면 흥신로 210": {
+    "query": "경상남도 사천시 곤양면 흥신로 210",
+    "latitude": 35.0992986463276,
+    "longitude": 128.015799149784,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "경남 사천시 곤양면 흥신로 210",
+    "raw_place_name": ""
+  },
+  "gc-5384133fb9bc|김해시 인제로 495": {
+    "query": "경상남도 김해시 인제로 495",
+    "latitude": 35.2706641912159,
+    "longitude": 128.892223791295,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "경남 김해시 인제로 495",
+    "raw_place_name": ""
+  },
+  "gc-9bd0f98bfdee|김해시 인제로 495": {
+    "query": "경상남도 김해시 인제로 495",
+    "latitude": 35.2706641912159,
+    "longitude": 128.892223791295,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "경남 김해시 인제로 495",
+    "raw_place_name": ""
+  },
+  "gc-49a45667bbb1|창녕군 장마면 영산계성로 469-195": {
+    "query": "경상남도 창녕군 장마면 영산계성로 469-195",
+    "latitude": 35.4994482486962,
+    "longitude": 128.499955867958,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "경남 창녕군 장마면 영산계성로 469-195",
+    "raw_place_name": ""
+  },
+  "gc-98e3f829ab99|창녕군 장마면 영산계성로 469-195": {
+    "query": "경상남도 창녕군 장마면 영산계성로 469-195",
+    "latitude": 35.4994482486962,
+    "longitude": 128.499955867958,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "경남 창녕군 장마면 영산계성로 469-195",
+    "raw_place_name": ""
+  },
+  "gc-1636db0b5c9f|경상북도 포항시 북구 송라면 대전길 7": {
+    "query": "경상북도 포항시 북구 송라면 대전길 7",
+    "latitude": 36.2449778304564,
+    "longitude": 129.349941885044,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "경북 포항시 북구 송라면 대전길 7",
+    "raw_place_name": ""
+  },
+  "gc-43ee7ee149ba|경상북도 포항시 북구 송라면 대전길 7": {
+    "query": "경상북도 포항시 북구 송라면 대전길 7",
+    "latitude": 36.2449778304564,
+    "longitude": 129.349941885044,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "경북 포항시 북구 송라면 대전길 7",
+    "raw_place_name": ""
+  },
+  "gc-28ff72e3fac8|경상북도 경주시 외동읍 내외로 577-189": {
+    "query": "경상북도 경주시 외동읍 내외로 577-189",
+    "latitude": 35.6945461094841,
+    "longitude": 129.276866180429,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "경북 경주시 외동읍 내외로 577-189",
+    "raw_place_name": ""
+  },
+  "gc-783a937fe067|경상북도 의성군 봉양면 농공마전길 125-78": {
+    "query": "경상북도 의성군 봉양면 농공마전길 125-78",
+    "latitude": 36.2817339656016,
+    "longitude": 128.560666691574,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "경북 의성군 봉양면 농공마전길 125-78",
+    "raw_place_name": ""
+  },
+  "gc-044a801a85d5|전남 나주시 남평읍 나주호로 442-129": {
+    "query": "전라남도 나주시 남평읍 나주호로 442-129",
+    "latitude": 34.9579493467209,
+    "longitude": 126.87553417645,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "전남 나주시 남평읍 나주호로 442-129",
+    "raw_place_name": ""
+  },
+  "gc-990342c1d90c|전남 나주시 남평읍 나주호로 442-129": {
+    "query": "전라남도 나주시 남평읍 나주호로 442-129",
+    "latitude": 34.9579493467209,
+    "longitude": 126.87553417645,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "전남 나주시 남평읍 나주호로 442-129",
+    "raw_place_name": ""
+  },
+  "gc-53f5c270575b|전남 나주시 다도면 다도로 171-60": {
+    "query": "전라남도 나주시 다도면 다도로 171-60",
+    "latitude": 34.9959291528385,
+    "longitude": 126.832694683203,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "전남 나주시 다도면 다도로 171-60",
+    "raw_place_name": ""
+  },
+  "gc-660ffc0f1f8d|전남 나주시 다도면 다도로 171-60": {
+    "query": "전라남도 나주시 다도면 다도로 171-60",
+    "latitude": 34.9959291528385,
+    "longitude": 126.832694683203,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "전남 나주시 다도면 다도로 171-60",
+    "raw_place_name": ""
+  },
+  "gc-7c780d37c946|전북특별자치도 정읍시 태인면 상증길 28": {
+    "query": "전북특별자치도 정읍시 태인면 상증길 28",
+    "latitude": 35.679721931898,
+    "longitude": 126.957213136469,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "전북특별자치도 정읍시 태인면 상증길 28",
+    "raw_place_name": ""
+  },
+  "gc-7ef835cc44ce|제주특별자치도 제주시 평화로 1738-116": {
+    "query": "제주특별자치도 제주시 평화로 1738-116",
+    "latitude": 33.3714129298932,
+    "longitude": 126.379913933214,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "제주특별자치도 제주시 애월읍 평화로 1738-116",
+    "raw_place_name": ""
+  },
+  "gc-48b0d3b9c2cb|제주특별자치도 제주시 평화로 1738-116": {
+    "query": "제주특별자치도 제주시 평화로 1738-116",
+    "latitude": 33.3714129298932,
+    "longitude": 126.379913933214,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "제주특별자치도 제주시 애월읍 평화로 1738-116",
+    "raw_place_name": ""
+  },
+  "gc-81f3ec25ee6f|제주특별자치도 제주시 평화로 1693-75": {
+    "query": "제주특별자치도 제주시 평화로 1693-75",
+    "latitude": 33.3781703139549,
+    "longitude": 126.362098048999,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "제주특별자치도 제주시 애월읍 평화로 1693-75",
+    "raw_place_name": ""
+  },
+  "gc-57d2cac587d2|제주특별자치도 제주시 평화로 1693-75": {
+    "query": "제주특별자치도 제주시 평화로 1693-75",
+    "latitude": 33.3781703139549,
+    "longitude": 126.362098048999,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "제주특별자치도 제주시 애월읍 평화로 1693-75",
+    "raw_place_name": ""
+  },
+  "gc-404df8588434|제주특별자치도 제주시 선유로 445-55": {
+    "query": "제주특별자치도 제주시 선유로 445-55",
+    "latitude": 33.5206094443622,
+    "longitude": 126.738519790483,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "제주특별자치도 제주시 구좌읍 선유로 445-55",
+    "raw_place_name": ""
+  },
+  "gc-ce976348ba8f|제주특별자치도 제주시 선유로 445-55": {
+    "query": "제주특별자치도 제주시 선유로 445-55",
+    "latitude": 33.5206094443622,
+    "longitude": 126.738519790483,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "제주특별자치도 제주시 구좌읍 선유로 445-55",
+    "raw_place_name": ""
+  },
+  "gc-0654fd7fa764|제주특별자치도 서귀포시 안덕면 평화로 1241": {
+    "query": "제주특별자치도 서귀포시 안덕면 평화로 1241",
+    "latitude": 33.3383411736757,
+    "longitude": 126.348716618245,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "제주특별자치도 서귀포시 안덕면 평화로 1241",
+    "raw_place_name": ""
+  },
+  "gc-8c893fc692ea|제주특별자치도 서귀포시 안덕면 평화로 1241": {
+    "query": "제주특별자치도 서귀포시 안덕면 평화로 1241",
+    "latitude": 33.3383411736757,
+    "longitude": 126.348716618245,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "제주특별자치도 서귀포시 안덕면 평화로 1241",
+    "raw_place_name": ""
+  },
+  "gc-e51deb9a5cbf|제주특별자치도 서귀포시 남원읍 원님로 399번길 319": {
+    "query": "제주특별자치도 서귀포시 남원읍 원님로 399번길 319",
+    "latitude": 33.3623095320649,
+    "longitude": 126.721898147673,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "제주특별자치도 서귀포시 남원읍 원님로399번길 319",
+    "raw_place_name": ""
+  },
+  "gc-a34d1218714a|제주특별자치도 서귀포시 남원읍 원님로 399번길 319": {
+    "query": "제주특별자치도 서귀포시 남원읍 원님로 399번길 319",
+    "latitude": 33.3623095320649,
+    "longitude": 126.721898147673,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "제주특별자치도 서귀포시 남원읍 원님로399번길 319",
+    "raw_place_name": ""
+  },
+  "gc-834f306ba4e2|제주특별자치도 서귀포시 상예로 530": {
+    "query": "제주특별자치도 서귀포시 상예로 530",
+    "latitude": 33.2872722238503,
+    "longitude": 126.405279081697,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "제주특별자치도 서귀포시 상예로 530",
+    "raw_place_name": ""
+  },
+  "gc-4d1cbdf3ceb2|제주특별자치도 서귀포시 상예로 530": {
+    "query": "제주특별자치도 서귀포시 상예로 530",
+    "latitude": 33.2872722238503,
+    "longitude": 126.405279081697,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "제주특별자치도 서귀포시 상예로 530",
+    "raw_place_name": ""
+  },
+  "gc-85e4c645a34a|제주특별자치도 서귀포시 번영로 2300": {
+    "query": "제주특별자치도 서귀포시 번영로 2300",
+    "latitude": 33.4111139143985,
+    "longitude": 126.752122063904,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "제주특별자치도 서귀포시 표선면 번영로 2300",
+    "raw_place_name": ""
+  },
+  "gc-4365b50502ef|제주특별자치도 서귀포시 번영로 2300": {
+    "query": "제주특별자치도 서귀포시 번영로 2300",
+    "latitude": 33.4111139143985,
+    "longitude": 126.752122063904,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "제주특별자치도 서귀포시 표선면 번영로 2300",
+    "raw_place_name": ""
+  },
+  "gc-029535a99281|제주특별자치도 서귀포시 안덕면 광평로 34-156": {
+    "query": "제주특별자치도 서귀포시 안덕면 광평로 34-156",
+    "latitude": 33.3403726049988,
+    "longitude": 126.404250168607,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "제주특별자치도 서귀포시 안덕면 광평로 34-156",
+    "raw_place_name": ""
+  },
+  "gc-06c10aaf3618|제주특별자치도 서귀포시 안덕면 광평로 34-156": {
+    "query": "제주특별자치도 서귀포시 안덕면 광평로 34-156",
+    "latitude": 33.3403726049988,
+    "longitude": 126.404250168607,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "제주특별자치도 서귀포시 안덕면 광평로 34-156",
+    "raw_place_name": ""
+  },
+  "gc-41a0194846f8|제주특별자치도 서귀포시 안덕면 산록남로 863": {
+    "query": "제주특별자치도 서귀포시 안덕면 산록남로 863",
+    "latitude": 33.3053604674639,
+    "longitude": 126.393685407938,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "제주특별자치도 서귀포시 안덕면 산록남로 863",
+    "raw_place_name": ""
+  },
+  "gc-b825d1073c5d|제주특별자치도 서귀포시 안덕면 산록남로 863": {
+    "query": "제주특별자치도 서귀포시 안덕면 산록남로 863",
+    "latitude": 33.3053604674639,
+    "longitude": 126.393685407938,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "제주특별자치도 서귀포시 안덕면 산록남로 863",
+    "raw_place_name": ""
+  },
+  "gc-1ce1b36ed2da|충주시 앙성면 중방곡길 57-44": {
+    "query": "충청북도 충주시 앙성면 중방곡길 57-44",
+    "latitude": 37.1741456179819,
+    "longitude": 127.741221112751,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 충주시 앙성면 중방곡길 57-44",
+    "raw_place_name": ""
+  },
+  "gc-17fef5525b26|춘천시 동면 금베이길 93-27": {
+    "query": "강원특별자치도 춘천시 동면 금베이길 93-27",
+    "latitude": 37.8795155759099,
+    "longitude": 127.79077938372,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "강원특별자치도 춘천시 동면 금베이길 93-27",
+    "raw_place_name": ""
+  },
+  "gc-ba3362c686e4|경기도 안성시 보개면 보삼로 302": {
+    "query": "경기도 안성시 보개면 보삼로 302",
+    "latitude": 37.0983070278161,
+    "longitude": 127.32861506514,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "경기 안성시 보개면 보삼로 302",
+    "raw_place_name": ""
+  },
+  "gc-411771a420e7|경기도 안성시 양성면 교동길 19-70": {
+    "query": "경기도 안성시 양성면 교동길 19-70",
+    "latitude": 37.0754815069354,
+    "longitude": 127.195011214835,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "경기 안성시 양성면 교동길 19-70",
+    "raw_place_name": ""
+  },
+  "gc-945ef0204a99|사천시 서포면 구송로 151": {
+    "query": "경상남도 사천시 서포면 구송로 151",
+    "latitude": 35.0154176252294,
+    "longitude": 127.957629437359,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "경남 사천시 서포면 구송로 151",
+    "raw_place_name": ""
+  },
+  "gc-968de8ceffeb|밀양시 단장면 미촌리 889": {
+    "query": "경상남도 밀양시 단장면 미촌리 889",
+    "latitude": 35.5000345419055,
+    "longitude": 128.827685294188,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "경남 밀양시 단장면 미촌리 889",
+    "raw_place_name": ""
+  },
+  "gc-09693194d3fb|함안군 칠원면 운무로 470": {
+    "query": "경상남도 함안군 칠원면 운무로 470",
+    "latitude": 35.3085321018371,
+    "longitude": 128.574136218308,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "경남 함안군 칠원읍 운무로 470",
+    "raw_place_name": ""
+  },
+  "gc-96bed6159452|경상북도 경주시 감포읍 동해안로 1819-59": {
+    "query": "경상북도 경주시 감포읍 동해안로 1819-59",
+    "latitude": 35.7729979951133,
+    "longitude": 129.486488688578,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "경북 경주시 감포읍 동해안로 1819-59",
+    "raw_place_name": ""
+  },
+  "gc-6a587177a23c|경상북도 구미시 산동면 강동로 953-73": {
+    "query": "경상북도 구미시 산동면 강동로 953-73",
+    "latitude": 36.1584243804283,
+    "longitude": 128.445496478621,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "경북 구미시 산동읍 강동로 953-73",
+    "raw_place_name": ""
+  },
+  "gc-a944350f5db1|경상북도 구미시 산동면 강동로 953-74": {
+    "query": "경상북도 구미시 산동면 강동로 953-74",
+    "latitude": 36.1580062048644,
+    "longitude": 128.442639666721,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "경북 구미시 산동읍 강동로 953-74",
+    "raw_place_name": ""
+  },
+  "gc-1f14d0ca89b4|경상북도 칠곡군 가산면 학하2길 54-171": {
+    "query": "경상북도 칠곡군 가산면 학하2길 54-171",
+    "latitude": 36.0833008135628,
+    "longitude": 128.469279378639,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "경북 칠곡군 가산면 학하2길 54-171",
+    "raw_place_name": ""
+  },
+  "gc-3f766167d45e|인천시 연수구 아카데미로 209": {
+    "query": "인천광역시 인천시 연수구 아카데미로 209",
+    "latitude": 37.3814676485051,
+    "longitude": 126.618009916,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "인천 연수구 아카데미로 209",
+    "raw_place_name": ""
+  },
+  "gc-fa86c43067e7|인천시 서구 거월로 61": {
+    "query": "드림파크골프장 인천시",
+    "latitude": 37.57880062760166,
+    "longitude": 126.64612604642262,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "인천 서구 백석동",
+    "raw_place_name": "인천시 서구 인천드림파크CC 전기차충전소"
+  },
+  "gc-4005648f63d2|인천시 연수구 인천신항대로 1120": {
+    "query": "인천광역시 인천시 연수구 인천신항대로 1120",
+    "latitude": 37.3539720232257,
+    "longitude": 126.592108721759,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "인천 연수구 인천신항대로 1120",
+    "raw_place_name": ""
+  },
+  "gc-ae299d74ffe4|전남 여수시 좌수영로 641": {
+    "query": "전라남도 여수시 좌수영로 641",
+    "latitude": 34.7775729423591,
+    "longitude": 127.690032244262,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "전남 여수시 좌수영로 641",
+    "raw_place_name": ""
+  },
+  "gc-3269edc70897|전남 순천시 주암면 행정1길 77": {
+    "query": "전라남도 순천시 주암면 행정1길 77",
+    "latitude": 35.0453779027297,
+    "longitude": 127.309261733808,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "전남 순천시 주암면 행정1길 77",
+    "raw_place_name": ""
+  },
+  "gc-982325a51789|영암군 삼호읍 에프원로 121-1": {
+    "query": "전라남도 영암군 삼호읍 에프원로 121-1",
+    "latitude": 34.7357331871307,
+    "longitude": 126.42785393705,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "전남 영암군 삼호읍 에프원로 121-1",
+    "raw_place_name": ""
+  },
+  "gc-2a867c283a2c|전북특별자치도 무주군 안성면 장무로 1537-21": {
+    "query": "전북특별자치도 무주군 안성면 장무로 1537-21",
+    "latitude": 35.831298076118,
+    "longitude": 127.636571791807,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "전북특별자치도 무주군 안성면 장무로 1537-21",
+    "raw_place_name": ""
+  },
+  "gc-1f1578e897f2|전북특별자치도 고창군 아산면 운곡로 418": {
+    "query": "전북특별자치도 고창군 아산면 운곡로 418",
+    "latitude": 35.4922055093639,
+    "longitude": 126.643978417972,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "전북특별자치도 고창군 아산면 운곡로 418",
+    "raw_place_name": ""
+  },
+  "gc-adeec421c374|병천면 매성2길 103": {
+    "query": "병천면 매성2길 103",
+    "latitude": 36.8043256320368,
+    "longitude": 127.31179501385,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충남 천안시 동남구 병천면 매성2길 103",
+    "raw_place_name": ""
+  },
+  "gc-226b2263c6f6|진천군 진천읍 송강로 783-51": {
+    "query": "충청북도 진천군 진천읍 송강로 783-51",
+    "latitude": 36.819645780279,
+    "longitude": 127.408131421454,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 진천군 진천읍 송강로 783-51",
+    "raw_place_name": ""
+  },
+  "gc-ab22b2f16924|진천군 문백면 농다리로 809": {
+    "query": "충청북도 진천군 문백면 농다리로 809",
+    "latitude": 36.8160695087525,
+    "longitude": 127.475612433835,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "충북 진천군 문백면 농다리로 809",
+    "raw_place_name": ""
+  },
+  "gc-01762fe809b0|전북특별자치도 남원시 대산면 대사로 498": {
+    "query": "전북특별자치도 남원시 대산면 대사로 498",
+    "latitude": 35.4333356172514,
+    "longitude": 127.340398880046,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "전북특별자치도 남원시 대산면 대사로 498",
+    "raw_place_name": ""
+  },
+  "gc-d780ed19a4d0|제주특별자치도 제주시 오라남로 130-16": {
+    "query": "제주특별자치도 제주시 오라남로 130-16",
+    "latitude": 33.4482225482706,
+    "longitude": 126.513190445051,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "제주특별자치도 제주시 오라남로 130-16",
+    "raw_place_name": ""
+  },
+  "gc-4949c11c28bf|제주특별자치도 제주시 오라남로 130-16": {
+    "query": "제주특별자치도 제주시 오라남로 130-16",
+    "latitude": 33.4482225482706,
+    "longitude": 126.513190445051,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "제주특별자치도 제주시 오라남로 130-16",
+    "raw_place_name": ""
+  },
+  "gc-74de2175f831|제주특별자치도 제주시 한창로 925-122": {
+    "query": "제주특별자치도 제주시 한창로 925-122",
+    "latitude": 33.337766044002,
+    "longitude": 126.31240252086,
+    "provider": "kakao",
+    "confidence": "high",
+    "geocoded_at": "2026-06-18T01:59:00.029Z",
+    "matched_address": "제주특별자치도 제주시 한림읍 한창로 925-122",
+    "raw_place_name": ""
   }
 }

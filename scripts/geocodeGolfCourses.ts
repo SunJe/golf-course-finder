@@ -18,6 +18,14 @@ import {
   selectRegionalSampleRows,
 } from "./lib/geocodingRegionalQuality";
 import {
+  buildFullQualityReport,
+  buildGeocodedImportCsv,
+  createAbortState,
+  isRateLimitError,
+  resultToGeocodingResultsRow,
+  updateAbortState,
+} from "./lib/geocodingFullRun";
+import {
   GEOCODING_FAILURES_HEADERS,
   GEOCODING_REQUEST_DELAY_MS,
   GEOCODING_RESULTS_HEADERS,
@@ -53,6 +61,7 @@ const REGIONAL_QUALITY_REPORT_PATH = path.join(
 const DEBUG_REPORT_PATH = path.join(ROOT, "data/review/geocoding_debug_sample.md");
 const DATA_QUALITY_REPORT_PATH = path.join(ROOT, "data/review/data_quality_report.md");
 const GEOCODED_IMPORT_PATH = path.join(ROOT, "data/golf_courses_import_geocoded.csv");
+const IMPORT_PATH = path.join(ROOT, "data/golf_courses_import.csv");
 
 interface CliOptions {
   execute: boolean;
@@ -63,6 +72,7 @@ interface CliOptions {
   sampleByRegion: boolean;
   limitPerRegion: number;
   all: boolean;
+  confirmAll: boolean;
 }
 
 interface GeocodeBatchStats {
@@ -71,6 +81,9 @@ interface GeocodeBatchStats {
   apiCallCount: number;
   totalAddressSearchHits: number;
   totalKeywordSearchHits: number;
+  cacheHits: number;
+  aborted: boolean;
+  abortReason: string;
 }
 
 function parseCliOptions(): CliOptions {
@@ -79,6 +92,7 @@ function parseCliOptions(): CliOptions {
   const debug = args.includes("--debug");
   const sampleByRegion = args.includes("--sample-by-region");
   const all = args.includes("--all");
+  const confirmAll = args.includes("--confirm-all");
   const limitArg = args.find((arg) => arg.startsWith("--limit"));
   const limitPerRegionArg = args.find((arg) =>
     arg.startsWith("--limit-per-region"),
@@ -140,6 +154,7 @@ function parseCliOptions(): CliOptions {
     sampleByRegion,
     limitPerRegion,
     all,
+    confirmAll,
   };
 }
 
@@ -214,7 +229,14 @@ function runDryRun(
   console.log("  Total input rows:     ", allRows.length);
   console.log("  Target rows:          ", targetRows.length);
   console.log("  Offset:               ", options.offset);
-  console.log("  Limit:                ", options.limit ?? "(none — blocked in Phase 3)");
+  if (options.all) {
+    console.log("  Mode:                 FULL (--all)");
+    console.log(
+      "  Execute requires:     --execute --all --confirm-all",
+    );
+  } else {
+    console.log("  Limit:                ", options.limit ?? "(none)");
+  }
   console.log("  Unique queries:       ", uniqueQueries.size);
   console.log("  Cache hits:           ", cacheHits);
   console.log("");
@@ -233,22 +255,31 @@ function runDryRun(
   console.log(
     "    npm run geocode:golf-courses -- --execute --limit 20 --provider kakao --debug",
   );
+  if (options.all) {
+    console.log("  Full execute:");
+    console.log(
+      "    npm run geocode:golf-courses -- --execute --provider kakao --all --confirm-all",
+    );
+  }
 }
 
 function assertExecuteAllowed(options: CliOptions): void {
   if (options.all) {
-    console.error(
-      "[geocode:golf-courses] Full --all execute blocked until regional sample passes and manual review completes.",
-    );
-    process.exit(1);
+    if (!options.confirmAll) {
+      console.error(
+        "[geocode:golf-courses] Full --all requires --confirm-all.",
+      );
+      console.error(
+        "  npm run geocode:golf-courses -- --execute --provider kakao --all --confirm-all",
+      );
+      process.exit(1);
+    }
+    return;
   }
 
-  if (
-    !options.sampleByRegion &&
-    options.limit === null
-  ) {
+  if (!options.sampleByRegion && options.limit === null) {
     console.error(
-      "[geocode:golf-courses] Full execute blocked. Use --limit N or --sample-by-region.",
+      "[geocode:golf-courses] Full execute blocked. Use --limit N, --sample-by-region, or --all --confirm-all.",
     );
     process.exit(1);
   }
@@ -259,7 +290,7 @@ async function geocodeBatch(
   cache: GeocodingCache,
   provider: "kakao",
   apiKey: string,
-  options: CliOptions,
+  options: CliOptions & { fullRun?: boolean },
 ): Promise<GeocodeBatchStats> {
   const sampleResults: SampleGeocodingResult[] = [];
   const failureRows: string[][] = [];
@@ -267,6 +298,11 @@ async function geocodeBatch(
   let apiCallCount = 0;
   let totalAddressSearchHits = 0;
   let totalKeywordSearchHits = 0;
+  let cacheHits = 0;
+  let apiRowsProcessed = 0;
+  let aborted = false;
+  let abortReason = "";
+  const abortState = options.fullRun ? createAbortState() : null;
 
   for (const [index, row] of targetRows.entries()) {
     const cacheKey = `${row.id}|${row.address}`;
@@ -289,13 +325,16 @@ async function geocodeBatch(
         status: "skipped",
         note: "cache hit",
       });
+      cacheHits += 1;
       if (options.debug) {
         console.log(`[${index + 1}] ${row.name} — skipped (cache)`);
+      } else if (options.fullRun && (index + 1) % 50 === 0) {
+        console.log(`  ... ${index + 1}/${targetRows.length} processed`);
       }
       continue;
     }
 
-    if (index > 0) {
+    if (apiRowsProcessed > 0) {
       await sleep(GEOCODING_REQUEST_DELAY_MS);
     }
 
@@ -323,6 +362,15 @@ async function geocodeBatch(
       };
 
       sampleResults.push(result);
+      apiRowsProcessed += 1;
+
+      if (abortState) {
+        const check = updateAbortState(abortState, result);
+        if (check.abort) {
+          aborted = true;
+          abortReason = check.reason;
+        }
+      }
 
       if (options.debug) {
         console.log(`[${index + 1}] ${row.name}`);
@@ -386,9 +434,35 @@ async function geocodeBatch(
         message,
         row.source,
       ]);
+      apiRowsProcessed += 1;
+
+      if (abortState) {
+        const check = updateAbortState(abortState, sampleResults[sampleResults.length - 1], message);
+        if (check.abort) {
+          aborted = true;
+          abortReason = check.reason;
+        } else if (isRateLimitError(message)) {
+          aborted = true;
+          abortReason = `API rate limit/quota 감지: ${message}`;
+        }
+      }
+
       if (options.debug) {
         console.log(`[${index + 1}] ${row.name} — api_error: ${message}`);
       }
+    }
+
+    if (options.fullRun && (index + 1) % 10 === 0) {
+      saveGeocodingCache(CACHE_PATH, cache);
+    }
+
+    if (aborted) {
+      console.error(`[geocode:golf-courses] ABORT: ${abortReason}`);
+      break;
+    }
+
+    if (options.fullRun && !options.debug && (index + 1) % 50 === 0) {
+      console.log(`  ... ${index + 1}/${targetRows.length} processed`);
     }
   }
 
@@ -398,6 +472,9 @@ async function geocodeBatch(
     apiCallCount,
     totalAddressSearchHits,
     totalKeywordSearchHits,
+    cacheHits,
+    aborted,
+    abortReason,
   };
 }
 
@@ -581,7 +658,148 @@ async function runRegionalExecute(
   console.log(`  Report: ${REGIONAL_QUALITY_REPORT_PATH}`);
   console.log(`  Debug:  ${DEBUG_REPORT_PATH}`);
   console.log("  NOTE: golf_courses_import.csv was NOT modified.");
-  console.log("  NOTE: Full --all execute remains blocked.");
+}
+
+function buildResultsMapFromBatchAndCache(
+  batchResults: SampleGeocodingResult[],
+  cache: GeocodingCache,
+  allRows: GeocodingInputRow[],
+): Map<string, SampleGeocodingResult> {
+  const map = new Map<string, SampleGeocodingResult>();
+  for (const result of batchResults) {
+    map.set(result.id, result);
+  }
+
+  for (const row of allRows) {
+    if (map.has(row.id)) continue;
+    const cacheKey = `${row.id}|${row.address}`;
+    const cached = cache[cacheKey];
+    if (cached && cached.confidence === "high") {
+      map.set(row.id, {
+        id: row.id,
+        name: row.name,
+        region: row.region,
+        city: row.city,
+        address: row.address,
+        query: cached.query,
+        latitude: String(cached.latitude),
+        longitude: String(cached.longitude),
+        provider: cached.provider,
+        confidence: "70+",
+        matchedAddress: cached.matched_address ?? "",
+        rawPlaceName: cached.raw_place_name ?? "",
+        status: "skipped",
+        note: "cache hit",
+      });
+    }
+  }
+
+  return map;
+}
+
+async function runFullExecute(
+  allRows: GeocodingInputRow[],
+  cache: GeocodingCache,
+  keys: GeocodingEnvKeys,
+  options: CliOptions,
+): Promise<void> {
+  assertExecuteAllowed(options);
+
+  const provider = resolveProvider(keys, options.provider);
+  if (!provider) {
+    console.error("[geocode:golf-courses] Geocoding API key not configured.");
+    process.exit(1);
+  }
+
+  if (provider !== "kakao") {
+    console.error(
+      "[geocode:golf-courses] Fallback strategy currently implemented for kakao only.",
+    );
+    process.exit(1);
+  }
+
+  const env = loadEnvLocal(ROOT);
+  const apiKey = env.KAKAO_REST_API_KEY ?? "";
+  const now = new Date().toISOString();
+
+  console.log(`[geocode:golf-courses] FULL EXECUTE — provider: ${provider}`);
+  console.log(`  Total target rows: ${allRows.length}`);
+  console.log(`  KAKAO_REST_API_KEY configured: ${keys.kakaoRestApiKey}`);
+
+  const batch = await geocodeBatch(allRows, cache, provider, apiKey, {
+    ...options,
+    fullRun: true,
+  });
+
+  saveGeocodingCache(CACHE_PATH, cache);
+
+  const resultsMap = buildResultsMapFromBatchAndCache(
+    batch.sampleResults,
+    cache,
+    allRows,
+  );
+
+  writeFileUtf8(
+    RESULTS_PATH,
+    rowsToCsv(
+      [...GEOCODING_RESULTS_HEADERS],
+      [...resultsMap.values()].map((result) =>
+        resultToGeocodingResultsRow(result, now),
+      ),
+    ),
+  );
+
+  writeFileUtf8(
+    FAILURES_PATH,
+    rowsToCsv([...GEOCODING_FAILURES_HEADERS], batch.failureRows),
+  );
+
+  const { rowCount, rowsWithoutCoords } = buildGeocodedImportCsv({
+    importPath: IMPORT_PATH,
+    outputPath: GEOCODED_IMPORT_PATH,
+    resultsById: resultsMap,
+  });
+
+  const statusCounts = countStatuses(batch.sampleResults);
+  const fullReport = buildFullQualityReport(batch.sampleResults, {
+    runAt: now,
+    provider,
+    totalInputRows: allRows.length,
+    processedRows: batch.sampleResults.length,
+    apiStepCalls: batch.apiCallCount,
+    cacheHits: batch.cacheHits,
+    addressSearchHits: batch.totalAddressSearchHits,
+    keywordSearchHits: batch.totalKeywordSearchHits,
+    aborted: batch.aborted,
+    abortReason: batch.abortReason,
+    geocodedImportRows: rowCount,
+    rowsWithoutCoords,
+    apiKeys: keys,
+  });
+
+  fs.writeFileSync(QUALITY_REPORT_PATH, fullReport, "utf8");
+
+  console.log("");
+  console.log("  API step calls:       ", batch.apiCallCount);
+  console.log("  cache hits:           ", batch.cacheHits);
+  console.log("  address search hits:  ", batch.totalAddressSearchHits);
+  console.log("  keyword search hits:  ", batch.totalKeywordSearchHits);
+  console.log("  success:              ", statusCounts.success);
+  console.log("  no_result:            ", statusCounts.no_result);
+  console.log("  low_confidence:       ", statusCounts.low_confidence);
+  console.log("  multiple_candidates:  ", statusCounts.multiple_candidates);
+  console.log("  api_error:            ", statusCounts.api_error);
+  console.log("  skipped (cache):      ", statusCounts.skipped);
+  console.log(`  geocoded import rows:  ${rowCount}`);
+  console.log(`  rows without coords:   ${rowsWithoutCoords}`);
+  if (batch.aborted) {
+    console.log(`  ABORTED: ${batch.abortReason}`);
+    console.log("  Re-run with same command to resume via cache.");
+  }
+  console.log(`  Output: ${RESULTS_PATH}`);
+  console.log(`  Output: ${GEOCODED_IMPORT_PATH}`);
+  console.log(`  Report: ${QUALITY_REPORT_PATH}`);
+  console.log("  NOTE: golf_courses_import.csv was NOT modified.");
 }
 
 function appendPhase3ToDataQualityReport(input: {
@@ -677,6 +895,15 @@ async function main(): Promise<void> {
   const allRows = loadInputRows();
   const cache = loadGeocodingCache(CACHE_PATH);
   const keys = checkGeocodingEnvKeys(ROOT);
+
+  if (options.all) {
+    if (options.execute) {
+      await runFullExecute(allRows, cache, keys, options);
+    } else {
+      runDryRun(allRows, allRows, cache, keys, options);
+    }
+    return;
+  }
 
   if (options.sampleByRegion) {
     const targetRows = selectRegionalSampleRows(

@@ -9,6 +9,7 @@ import {
 import {
   assessCandidates,
   pickBestCandidate,
+  scoreCandidate,
   type GeocodeCandidate,
 } from "./geocodingConfidence";
 
@@ -288,4 +289,190 @@ export function buildDebugSampleMarkdown(
   });
 
   return lines.join("\n");
+}
+
+export interface ReviewCandidate {
+  rank: number;
+  placeName: string;
+  addressName: string;
+  roadAddressName: string;
+  latitude: number;
+  longitude: number;
+  confidence: number;
+  query: string;
+  endpoint: string;
+  reason: string;
+}
+
+export async function fetchReviewCandidates(
+  row: GeocodingInputRow,
+  apiKey: string,
+): Promise<ReviewCandidate[]> {
+  const seen = new Set<string>();
+  const collected: ReviewCandidate[] = [];
+
+  const normalizedAddress = normalizeAddress(row.address, row.region, row.city);
+  const addressQuery = buildAddressSearchQuery(
+    row.address,
+    row.region,
+    row.city,
+  );
+
+  const queries: Array<{ endpoint: string; query: string }> = [];
+  if (addressQuery) {
+    queries.push({ endpoint: KAKAO_ADDRESS_ENDPOINT, query: addressQuery });
+  }
+  for (const keywordQuery of buildKeywordQueries(
+    row.name,
+    row.region,
+    row.city,
+    normalizedAddress,
+  )) {
+    queries.push({ endpoint: KAKAO_KEYWORD_ENDPOINT, query: keywordQuery });
+  }
+
+  for (const item of queries) {
+    const candidates =
+      item.endpoint === KAKAO_ADDRESS_ENDPOINT
+        ? await searchAddress(item.query, apiKey)
+        : await searchKeyword(item.query, apiKey);
+
+    for (const candidate of candidates) {
+      const key = `${candidate.latitude},${candidate.longitude},${candidate.rawPlaceName},${candidate.matchedAddress}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+
+      const confidence = scoreCandidate(row, candidate);
+      collected.push({
+        rank: 0,
+        placeName: candidate.rawPlaceName,
+        addressName: candidate.matchedAddress,
+        roadAddressName: candidate.roadAddress,
+        latitude: candidate.latitude,
+        longitude: candidate.longitude,
+        confidence,
+        query: item.query,
+        endpoint: item.endpoint.includes("address") ? "address" : "keyword",
+        reason: `query="${item.query}" score=${confidence}`,
+      });
+    }
+  }
+
+  collected.sort((a, b) => b.confidence - a.confidence);
+  return collected.slice(0, 5).map((item, index) => ({
+    ...item,
+    rank: index + 1,
+  }));
+}
+
+export async function retryNoResultWithQueries(
+  row: GeocodingInputRow,
+  queries: string[],
+  apiKey: string,
+): Promise<{
+  winningQuery: string;
+  endpoint: string;
+  status: string;
+  confidence: number;
+  candidateCount: number;
+  candidates: ReviewCandidate[];
+}> {
+  const seen = new Set<string>();
+  const allCandidates: ReviewCandidate[] = [];
+
+  for (const query of queries) {
+    const keywordCandidates = await searchKeyword(query, apiKey);
+    if (keywordCandidates.length === 0) {
+      const addressCandidates = await searchAddress(query, apiKey);
+      for (const candidate of addressCandidates) {
+        const key = `${candidate.latitude},${candidate.longitude}`;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        allCandidates.push({
+          rank: 0,
+          placeName: candidate.rawPlaceName,
+          addressName: candidate.matchedAddress,
+          roadAddressName: candidate.roadAddress,
+          latitude: candidate.latitude,
+          longitude: candidate.longitude,
+          confidence: scoreCandidate(row, candidate),
+          query,
+          endpoint: "address",
+          reason: `retry address query="${query}"`,
+        });
+      }
+      continue;
+    }
+
+    for (const candidate of keywordCandidates) {
+      const key = `${candidate.latitude},${candidate.longitude},${candidate.rawPlaceName}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      allCandidates.push({
+        rank: 0,
+        placeName: candidate.rawPlaceName,
+        addressName: candidate.matchedAddress,
+        roadAddressName: candidate.roadAddress,
+        latitude: candidate.latitude,
+        longitude: candidate.longitude,
+        confidence: scoreCandidate(row, candidate),
+        query,
+        endpoint: "keyword",
+        reason: `retry keyword query="${query}"`,
+      });
+    }
+
+    const assessment = assessCandidates(row, keywordCandidates);
+    if (assessment.status === "success") {
+      allCandidates.sort((a, b) => b.confidence - a.confidence);
+      return {
+        winningQuery: query,
+        endpoint: "keyword",
+        status: assessment.status,
+        confidence: assessment.score,
+        candidateCount: keywordCandidates.length,
+        candidates: allCandidates.slice(0, 5).map((item, index) => ({
+          ...item,
+          rank: index + 1,
+        })),
+      };
+    }
+  }
+
+  allCandidates.sort((a, b) => b.confidence - a.confidence);
+  const top = allCandidates[0];
+  if (!top) {
+    return {
+      winningQuery: "",
+      endpoint: "",
+      status: "no_result",
+      confidence: 0,
+      candidateCount: 0,
+      candidates: [],
+    };
+  }
+
+  const merged = allCandidates.slice(0, 5).map((item, index) => ({
+    ...item,
+    rank: index + 1,
+  }));
+  const assessment = assessCandidates(
+    row,
+    merged.map((item) => ({
+      latitude: item.latitude,
+      longitude: item.longitude,
+      matchedAddress: item.addressName,
+      rawPlaceName: item.placeName,
+      roadAddress: item.roadAddressName,
+    })),
+  );
+
+  return {
+    winningQuery: top.query,
+    endpoint: top.endpoint,
+    status: assessment.status,
+    confidence: assessment.score,
+    candidateCount: merged.length,
+    candidates: merged,
+  };
 }

@@ -1,5 +1,6 @@
-import type { CourseInput, ParsedPrice, PriceType } from "./naverPriceCandidates";
+import type { CourseInput, ParsedPrice, PriceType, SearchQueryVariant } from "./naverPriceCandidates";
 import {
+  buildSearchQueryVariants,
   computeConfidence,
   getNaverSearchUrl,
   normalizeForMatch,
@@ -7,6 +8,10 @@ import {
   parsePriceText,
   stripMembershipSuffix,
 } from "./naverPriceCandidates";
+import {
+  parseDifficultyRaw,
+  type ParsedDifficulty,
+} from "./difficultyUtils";
 
 export interface ScrapeExtractResult {
   pageTitle: string;
@@ -19,6 +24,10 @@ export interface ScrapeExtractResult {
   candidatePriceMin: string;
   candidatePriceMax: string;
   candidatePriceType: PriceType;
+  candidateDifficulty: string;
+  candidateDifficultyText: string;
+  candidateAvgScore: string;
+  candidateReservationPricesText: string;
   reasonNotes: string[];
 }
 
@@ -39,17 +48,8 @@ const NAVER_HOST_BLOCK =
 
 const BOOKING_URL_HINT = /(?:booking|reserve|reservation|예약)/i;
 
-export function buildScrapeSearchQueries(course: CourseInput): string[] {
-  const primary = stripMembershipSuffix(course.name);
-  const queries = [
-    primary,
-    `${primary} 골프장`,
-    `${primary} 네이버`,
-  ];
-  if (course.city.trim()) {
-    queries.push(`${primary} ${course.city.trim()}`);
-  }
-  return [...new Set(queries.map((q) => q.trim()).filter(Boolean))];
+export function buildScrapeSearchQueries(course: CourseInput): SearchQueryVariant[] {
+  return buildSearchQueryVariants(course);
 }
 
 export function normalizePhone(raw: string): string {
@@ -190,6 +190,129 @@ function extractLabeledLine(text: string, label: string): string {
   return "";
 }
 
+/** 네이버 플레이스 카드 — 코스 난이도 (예: 2.3/10 → difficulty `2.3`) */
+export function extractCourseDifficulty(text: string): ParsedDifficulty {
+  const lines = text.split(/\n/).map((line) => line.trim());
+  let raw = "";
+
+  for (let i = 0; i < lines.length; i += 1) {
+    if (lines[i] === "코스 난이도" || lines[i] === "코스난이도") {
+      for (let j = i + 1; j <= i + 4 && j < lines.length; j += 1) {
+        const match = lines[j].match(/(\d+(?:\.\d+)?)\s*\/\s*(\d+)/);
+        if (match) {
+          raw = `${match[1]}/${match[2]}`;
+          break;
+        }
+      }
+      if (raw) break;
+    }
+  }
+
+  if (!raw) {
+    const inline = text.match(
+      /코스\s*난이도[\s\S]{0,80}?(\d+(?:\.\d+)?)\s*\/\s*(\d+)/,
+    );
+    if (inline) raw = `${inline[1]}/${inline[2]}`;
+  }
+
+  if (!raw) {
+    return { difficulty: "", difficultyText: "" };
+  }
+
+  return parseDifficultyRaw(raw);
+}
+
+/** 네이버 플레이스 — 평균 스코어/타수 */
+export function extractAverageScore(text: string): string {
+  const lines = text.split(/\n/).map((line) => line.trim());
+
+  for (let i = 0; i < lines.length; i += 1) {
+    if (/^평균\s*(스코어|타수)$/.test(lines[i])) {
+      for (let j = i + 1; j <= i + 4 && j < lines.length; j += 1) {
+        const value = lines[j].replace(/\s/g, "");
+        if (/^\d{2,3}$/.test(value)) return value;
+      }
+    }
+  }
+
+  const match = text.match(/평균\s*(?:스코어|타수)[\s\S]{0,60}?(\d{2,3})/);
+  return match ? match[1] : "";
+}
+
+const GREEN_FEE_MIN = 80_000;
+const GREEN_FEE_MAX = 800_000;
+
+function parseWonAmount(raw: string): number | null {
+  const value = Number.parseInt(raw.replace(/,/g, ""), 10);
+  if (!Number.isFinite(value)) return null;
+  if (value < GREEN_FEE_MIN || value > GREEN_FEE_MAX) return null;
+  return value;
+}
+
+/** 네이버 예약 패널 그린피/예약가 숫자 추출 (패널에 금액 없으면 빈 배열) */
+export function extractNaverReservationPrices(text: string): number[] {
+  const lines = text.split(/\n/).map((line) => line.trim());
+  const amounts = new Set<number>();
+  let inReservationSection = false;
+
+  for (const line of lines) {
+    if (/네이버\s*예약/.test(line)) {
+      inReservationSection = true;
+    }
+    if (
+      inReservationSection &&
+      /^(방문자\s*리뷰|편의|날씨|홈페이지|전화번호|주소|영업시간|코스\s*난이도|평균\s*스코어)$/.test(
+        line,
+      )
+    ) {
+      break;
+    }
+
+    if (inReservationSection) {
+      for (const match of line.matchAll(/(\d{1,3}(?:,\d{3})+)\s*원/g)) {
+        const amount = parseWonAmount(match[1]);
+        if (amount !== null) amounts.add(amount);
+      }
+    }
+  }
+
+  if (amounts.size === 0) {
+    const reservationBlock = text.split(/네이버\s*예약/i).slice(1).join("\n");
+    const scanText = reservationBlock.slice(0, 2500);
+    for (const match of scanText.matchAll(/(\d{1,3}(?:,\d{3})+)\s*원/g)) {
+      const amount = parseWonAmount(match[1]);
+      if (amount !== null) amounts.add(amount);
+    }
+  }
+
+  return [...amounts].sort((a, b) => a - b);
+}
+
+export function formatReservationPricesText(amounts: number[]): string {
+  if (amounts.length === 0) return "";
+  const formatted = amounts.map(
+    (amount) => `${amount.toLocaleString("ko-KR")}원`,
+  );
+  return `네이버 예약: ${formatted.join("; ")}`;
+}
+
+export function buildPriceFromReservationAmounts(
+  amounts: number[],
+): ParsedPrice {
+  if (amounts.length === 0) {
+    return { priceText: "", type: "unknown" };
+  }
+  const priceText = formatReservationPricesText(amounts);
+  const min = amounts[0];
+  const max = amounts[amounts.length - 1];
+  return {
+    priceText,
+    min,
+    max: min === max ? min : max,
+    type: "reservation_price",
+  };
+}
+
 function extractTitleFromBody(bodyText: string, courseName: string): string {
   const lines = bodyText.split(/\n/).map((l) => l.trim()).filter(Boolean);
   for (const line of lines) {
@@ -277,10 +400,22 @@ export function extractFromPageContent(
   if (ambiguous) reasonNotes.push("homepage ambiguous");
   if (homepageUrls.length === 0) reasonNotes.push("homepage not found");
 
-  const priceCandidates = extractPriceLinesFromText(bodyText);
-  const bestPrice = pickBestPrice(priceCandidates);
-  if (priceCandidates.length > 1) {
-    reasonNotes.push(`price lines: ${priceCandidates.length}`);
+  const reservationAmounts = extractNaverReservationPrices(bodyText);
+  const reservationPricesText = formatReservationPricesText(reservationAmounts);
+  const reservationPrice = buildPriceFromReservationAmounts(reservationAmounts);
+
+  const parsedDifficulty = extractCourseDifficulty(bodyText);
+  const candidateAvgScore = extractAverageScore(bodyText);
+
+  if (reservationAmounts.length > 0) {
+    reasonNotes.push(`reservation prices: ${reservationAmounts.length}`);
+  } else {
+    reasonNotes.push("naver reservation price not found");
+  }
+  if (parsedDifficulty.difficulty || parsedDifficulty.difficultyText) {
+    reasonNotes.push(
+      `difficulty: ${parsedDifficulty.difficultyText || parsedDifficulty.difficulty}`,
+    );
   }
 
   return {
@@ -290,12 +425,16 @@ export function extractFromPageContent(
     candidateAddress,
     candidatePhone,
     candidateHomepageUrl,
-    candidatePriceText: bestPrice.priceText,
+    candidatePriceText: reservationPrice.priceText,
     candidatePriceMin:
-      bestPrice.min !== undefined ? String(bestPrice.min) : "",
+      reservationPrice.min !== undefined ? String(reservationPrice.min) : "",
     candidatePriceMax:
-      bestPrice.max !== undefined ? String(bestPrice.max) : "",
-    candidatePriceType: bestPrice.type,
+      reservationPrice.max !== undefined ? String(reservationPrice.max) : "",
+    candidatePriceType: reservationPrice.type,
+    candidateDifficulty: parsedDifficulty.difficulty,
+    candidateDifficultyText: parsedDifficulty.difficultyText,
+    candidateAvgScore,
+    candidateReservationPricesText: reservationPricesText,
     reasonNotes,
   };
 }
@@ -312,12 +451,15 @@ export function scoreScrapeExtract(
   }
   if (extract.candidatePhone) score += 10;
   if (extract.candidateHomepageUrl) score += 8;
-  if (extract.candidatePriceText) score += 15;
+  if (extract.candidateReservationPricesText) score += 15;
+  if (extract.candidateDifficulty) score += 5;
   return score;
 }
 
 export interface ScrapeAttemptResult {
   query: string;
+  queryVariant: string;
+  attemptedQueries: string;
   sourceUrl: string;
   extract: ScrapeExtractResult;
   score: number;
@@ -328,11 +470,12 @@ export async function scrapeNaverSearchWithPlaywright(
   options: {
     headful: boolean;
     timeoutMs: number;
-    queries?: string[];
+    queries?: SearchQueryVariant[];
   },
 ): Promise<ScrapeAttemptResult | null> {
   const { chromium } = await import("playwright");
-  const queries = options.queries ?? buildScrapeSearchQueries(course);
+  const queryVariants = options.queries ?? buildScrapeSearchQueries(course);
+  const attemptedQueries = queryVariants.map((entry) => entry.query).join(" | ");
 
   const browser = await chromium.launch({ headless: !options.headful });
   try {
@@ -345,7 +488,7 @@ export async function scrapeNaverSearchWithPlaywright(
 
     let best: ScrapeAttemptResult | null = null;
 
-    for (const query of queries) {
+    for (const { query, queryVariant } of queryVariants) {
       const sourceUrl = getNaverSearchUrl(query);
       try {
         await page.goto(sourceUrl, {
@@ -383,6 +526,8 @@ export async function scrapeNaverSearchWithPlaywright(
         const score = scoreScrapeExtract(course, extract);
         const attempt: ScrapeAttemptResult = {
           query,
+          queryVariant,
+          attemptedQueries,
           sourceUrl,
           extract,
           score,
@@ -411,18 +556,18 @@ export function buildScrapeCandidateRow(
   attempt: ScrapeAttemptResult,
   collectedAt: string,
 ): import("./naverPriceCandidates").NaverPriceCandidateRow {
-  const { extract, query, sourceUrl } = attempt;
+  const { extract, query, queryVariant, attemptedQueries, sourceUrl } = attempt;
   const { confidence, reason } = computeConfidence(course, {
     title: extract.candidateTitle,
     address: extract.candidateAddress,
-    priceText: extract.candidatePriceText,
+    priceText: extract.candidateReservationPricesText,
     phone: extract.candidatePhone,
     homepageUrl: extract.candidateHomepageUrl,
   });
 
   const reasonParts = [reason, ...extract.reasonNotes];
-  if (!extract.candidatePriceText) {
-    reasonParts.push("price not found on page");
+  if (!extract.candidateReservationPricesText) {
+    reasonParts.push("naver reservation price not found — price fields left empty");
   }
 
   return {
@@ -430,6 +575,9 @@ export function buildScrapeCandidateRow(
     name: course.name,
     address: course.address,
     query,
+    query_variant: queryVariant,
+    attempted_queries: attemptedQueries,
+    matched_query: query,
     source: "naver_scrape",
     candidate_title: extract.candidateTitle,
     candidate_address: extract.candidateAddress,
@@ -439,6 +587,10 @@ export function buildScrapeCandidateRow(
     candidate_price_min: extract.candidatePriceMin,
     candidate_price_max: extract.candidatePriceMax,
     candidate_price_type: extract.candidatePriceType,
+    candidate_difficulty: extract.candidateDifficulty,
+    candidate_difficulty_text: extract.candidateDifficultyText,
+    candidate_avg_score: extract.candidateAvgScore,
+    candidate_reservation_prices_text: extract.candidateReservationPricesText,
     candidate_confidence: confidence,
     needs_review: "true",
     reason: reasonParts.join("; "),

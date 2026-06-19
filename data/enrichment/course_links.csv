@@ -324,7 +324,7 @@ gc-bb197f80e910,베이스타즈CC,,,,,
 gc-442afb70220e,오르비스골프클럽,,,,,
 gc-fa1a5b7b0f98,인천국제컨트리클럽,,,,,
 gc-68bd427a4957,송도골프클럽,,,,,
-gc-60319bf1693c,인천그랜드컨트리클럽,,,,,예시 행 — URL/전화 입력 후 npm run generate:course-links-sql 실행
+gc-60319bf1693c,인천그랜드컨트리클럽,http://www.incheongrand.cc/,,032-584-3111,https://search.naver.com/search.naver?where=nexearch&query=%EC%9D%B8%EC%B2%9C%EA%B7%B8%EB%9E%9C%EB%93%9C%EC%BB%A8%ED%8A%B8%EB%A6%AC%ED%81%B4%EB%9F%BD,예시 행 — URL/전화 입력 후 npm run generate:course-links-sql 실행
 gc-b0d53a657195,클럽72(바다),,,,,
 gc-a7bb99a4bcec,클럽72(하늘),,,,,
 gc-fa55dbc73e9b,베어즈베스트청라골프클럽,,,,,

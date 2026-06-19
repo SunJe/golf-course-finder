@@ -8,11 +8,15 @@ import {
   NAVER_PRICE_REVIEW_HEADERS,
   buildReviewRowsFromCandidates,
   buildSearchQueries,
+  buildSearchQueryVariants,
   candidateToCells,
   computeConfidence,
+  countCandidateFieldStats,
+  getEmptyFillableFields,
   getNaverMapSearchUrl,
   getNaverSearchUrl,
   loadCoursesFromCourseLinks,
+  mergeCandidateFillMissing,
   normalizeCsvHeader,
   parsePriceText,
   pickBestLocalItem,
@@ -20,6 +24,7 @@ import {
   searchNaverLocal,
   stripHtml,
   warnMojibakeInFields,
+  type CandidateFillImprovement,
   type CourseInput,
   type NaverPriceCandidateRow,
 } from "./lib/naverPriceCandidates";
@@ -27,6 +32,7 @@ import {
   buildScrapeCandidateRow,
   scrapeNaverSearchWithPlaywright,
 } from "./lib/naverPlaywrightScraper";
+import { loadPreservedReviewFields } from "./lib/naverPriceReviewMerge";
 import { getProjectRoot } from "./lib/sourceRegistry";
 
 const ROOT = getProjectRoot();
@@ -50,6 +56,7 @@ interface CliOptions {
   limit?: number;
   offset: number;
   force: boolean;
+  fillMissingOnly: boolean;
   dryRun: boolean;
   only?: string;
   scrape: boolean;
@@ -61,6 +68,7 @@ function parseArgs(argv: string[]): CliOptions {
   const options: CliOptions = {
     offset: 0,
     force: false,
+    fillMissingOnly: false,
     dryRun: false,
     scrape: false,
     delayMs: DEFAULT_DELAY_MS,
@@ -71,6 +79,8 @@ function parseArgs(argv: string[]): CliOptions {
     const arg = argv[i];
     if (arg === "--force") {
       options.force = true;
+    } else if (arg === "--fill-missing-only") {
+      options.fillMissingOnly = true;
     } else if (arg === "--dry-run") {
       options.dryRun = true;
     } else if (arg === "--scrape") {
@@ -123,6 +133,10 @@ function emptyCandidateFields(): Pick<
   | "candidate_price_min"
   | "candidate_price_max"
   | "candidate_price_type"
+  | "candidate_difficulty"
+  | "candidate_difficulty_text"
+  | "candidate_avg_score"
+  | "candidate_reservation_prices_text"
 > {
   return {
     candidate_phone: "",
@@ -131,6 +145,34 @@ function emptyCandidateFields(): Pick<
     candidate_price_min: "",
     candidate_price_max: "",
     candidate_price_type: "unknown",
+    candidate_difficulty: "",
+    candidate_difficulty_text: "",
+    candidate_avg_score: "",
+    candidate_reservation_prices_text: "",
+  };
+}
+
+function emptyCandidateRow(
+  course: CourseInput,
+  collectedAt = "",
+): NaverPriceCandidateRow {
+  return {
+    id: course.id,
+    name: course.name,
+    address: course.address,
+    query: "",
+    query_variant: "",
+    attempted_queries: "",
+    matched_query: "",
+    source: "naver_search",
+    candidate_title: "",
+    candidate_address: "",
+    ...emptyCandidateFields(),
+    candidate_confidence: "low",
+    needs_review: "true",
+    reason: "",
+    source_url: "",
+    collected_at: collectedAt,
   };
 }
 
@@ -161,7 +203,8 @@ function writeCandidatesFile(rows: NaverPriceCandidateRow[]): void {
 }
 
 function writeReviewFile(candidates: NaverPriceCandidateRow[]): void {
-  const reviewRows = buildReviewRowsFromCandidates(candidates);
+  const preserved = loadPreservedReviewFields(REVIEW_CSV);
+  const reviewRows = buildReviewRowsFromCandidates(candidates, preserved);
   const csvBody = rowsToCsv(
     [...NAVER_PRICE_REVIEW_HEADERS],
     reviewRows,
@@ -170,22 +213,57 @@ function writeReviewFile(candidates: NaverPriceCandidateRow[]): void {
   writeFileUtf8Bom(REVIEW_CSV, csvBody);
 }
 
+function formatFieldStats(
+  label: string,
+  stats: ReturnType<typeof countCandidateFieldStats>,
+  delta?: Partial<ReturnType<typeof countCandidateFieldStats>>,
+): void {
+  const fmt = (field: keyof Omit<ReturnType<typeof countCandidateFieldStats>, "total">) => {
+    const value = stats[field];
+    const diff = delta?.[field];
+    const suffix =
+      diff !== undefined && diff !== 0
+        ? ` (${diff > 0 ? "+" : ""}${diff})`
+        : "";
+    return `${field} filled: ${value}/${stats.total}${suffix}`;
+  };
+
+  console.log(`${label}:`);
+  console.log(`  ${fmt("phone")}`);
+  console.log(`  ${fmt("homepage")}`);
+  console.log(`  ${fmt("price")}`);
+  console.log(`  ${fmt("difficulty")}`);
+  console.log(`  ${fmt("avg_score")}`);
+}
+
 function createSearchUrlCandidate(
   course: CourseInput,
   query: string,
   collectedAt: string,
+  queryMeta?: {
+    queryVariant?: string;
+    attemptedQueries?: string;
+    matchedQuery?: string;
+  },
 ): NaverPriceCandidateRow {
   const { confidence, reason } = computeConfidence(course, {
     title: "",
     address: "",
     priceText: "",
   });
+  const queryVariants = buildSearchQueryVariants(course);
+  const attemptedQueries =
+    queryMeta?.attemptedQueries ??
+    queryVariants.map((entry) => entry.query).join(" | ");
 
   return {
     id: course.id,
     name: course.name,
     address: course.address,
     query,
+    query_variant: queryMeta?.queryVariant ?? "original",
+    attempted_queries: attemptedQueries,
+    matched_query: queryMeta?.matchedQuery ?? query,
     source: "naver_search",
     candidate_title: "",
     candidate_address: "",
@@ -203,10 +281,11 @@ async function collectWithApi(
   clientId: string,
   clientSecret: string,
 ): Promise<NaverPriceCandidateRow | null> {
-  const queries = buildSearchQueries(course);
+  const queryVariants = buildSearchQueryVariants(course);
+  const attemptedQueries = queryVariants.map((entry) => entry.query).join(" | ");
   const collectedAt = new Date().toISOString();
 
-  for (const query of queries) {
+  for (const { query, queryVariant } of queryVariants) {
     try {
       const items = await searchNaverLocal(query, clientId, clientSecret);
       await sleep(API_RATE_LIMIT_MS);
@@ -234,6 +313,9 @@ async function collectWithApi(
         name: course.name,
         address: course.address,
         query,
+        query_variant: queryVariant,
+        attempted_queries: attemptedQueries,
+        matched_query: query,
         source: "naver_place",
         candidate_title: title,
         candidate_address: candidateAddress,
@@ -341,16 +423,22 @@ async function main(): Promise<void> {
 
   const existing = loadExistingCandidates();
   const outputById = new Map(existing);
+  const scopeIds = new Set(courses.map((course) => course.id));
+  const beforeRows = courses.map((course) =>
+    existing.get(course.id) ?? emptyCandidateRow(course),
+  );
+  const beforeStats = countCandidateFieldStats(beforeRows);
 
-  if (options.force) {
+  if (options.force && !options.fillMissingOnly) {
     for (const course of courses) {
       outputById.delete(course.id);
     }
   }
 
-  const toCollect = courses.filter(
-    (course) => options.force || !outputById.has(course.id),
-  );
+  const toCollect = courses.filter((course) => {
+    if (options.force || options.fillMissingOnly) return true;
+    return !outputById.has(course.id);
+  });
 
   console.log("");
   console.log("=== Naver price candidate collection ===");
@@ -364,6 +452,7 @@ async function main(): Promise<void> {
     console.log(`Delay between    : ${options.delayMs}ms`);
   }
   console.log(`Dry run          : ${options.dryRun ? "yes" : "no"}`);
+  console.log(`Fill missing only: ${options.fillMissingOnly ? "yes" : "no"}`);
   console.log(`Output candidates: ${CANDIDATES_CSV}`);
   console.log(`Output review    : ${REVIEW_CSV}`);
   console.log("");
@@ -381,11 +470,13 @@ async function main(): Promise<void> {
 
   let collected = 0;
   let failed = 0;
+  const improvements: CandidateFillImprovement[] = [];
 
   for (const course of toCollect) {
     try {
       let row: NaverPriceCandidateRow | null = null;
       let lastError: unknown;
+      const previousRow = existing.get(course.id);
 
       for (let attempt = 0; attempt < 2; attempt += 1) {
         try {
@@ -412,6 +503,51 @@ async function main(): Promise<void> {
           : new Error(String(lastError));
       }
 
+      if (options.fillMissingOnly && previousRow) {
+        const oldEmptyFields = getEmptyFillableFields(previousRow);
+        const { merged, newlyFilledFields } = mergeCandidateFillMissing(
+          previousRow,
+          row,
+        );
+        row = merged;
+        if (newlyFilledFields.length > 0) {
+          improvements.push({
+            id: course.id,
+            name: course.name,
+            oldEmptyFields,
+            newlyFilledFields,
+            matched_query: row.matched_query,
+            query_variant: row.query_variant,
+          });
+        }
+      } else if (options.fillMissingOnly && !previousRow) {
+        const newlyFilledFields = (
+          [
+            "phone",
+            "homepage",
+            "price",
+            "difficulty",
+            "avg_score",
+          ] as const
+        ).filter((field) => !getEmptyFillableFields(row).includes(field));
+        if (newlyFilledFields.length > 0) {
+          improvements.push({
+            id: course.id,
+            name: course.name,
+            oldEmptyFields: [
+              "phone",
+              "homepage",
+              "price",
+              "difficulty",
+              "avg_score",
+            ],
+            newlyFilledFields: [...newlyFilledFields],
+            matched_query: row.matched_query,
+            query_variant: row.query_variant,
+          });
+        }
+      }
+
       warnMojibakeInFields(
         [
           row.name,
@@ -434,13 +570,24 @@ async function main(): Promise<void> {
       const extras = [
         row.candidate_phone && `phone=${row.candidate_phone}`,
         row.candidate_homepage_url && "homepage",
-        row.candidate_price_text && `price=${row.candidate_price_text.slice(0, 30)}`,
+        row.candidate_difficulty && `difficulty=${row.candidate_difficulty}`,
+        row.candidate_reservation_prices_text &&
+          `reservation=${row.candidate_reservation_prices_text.slice(0, 40)}`,
+        row.matched_query && `matched=${row.matched_query.slice(0, 30)}`,
+        row.query_variant && `variant=${row.query_variant}`,
       ]
         .filter(Boolean)
         .join(", ");
 
+      const fillTag =
+        options.fillMissingOnly && previousRow
+          ? improvements.some((entry) => entry.id === course.id)
+            ? " [filled]"
+            : " [no change]"
+          : "";
+
       console.log(
-        `[ok] ${course.name} → ${row.candidate_title || "(search URL)"} (${row.candidate_confidence})${extras ? ` [${extras}]` : ""}`,
+        `[ok] ${course.name} → ${row.candidate_title || "(search URL)"} (${row.candidate_confidence})${fillTag}${extras ? ` [${extras}]` : ""}`,
       );
 
       if (toCollect.indexOf(course) < toCollect.length - 1) {
@@ -476,6 +623,93 @@ async function main(): Promise<void> {
   console.log(`Total candidates  : ${finalRows.length}`);
   console.log(`Encoding          : UTF-8 with BOM (${hasBom ? "verified" : "missing"})`);
   console.log(`Line endings      : CRLF`);
+
+  if (options.fillMissingOnly && scopeIds.size > 0) {
+    const afterRows = courses.map(
+      (course) => outputById.get(course.id) ?? emptyCandidateRow(course),
+    );
+    const afterStats = countCandidateFieldStats(afterRows);
+    const delta = {
+      phone: afterStats.phone - beforeStats.phone,
+      homepage: afterStats.homepage - beforeStats.homepage,
+      price: afterStats.price - beforeStats.price,
+      difficulty: afterStats.difficulty - beforeStats.difficulty,
+      avg_score: afterStats.avg_score - beforeStats.avg_score,
+    };
+
+    console.log("");
+    console.log("=== Fill-missing comparison ===");
+    formatFieldStats("Before", beforeStats);
+    console.log("");
+    formatFieldStats("After", afterStats, delta);
+    console.log("");
+    console.log(`Courses improved  : ${improvements.length}/${courses.length}`);
+
+    const fieldImproveCounts = {
+      phone: improvements.filter((entry) =>
+        entry.newlyFilledFields.includes("phone"),
+      ).length,
+      homepage: improvements.filter((entry) =>
+        entry.newlyFilledFields.includes("homepage"),
+      ).length,
+      price: improvements.filter((entry) =>
+        entry.newlyFilledFields.includes("price"),
+      ).length,
+      difficulty: improvements.filter((entry) =>
+        entry.newlyFilledFields.includes("difficulty"),
+      ).length,
+      avg_score: improvements.filter((entry) =>
+        entry.newlyFilledFields.includes("avg_score"),
+      ).length,
+    };
+    console.log(`Phone improved    : ${fieldImproveCounts.phone}`);
+    console.log(`Homepage improved : ${fieldImproveCounts.homepage}`);
+    console.log(`Price improved    : ${fieldImproveCounts.price}`);
+    console.log(`Difficulty improved: ${fieldImproveCounts.difficulty}`);
+    console.log(`Avg score improved: ${fieldImproveCounts.avg_score}`);
+
+    const variantCounts = new Map<string, number>();
+    for (const entry of improvements) {
+      if (!entry.query_variant) continue;
+      variantCounts.set(
+        entry.query_variant,
+        (variantCounts.get(entry.query_variant) ?? 0) + 1,
+      );
+    }
+    if (variantCounts.size > 0) {
+      console.log("");
+      console.log("Effective query variants:");
+      for (const [variant, count] of [...variantCounts.entries()].sort(
+        (a, b) => b[1] - a[1],
+      )) {
+        console.log(`  ${variant}: ${count}`);
+      }
+    }
+
+    if (improvements.length > 0) {
+      console.log("");
+      console.log("Per-course improvements:");
+      for (const entry of improvements) {
+        console.log(
+          `  ${entry.name}: filled ${entry.newlyFilledFields.join(", ")} (variant=${entry.query_variant}, matched="${entry.matched_query}")`,
+        );
+      }
+    }
+
+    const preserved = loadPreservedReviewFields(REVIEW_CSV);
+    const approvedRows = [...preserved.values()].filter(
+      (fields) =>
+        fields.approve_phone?.trim() ||
+        fields.approve_homepage?.trim() ||
+        fields.approve_price?.trim() ||
+        fields.approve_difficulty?.trim() ||
+        fields.approve_avg_score?.trim(),
+    );
+    console.log("");
+    console.log(
+      `Review approvals preserved: ${approvedRows.length} row(s) with approve_* values`,
+    );
+  }
 }
 
 main().catch((error) => {

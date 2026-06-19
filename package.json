@@ -23,7 +23,11 @@
     "analyze:golf-raw": "tsx scripts/analyzeGolfCourseRawData.ts",
     "generate:course-links-sql": "tsx scripts/generateCourseLinksSql.ts",
     "generate:course-links-template": "tsx scripts/generateCourseLinksTemplate.ts",
-    "collect:naver-price-candidates": "tsx scripts/collectNaverPriceCandidates.ts"
+    "collect:naver-price-candidates": "tsx scripts/collectNaverPriceCandidates.ts",
+    "merge:approved-naver-contacts": "tsx scripts/mergeApprovedNaverContactLinks.ts",
+    "merge:approved-naver-prices": "tsx scripts/mergeApprovedNaverPrices.ts",
+    "merge:approved-naver-stats": "tsx scripts/mergeApprovedNaverCourseStats.ts",
+    "normalize:naver-stats": "tsx scripts/normalizeNaverStatsCsv.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",

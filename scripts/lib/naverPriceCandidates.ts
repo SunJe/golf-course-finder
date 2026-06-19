@@ -8,6 +8,9 @@ export const NAVER_PRICE_CANDIDATE_HEADERS = [
   "name",
   "address",
   "query",
+  "query_variant",
+  "attempted_queries",
+  "matched_query",
   "source",
   "candidate_title",
   "candidate_address",
@@ -17,6 +20,10 @@ export const NAVER_PRICE_CANDIDATE_HEADERS = [
   "candidate_price_min",
   "candidate_price_max",
   "candidate_price_type",
+  "candidate_difficulty",
+  "candidate_difficulty_text",
+  "candidate_avg_score",
+  "candidate_reservation_prices_text",
   "candidate_confidence",
   "needs_review",
   "reason",
@@ -36,17 +43,33 @@ export const NAVER_PRICE_REVIEW_HEADERS = [
   "candidate_price_min",
   "candidate_price_max",
   "candidate_price_type",
+  "candidate_difficulty",
+  "candidate_difficulty_text",
+  "candidate_avg_score",
+  "candidate_reservation_prices_text",
   "source_url",
   "confidence",
   "approve_phone",
   "approve_homepage",
   "approve_price",
+  "approve_difficulty",
+  "approve_avg_score",
   "review_phone",
   "review_homepage_url",
   "review_price_min",
   "review_price_max",
   "review_price_type",
+  "review_difficulty",
+  "review_avg_score",
   "review_note",
+  "review_status",
+  "phone_status",
+  "homepage_status",
+  "price_status",
+  "difficulty_status",
+  "avg_score_status",
+  "reviewed_at",
+  "reviewer_note",
 ] as const;
 
 export type PriceType = "green_fee" | "reservation_price" | "unknown";
@@ -65,11 +88,34 @@ export interface CourseInput {
   city: string;
 }
 
+export type QueryVariantKind =
+  | "original"
+  | "normalized"
+  | "no_golf_course"
+  | "no_membership"
+  | "no_company"
+  | "cc"
+  | "c_dot_c"
+  | "gc"
+  | "g_dot_c"
+  | "naver"
+  | "green_fee"
+  | "naver_reservation"
+  | "city";
+
+export interface SearchQueryVariant {
+  query: string;
+  queryVariant: QueryVariantKind;
+}
+
 export interface NaverPriceCandidateRow {
   id: string;
   name: string;
   address: string;
   query: string;
+  query_variant: string;
+  attempted_queries: string;
+  matched_query: string;
   source: CandidateSource;
   candidate_title: string;
   candidate_address: string;
@@ -79,6 +125,10 @@ export interface NaverPriceCandidateRow {
   candidate_price_min: string;
   candidate_price_max: string;
   candidate_price_type: PriceType;
+  candidate_difficulty: string;
+  candidate_difficulty_text: string;
+  candidate_avg_score: string;
+  candidate_reservation_prices_text: string;
   candidate_confidence: ConfidenceLevel;
   needs_review: string;
   reason: string;
@@ -144,48 +194,268 @@ export function overlapRatio(a: string, b: string): number {
   return matches / longer.length;
 }
 
+export function stripCompanySuffix(name: string): string {
+  return name
+    .replace(/\s*\(주\)\s*/gi, "")
+    .replace(/주식회사\s*/gi, "")
+    .trim();
+}
+
+export function normalizeCourseSearchName(name: string): string {
+  return stripCompanySuffix(stripMembershipSuffix(name))
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 export function buildNameVariants(name: string): string[] {
-  const base = stripMembershipSuffix(name);
+  const original = name.trim();
+  const normalized = normalizeCourseSearchName(original);
+  const noMembership = stripMembershipSuffix(original);
+  const noCompany = stripCompanySuffix(original);
   const variants = new Set<string>();
-  variants.add(base);
 
-  if (/컨트리클럽/i.test(base)) {
-    variants.add(base.replace(/컨트리클럽/gi, "CC"));
-    variants.add(base.replace(/컨트리클럽/gi, "C.C"));
-  }
-  if (/\bCC\b|씨씨|c\.c/i.test(base)) {
-    variants.add(base.replace(/\s*C\.?C\.?\s*/gi, "컨트리클럽"));
-  }
-  if (/골프클럽/i.test(base)) {
-    variants.add(base.replace(/골프클럽/gi, "").trim());
-  }
+  variants.add(original);
+  if (normalized) variants.add(normalized);
+  if (noMembership) variants.add(noMembership);
+  if (noCompany && noCompany !== noMembership) variants.add(noCompany);
 
-  if (base.length > 20) {
-    const core = base
-      .replace(/(골프클럽|컨트리클럽|CC|C\.C)$/gi, "")
-      .trim();
-    if (core.length >= 3) variants.add(core);
+  for (const base of [...variants]) {
+    if (/컨트리클럽/i.test(base)) {
+      variants.add(base.replace(/컨트리클럽/gi, "CC"));
+      variants.add(base.replace(/컨트리클럽/gi, "C.C"));
+    }
+    if (/골프클럽/i.test(base)) {
+      variants.add(base.replace(/골프클럽/gi, "GC"));
+      variants.add(base.replace(/골프클럽/gi, "G.C"));
+      const withoutGc = base.replace(/골프클럽/gi, "").trim();
+      if (withoutGc.length >= 2) variants.add(withoutGc);
+    }
+    if (/골프장/i.test(base)) {
+      const withoutGolfCourse = base.replace(/골프장/gi, "").trim();
+      if (withoutGolfCourse.length >= 2) variants.add(withoutGolfCourse);
+    }
   }
 
   return [...variants].filter((value) => value.length > 0);
 }
 
-export function buildSearchQueries(course: CourseInput): string[] {
-  const names = buildNameVariants(course.name);
-  const primaryName = names[0] ?? course.name;
-  const queries: string[] = [];
+function pushQueryVariant(
+  seen: Map<string, QueryVariantKind>,
+  list: SearchQueryVariant[],
+  query: string,
+  queryVariant: QueryVariantKind,
+): void {
+  const trimmed = query.trim();
+  if (!trimmed || seen.has(trimmed)) return;
+  seen.set(trimmed, queryVariant);
+  list.push({ query: trimmed, queryVariant });
+}
 
-  for (const variant of names.slice(0, 2)) {
-    queries.push(variant);
+export function buildSearchQueryVariants(course: CourseInput): SearchQueryVariant[] {
+  const original = course.name.trim();
+  const normalized = normalizeCourseSearchName(original);
+  const noMembership = stripMembershipSuffix(original);
+  const noCompany = stripCompanySuffix(original);
+  const primary = normalized || original;
+  const seen = new Map<string, QueryVariantKind>();
+  const variants: SearchQueryVariant[] = [];
+
+  pushQueryVariant(seen, variants, original, "original");
+  if (normalized && normalized !== original) {
+    pushQueryVariant(seen, variants, normalized, "normalized");
   }
-  queries.push(`${primaryName} 네이버 예약`);
-  queries.push(`${primaryName} 그린피`);
-  queries.push(`${primaryName} 가격`);
+  if (noMembership && noMembership !== original && noMembership !== normalized) {
+    pushQueryVariant(seen, variants, noMembership, "no_membership");
+  }
+  if (noCompany && noCompany !== original && noCompany !== normalized) {
+    pushQueryVariant(seen, variants, noCompany, "no_company");
+  }
+
+  for (const base of buildNameVariants(original)) {
+    if (/컨트리클럽/i.test(base)) {
+      pushQueryVariant(
+        seen,
+        variants,
+        base.replace(/컨트리클럽/gi, "CC"),
+        "cc",
+      );
+      pushQueryVariant(
+        seen,
+        variants,
+        base.replace(/컨트리클럽/gi, "C.C"),
+        "c_dot_c",
+      );
+    }
+    if (/골프클럽/i.test(base)) {
+      pushQueryVariant(
+        seen,
+        variants,
+        base.replace(/골프클럽/gi, "GC"),
+        "gc",
+      );
+      pushQueryVariant(
+        seen,
+        variants,
+        base.replace(/골프클럽/gi, "G.C"),
+        "g_dot_c",
+      );
+      const withoutGc = base.replace(/골프클럽/gi, "").trim();
+      if (withoutGc.length >= 2) {
+        pushQueryVariant(seen, variants, withoutGc, "no_golf_course");
+      }
+    }
+    if (/골프장/i.test(base)) {
+      const withoutGolfCourse = base.replace(/골프장/gi, "").trim();
+      if (withoutGolfCourse.length >= 2) {
+        pushQueryVariant(seen, variants, withoutGolfCourse, "no_golf_course");
+      }
+    }
+  }
+
+  pushQueryVariant(seen, variants, `${primary} 네이버`, "naver");
+  pushQueryVariant(seen, variants, `${primary} 그린피`, "green_fee");
+  pushQueryVariant(seen, variants, `${primary} 네이버 예약`, "naver_reservation");
   if (course.city.trim()) {
-    queries.push(`${primaryName} ${course.city.trim()}`);
+    pushQueryVariant(
+      seen,
+      variants,
+      `${primary} ${course.city.trim()}`,
+      "city",
+    );
   }
 
-  return [...new Set(queries.map((query) => query.trim()).filter(Boolean))];
+  return variants;
+}
+
+export function buildSearchQueries(course: CourseInput): string[] {
+  return buildSearchQueryVariants(course).map((entry) => entry.query);
+}
+
+export interface CandidateFieldStats {
+  total: number;
+  phone: number;
+  homepage: number;
+  price: number;
+  difficulty: number;
+  avg_score: number;
+}
+
+export interface CandidateFillImprovement {
+  id: string;
+  name: string;
+  oldEmptyFields: string[];
+  newlyFilledFields: string[];
+  matched_query: string;
+  query_variant: string;
+}
+
+function isFilled(value: string | undefined): boolean {
+  return Boolean(value?.trim());
+}
+
+export function countCandidateFieldStats(
+  rows: NaverPriceCandidateRow[],
+): CandidateFieldStats {
+  const stats: CandidateFieldStats = {
+    total: rows.length,
+    phone: 0,
+    homepage: 0,
+    price: 0,
+    difficulty: 0,
+    avg_score: 0,
+  };
+
+  for (const row of rows) {
+    if (isFilled(row.candidate_phone)) stats.phone += 1;
+    if (isFilled(row.candidate_homepage_url)) stats.homepage += 1;
+    if (isFilled(row.candidate_price_text)) stats.price += 1;
+    if (isFilled(row.candidate_difficulty)) stats.difficulty += 1;
+    if (isFilled(row.candidate_avg_score)) stats.avg_score += 1;
+  }
+
+  return stats;
+}
+
+export function getEmptyFillableFields(row: NaverPriceCandidateRow): string[] {
+  const empty: string[] = [];
+  if (!isFilled(row.candidate_phone)) empty.push("phone");
+  if (!isFilled(row.candidate_homepage_url)) empty.push("homepage");
+  if (!isFilled(row.candidate_price_text)) empty.push("price");
+  if (!isFilled(row.candidate_difficulty)) empty.push("difficulty");
+  if (!isFilled(row.candidate_avg_score)) empty.push("avg_score");
+  return empty;
+}
+
+export function mergeCandidateFillMissing(
+  existing: NaverPriceCandidateRow,
+  incoming: NaverPriceCandidateRow,
+): { merged: NaverPriceCandidateRow; newlyFilledFields: string[] } {
+  const merged: NaverPriceCandidateRow = { ...existing };
+  const newlyFilledFields: string[] = [];
+
+  if (!isFilled(existing.candidate_phone) && isFilled(incoming.candidate_phone)) {
+    merged.candidate_phone = incoming.candidate_phone;
+    newlyFilledFields.push("phone");
+  }
+  if (
+    !isFilled(existing.candidate_homepage_url) &&
+    isFilled(incoming.candidate_homepage_url)
+  ) {
+    merged.candidate_homepage_url = incoming.candidate_homepage_url;
+    newlyFilledFields.push("homepage");
+  }
+  if (!isFilled(existing.candidate_price_text) && isFilled(incoming.candidate_price_text)) {
+    merged.candidate_price_text = incoming.candidate_price_text;
+    merged.candidate_price_min = incoming.candidate_price_min;
+    merged.candidate_price_max = incoming.candidate_price_max;
+    merged.candidate_price_type = incoming.candidate_price_type;
+    merged.candidate_reservation_prices_text =
+      incoming.candidate_reservation_prices_text;
+    newlyFilledFields.push("price");
+  }
+  if (
+    !isFilled(existing.candidate_difficulty) &&
+    isFilled(incoming.candidate_difficulty)
+  ) {
+    merged.candidate_difficulty = incoming.candidate_difficulty;
+    merged.candidate_difficulty_text = incoming.candidate_difficulty_text;
+    newlyFilledFields.push("difficulty");
+  } else if (
+    !isFilled(existing.candidate_difficulty_text) &&
+    isFilled(incoming.candidate_difficulty_text)
+  ) {
+    merged.candidate_difficulty_text = incoming.candidate_difficulty_text;
+  }
+  if (!isFilled(existing.candidate_avg_score) && isFilled(incoming.candidate_avg_score)) {
+    merged.candidate_avg_score = incoming.candidate_avg_score;
+    newlyFilledFields.push("avg_score");
+  }
+
+  if (!isFilled(existing.candidate_title) && isFilled(incoming.candidate_title)) {
+    merged.candidate_title = incoming.candidate_title;
+  }
+  if (
+    !isFilled(existing.candidate_address) &&
+    isFilled(incoming.candidate_address)
+  ) {
+    merged.candidate_address = incoming.candidate_address;
+  }
+
+  merged.attempted_queries =
+    incoming.attempted_queries || existing.attempted_queries;
+
+  if (newlyFilledFields.length > 0) {
+    merged.matched_query = incoming.matched_query || incoming.query;
+    merged.query_variant = incoming.query_variant;
+    merged.query = incoming.query || existing.query;
+    merged.source_url = incoming.source_url || existing.source_url;
+    merged.collected_at = incoming.collected_at;
+    if (incoming.reason.trim()) {
+      merged.reason = `${existing.reason}; fill-missing: ${incoming.reason}`.trim();
+    }
+  }
+
+  return { merged, newlyFilledFields };
 }
 
 export function getNaverSearchUrl(query: string): string {
@@ -427,8 +697,33 @@ const CONFIDENCE_RANK: Record<ConfidenceLevel, number> = {
   low: 1,
 };
 
+export type PreservedReviewFields = Partial<{
+  approve_phone: string;
+  approve_homepage: string;
+  approve_price: string;
+  approve_difficulty: string;
+  approve_avg_score: string;
+  review_phone: string;
+  review_homepage_url: string;
+  review_price_min: string;
+  review_price_max: string;
+  review_price_type: string;
+  review_difficulty: string;
+  review_avg_score: string;
+  review_note: string;
+  review_status: string;
+  phone_status: string;
+  homepage_status: string;
+  price_status: string;
+  difficulty_status: string;
+  avg_score_status: string;
+  reviewed_at: string;
+  reviewer_note: string;
+}>;
+
 export function buildReviewRowsFromCandidates(
   candidates: NaverPriceCandidateRow[],
+  preservedById?: Map<string, PreservedReviewFields>,
 ): string[][] {
   const bestById = new Map<string, NaverPriceCandidateRow>();
 
@@ -448,30 +743,49 @@ export function buildReviewRowsFromCandidates(
 
   return [...bestById.values()]
     .sort((a, b) => a.name.localeCompare(b.name, "ko"))
-    .map((row) => [
-      row.id,
-      row.name,
-      row.address,
-      row.candidate_title,
-      row.candidate_address,
-      row.candidate_phone,
-      row.candidate_homepage_url,
-      row.candidate_price_text,
-      row.candidate_price_min,
-      row.candidate_price_max,
-      row.candidate_price_type,
-      row.source_url,
-      row.candidate_confidence,
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-    ]);
+    .map((row) => {
+      const prev = preservedById?.get(row.id);
+      return [
+        row.id,
+        row.name,
+        row.address,
+        row.candidate_title,
+        row.candidate_address,
+        row.candidate_phone,
+        row.candidate_homepage_url,
+        row.candidate_price_text,
+        row.candidate_price_min,
+        row.candidate_price_max,
+        row.candidate_price_type,
+        row.candidate_difficulty,
+        row.candidate_difficulty_text,
+        row.candidate_avg_score,
+        row.candidate_reservation_prices_text,
+        row.source_url,
+        row.candidate_confidence,
+        prev?.approve_phone ?? "",
+        prev?.approve_homepage ?? "",
+        prev?.approve_price ?? "",
+        prev?.approve_difficulty ?? "",
+        prev?.approve_avg_score ?? "",
+        prev?.review_phone ?? "",
+        prev?.review_homepage_url ?? "",
+        prev?.review_price_min ?? "",
+        prev?.review_price_max ?? "",
+        prev?.review_price_type ?? "",
+        prev?.review_difficulty ?? "",
+        prev?.review_avg_score ?? "",
+        prev?.review_note ?? "",
+        prev?.review_status ?? "pending",
+        prev?.phone_status ?? "pending",
+        prev?.homepage_status ?? "pending",
+        prev?.price_status ?? "pending",
+        prev?.difficulty_status ?? "pending",
+        prev?.avg_score_status ?? "pending",
+        prev?.reviewed_at ?? "",
+        prev?.reviewer_note ?? "",
+      ];
+    });
 }
 
 export async function searchNaverLocal(

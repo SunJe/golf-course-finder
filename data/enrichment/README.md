@@ -22,7 +22,163 @@
 3. **후보 확인** — `data/enrichment/naver_price_candidates.csv`
 4. **검토** — `data/enrichment/naver_price_review.csv` (Excel)
 5. `approve_phone` / `approve_homepage` / `approve_price` 및 review 컬럼 입력
-6. **추후 별도 단계**에서 DB 반영
+6. **연락처·홈페이지 merge** — `npm run merge:approved-naver-contacts`
+7. **가격 승인 merge** — `npm run merge:approved-naver-prices`
+8. **SQL 생성** — `npm run generate:course-links-sql` (phone/homepage만)
+9. Supabase SQL Editor에서 **수동 실행**
+
+### 검토 → 반영 전체 절차
+
+1. **후보 수집**
+   ```bash
+   npm run collect:naver-price-candidates -- --limit 50 --scrape
+   ```
+2. **`naver_price_review.csv` 열기** (Excel)
+3. **phone 승인:** `approve_phone = y`, `review_phone` 확인 (비어 있으면 `candidate_phone` 사용)
+4. **homepage 승인:** `approve_homepage = y`, `review_homepage_url` 확인
+5. **price 승인:** `approve_price = y`, `review_price_min` / `review_price_max` / `review_price_type` 확인
+6. **난이도/평균스코어 승인:** `approve_difficulty = y`, `approve_avg_score = y` (선택)
+7. **연락처·홈페이지 merge**
+   ```bash
+   npm run merge:approved-naver-contacts
+   ```
+8. **가격 승인 merge**
+   ```bash
+   npm run merge:approved-naver-prices
+   ```
+9. **코스 통계 merge** (난이도·평균스코어 — DB 미반영)
+   ```bash
+   npm run merge:approved-naver-stats
+   ```
+10. **SQL 생성** (phone/homepage만)
+    ```bash
+    npm run generate:course-links-sql
+    ```
+11. Supabase SQL Editor에서 **수동 실행**
+
+### 배치 수집 (Playwright)
+
+한 번에 532개를 돌리지 말고 **소량씩** 진행합니다.
+
+```bash
+# 첫 20개 (이미 수집된 id는 skip)
+npm run collect:naver-price-candidates -- --limit 20 --scrape --delay-ms 3000
+
+# 다음 20개
+npm run collect:naver-price-candidates -- --offset 20 --limit 20 --scrape --delay-ms 3000
+
+# 50개씩
+npm run collect:naver-price-candidates -- --limit 50 --scrape --delay-ms 4000
+
+# 기존 후보 빈칸만 보강 (approve/review·기존 candidate 값 보존)
+npm run collect:naver-price-candidates -- --offset 0 --limit 20 --scrape --force --fill-missing-only --delay-ms 3000
+```
+
+- `--scrape` 없으면 검색 URL만 생성
+- review CSV의 `approve_*` / `review_*` 입력값은 **재수집 시 보존**
+- **`--fill-missing-only`**: 기존 `candidate_*` 값은 유지하고, 비어 있는 phone/homepage/price/difficulty/avg_score만 새 후보로 채움
+- **`--force --fill-missing-only`**: 범위 내 골프장을 다시 스크래핑하되, 승인·검토값과 이미 채워진 candidate 필드는 덮어쓰지 않음
+
+### 검색어 변형 (query variant)
+
+정식 골프장명으로 네이버 검색이 잘 안 잡히는 경우, 아래 변형 검색어를 순차 시도합니다.
+
+| 변형 | 예 |
+|------|-----|
+| `original` | `인천그랜드컨트리클럽` |
+| `normalized` | `(회원제)`·`(주)`·`주식회사` 제거 |
+| `cc` / `c_dot_c` | `컨트리클럽` → `CC` / `C.C` |
+| `gc` / `g_dot_c` | `골프클럽` → `GC` / `G.C` |
+| `no_golf_course` | `골프장` 제거 |
+| `naver` / `green_fee` / `naver_reservation` | `{이름} 네이버`, `{이름} 그린피`, `{이름} 네이버 예약` |
+
+후보 CSV 컬럼:
+
+| 컬럼 | 설명 |
+|------|------|
+| `query_variant` | 성공한 검색어 유형 (`cc`, `gc`, `naver` 등) |
+| `attempted_queries` | 이번 수집에서 시도한 검색어 목록 (` \| ` 구분) |
+| `matched_query` | 실제 후보를 찾은 검색어 |
+
+### Review UI (로컬 전용)
+
+후보 CSV를 빠르게 검수·승인하는 개발 도구입니다. **DB에 자동 반영하지 않습니다.**
+
+1. `.env.local`에 `REVIEW_ADMIN_ENABLED=true` 추가
+2. `npm run dev` 실행
+3. 브라우저에서 `/admin/naver-review` 접속
+4. `source_url`을 **새 탭**으로 열어 네이버 페이지와 나란히 비교
+5. 후보값 승인 또는 `review_*` 필드 직접 수정 후 **저장**
+6. **저장 후 다음**으로 pending 항목 순차 검수
+7. merge 스크립트 실행 (`merge:approved-naver-contacts` 등)
+8. phone/homepage만 SQL 생성 후 Supabase **수동** 반영
+9. price/stats는 override CSV로 보관
+
+```bash
+# .env.local
+REVIEW_ADMIN_ENABLED=true
+```
+
+주의:
+
+- **로컬 전용** — `NODE_ENV=production`(Vercel 배포)에서는 페이지·API 모두 **404**
+- `REVIEW_ADMIN_ENABLED=true` 없으면 접근 불가
+- iframe 삽입 없음 — source_url 새 탭 비교 방식
+- 난이도는 CSV에 **숫자만** 저장 (`9`, `2.3`). UI에서만 `/10` 표시
+- `review_difficulty`에 `9/10` 입력 시 저장 전 `9`로 normalize
+
+---
+
+### 가격·예약 정책
+
+- **네이버 예약 패널**에 보이는 금액만 `candidate_price_text` / min / max에 저장
+- 네이버 예약 패널에 금액이 **없으면** 가격 필드는 **비움**
+- 블로그·본문·다른 검색 결과의 금액은 **가격 후보로 사용하지 않음**
+- **예약 링크(`booking_url` / `candidate_booking_url`)는 수집하지 않음**
+- 가격은 DB에 **자동 반영하지 않음** — review CSV 승인 후 merge 단계
+
+### `course_stats_overrides.csv` (난이도·평균스코어)
+
+```csv
+id,name,difficulty,avg_score,reservation_prices_text,source_url,source,checked_at,note
+```
+
+| 컬럼 | 설명 |
+|------|------|
+| `difficulty` | 코스 난이도 **숫자만** (예: `2.3`) — UI 표시 시 `/10` 붙임 |
+| `avg_score` | 평균 스코어/타수 |
+| `reservation_prices_text` | 네이버 예약 그린피 원문 (참고용) |
+
+**DB 반영 없음** — Supabase schema에 해당 컬럼이 없습니다. 추후 UI/DB 설계 후 반영합니다.
+
+### merge overwrite 정책
+
+| 파일 | 기본 | `--overwrite` |
+|------|------|-----------------|
+| `course_links.csv` (phone/homepage) | 기존 값 있으면 **skip** | 승인 값으로 **덮어쓰기** |
+| `course_price_overrides.csv` | 기존 가격 있으면 **skip** | 승인 값으로 **덮어쓰기** |
+| `course_stats_overrides.csv` | 기존 통계 있으면 **skip** | 승인 값으로 **덮어쓰기** |
+
+`booking_url`은 merge/SQL 어느 단계에서도 **수정·생성하지 않습니다.**
+
+### `course_price_overrides.csv` (가격 승인 관리)
+
+가격은 변동성이 크므로 **`course_links.csv`에 넣지 않고** 별도 파일로 관리합니다.
+
+```csv
+id,name,price_text,price_min,price_max,price_type,source_url,source,checked_at,note
+```
+
+| 컬럼 | 설명 |
+|------|------|
+| `price_text` | 사람이 확인한 **원문 가격** |
+| `price_min` / `price_max` | 숫자 범위 |
+| `price_type` | `green_fee` / `reservation_price` / `weekday_green_fee` / `weekend_green_fee` / `unknown` |
+| `source_url` | 출처 (필수 관리) |
+| `source` | `naver` / `official` / `manual` |
+| `checked_at` | 확인 시각 ISO |
+
+**가격 DB 반영:** 이번 단계에서는 **자동 반영하지 않습니다.** Supabase schema의 `weekday_green_fee_min` 등과 의미 매핑을 확인한 뒤 별도 단계에서 SQL/파이프라인을 만듭니다. 가격은 반드시 `source_url`과 `checked_at`을 함께 관리합니다.
 
 ### CLI 예시
 
@@ -36,23 +192,28 @@ npm run collect:naver-price-candidates -- --limit 10 --scrape --delay-ms 3000
 # 검색 URL만 (API/스크래핑 없음)
 npm run collect:naver-price-candidates -- --limit 20
 
-# 다시 수집
+# 다시 수집 (전체 덮어쓰기)
 npm run collect:naver-price-candidates -- --only "인천그랜드" --scrape --force
+
+# 빈칸만 보강 (승인·기존 값 보존)
+npm run collect:naver-price-candidates -- --limit 20 --scrape --force --fill-missing-only --delay-ms 3000
 ```
 
 ### `naver_price_candidates.csv` 헤더
 
 ```csv
-id,name,address,query,source,candidate_title,candidate_address,candidate_phone,candidate_homepage_url,candidate_price_text,candidate_price_min,candidate_price_max,candidate_price_type,candidate_confidence,needs_review,reason,source_url,collected_at
+id,name,address,query,query_variant,attempted_queries,matched_query,source,candidate_title,candidate_address,candidate_phone,candidate_homepage_url,candidate_price_text,candidate_price_min,candidate_price_max,candidate_price_type,candidate_difficulty,candidate_difficulty_text,candidate_avg_score,candidate_reservation_prices_text,candidate_confidence,needs_review,reason,source_url,collected_at
 ```
 
 | 컬럼 | 설명 |
 |------|------|
 | `candidate_phone` | 네이버 화면에서 추출한 **전화번호 후보** |
 | `candidate_homepage_url` | 공식 홈페이지로 보이는 URL 후보 (naver 블로그/카페 제외) |
-| `candidate_price_text` | 네이버에 표시된 **원문 가격** (반드시 보존) |
+| `candidate_price_text` | 네이버 **예약 패널** 원문 가격 (없으면 빈칸) |
 | `candidate_price_min` / `max` | 숫자 파싱 가능할 때만 채움 |
 | `candidate_price_type` | `green_fee` / `reservation_price` / `unknown` |
+| `candidate_difficulty` | 코스 난이도 **숫자만** (예: `9`, `2.3`) |
+| `candidate_difficulty_text` | 원문 (예: `9/10`) — 참고용 |
 | `candidate_confidence` | `high` / `medium` / `low` |
 | `needs_review` | 항상 `true` — 자동 확정하지 않음 |
 | `source_url` | 네이버 검색·플레이스 출처 URL |
@@ -60,7 +221,7 @@ id,name,address,query,source,candidate_title,candidate_address,candidate_phone,c
 ### `naver_price_review.csv` 헤더
 
 ```csv
-id,name,address,candidate_title,candidate_address,candidate_phone,candidate_homepage_url,candidate_price_text,candidate_price_min,candidate_price_max,candidate_price_type,source_url,confidence,approve_phone,approve_homepage,approve_price,review_phone,review_homepage_url,review_price_min,review_price_max,review_price_type,review_note
+id,name,address,candidate_title,candidate_address,candidate_phone,candidate_homepage_url,candidate_price_text,candidate_price_min,candidate_price_max,candidate_price_type,candidate_difficulty,candidate_difficulty_text,candidate_avg_score,candidate_reservation_prices_text,source_url,confidence,approve_phone,approve_homepage,approve_price,approve_difficulty,approve_avg_score,review_phone,review_homepage_url,review_price_min,review_price_max,review_price_type,review_difficulty,review_avg_score,review_note
 ```
 
 | 검토 컬럼 | 설명 |
@@ -68,6 +229,7 @@ id,name,address,candidate_title,candidate_address,candidate_phone,candidate_home
 | `approve_phone` / `approve_homepage` / `approve_price` | `y` / `n` |
 | `review_phone` / `review_homepage_url` | 사람이 확정한 값 |
 | `review_price_min` / `max` / `type` | 사람이 확정한 가격 |
+| `review_difficulty` | **숫자만** (예: `2.3`) — UI 표시 시 `/10` 붙임 |
 
 ### 수집 방식
 
@@ -77,6 +239,7 @@ id,name,address,candidate_title,candidate_address,candidate_phone,candidate_home
 | `--scrape` | **Playwright**로 네이버 검색 페이지 접근 → phone/homepage/price 후보 추출 |
 | `--headful` | 디버깅용 — 브라우저 창 표시 |
 | `--delay-ms 3000` | 요청 간 delay (기본 3000ms) |
+| `--fill-missing-only` | 기존 candidate 빈칸만 보강 (`--force`와 함께 사용 권장) |
 | Naver Local Search API | 장소명·주소·전화·링크 (가격 필드 **미제공**) |
 
 **Playwright 사전 준비 (최초 1회):**
@@ -143,6 +306,19 @@ npm run generate:course-links-template
 | 저장 후 확인 | 골프장명·메모 한글이 깨지지 않았는지 반드시 확인 |
 
 스크립트는 BOM이 있어도 첫 헤더를 `id`로 정상 인식하며, mojibake(`�`, `Ã`, `ìíê` 등) 의심 문자열이 있으면 **warning**을 출력합니다.
+
+### Excel과 난이도 컬럼 주의
+
+- Excel은 `9/10` 같은 값을 **날짜(9월 10일)** 로 자동 변환할 수 있습니다.
+- 저장 시 CSV 값이 날짜 형식으로 **망가질 위험**이 있으므로, machine-readable 난이도 필드에는 **숫자만** 저장합니다 (`9`, `2.3`).
+- 화면(UI)에서 보여줄 때만 `${value}/10` 형식으로 표시합니다.
+- CSV 확인은 가능하면 **VS Code** 또는 CSV-aware 에디터를 사용하세요.
+- Excel에서 편집해야 한다면 해당 컬럼을 **텍스트**로 가져오거나, `review_difficulty`에는 **숫자만** 입력하세요.
+- 기존 `9/10` 형식 데이터는 `npm run normalize:naver-stats`로 일괄 변환할 수 있습니다.
+
+```bash
+npm run normalize:naver-stats
+```
 
 ## `course_links.csv` 헤더
 

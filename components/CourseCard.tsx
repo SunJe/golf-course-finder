@@ -1,16 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { MapPin, Flag, ChevronRight } from "lucide-react";
+import { MapPin, ExternalLink, ChevronRight } from "lucide-react";
 import type { Course } from "@/types/course";
-import { formatOptionalPrice, formatHoleCount, isPriceAvailable } from "@/lib/courseDisplay";
+import { formatHoleCount, isPriceAvailable } from "@/lib/courseDisplay";
+import { formatGreenFeeShort } from "@/lib/format";
 import {
   getKakaoMapSearchUrl,
   getNaverMapSearchUrl,
 } from "@/lib/externalMapLinks";
-import Tag from "@/components/Tag";
 import CourseFeatureBadges from "@/components/CourseFeatureBadges";
-import CourseImage from "@/components/CourseImage";
 
 interface CourseCardProps {
   course: Course;
@@ -21,10 +20,10 @@ interface CourseCardProps {
 }
 
 const TYPE_STYLES: Record<string, string> = {
-  대중제: "bg-brand-50 text-brand-700",
-  회원제: "bg-indigo-50 text-indigo-700",
-  "군 골프장": "bg-amber-50 text-amber-700",
-  기타: "bg-gray-100 text-gray-600",
+  대중제: "bg-emerald-50 text-emerald-800 ring-emerald-100",
+  회원제: "bg-slate-100 text-slate-700 ring-slate-200/80",
+  "군 골프장": "bg-amber-50 text-amber-800 ring-amber-100",
+  기타: "bg-stone-100 text-stone-600 ring-stone-200/80",
 };
 
 export default function CourseCard({
@@ -35,7 +34,6 @@ export default function CourseCard({
   onHover,
 }: CourseCardProps) {
   const hasWeekdayPrice = isPriceAvailable(course.weekdayGreenFeeMin);
-  const hasWeekendPrice = isPriceAvailable(course.weekendGreenFeeMin);
 
   return (
     <article
@@ -43,117 +41,88 @@ export default function CourseCard({
       onClick={() => onSelect?.(course)}
       onMouseEnter={() => onHover?.(course)}
       onMouseLeave={() => onHover?.(null)}
-      className={`group cursor-pointer overflow-hidden rounded-2xl border bg-white transition-all ${
+      className={`group cursor-pointer rounded-2xl border bg-white transition-all duration-200 ${
         selected
-          ? "border-brand-500 bg-brand-50/50 shadow-card-hover ring-2 ring-brand-200"
+          ? "border-brand-600/50 shadow-md ring-2 ring-brand-200/80"
           : hovered
-            ? "border-brand-300 bg-brand-50/30 shadow-card-hover"
-            : "border-gray-200 shadow-card hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-card-hover"
+            ? "border-brand-300/60 shadow-md"
+            : "border-stone-200/80 shadow-sm hover:border-stone-300 hover:shadow-md"
       }`}
     >
-      <div className="flex gap-3 p-3">
-        <div className="relative h-20 w-20 flex-shrink-0 sm:h-[88px] sm:w-[88px]">
-          <CourseImage
-            src={course.imageUrl}
-            alt={course.name}
-            seed={course.id}
-            className="h-full w-full rounded-xl object-cover object-[center_35%]"
-          />
-          <span
-            className={`absolute left-1 top-1 rounded px-1.5 py-0.5 text-[10px] font-bold ${TYPE_STYLES[course.courseType]}`}
-          >
-            {course.courseType}
-          </span>
-        </div>
-
-        <div className="flex min-w-0 flex-1 gap-2">
-          <div className="flex min-w-0 flex-1 flex-col">
-            <div className="flex items-start gap-2">
-              <h3 className="line-clamp-2 min-w-0 flex-1 break-keep text-[15px] font-bold leading-snug text-gray-900">
-                {course.name}
-              </h3>
-              <span className="flex-shrink-0 rounded-md bg-gray-100 px-1.5 py-0.5 text-[11px] font-semibold text-gray-600">
-                {course.region}
-              </span>
-            </div>
-
-            <p className="mt-0.5 truncate text-[11px] font-medium text-gray-500">
-              {course.city}
+      <div className="p-4">
+        <div className="flex items-start justify-between gap-4">
+          <div className="min-w-0 flex-1">
+            <h3 className="line-clamp-2 text-[15px] font-bold leading-snug text-stone-900">
+              {course.name}
+            </h3>
+            <p className="mt-1 text-sm text-stone-500">
+              {course.city} · {course.region}
             </p>
-
-            <p className="mt-0.5 flex min-w-0 items-center gap-1 text-[11px] text-gray-400">
-              <MapPin className="h-3 w-3 flex-shrink-0" />
+            <p className="mt-0.5 flex items-center gap-1 text-xs text-stone-400">
+              <MapPin className="h-3 w-3 shrink-0" />
               <span className="truncate">{course.address}</span>
             </p>
 
-            <div className="mt-1 flex flex-wrap items-center gap-1.5">
-              <span className="inline-flex items-center gap-0.5 rounded-md bg-brand-50 px-1.5 py-0.5 text-[11px] font-semibold text-brand-700">
-                <Flag className="h-3 w-3" />
+            <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
+              <span
+                className={`inline-flex rounded-full px-2 py-0.5 text-[11px] font-semibold ring-1 ring-inset ${TYPE_STYLES[course.courseType]}`}
+              >
+                {course.courseType}
+              </span>
+              <span className="inline-flex rounded-full bg-brand-50 px-2 py-0.5 text-[11px] font-semibold text-brand-800 ring-1 ring-inset ring-brand-100">
                 {formatHoleCount(course.holeCount)}
               </span>
               <CourseFeatureBadges course={course} />
             </div>
           </div>
 
-          <div className="flex flex-shrink-0 flex-col items-end justify-end text-right">
-            <span className="text-[10px] text-gray-400">주중</span>
-            <span
-              className={`text-base font-extrabold leading-tight ${
-                hasWeekdayPrice ? "text-brand-700" : "text-gray-500"
+          <div className="shrink-0 text-right">
+            <span className="text-[11px] font-medium text-stone-400">
+              그린피
+            </span>
+            <p
+              className={`mt-0.5 text-lg font-bold leading-tight ${
+                hasWeekdayPrice ? "text-brand-800" : "text-sm font-medium text-stone-400"
               }`}
             >
-              {formatOptionalPrice(course.weekdayGreenFeeMin)}
-            </span>
-            {hasWeekdayPrice || hasWeekendPrice ? (
-              <span className="mt-0.5 whitespace-nowrap text-[10px] text-gray-400">
-                주말 {formatOptionalPrice(course.weekendGreenFeeMin)}
-                {hasWeekendPrice ? "~" : ""}
-              </span>
-            ) : (
-              <span className="mt-0.5 whitespace-nowrap text-[10px] text-gray-400">
-                요금 정보 준비 중
-              </span>
-            )}
+              {hasWeekdayPrice
+                ? formatGreenFeeShort(course.weekdayGreenFeeMin)
+                : "정보 없음"}
+            </p>
           </div>
         </div>
       </div>
 
-      {course.tags.length > 0 && (
-        <div className="flex flex-wrap gap-1 px-3 pb-2">
-          {course.tags.slice(0, 2).map((t) => (
-            <Tag key={t} label={t} />
-          ))}
-        </div>
-      )}
-
-      <div className="flex items-stretch gap-1.5 border-t border-gray-100 px-3 py-2">
+      <div className="flex items-stretch border-t border-stone-100 text-sm">
         <Link
           href={`/courses/${course.id}`}
           onClick={(e) => e.stopPropagation()}
-          className="flex min-h-[44px] flex-1 items-center justify-center gap-0.5 rounded-lg bg-brand-600 px-3 text-xs font-bold text-white transition hover:bg-brand-700 sm:min-h-0 sm:py-2"
+          className="flex flex-1 items-center justify-center gap-1 py-3 font-semibold text-brand-800 transition hover:bg-brand-50/50"
         >
           상세보기
-          <ChevronRight className="h-3.5 w-3.5" />
+          <ChevronRight className="h-4 w-4" />
         </Link>
+        <span className="w-px self-stretch bg-stone-100" />
         <a
           href={getKakaoMapSearchUrl(course)}
           target="_blank"
           rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
-          className="flex min-h-[44px] min-w-[52px] items-center justify-center rounded-lg border border-gray-200 px-2 text-[11px] font-semibold text-gray-600 transition hover:border-[#fee500] hover:bg-[#fee500]/10 sm:min-h-0 sm:py-2"
-          title="카카오맵"
+          className="flex flex-1 items-center justify-center gap-1 py-3 font-medium text-stone-600 transition hover:bg-stone-50"
         >
           카카오
+          <ExternalLink className="h-3.5 w-3.5 text-stone-400" />
         </a>
+        <span className="w-px self-stretch bg-stone-100" />
         <a
           href={getNaverMapSearchUrl(course)}
           target="_blank"
           rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
-          className="flex min-h-[44px] min-w-[52px] items-center justify-center rounded-lg border border-gray-200 px-2 text-[11px] font-semibold text-gray-600 transition hover:border-[#03c75a] hover:bg-[#03c75a]/5 sm:min-h-0 sm:py-2"
-          title="네이버지도"
+          className="flex flex-1 items-center justify-center gap-1 py-3 font-medium text-stone-600 transition hover:bg-stone-50"
         >
           네이버
+          <ExternalLink className="h-3.5 w-3.5 text-stone-400" />
         </a>
       </div>
     </article>

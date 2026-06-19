@@ -20,9 +20,9 @@ export default function CourseFeatureBadges({ course }: CourseFeatureBadgesProps
       {items.map(({ icon: Icon, label }) => (
         <span
           key={label}
-          className="inline-flex items-center gap-0.5 rounded-md bg-gray-100 px-1.5 py-0.5 text-[11px] font-medium text-gray-600"
+          className="inline-flex items-center gap-0.5 rounded-full bg-stone-100 px-2 py-0.5 text-[11px] font-medium text-stone-600 ring-1 ring-inset ring-stone-200/60"
         >
-          <Icon className="h-3 w-3 text-brand-600" />
+          <Icon className="h-3 w-3 text-brand-700" />
           {label}
         </span>
       ))}

@@ -39,8 +39,8 @@ function Pill({
         compact ? "px-3 py-1 text-[13px]" : "px-3.5 py-1.5 text-sm"
       } ${
         active
-          ? "border-brand-600 bg-brand-600 text-white shadow-sm"
-          : "border-gray-200 bg-white text-gray-600 hover:border-brand-300 hover:text-brand-700"
+          ? "border-brand-700 bg-brand-700 text-white shadow-sm"
+          : "border-stone-200 bg-white text-stone-600 hover:border-brand-300 hover:bg-brand-50/50 hover:text-brand-800"
       }`}
     >
       {children}
@@ -58,7 +58,7 @@ function InlineGroup({
 }) {
   return (
     <div className="flex items-center gap-2">
-      <span className="flex-shrink-0 text-xs font-semibold text-gray-400">
+      <span className="flex-shrink-0 text-xs font-semibold uppercase tracking-wide text-stone-400">
         {label}
       </span>
       <div className="flex flex-wrap items-center gap-1.5">{children}</div>
@@ -157,7 +157,7 @@ export default function FilterBar({
           <button
             type="button"
             onClick={onReset}
-            className="flex flex-shrink-0 items-center gap-1.5 rounded-full border border-gray-200 px-3 py-1 text-[13px] font-medium text-gray-500 transition hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
+            className="flex flex-shrink-0 items-center gap-1.5 rounded-full border border-stone-200 px-3 py-1 text-[13px] font-medium text-stone-500 transition hover:border-stone-300 hover:bg-stone-50 hover:text-stone-700"
           >
             <RotateCcw className="h-3.5 w-3.5" />
             초기화 {activeCount}
@@ -198,14 +198,14 @@ export default function FilterBar({
           onClick={() => setShowMore((v) => !v)}
           className={`flex flex-shrink-0 items-center gap-1.5 rounded-full border px-3 py-1 text-[13px] font-medium transition ${
             showMore || filters.tags.length > 0
-              ? "border-brand-300 bg-brand-50 text-brand-700"
-              : "border-gray-200 text-gray-500 hover:border-gray-300 hover:bg-gray-50"
+              ? "border-brand-300 bg-brand-50 text-brand-800"
+              : "border-stone-200 text-stone-500 hover:border-stone-300 hover:bg-stone-50"
           }`}
         >
           <SlidersHorizontal className="h-3.5 w-3.5" />
           태그 필터
           {filters.tags.length > 0 && (
-            <span className="rounded-full bg-brand-600 px-1.5 text-[11px] font-bold text-white">
+            <span className="rounded-full bg-brand-700 px-1.5 text-[11px] font-bold text-white">
               {filters.tags.length}
             </span>
           )}

@@ -50,7 +50,7 @@ export default function CourseList({
   }
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-2.5">
       {courses.map((course) => (
         <CourseCard
           key={course.id}

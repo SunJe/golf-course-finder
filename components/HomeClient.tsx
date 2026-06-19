@@ -7,7 +7,7 @@ import { EMPTY_FILTERS } from "@/types/course";
 import { filterCourses, countActiveFilters } from "@/lib/filterCourses";
 import { MOBILE_SELECTED_MAP_LEVEL } from "@/lib/constants";
 import { sortCoursesByName } from "@/lib/courseListUtils";
-import SearchBar from "@/components/SearchBar";
+import DesktopHero from "@/components/DesktopHero";
 import FilterBar from "@/components/FilterBar";
 import CourseList from "@/components/CourseList";
 import CourseMap from "@/components/maps/CourseMap";
@@ -110,15 +110,15 @@ function ListHeader({
   const showViewToggle = mode !== "cluster" && visibleReady;
 
   return (
-    <div className="mb-2 flex flex-col gap-2">
-      <div className="flex items-center justify-between gap-2">
-        <h2 className="min-w-0 text-sm font-bold text-gray-800">{title}</h2>
-        <div className="flex flex-shrink-0 items-center gap-2">
+    <div className="mb-3 flex flex-col gap-2.5">
+      <div className="flex items-center justify-between gap-3">
+        <h2 className="min-w-0 text-base font-bold text-stone-800">{title}</h2>
+        <div className="flex shrink-0 items-center gap-2">
           {mode === "cluster" && (
             <button
               type="button"
               onClick={onClearCluster}
-              className="text-xs font-medium text-brand-600 hover:text-brand-700"
+              className="text-xs font-semibold text-brand-700 hover:text-brand-800"
             >
               선택 해제
             </button>
@@ -127,7 +127,7 @@ function ListHeader({
             <button
               type="button"
               onClick={onResetFilters}
-              className="text-xs font-medium text-brand-600 hover:text-brand-700"
+              className="text-xs font-semibold text-brand-700 hover:text-brand-800"
             >
               필터 초기화
             </button>
@@ -136,14 +136,14 @@ function ListHeader({
       </div>
 
       {showViewToggle && (
-        <div className="flex items-center gap-1.5">
+        <div className="flex flex-wrap items-center gap-1.5">
           <button
             type="button"
             onClick={onShowMapBased}
-            className={`rounded-full px-2.5 py-1 text-[11px] font-semibold transition ${
+            className={`rounded-full px-3 py-1.5 text-xs font-semibold transition ${
               !isShowingAllFilteredResults
-                ? "bg-brand-600 text-white"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                ? "bg-brand-800 text-white shadow-sm"
+                : "bg-stone-100 text-stone-600 hover:bg-stone-200"
             }`}
           >
             지도 기준 보기
@@ -151,10 +151,10 @@ function ListHeader({
           <button
             type="button"
             onClick={onShowAllFiltered}
-            className={`rounded-full px-2.5 py-1 text-[11px] font-semibold transition ${
+            className={`rounded-full px-3 py-1.5 text-xs font-semibold transition ${
               isShowingAllFilteredResults
-                ? "bg-brand-600 text-white"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                ? "bg-brand-800 text-white shadow-sm"
+                : "bg-stone-100 text-stone-600 hover:bg-stone-200"
             }`}
           >
             전체 결과 보기
@@ -163,7 +163,7 @@ function ListHeader({
             <button
               type="button"
               onClick={onFitResults}
-              className="ml-auto text-[11px] font-medium text-brand-600 hover:text-brand-700"
+              className="ml-auto text-xs font-semibold text-brand-700 hover:text-brand-800"
             >
               결과 위치로 이동
             </button>
@@ -441,37 +441,50 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
 
   return (
     <>
-      <section className="hidden border-b border-gray-200 bg-gradient-to-b from-brand-50/60 to-white md:block">
-        <div className="mx-auto flex max-w-[1600px] flex-col gap-2 px-4 py-3 sm:px-6 md:flex-row md:items-center md:justify-between md:gap-4">
-          <div className="min-w-0">
-            <h1 className="text-lg font-extrabold tracking-tight text-gray-900 sm:text-xl">
-              전국 골프장을 한눈에 찾아보세요
-            </h1>
-            <p className="text-xs text-gray-500 sm:text-sm">
-              지역·가격·홀수·노캐디·야간 라운드까지 쉽게 비교하세요
+      {/* ── 데스크탑 ── */}
+      <div className="hidden md:flex md:h-[calc(100vh-3.5rem)] md:flex-col md:overflow-hidden md:bg-stone-50">
+        <DesktopHero
+          totalCourses={courses.length}
+          query={filters.query}
+          onQueryChange={(query) => updateFilters({ query })}
+        />
+
+        <section className="shrink-0 border-b border-stone-200 bg-white px-6 py-3.5">
+          <div className="mx-auto flex max-w-[1600px] items-start justify-between gap-6">
+            <div className="min-w-0 flex-1">
+              <FilterBar
+                filters={filters}
+                onChange={updateFilters}
+                onReset={resetFilters}
+                activeCount={activeCount}
+              />
+            </div>
+            <p className="shrink-0 pt-1 text-sm font-semibold text-stone-500">
+              {listHeaderCount.toLocaleString()}개 골프장
             </p>
           </div>
-          <div className="hidden w-full max-w-md md:block">
-            <SearchBar
-              value={filters.query}
-              onChange={(query) => updateFilters({ query })}
-              placeholder="골프장명, 지역, 주소로 검색"
+        </section>
+
+        <div className="mx-auto flex min-h-0 w-full max-w-[1600px] flex-1 gap-5 px-6 py-4">
+          <div className="flex w-[440px] shrink-0 flex-col lg:w-[460px] xl:w-[480px]">
+            <ListHeader {...headerProps} onResetFilters={resetFilters} />
+            <div className="min-h-0 flex-1 overflow-y-auto pr-1">
+              <CourseList {...listProps} />
+            </div>
+          </div>
+
+          <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden rounded-2xl border border-stone-200/80 bg-white p-1.5 shadow-sm">
+            <CourseMap
+              {...mapProps}
+              onSelect={handleDesktopMapSelect}
+              maxVisibleMarkers={50}
+              className="h-full !rounded-xl !border-0"
             />
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="hidden border-b border-gray-200 bg-white md:block">
-        <div className="mx-auto max-w-[1600px] px-6 py-2.5">
-          <FilterBar
-            filters={filters}
-            onChange={updateFilters}
-            onReset={resetFilters}
-            activeCount={activeCount}
-          />
-        </div>
-      </section>
-
+      {/* ── 모바일 ── */}
       <div className="flex h-[calc(100dvh-3rem)] flex-col overflow-hidden bg-app-warm pb-14 md:hidden">
         <MobileTopBar
           query={filters.query}
@@ -515,23 +528,6 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
         </div>
 
         <MobileTabBar />
-      </div>
-      <div className="mx-auto hidden h-[calc(100vh-9.5rem)] max-w-[1600px] gap-4 px-6 py-3 md:flex">
-        <div className="flex w-[460px] flex-shrink-0 flex-col lg:w-[500px] xl:w-[520px]">
-          <ListHeader {...headerProps} onResetFilters={resetFilters} />
-          <div className="min-h-0 flex-1 overflow-y-auto pr-1.5">
-            <CourseList {...listProps} />
-          </div>
-        </div>
-
-        <div className="min-w-0 flex-1">
-          <CourseMap
-            {...mapProps}
-            onSelect={handleDesktopMapSelect}
-            maxVisibleMarkers={50}
-            className="h-full"
-          />
-        </div>
       </div>
 
       <MobileFilterSheet

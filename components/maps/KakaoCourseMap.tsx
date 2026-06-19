@@ -806,8 +806,8 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
         </div>
       )}
       {mode === "kakao" && !isDetail && mapDisplayCount !== null && (
-        <div className="pointer-events-none absolute right-3 top-3 z-10 rounded-full border border-gray-200/80 bg-white/90 px-2.5 py-1 text-[11px] font-medium text-gray-600 shadow-sm backdrop-blur-sm">
-          지도에 {mapDisplayCount}곳 표시
+        <div className="pointer-events-none absolute right-3 top-3 z-10 rounded-full border border-stone-200/90 bg-white/95 px-3 py-1.5 text-xs font-semibold text-stone-600 shadow-sm backdrop-blur-sm">
+          지도에 {mapDisplayCount.toLocaleString()}곳
         </div>
       )}
     </div>

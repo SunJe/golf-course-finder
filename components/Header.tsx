@@ -1,22 +1,25 @@
 import Link from "next/link";
-import { Flag, Heart, Sparkles, MapPin, User } from "lucide-react";
+import { Flag, Sparkles, MapPin, User } from "lucide-react";
 
 const NAV = [
   { label: "전국 골프장", href: "/", icon: MapPin },
   { label: "추천 골프장", href: "/#recommended", icon: Sparkles },
-  { label: "즐겨찾기", href: "/#favorites", icon: Heart },
 ];
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-30 border-b border-stone-200/70 bg-app-warm/95 backdrop-blur md:border-stone-200/80 md:bg-white/95">
-      <div className="mx-auto flex h-12 max-w-[1600px] items-center justify-between gap-3 px-4 sm:px-6 md:h-14">
-        <Link href="/" className="flex items-center gap-2.5">
-          <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-brand-800 text-white shadow-sm md:h-9 md:w-9">
-            <Flag className="h-4 w-4 md:h-[18px] md:w-[18px]" />
+    <header className="sticky top-0 z-30 border-b border-stone-200/60 bg-app-warm/95 backdrop-blur md:border-stone-200/80 md:bg-white/95">
+      <div className="mx-auto flex h-11 max-w-[1600px] items-center justify-between gap-2 px-3 sm:px-4 md:h-14 md:gap-3 md:px-6">
+        <Link href="/" className="flex min-w-0 items-center gap-2 md:gap-2.5">
+          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand-800 text-white shadow-sm md:h-9 md:w-9 md:rounded-xl">
+            <Flag className="h-3.5 w-3.5 md:h-[18px] md:w-[18px]" />
           </span>
-          <span className="text-base font-bold tracking-tight text-stone-900 md:text-[17px]">
-            GolfMap <span className="text-brand-800">Korea</span>
+          <span className="truncate text-sm font-bold tracking-tight text-stone-900 md:text-[17px]">
+            GolfMap{" "}
+            <span className="text-brand-800">
+              <span className="md:hidden">KR</span>
+              <span className="hidden md:inline">Korea</span>
+            </span>
           </span>
         </Link>
 

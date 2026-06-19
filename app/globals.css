@@ -31,3 +31,41 @@ body {
 .overflow-y-auto::-webkit-scrollbar-track {
   background: transparent;
 }
+
+/* ── 모바일 bottom sheet 스크롤 (md 미만) ── */
+@media (max-width: 767px) {
+  .mobile-app {
+    overflow: hidden;
+  }
+
+  .mobile-map-area {
+    flex: 1 1 0%;
+    min-height: 0;
+  }
+
+  .mobile-bottom-sheet {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    pointer-events: auto;
+  }
+
+  .mobile-bottom-sheet[data-state="collapsed"] {
+    height: 45dvh;
+    max-height: 45dvh;
+  }
+
+  .mobile-bottom-sheet[data-state="expanded"] {
+    height: min(70dvh, 560px);
+    max-height: min(70dvh, 560px);
+  }
+
+  .sheet-list {
+    flex: 1 1 0%;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+  }
+}

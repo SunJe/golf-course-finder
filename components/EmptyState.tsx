@@ -6,8 +6,10 @@ interface EmptyStateProps {
   onReset?: () => void;
   onFitResults?: () => void;
   onShowAllFiltered?: () => void;
+  onClearFavoriteOnly?: () => void;
   fitResultsLabel?: string;
   showAllFilteredLabel?: string;
+  clearFavoriteOnlyLabel?: string;
 }
 
 export default function EmptyState({
@@ -16,8 +18,10 @@ export default function EmptyState({
   onReset,
   onFitResults,
   onShowAllFiltered,
+  onClearFavoriteOnly,
   fitResultsLabel = "결과 위치로 이동",
   showAllFilteredLabel = "필터 결과 전체 보기",
+  clearFavoriteOnlyLabel = "전체 골프장 보기",
 }: EmptyStateProps) {
   return (
     <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-gray-200 bg-gray-50/60 px-6 py-14 text-center">
@@ -34,6 +38,15 @@ export default function EmptyState({
             className="rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
           >
             필터 초기화
+          </button>
+        )}
+        {onClearFavoriteOnly && (
+          <button
+            type="button"
+            onClick={onClearFavoriteOnly}
+            className="rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700"
+          >
+            {clearFavoriteOnlyLabel}
           </button>
         )}
         {onShowAllFiltered && (

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Flag, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import type { Course } from "@/types/course";
 import {
   formatHoleCount,
@@ -12,6 +12,8 @@ import {
   getKakaoMapSearchUrl,
   getNaverMapSearchUrl,
 } from "@/lib/externalMapLinks";
+import FavoriteButton from "@/components/FavoriteButton";
+import VisitedButton from "@/components/VisitedButton";
 
 interface MobileCourseCardProps {
   course: Course;
@@ -21,6 +23,13 @@ interface MobileCourseCardProps {
   showDetailLink?: boolean;
 }
 
+const TYPE_STYLES: Record<string, string> = {
+  대중제: "bg-emerald-50 text-emerald-800",
+  회원제: "bg-slate-100 text-slate-700",
+  "군 골프장": "bg-amber-50 text-amber-800",
+  기타: "bg-stone-100 text-stone-600",
+};
+
 export default function MobileCourseCard({
   course,
   selected = false,
@@ -29,70 +38,78 @@ export default function MobileCourseCard({
   showDetailLink = false,
 }: MobileCourseCardProps) {
   const hasWeekdayPrice = isPriceAvailable(course.weekdayGreenFeeMin);
+  const showActions = !compact || showDetailLink;
 
   return (
     <article
       id={`course-card-${course.id}`}
       onClick={() => onSelect?.(course)}
-      className={`cursor-pointer rounded-2xl border bg-white transition active:scale-[0.99] ${
+      className={`cursor-pointer rounded-2xl border bg-white transition active:scale-[0.995] ${
         selected
-          ? "border-brand-600/40 shadow-md ring-2 ring-brand-200/80"
-          : "border-stone-200/80 shadow-sm"
-      } ${compact ? "p-2.5" : "p-3.5"}`}
+          ? "border-brand-600/50 bg-brand-50/40 shadow-card ring-1 ring-brand-200/60"
+          : "border-stone-200/80 shadow-card"
+      } ${compact ? "p-3" : "p-3.5"}`}
     >
-      <div className="flex items-start gap-3">
-        <div
-          className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${
-            selected ? "bg-brand-700 text-white" : "bg-brand-50 text-brand-700"
-          }`}
-        >
-          <Flag className="h-5 w-5" />
-        </div>
-
+      <div className="flex items-start justify-between gap-2">
         <div className="min-w-0 flex-1">
-          <div className="flex items-start justify-between gap-2">
-            <h3
-              className={`min-w-0 flex-1 font-bold leading-snug text-gray-900 ${
-                compact ? "line-clamp-1 text-sm" : "line-clamp-2 text-[15px]"
-              }`}
-            >
-              {course.name}
-            </h3>
-            {hasWeekdayPrice && !compact && (
-              <span className="shrink-0 text-sm font-bold text-brand-800">
-                {formatGreenFeeShort(course.weekdayGreenFeeMin)}
-              </span>
-            )}
-          </div>
-
+          <h3
+            className={`font-bold leading-snug text-stone-900 ${
+              compact ? "line-clamp-1 text-sm" : "line-clamp-2 text-[15px]"
+            }`}
+          >
+            {course.name}
+          </h3>
           {!compact && (
-            <p className="mt-0.5 text-xs text-stone-500">
-              {course.city} · {course.region} · {formatHoleCount(course.holeCount)}
+            <p className="mt-0.5 line-clamp-1 text-xs text-stone-500">
+              {course.city} · {course.region}
             </p>
           )}
-
-          <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-            <span className="rounded-full bg-stone-100 px-2 py-0.5 text-[10px] font-semibold text-stone-600">
-              {course.courseType}
-            </span>
-            {compact && hasWeekdayPrice && (
-              <span className="text-[11px] font-semibold text-brand-800">
-                {formatGreenFeeShort(course.weekdayGreenFeeMin)}
-              </span>
-            )}
-            {!hasWeekdayPrice && !compact && (
-              <span className="text-[11px] text-stone-400">가격 정보 없음</span>
-            )}
+          {compact && (
+            <p className="mt-0.5 line-clamp-1 text-[11px] text-stone-500">
+              {course.city} · {course.region}
+            </p>
+          )}
+        </div>
+        <div className="flex shrink-0 flex-col items-end gap-1">
+          <div className="flex items-center gap-0.5">
+            <VisitedButton courseId={course.id} size="md" />
+            <FavoriteButton courseId={course.id} size="md" />
           </div>
+          {hasWeekdayPrice && (
+            <span
+              className={`font-bold text-brand-800 ${
+                compact ? "text-[11px]" : "text-sm"
+              }`}
+            >
+              {formatGreenFeeShort(course.weekdayGreenFeeMin)}
+            </span>
+          )}
         </div>
       </div>
 
-      {(!compact || showDetailLink) && (
-        <div className="mt-3 flex items-stretch gap-1.5">
+      <div className="mt-2 flex flex-wrap items-center gap-1.5">
+        <span
+          className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
+            TYPE_STYLES[course.courseType] ?? TYPE_STYLES["기타"]
+          }`}
+        >
+          {course.courseType}
+        </span>
+        <span className="rounded-full bg-brand-50 px-2 py-0.5 text-[10px] font-semibold text-brand-800">
+          {formatHoleCount(course.holeCount)}
+        </span>
+        {!hasWeekdayPrice && !compact && (
+          <span className="text-[10px] text-stone-400">요금 정보 준비 중</span>
+        )}
+      </div>
+
+      {showActions && (
+        <div className="mt-2.5 flex items-stretch gap-1.5">
           <Link
             href={`/courses/${course.id}`}
             onClick={(e) => e.stopPropagation()}
-            className="flex min-h-[44px] flex-1 items-center justify-center gap-0.5 rounded-xl bg-brand-700 px-3 text-xs font-bold text-white"
+            onMouseDown={(e) => e.stopPropagation()}
+            className="flex min-h-[40px] flex-1 items-center justify-center gap-0.5 rounded-xl bg-brand-800 px-2.5 text-[11px] font-bold text-white"
           >
             상세보기
             <ChevronRight className="h-3.5 w-3.5" />
@@ -104,7 +121,8 @@ export default function MobileCourseCard({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="flex min-h-[44px] min-w-[52px] items-center justify-center rounded-xl border border-stone-200 bg-white px-2 text-[11px] font-semibold text-stone-600"
+                onMouseDown={(e) => e.stopPropagation()}
+                className="flex min-h-[40px] min-w-[48px] items-center justify-center rounded-xl border border-stone-200/90 bg-white px-2 text-[10px] font-semibold text-stone-600"
               >
                 카카오
               </a>
@@ -113,7 +131,8 @@ export default function MobileCourseCard({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="flex min-h-[44px] min-w-[52px] items-center justify-center rounded-xl border border-stone-200 bg-white px-2 text-[11px] font-semibold text-stone-600"
+                onMouseDown={(e) => e.stopPropagation()}
+                className="flex min-h-[40px] min-w-[48px] items-center justify-center rounded-xl border border-stone-200/90 bg-white px-2 text-[10px] font-semibold text-stone-600"
               >
                 네이버
               </a>

@@ -6,6 +6,11 @@ import type { MapFocusTarget } from "@/types/map";
 import { EMPTY_FILTERS } from "@/types/course";
 import { filterCourses, countActiveFilters } from "@/lib/filterCourses";
 import { MOBILE_SELECTED_MAP_LEVEL } from "@/lib/constants";
+import {
+  createMapFocusTarget,
+  debugFocusCourse,
+  isValidCourseCoordinates,
+} from "@/lib/focusCourse";
 import { sortCoursesByName } from "@/lib/courseListUtils";
 import DesktopHero from "@/components/DesktopHero";
 import FilterBar from "@/components/FilterBar";
@@ -15,6 +20,11 @@ import MobileFilterSheet from "@/components/MobileFilterSheet";
 import MobileTopBar from "@/components/MobileTopBar";
 import MobileTabBar from "@/components/MobileTabBar";
 import MobileBottomSheet from "@/components/MobileBottomSheet";
+import {
+  CourseCollectionsProvider,
+  useFavorites,
+  useVisited,
+} from "@/contexts/CourseCollectionsContext";
 
 type ListMode = "cluster" | "allFiltered" | "visible" | "fallback";
 
@@ -49,6 +59,12 @@ function ListHeader({
   onShowAllFiltered,
   onFitResults,
   onResetFilters,
+  favoriteOnly,
+  favoriteCount,
+  onToggleFavoriteOnly,
+  visitedOnly,
+  visitedCount,
+  onToggleVisitedOnly,
 }: {
   mode: ListMode;
   count: number;
@@ -61,10 +77,29 @@ function ListHeader({
   onShowAllFiltered: () => void;
   onFitResults: () => void;
   onResetFilters?: () => void;
+  favoriteOnly: boolean;
+  favoriteCount: number;
+  onToggleFavoriteOnly: () => void;
+  visitedOnly: boolean;
+  visitedCount: number;
+  onToggleVisitedOnly: () => void;
 }) {
   let title: React.ReactNode;
 
-  if (mode === "cluster") {
+  if (favoriteOnly) {
+    title = (
+      <>
+        즐겨찾기한 골프장{" "}
+        <span className="text-brand-600">{count}</span>곳
+      </>
+    );
+  } else if (visitedOnly) {
+    title = (
+      <>
+        가본 골프장 <span className="text-brand-600">{count}</span>곳
+      </>
+    );
+  } else if (mode === "cluster") {
     title = (
       <>
         선택한 묶음의 골프장{" "}
@@ -170,11 +205,58 @@ function ListHeader({
           )}
         </div>
       )}
+
+      <div className="flex flex-wrap items-center gap-1.5">
+        <button
+          type="button"
+          onClick={onToggleFavoriteOnly}
+          className={`rounded-full px-3 py-1.5 text-xs font-semibold transition ${
+            favoriteOnly
+              ? "bg-brand-600 text-white shadow-sm"
+              : "bg-emerald-50 text-brand-800 ring-1 ring-inset ring-brand-200 hover:bg-emerald-100"
+          }`}
+        >
+          {favoriteOnly
+            ? `♥ 즐겨찾기 ${favoriteCount}`
+            : favoriteCount > 0
+              ? `♡ 즐겨찾기 ${favoriteCount}`
+              : "♡ 즐겨찾기"}
+        </button>
+        <button
+          type="button"
+          onClick={onToggleVisitedOnly}
+          className={`rounded-full px-3 py-1.5 text-xs font-semibold transition ${
+            visitedOnly
+              ? "bg-brand-800 text-white shadow-sm"
+              : "bg-stone-100 text-stone-700 ring-1 ring-inset ring-stone-200 hover:bg-stone-200"
+          }`}
+        >
+          {visitedOnly
+            ? `✓ 가본 골프장 ${visitedCount}`
+            : visitedCount > 0
+              ? `○ 가본 골프장 ${visitedCount}`
+              : "○ 가본 골프장"}
+        </button>
+      </div>
     </div>
   );
 }
 
 export default function HomeClient({ courses }: { courses: Course[] }) {
+  return (
+    <CourseCollectionsProvider>
+      <HomeClientInner courses={courses} />
+    </CourseCollectionsProvider>
+  );
+}
+
+function HomeClientInner({ courses }: { courses: Course[] }) {
+  const { favoriteCourseIds, favoriteCount } = useFavorites();
+  const { visitedCourseIds, visitedCount } = useVisited();
+  const [favoriteOnly, setFavoriteOnly] = useState(false);
+  const [visitedOnly, setVisitedOnly] = useState(false);
+  const [collectionFitIds, setCollectionFitIds] = useState<string[]>([]);
+  const [collectionFitSignal, setCollectionFitSignal] = useState(0);
   const [filters, setFilters] = useState<CourseFilters>(EMPTY_FILTERS);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
@@ -210,7 +292,21 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
         ? "visible"
         : "fallback";
 
-  const displayCourses = useMemo(() => {
+  const collectionCourses = useMemo(() => {
+    if (favoriteOnly) {
+      const idSet = new Set(favoriteCourseIds);
+      return sortCoursesByName(courses.filter((c) => idSet.has(c.id)));
+    }
+    if (visitedOnly) {
+      const idSet = new Set(visitedCourseIds);
+      return sortCoursesByName(courses.filter((c) => idSet.has(c.id)));
+    }
+    return null;
+  }, [favoriteOnly, visitedOnly, favoriteCourseIds, visitedCourseIds, courses]);
+
+  const baseDisplayCourses = useMemo(() => {
+    if (collectionCourses) return collectionCourses;
+
     if (isClusterScopeActive && selectedClusterCourseIds) {
       const idSet = new Set(selectedClusterCourseIds);
       return sortCoursesByName(
@@ -239,6 +335,13 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
     isShowingAllFilteredResults,
   ]);
 
+  const displayCourses = baseDisplayCourses;
+
+  const mapCourses = useMemo(() => {
+    if (collectionCourses) return collectionCourses;
+    return searchFiltered;
+  }, [collectionCourses, searchFiltered]);
+
   const isMapBoundsEmpty =
     visibleReady &&
     !isClusterScopeActive &&
@@ -247,6 +350,45 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
     searchFiltered.length > 0;
 
   const isNoFilterResults = searchFiltered.length === 0;
+
+  const isFavoritesEmpty = favoriteOnly && favoriteCount === 0;
+  const isFavoritesFilterEmpty =
+    favoriteOnly && favoriteCount > 0 && displayCourses.length === 0;
+  const isVisitedEmpty = visitedOnly && visitedCount === 0;
+  const isVisitedFilterEmpty =
+    visitedOnly && visitedCount > 0 && displayCourses.length === 0;
+
+  const handleToggleFavoriteOnly = useCallback(() => {
+    setFavoriteOnly((prev) => {
+      const next = !prev;
+      if (next) {
+        setVisitedOnly(false);
+        setCollectionFitIds(favoriteCourseIds);
+        setCollectionFitSignal((n) => n + 1);
+      }
+      return next;
+    });
+  }, [favoriteCourseIds]);
+
+  const handleToggleVisitedOnly = useCallback(() => {
+    setVisitedOnly((prev) => {
+      const next = !prev;
+      if (next) {
+        setFavoriteOnly(false);
+        setCollectionFitIds(visitedCourseIds);
+        setCollectionFitSignal((n) => n + 1);
+      }
+      return next;
+    });
+  }, [visitedCourseIds]);
+
+  const handleClearFavoriteOnly = useCallback(() => {
+    setFavoriteOnly(false);
+  }, []);
+
+  const handleClearVisitedOnly = useCallback(() => {
+    setVisitedOnly(false);
+  }, []);
 
   const selectedCourse = useMemo(() => {
     if (!selectedId) return null;
@@ -258,18 +400,31 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
   }, [selectedId, searchFiltered, courses]);
 
   const listHeaderCount =
-    listMode === "fallback" && !isFiltered
-      ? courses.length
-      : listMode === "fallback" && isFiltered
-        ? searchFiltered.length
-        : displayCourses.length;
+    favoriteOnly || visitedOnly
+      ? displayCourses.length
+      : listMode === "fallback" && !isFiltered
+        ? courses.length
+        : listMode === "fallback" && isFiltered
+          ? searchFiltered.length
+          : displayCourses.length;
 
-  const mobileSheetTitle = getMobileSheetTitle(
+  const mobileSheetTitle = useMemo(() => {
+    if (favoriteOnly) return `즐겨찾기한 골프장 ${listHeaderCount}곳`;
+    if (visitedOnly) return `가본 골프장 ${listHeaderCount}곳`;
+    return getMobileSheetTitle(
+      listMode,
+      listHeaderCount,
+      courses.length,
+      isFiltered,
+    );
+  }, [
+    favoriteOnly,
+    visitedOnly,
     listMode,
     listHeaderCount,
     courses.length,
     isFiltered,
-  );
+  ]);
 
   const updateFilters = useCallback((patch: Partial<CourseFilters>) => {
     setFilters((prev) => ({ ...prev, ...patch }));
@@ -300,34 +455,67 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
     setMapViewResetSignal((n) => n + 1);
   }, []);
 
-  const handleSelect = useCallback((course: Course) => {
-    setSelectedId((prev) => (prev === course.id ? null : course.id));
-    setCenter({ lat: course.latitude, lng: course.longitude });
-  }, []);
+  const focusCourseOnList = useCallback(
+    (
+      course: Course,
+      options?: { collapseSheet?: boolean; clearCluster?: boolean },
+    ) => {
+      if (!isValidCourseCoordinates(course)) {
+        debugFocusCourse(course, null);
+        return;
+      }
 
-  const handleMobileSelect = useCallback((course: Course) => {
-    setSelectedId(course.id);
-    setCenter({
-      lat: course.latitude,
-      lng: course.longitude,
-      level: MOBILE_SELECTED_MAP_LEVEL,
-    });
-    setMobileSheetExpanded(false);
-  }, []);
+      if (options?.clearCluster !== false) {
+        setSelectedClusterCourseIds(null);
+      }
 
-  const handleDesktopMapSelect = useCallback((course: Course) => {
-    setSelectedClusterCourseIds(null);
-    setSelectedId(course.id);
-    setCenter({ lat: course.latitude, lng: course.longitude });
-  }, []);
+      setSelectedId(course.id);
+
+      const target = createMapFocusTarget(course, MOBILE_SELECTED_MAP_LEVEL);
+      debugFocusCourse(course, target);
+      if (target) {
+        setCenter(target);
+      }
+
+      if (options?.collapseSheet) {
+        setMobileSheetExpanded(false);
+      }
+    },
+    [],
+  );
+
+  const handleSelect = useCallback(
+    (course: Course) => {
+      focusCourseOnList(course);
+    },
+    [focusCourseOnList],
+  );
+
+  const handleMobileSelect = useCallback(
+    (course: Course) => {
+      focusCourseOnList(course, { collapseSheet: true });
+    },
+    [focusCourseOnList],
+  );
+
+  const handleDesktopMapSelect = useCallback(
+    (course: Course) => {
+      focusCourseOnList(course);
+    },
+    [focusCourseOnList],
+  );
 
   const handleMobileMapSelect = useCallback(
     (course: Course) => {
-      setSelectedClusterCourseIds(null);
-      handleMobileSelect(course);
+      focusCourseOnList(course, { collapseSheet: true });
     },
-    [handleMobileSelect],
+    [focusCourseOnList],
   );
+
+  const handleMapPopupSelect = useCallback((course: Course) => {
+    setSelectedClusterCourseIds(null);
+    setSelectedId(course.id);
+  }, []);
 
   const handleVisibleCoursesChange = useCallback((ids: string[]) => {
     setVisibleCourseIds(ids);
@@ -388,7 +576,7 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
   ]);
 
   const mapProps = {
-    courses: searchFiltered,
+    courses: mapCourses,
     selectedId,
     center,
     onClearSelection: clearSelection,
@@ -400,9 +588,43 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
     initialViewportCourses: courses,
     searchKeyword: filters.query,
     clusterScopeCourseIds: selectedClusterCourseIds,
+    favoriteCourseIds,
+    visitedCourseIds,
+    fitToCourseIds: collectionFitIds,
+    fitToCourseIdsSignal: collectionFitSignal,
   };
 
-  const listEmptyProps = isMapBoundsEmpty
+  const listEmptyProps = isFavoritesEmpty
+    ? {
+        emptyTitle: "아직 즐겨찾기한 골프장이 없습니다.",
+        emptyDescription:
+          "카드의 하트를 눌러 자주 찾는 골프장을 저장해보세요.",
+        onClearFavoriteOnly: handleClearFavoriteOnly,
+      }
+    : isVisitedEmpty
+      ? {
+          emptyTitle: "아직 가본 골프장이 없습니다.",
+          emptyDescription:
+            "카드의 체크 아이콘을 눌러 방문한 골프장을 기록해보세요.",
+          onClearFavoriteOnly: handleClearVisitedOnly,
+        }
+      : isFavoritesFilterEmpty
+        ? {
+            emptyTitle: "현재 조건에 맞는 즐겨찾기가 없습니다.",
+            emptyDescription:
+              "검색·필터를 조정하거나 즐겨찾기 보기를 해제해 보세요.",
+            onClearFavoriteOnly: handleClearFavoriteOnly,
+            onReset: resetFilters,
+          }
+        : isVisitedFilterEmpty
+          ? {
+              emptyTitle: "현재 조건에 맞는 가본 골프장이 없습니다.",
+              emptyDescription:
+                "검색·필터를 조정하거나 가본 골프장 보기를 해제해 보세요.",
+              onClearFavoriteOnly: handleClearVisitedOnly,
+              onReset: resetFilters,
+            }
+          : isMapBoundsEmpty
     ? {
         emptyTitle: "현재 지도 영역에 조건에 맞는 골프장이 없습니다.",
         emptyDescription: "지도를 이동하거나 필터를 조정해보세요.",
@@ -437,6 +659,12 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
     onShowMapBased: handleShowMapBased,
     onShowAllFiltered: handleShowAllFiltered,
     onFitResults: handleFitResults,
+    favoriteOnly,
+    favoriteCount,
+    onToggleFavoriteOnly: handleToggleFavoriteOnly,
+    visitedOnly,
+    visitedCount,
+    onToggleVisitedOnly: handleToggleVisitedOnly,
   };
 
   return (
@@ -476,7 +704,9 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
           <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden rounded-2xl border border-stone-200/80 bg-white p-1.5 shadow-sm">
             <CourseMap
               {...mapProps}
+              mapLayout="desktop"
               onSelect={handleDesktopMapSelect}
+              onSelectPopupOnly={handleMapPopupSelect}
               maxVisibleMarkers={50}
               className="h-full !rounded-xl !border-0"
             />
@@ -485,7 +715,7 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
       </div>
 
       {/* ── 모바일 ── */}
-      <div className="flex h-[calc(100dvh-3rem)] flex-col overflow-hidden bg-app-warm pb-14 md:hidden">
+      <div className="mobile-app fixed inset-x-0 bottom-0 top-11 z-0 flex flex-col overflow-hidden bg-app-warm md:hidden">
         <MobileTopBar
           query={filters.query}
           onQueryChange={(query) => updateFilters({ query })}
@@ -493,41 +723,49 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
           activeFilterCount={activeCount}
         />
 
-        <div className="flex min-h-0 flex-1 flex-col gap-2 px-3 pb-2">
-          <div className="min-h-0 flex-[11] overflow-hidden rounded-2xl border border-stone-200/50 shadow-sm">
+        <section
+          aria-label="지도"
+          className="mobile-map-area relative min-h-0 flex-1 overflow-hidden px-3"
+        >
+          <div className="h-full overflow-hidden rounded-2xl border border-stone-200/50 shadow-card ring-1 ring-black/[0.03]">
             <CourseMap
               {...mapProps}
+              mapLayout="mobile"
               onSelect={handleMobileMapSelect}
+              onSelectPopupOnly={handleMapPopupSelect}
               maxVisibleMarkers={30}
-              className="h-full w-full !rounded-2xl"
+              className="h-full w-full !rounded-2xl !border-0"
             />
           </div>
+        </section>
 
-          <div className="min-h-0 flex-[9]">
-            <MobileBottomSheet
-              state={mobileSheetExpanded ? "expanded" : "collapsed"}
-              onExpand={() => setMobileSheetExpanded(true)}
-              onCollapse={() => setMobileSheetExpanded(false)}
-              title={mobileSheetTitle}
-              count={listHeaderCount}
-              selectedCourse={selectedCourse}
-              selectedId={selectedId}
-              onSelect={handleMobileSelect}
-              onClearSelection={clearSelection}
-              courses={displayCourses}
-              onReset={resetFilters}
-              onFitResults={handleFitResults}
-              onShowAllFilteredEmpty={handleShowAllFiltered}
-              showViewToggle={listMode !== "cluster" && visibleReady}
-              isShowingAllFilteredResults={isShowingAllFilteredResults}
-              onShowMapBased={handleShowMapBased}
-              onShowAllFilteredToggle={handleShowAllFiltered}
-              {...listEmptyProps}
-            />
-          </div>
-        </div>
+        <MobileBottomSheet
+          state={mobileSheetExpanded ? "expanded" : "collapsed"}
+          onExpand={() => setMobileSheetExpanded(true)}
+          onCollapse={() => setMobileSheetExpanded(false)}
+          title={mobileSheetTitle}
+          count={listHeaderCount}
+          selectedCourse={selectedCourse}
+          selectedId={selectedId}
+          onSelect={handleMobileSelect}
+          onClearSelection={clearSelection}
+          courses={displayCourses}
+          onReset={resetFilters}
+          onFitResults={handleFitResults}
+          onShowAllFilteredEmpty={handleShowAllFiltered}
+          showViewToggle={listMode !== "cluster" && visibleReady}
+          isShowingAllFilteredResults={isShowingAllFilteredResults}
+          onShowMapBased={handleShowMapBased}
+          onShowAllFilteredToggle={handleShowAllFiltered}
+          {...listEmptyProps}
+        />
 
-        <MobileTabBar />
+        <MobileTabBar
+          favoriteOnly={favoriteOnly}
+          visitedOnly={visitedOnly}
+          onToggleFavoriteOnly={handleToggleFavoriteOnly}
+          onToggleVisitedOnly={handleToggleVisitedOnly}
+        />
       </div>
 
       <MobileFilterSheet
@@ -538,6 +776,10 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
         onReset={resetFilters}
         activeCount={activeCount}
         resultCount={displayCourses.length}
+        favoriteOnly={favoriteOnly}
+        onToggleFavoriteOnly={handleToggleFavoriteOnly}
+        visitedOnly={visitedOnly}
+        onToggleVisitedOnly={handleToggleVisitedOnly}
       />
     </>
   );

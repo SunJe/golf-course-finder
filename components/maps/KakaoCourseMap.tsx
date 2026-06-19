@@ -5,7 +5,7 @@ import { MapPinned } from "lucide-react";
 import type { Course } from "@/types/course";
 import type { CourseMapBaseProps } from "@/types/map";
 import { loadKakaoMaps, isKakaoConfigured } from "@/lib/kakaoLoader";
-import { CARD_PAN_MAX_LEVEL, DEFAULT_MAP_CENTER, DESKTOP_INITIAL_MAP_PADDING, DETAIL_KAKAO_MAP_LEVEL, INITIAL_KAKAO_MAP_LEVEL, MOBILE_INITIAL_MAP_PADDING } from "@/lib/constants";
+import { DEFAULT_MAP_CENTER, DESKTOP_INITIAL_MAP_PADDING, DETAIL_KAKAO_MAP_LEVEL, INITIAL_KAKAO_MAP_LEVEL, MOBILE_INITIAL_MAP_PADDING, MOBILE_SELECTED_MAP_LEVEL } from "@/lib/constants";
 import {
   getCourseIdsInKakaoBounds,
   isCourseInKakaoBounds,
@@ -22,6 +22,10 @@ import {
   splitMarkerVisualKey,
   updatePinOverlayElement,
   updateSplitMarkerVisuals,
+  createFavoriteHeartOverlayRoot,
+  createVisitedOverlayRoot,
+  FAVORITE_HEART_OVERLAY_Z_INDEX,
+  VISITED_OVERLAY_Z_INDEX,
   type KakaoMapInstance,
   type KakaoMapsApi,
   type MarkerDisplayContext,
@@ -35,6 +39,7 @@ import {
   type ClusterGroup,
 } from "@/lib/kakaoClusterUtils";
 import { resolveCourseMapBindings } from "@/lib/courseMapBindings";
+import { isValidCourseCoordinates } from "@/lib/focusCourse";
 import MapFallback from "@/components/maps/MapFallback";
 
 type MapMode = "loading" | "kakao" | "fallback";
@@ -71,6 +76,18 @@ interface ClusterOverlayEntry {
   badgeEl: HTMLButtonElement;
   courseIds: string[];
   clickHandler: (e: Event) => void;
+}
+
+interface FavoriteHeartOverlayEntry {
+  overlay: MarkerOverlay;
+  root: HTMLDivElement;
+  course: Course;
+}
+
+interface VisitedOverlayEntry {
+  overlay: MarkerOverlay;
+  root: HTMLDivElement;
+  course: Course;
 }
 
 function useIsMobile(breakpoint = 767) {
@@ -113,17 +130,35 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     initialViewportCourses = [],
     searchKeyword = "",
     clusterScopeCourseIds = null,
+    favoriteCourseIds = [],
+    visitedCourseIds = [],
+    fitToCourseIds = [],
+    fitToCourseIdsSignal = 0,
+    mapLayout,
   } = props;
   const { selectedCourseId, selectCourse, selectCourseById, clearSelection } =
     resolveCourseMapBindings(props);
+  const onSelectPopupOnly = props.onSelectPopupOnly;
 
   const isDetail = mapMode === "detail";
   const isMobile = useIsMobile();
+  const isActiveLayout =
+    isDetail || !mapLayout
+      ? true
+      : mapLayout === "mobile"
+        ? isMobile
+        : !isMobile;
 
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<KakaoMapInstance | null>(null);
   const mapsApiRef = useRef<KakaoMapsApi | null>(null);
   const clusterOverlaysRef = useRef<Map<string, ClusterOverlayEntry>>(new Map());
+  const favoriteHeartOverlaysRef = useRef<Map<string, FavoriteHeartOverlayEntry>>(
+    new Map(),
+  );
+  const visitedOverlaysRef = useRef<Map<string, VisitedOverlayEntry>>(
+    new Map(),
+  );
   const entriesRef = useRef<Map<string, CourseMarkerEntry>>(new Map());
   const mapReadyRef = useRef(false);
   const initialViewAppliedRef = useRef(false);
@@ -132,10 +167,14 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
   const selectedCourseIdRef = useRef(selectedCourseId);
   const hoveredCourseIdRef = useRef(hoveredCourseId);
   const isMobileRef = useRef(isMobile);
+  const isActiveLayoutRef = useRef(isActiveLayout);
   const coursesRef = useRef(courses);
   const initialViewportCoursesRef = useRef(initialViewportCourses);
   const searchKeywordRef = useRef(searchKeyword);
   const clusterScopeRef = useRef(clusterScopeCourseIds);
+  const favoriteCourseIdsRef = useRef(favoriteCourseIds);
+  const visitedCourseIdsRef = useRef(visitedCourseIds);
+  const onSelectPopupOnlyRef = useRef(onSelectPopupOnly);
   const onVisibleRef = useRef(onVisibleCoursesChange);
   const onClusterRef = useRef(onClusterSelect);
   const onViewportChangeRef = useRef(onMapViewportChange);
@@ -143,6 +182,7 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
   const selectCourseRef = useRef(selectCourse);
   const reportVisibleRef = useRef<() => void>(() => {});
   const syncMarkerVisualsRef = useRef<() => void>(() => {});
+  const syncFavoriteHeartOverlaysRef = useRef<() => void>(() => {});
   const hoverClearTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const HOVER_CLEAR_DELAY_MS = 120;
@@ -178,10 +218,14 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
   selectedCourseIdRef.current = selectedCourseId;
   hoveredCourseIdRef.current = hoveredCourseId;
   isMobileRef.current = isMobile;
+  isActiveLayoutRef.current = isActiveLayout;
   coursesRef.current = courses;
   initialViewportCoursesRef.current = initialViewportCourses;
   searchKeywordRef.current = searchKeyword;
   clusterScopeRef.current = clusterScopeCourseIds;
+  favoriteCourseIdsRef.current = favoriteCourseIds;
+  visitedCourseIdsRef.current = visitedCourseIds;
+  onSelectPopupOnlyRef.current = onSelectPopupOnly;
   onVisibleRef.current = onVisibleCoursesChange;
   onClusterRef.current = onClusterSelect;
   onViewportChangeRef.current = onMapViewportChange;
@@ -191,6 +235,22 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
   const coursesKey = useMemo(
     () => courses.map((c) => c.id).join(","),
     [courses],
+  );
+
+  /** overlay popup용 — 필터 밖 selected course도 marker entry 보장 */
+  const markerCourses = useMemo(() => {
+    const list = [...courses];
+    const selId = selectedCourseId;
+    if (selId && !list.some((c) => c.id === selId)) {
+      const extra = initialViewportCourses.find((c) => c.id === selId);
+      if (extra) list.push(extra);
+    }
+    return list;
+  }, [courses, selectedCourseId, initialViewportCourses]);
+
+  const markerCoursesKey = useMemo(
+    () => markerCourses.map((c) => c.id).join(","),
+    [markerCourses],
   );
 
   const notifyViewportChange = useCallback(() => {
@@ -208,6 +268,7 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
   }, []);
 
   const reportVisibleCourses = useCallback(() => {
+    if (!isActiveLayoutRef.current) return;
     if (!onVisibleRef.current) return;
 
     const map = mapRef.current;
@@ -263,6 +324,7 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
   }, []);
 
   const applyInitialMapView = useCallback(() => {
+    if (!isActiveLayoutRef.current) return;
     const map = mapRef.current;
     const maps = mapsApiRef.current;
     if (!map || !maps || isDetail) return;
@@ -352,6 +414,103 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     [],
   );
 
+  /** collection overlay 클릭 — popup만, 지도 이동 없음 */
+  const selectCoursePopupOnly = useCallback(
+    (course: Course) => {
+      cancelHoverClear();
+      onSelectPopupOnlyRef.current?.(course);
+    },
+    [cancelHoverClear],
+  );
+
+  const syncCollectionOverlays = useCallback(() => {
+    const map = mapRef.current;
+    const maps = mapsApiRef.current;
+    if (!map || !maps || !window.kakao?.maps || isDetail) return;
+
+    if (!isActiveLayoutRef.current) {
+      favoriteHeartOverlaysRef.current.forEach((entry) => {
+        entry.overlay.setMap(null);
+      });
+      visitedOverlaysRef.current.forEach((entry) => {
+        entry.overlay.setMap(null);
+      });
+      return;
+    }
+
+    const LatLng = maps.LatLng;
+    const CustomOverlay = (
+      window.kakao.maps as Record<string, unknown>
+    ).CustomOverlay as new (opts: Record<string, unknown>) => MarkerOverlay;
+
+    const courseById = new Map(
+      initialViewportCoursesRef.current.map((course) => [course.id, course]),
+    );
+    const selectedId = selectedCourseIdRef.current;
+
+    const syncOneLayer = (
+      ids: string[],
+      store: Map<
+        string,
+        { overlay: MarkerOverlay; root: HTMLDivElement; course: Course }
+      >,
+      createRoot: (onClick: (e: Event) => void) => HTMLDivElement,
+      baseZIndex: number,
+    ) => {
+      const nextIds = new Set<string>();
+
+      for (const id of ids) {
+        const course = courseById.get(id);
+        if (!course || !isValidCourseCoordinates(course)) continue;
+
+        nextIds.add(id);
+        let entry = store.get(id);
+
+        if (!entry) {
+          const clickHandler = () => selectCoursePopupOnly(course);
+          const root = createRoot(clickHandler);
+          const overlay = new CustomOverlay({
+            position: new LatLng(course.latitude, course.longitude),
+            content: root,
+            xAnchor: 0.5,
+            yAnchor: 0.5,
+            zIndex: baseZIndex,
+            clickable: true,
+          });
+          entry = { overlay, root, course };
+          store.set(id, entry);
+        }
+
+        entry.overlay.setZIndex(
+          id === selectedId ? 2400 : baseZIndex,
+        );
+        entry.overlay.setMap(map);
+      }
+
+      store.forEach((entry, id) => {
+        if (!nextIds.has(id)) {
+          entry.overlay.setMap(null);
+          store.delete(id);
+        }
+      });
+    };
+
+    syncOneLayer(
+      favoriteCourseIdsRef.current,
+      favoriteHeartOverlaysRef.current,
+      createFavoriteHeartOverlayRoot,
+      FAVORITE_HEART_OVERLAY_Z_INDEX,
+    );
+    syncOneLayer(
+      visitedCourseIdsRef.current,
+      visitedOverlaysRef.current,
+      createVisitedOverlayRoot,
+      VISITED_OVERLAY_Z_INDEX,
+    );
+  }, [isDetail, selectCoursePopupOnly]);
+
+  syncFavoriteHeartOverlaysRef.current = syncCollectionOverlays;
+
   const syncMarkerVisuals = useCallback(() => {
     const map = mapRef.current;
     const maps = mapsApiRef.current;
@@ -366,6 +525,7 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
         entry.pinOverlay.setZIndex(2500);
         entry.pinOverlay.setMap(map);
       });
+      syncFavoriteHeartOverlaysRef.current();
       return;
     }
 
@@ -427,6 +587,8 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
         isHovered: isHov,
         effectiveGroupSize,
         clusteringEnabled,
+        displayedCount: coursesRef.current.length,
+        hasSearchKeyword: Boolean(searchKeywordRef.current.trim()),
       };
 
       const showPin = shouldShowPin(displayCtx);
@@ -472,6 +634,8 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
         entry.popupOverlay.setMap(null);
       }
     });
+
+    syncFavoriteHeartOverlaysRef.current();
   }, [isDetail, syncClusterOverlays]);
 
   syncMarkerVisualsRef.current = syncMarkerVisuals;
@@ -482,6 +646,16 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
       entry.overlay.setMap(null);
     });
     clusterOverlaysRef.current.clear();
+
+    favoriteHeartOverlaysRef.current.forEach((entry) => {
+      entry.overlay.setMap(null);
+    });
+    favoriteHeartOverlaysRef.current.clear();
+
+    visitedOverlaysRef.current.forEach((entry) => {
+      entry.overlay.setMap(null);
+    });
+    visitedOverlaysRef.current.clear();
 
     entriesRef.current.forEach((entry) => {
       entry.dom.pinEl.removeEventListener("pointerenter", entry.pinHandlers.enter);
@@ -588,6 +762,7 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     const relayout = () => {
       map.relayout?.();
       if (
+        isActiveLayoutRef.current &&
         isMobileRef.current &&
         !isDetail &&
         !userViewportTouchedRef.current
@@ -610,6 +785,7 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
   /** 모바일/데스크탑 초기 카메라 분리 — breakpoint·최초 로딩 시 fit */
   useEffect(() => {
     if (mode !== "kakao" || isDetail || userViewportTouchedRef.current) return;
+    if (!isActiveLayoutRef.current) return;
 
     const timer = setTimeout(() => {
       applyInitialMapView();
@@ -622,6 +798,7 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
   /** "결과 위치로 이동" 버튼 — 이때만 fitBounds */
   useEffect(() => {
     if (mode !== "kakao" || mapViewResetSignal === 0) return;
+    if (!isActiveLayoutRef.current) return;
     fitToCourses();
   }, [mode, mapViewResetSignal, fitToCourses]);
 
@@ -649,7 +826,7 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
 
     cleanupMarkers();
 
-    courses.forEach((course) => {
+    markerCourses.forEach((course) => {
       const position = new LatLng(course.latitude, course.longitude);
       const dom = createSplitMarkerDom();
       const pinHandlers: PinEventHandlers = {
@@ -732,7 +909,8 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     };
   }, [
     mode,
-    coursesKey,
+    markerCoursesKey,
+    markerCourses,
     isDetail,
     cleanupMarkers,
     syncMarkerVisuals,
@@ -750,13 +928,82 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     syncMarkerVisuals();
   }, [mode, selectedCourseId, hoveredCourseId, syncMarkerVisuals]);
 
+  const favoriteCourseIdsKey = useMemo(
+    () => favoriteCourseIds.join(","),
+    [favoriteCourseIds],
+  );
+
+  useEffect(() => {
+    if (mode !== "kakao") return;
+    syncMarkerVisuals();
+    syncFavoriteHeartOverlaysRef.current();
+  }, [mode, favoriteCourseIdsKey, syncMarkerVisuals]);
+
+  const visitedCourseIdsKey = useMemo(
+    () => visitedCourseIds.join(","),
+    [visitedCourseIds],
+  );
+
+  useEffect(() => {
+    if (mode !== "kakao") return;
+    syncFavoriteHeartOverlaysRef.current();
+  }, [mode, visitedCourseIdsKey]);
+
+  const fitToCourseIdsKey = useMemo(
+    () => `${fitToCourseIdsSignal}:${fitToCourseIds.join(",")}`,
+    [fitToCourseIdsSignal, fitToCourseIds],
+  );
+
+  useEffect(() => {
+    if (mode !== "kakao" || fitToCourseIdsSignal === 0) return;
+    if (!isActiveLayoutRef.current) return;
+    if (fitToCourseIds.length === 0) return;
+
+    const map = mapRef.current;
+    const maps = mapsApiRef.current;
+    if (!map || !maps) return;
+
+    const idSet = new Set(fitToCourseIds);
+    const toFit = initialViewportCoursesRef.current.filter(
+      (course) => idSet.has(course.id) && isValidCourseCoordinates(course),
+    );
+    if (toFit.length === 0) return;
+
+    const padding = isMobileRef.current
+      ? { ...MOBILE_INITIAL_MAP_PADDING }
+      : { ...DESKTOP_INITIAL_MAP_PADDING };
+
+    isApplyingInitialViewRef.current = true;
+    fitKakaoMapToCourses(map, maps, toFit, padding);
+    requestAnimationFrame(() => {
+      map.relayout?.();
+      setTimeout(() => {
+        map.relayout?.();
+        reportVisibleRef.current();
+        syncMarkerVisualsRef.current();
+        isApplyingInitialViewRef.current = false;
+      }, 80);
+    });
+  }, [mode, fitToCourseIdsKey, fitToCourseIds, fitToCourseIdsSignal]);
+
   useEffect(() => {
     if (mode !== "kakao" || !mapRef.current || !mapsApiRef.current || !center)
       return;
+    if (!isActiveLayoutRef.current) return;
+
     userViewportTouchedRef.current = true;
+
+    if (process.env.NODE_ENV === "development" && center.courseId) {
+      console.debug("[focusCourseOnMap]", {
+        courseId: center.courseId,
+        lat: center.lat,
+        lng: center.lng,
+        level: center.level,
+      });
+    }
+
     focusCourseOnMap(mapRef.current, mapsApiRef.current, center, {
-      level: center.level,
-      maxLevel: center.level == null ? CARD_PAN_MAX_LEVEL : undefined,
+      level: center.level ?? MOBILE_SELECTED_MAP_LEVEL,
     });
     syncMarkerVisuals();
   }, [mode, center, syncMarkerVisuals]);
@@ -806,8 +1053,8 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
         </div>
       )}
       {mode === "kakao" && !isDetail && mapDisplayCount !== null && (
-        <div className="pointer-events-none absolute right-3 top-3 z-10 rounded-full border border-stone-200/90 bg-white/95 px-3 py-1.5 text-xs font-semibold text-stone-600 shadow-sm backdrop-blur-sm">
-          지도에 {mapDisplayCount.toLocaleString()}곳
+        <div className="pointer-events-none absolute left-3 top-3 z-10 rounded-full border border-stone-200/80 bg-white/95 px-2.5 py-1 text-[11px] font-semibold text-stone-700 shadow-card backdrop-blur-sm md:left-auto md:right-3">
+          {mapDisplayCount.toLocaleString()}곳
         </div>
       )}
     </div>

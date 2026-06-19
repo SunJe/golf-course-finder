@@ -14,6 +14,7 @@ interface CourseListProps {
   onReset?: () => void;
   onFitResults?: () => void;
   onShowAllFiltered?: () => void;
+  onClearFavoriteOnly?: () => void;
   emptyTitle?: string;
   emptyDescription?: string;
 }
@@ -27,6 +28,7 @@ export default function CourseList({
   onReset,
   onFitResults,
   onShowAllFiltered,
+  onClearFavoriteOnly,
   emptyTitle,
   emptyDescription,
 }: CourseListProps) {
@@ -45,6 +47,7 @@ export default function CourseList({
         onReset={onReset}
         onFitResults={onFitResults}
         onShowAllFiltered={onShowAllFiltered}
+        onClearFavoriteOnly={onClearFavoriteOnly}
       />
     );
   }

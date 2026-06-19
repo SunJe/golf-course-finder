@@ -88,6 +88,11 @@ export interface MarkerDisplayContext {
 
   clusteringEnabled: boolean;
 
+  /** 현재 지도에 표시 중인 course 수 — 모바일 label 정책용 */
+  displayedCount?: number;
+
+  hasSearchKeyword?: boolean;
+
 }
 
 
@@ -107,7 +112,10 @@ export function shouldShowLabel(ctx: MarkerDisplayContext): boolean {
 
   if (ctx.isMobile) {
     if (ctx.isSelected) return true;
-    if (ctx.level <= 6) return true;
+    const count = ctx.displayedCount ?? Number.POSITIVE_INFINITY;
+    const hasSearch = ctx.hasSearchKeyword ?? false;
+    if (count <= 25 && ctx.level <= 7) return true;
+    if (hasSearch && count <= 40 && ctx.level <= 7) return true;
     return false;
   }
 
@@ -294,6 +302,8 @@ export function createPinOverlayElement(
 
   btn.style.transformOrigin = "50% 100%";
 
+  btn.style.position = "relative";
+
   btn.setAttribute("aria-label", "골프장 선택");
 
 
@@ -324,6 +334,129 @@ export function createPinOverlayElement(
 
   return btn;
 
+}
+
+/** favorite heart overlay layer z-index (cluster/pin 위, selected popup 아래) */
+export const FAVORITE_HEART_OVERLAY_Z_INDEX = 2100;
+
+/** visited overlay layer z-index */
+export const VISITED_OVERLAY_Z_INDEX = 2090;
+
+type CollectionOverlayClickHandler = (e: Event) => void;
+
+function attachCollectionOverlayClick(
+  el: HTMLButtonElement,
+  onClick: CollectionOverlayClickHandler,
+): void {
+  const handler = (e: Event) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onClick(e);
+  };
+  el.addEventListener("click", handler);
+  el.addEventListener("touchend", handler);
+}
+
+const MAP_COLLECTION_ICON_SIZE = 20;
+const MAP_COLLECTION_HIT_SIZE = 36;
+/** favorite/visited 동시 표시 시 아이콘 간격 */
+const MAP_COLLECTION_ICON_OFFSET = 14;
+const MAP_COLLECTION_ICON_SHADOW =
+  "filter:drop-shadow(0 0 1px rgba(255,255,255,0.85)) drop-shadow(0 1px 1px rgba(0,0,0,0.18));";
+
+function createMapCollectionIconButton(
+  className: string,
+  ariaLabel: string,
+  offsetX: number,
+  offsetY: number,
+  svgHtml: string,
+  onClick: CollectionOverlayClickHandler,
+): HTMLButtonElement {
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = className;
+  btn.setAttribute("aria-label", ariaLabel);
+  btn.style.cssText =
+    "position:absolute;left:50%;top:50%;" +
+    `transform:translate(calc(-50% + ${offsetX}px), calc(-50% + ${offsetY}px));` +
+    `width:${MAP_COLLECTION_HIT_SIZE}px;height:${MAP_COLLECTION_HIT_SIZE}px;` +
+    "border:none;border-radius:0;background:transparent;box-shadow:none;" +
+    "display:flex;align-items:center;justify-content:center;" +
+    "pointer-events:auto;cursor:pointer;user-select:none;line-height:0;" +
+    "touch-action:manipulation;padding:0;";
+  btn.innerHTML = svgHtml;
+  attachCollectionOverlayClick(btn, onClick);
+  return btn;
+}
+
+/** 즐겨찾기 heart overlay DOM — cluster/pin과 독립 layer, 클릭 가능 */
+export function createFavoriteHeartOverlayRoot(
+  onClick: CollectionOverlayClickHandler,
+): HTMLDivElement {
+  const root = document.createElement("div");
+  root.style.width = "0";
+  root.style.height = "0";
+  root.style.overflow = "visible";
+  root.style.pointerEvents = "none";
+
+  const heartSvg =
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" ` +
+    `width="${MAP_COLLECTION_ICON_SIZE}" height="${MAP_COLLECTION_ICON_SIZE}" ` +
+    `fill="#e11d48" aria-hidden="true" style="${MAP_COLLECTION_ICON_SHADOW}">` +
+    `<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
+
+  const btn = createMapCollectionIconButton(
+    "course-favorite-heart-overlay",
+    "즐겨찾기 골프장 선택",
+    MAP_COLLECTION_ICON_OFFSET,
+    -MAP_COLLECTION_ICON_OFFSET,
+    heartSvg,
+    onClick,
+  );
+  root.appendChild(btn);
+
+  return root;
+}
+
+/** 가본 골프장 visited overlay DOM */
+export function createVisitedOverlayRoot(
+  onClick: CollectionOverlayClickHandler,
+): HTMLDivElement {
+  const root = document.createElement("div");
+  root.style.width = "0";
+  root.style.height = "0";
+  root.style.overflow = "visible";
+  root.style.pointerEvents = "none";
+
+  const flagSvg =
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" ` +
+    `width="${MAP_COLLECTION_ICON_SIZE}" height="${MAP_COLLECTION_ICON_SIZE}" ` +
+    `fill="none" aria-hidden="true" style="${MAP_COLLECTION_ICON_SHADOW}">` +
+    `<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" fill="#16a34a"/>` +
+    `<path d="M4 22v-7" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"/></svg>`;
+
+  const btn = createMapCollectionIconButton(
+    "course-visited-overlay",
+    "가본 골프장 선택",
+    -MAP_COLLECTION_ICON_OFFSET,
+    -MAP_COLLECTION_ICON_OFFSET,
+    flagSvg,
+    onClick,
+  );
+  root.appendChild(btn);
+
+  return root;
+}
+
+/** @deprecated pin badge — favorite heart overlay layer 사용 */
+export function updatePinFavoriteBadge(
+  pinEl: HTMLButtonElement,
+  _isFavorite: boolean,
+): void {
+  const badge = pinEl.querySelector(".course-pin-favorite-badge");
+  if (badge instanceof HTMLElement) {
+    badge.style.display = "none";
+  }
 }
 
 
@@ -597,23 +730,31 @@ export function focusCourseOnMap(
     return false;
   }
 
-  map.relayout?.();
-
   const { LatLng } = maps;
   const pos = new LatLng(target.lat, target.lng);
 
+  const applyCenter = () => {
+    map.setCenter(pos);
+    map.relayout?.();
+  };
+
   if (options.level != null) {
     map.setLevel(options.level);
-    map.setCenter(pos);
-  } else {
-    map.panTo(pos);
-    if (
-      options.maxLevel != null &&
-      map.getLevel() > options.maxLevel
-    ) {
-      map.setLevel(options.maxLevel);
-    }
+    applyCenter();
+    requestAnimationFrame(() => {
+      applyCenter();
+    });
+    return true;
   }
+
+  if (options.maxLevel != null && map.getLevel() > options.maxLevel) {
+    map.setLevel(options.maxLevel);
+  }
+
+  applyCenter();
+  requestAnimationFrame(() => {
+    applyCenter();
+  });
 
   return true;
 }
@@ -852,17 +993,17 @@ function createZeroAnchorRoot(): HTMLDivElement {
 }
 
 const LABEL_PILL_NORMAL =
-  "background:#ffffff;color:#1c1917;font-weight:600;padding:5px 10px;font-size:12px;line-height:1.2;" +
+  "background:#ffffff;color:#1c1917;font-weight:600;padding:5px 11px;font-size:13px;line-height:1.2;" +
   "border:1px solid rgba(0,0,0,0.06);border-radius:999px;font-family:inherit;" +
-  "box-shadow:0 2px 8px rgba(0,0,0,0.1);display:inline-block;" +
-  "max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" +
+  "box-shadow:0 2px 8px rgba(0,0,0,0.08);display:inline-block;" +
+  "max-width:168px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" +
   "pointer-events:none;user-select:none;";
 
 const LABEL_PILL_SELECTED =
-  "background:#15803d;color:#ffffff;font-weight:600;padding:5px 10px;font-size:12px;line-height:1.2;" +
-  "border:1px solid rgba(21,128,61,0.5);border-radius:999px;font-family:inherit;" +
-  "box-shadow:0 2px 10px rgba(21,128,61,0.35);display:inline-block;" +
-  "max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" +
+  "background:#166534;color:#ffffff;font-weight:600;padding:5px 11px;font-size:13px;line-height:1.2;" +
+  "border:1px solid rgba(22,101,52,0.4);border-radius:999px;font-family:inherit;" +
+  "box-shadow:0 2px 10px rgba(22,101,52,0.28);display:inline-block;" +
+  "max-width:168px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" +
   "pointer-events:none;user-select:none;";
 
 function buildMapLabelHtml(name: string, variant: "normal" | "selected"): string {

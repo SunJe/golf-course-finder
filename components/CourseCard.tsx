@@ -10,6 +10,8 @@ import {
   getNaverMapSearchUrl,
 } from "@/lib/externalMapLinks";
 import CourseFeatureBadges from "@/components/CourseFeatureBadges";
+import FavoriteButton from "@/components/FavoriteButton";
+import VisitedButton from "@/components/VisitedButton";
 
 interface CourseCardProps {
   course: Course;
@@ -52,9 +54,15 @@ export default function CourseCard({
       <div className="p-4">
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0 flex-1">
-            <h3 className="line-clamp-2 text-[15px] font-bold leading-snug text-stone-900">
-              {course.name}
-            </h3>
+            <div className="flex items-start gap-1">
+              <h3 className="min-w-0 flex-1 line-clamp-2 text-[15px] font-bold leading-snug text-stone-900">
+                {course.name}
+              </h3>
+            <div className="flex shrink-0 items-center gap-0.5">
+              <VisitedButton courseId={course.id} />
+              <FavoriteButton courseId={course.id} />
+            </div>
+            </div>
             <p className="mt-1 text-sm text-stone-500">
               {course.city} · {course.region}
             </p>

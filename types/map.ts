@@ -30,7 +30,14 @@ export interface MapFocusTarget {
   lng: number;
   /** 지정 시 해당 level로 이동 (모바일 카드 선택 등) */
   level?: number;
+  /** 디버그/검증용 — 포커스 대상 course id */
+  courseId?: string;
+  /** 동일 좌표 재클릭 시에도 effect 재실행 */
+  focusToken?: number;
 }
+
+/** 데스크탑/모바일 중 활성 레이아웃의 지도만 bounds·focus 갱신 */
+export type MapLayoutVariant = "desktop" | "mobile";
 
 /** 모든 지도 구현체가 공유하는 props */
 export interface CourseMapBaseProps {
@@ -38,6 +45,8 @@ export interface CourseMapBaseProps {
   selectedCourseId?: string | null;
   onSelectCourse?: (courseId: string) => void;
   center?: MapFocusTarget | null;
+  /** search 지도에서 desktop/mobile 중 활성 인스턴스 구분 */
+  mapLayout?: MapLayoutVariant;
   className?: string;
   /** fallback 지도에서 표시할 마커 상한 (미설정 시 50) */
   maxVisibleMarkers?: number;
@@ -63,6 +72,15 @@ export interface CourseMapBaseProps {
   searchKeyword?: string;
   /** 클러스터 클릭 후 묶음 내 course id — 개별 pin 우선 */
   clusterScopeCourseIds?: string[] | null;
+  /** localStorage 즐겨찾기 course id — 별도 heart overlay layer용 */
+  favoriteCourseIds?: string[];
+  /** localStorage 가본 골프장 course id — 별도 visited overlay layer용 */
+  visitedCourseIds?: string[];
+  /** popup만 표시 (지도 이동/zoom 없음) */
+  onSelectPopupOnly?: (course: Course) => void;
+  /** collection 필터 ON 시 fitBounds 대상 course id */
+  fitToCourseIds?: string[];
+  fitToCourseIdsSignal?: number;
   /** @deprecated selectedCourseId 와 동일 — 하위 호환 */
   selectedId?: string | null;
   /** @deprecated onSelectCourse(id) 대신 Course 객체 — 하위 호환 */

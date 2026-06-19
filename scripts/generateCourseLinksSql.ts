@@ -2,6 +2,14 @@ import fs from "node:fs";
 import path from "node:path";
 import { parseCsv, writeFileUtf8 } from "./lib/csvUtils";
 import { readCsvWithEncodingGuess } from "./lib/encodingUtils";
+import {
+  COURSE_LINKS_HEADERS,
+  COURSE_LINKS_UPDATE_FIELDS,
+  hasCourseLinksUpdateValues,
+  normalizeCsvHeader,
+  rowCellsToCourseLinks,
+  type CourseLinksRow,
+} from "./lib/courseLinksEnrichment";
 import { getProjectRoot } from "./lib/sourceRegistry";
 
 const ROOT = getProjectRoot();
@@ -14,30 +22,10 @@ const FINAL_IMPORT_CSV = path.join(
 const SQL_OUT = path.join(ROOT, "supabase/course_links_update.sql");
 const SCHEMA_PATH = path.join(ROOT, "supabase/schema.sql");
 
-const EXPECTED_HEADERS = [
-  "id",
-  "name",
-  "homepage_url",
-  "booking_url",
-  "phone",
-  "source_url",
-  "note",
-] as const;
+const EXPECTED_HEADERS = COURSE_LINKS_HEADERS;
+const UPDATE_FIELDS = COURSE_LINKS_UPDATE_FIELDS;
 
-const UPDATE_FIELDS = ["homepage_url", "booking_url", "phone"] as const;
-
-type UpdateField = (typeof UPDATE_FIELDS)[number];
-
-interface EnrichmentRow {
-  id: string;
-  name: string;
-  homepage_url: string;
-  booking_url: string;
-  phone: string;
-  source_url: string;
-  note: string;
-  lineNumber: number;
-}
+type EnrichmentRow = CourseLinksRow & { lineNumber: number };
 
 interface ValidationIssue {
   level: "error" | "warning";
@@ -87,7 +75,11 @@ function escapeSqlLiteral(value: string): string {
 }
 
 function normalizeHeader(header: string): string {
-  return header.replace(/^\uFEFF/, "").trim();
+  return normalizeCsvHeader(header);
+}
+
+function rowToRecord(cells: string[], lineNumber: number): EnrichmentRow {
+  return { ...rowCellsToCourseLinks(cells), lineNumber };
 }
 
 function loadKnownCourseIds(): Set<string> {
@@ -126,20 +118,6 @@ function verifySchemaColumns(): void {
   console.log(
     "[schema] Confirmed columns: phone, homepage_url, booking_url (no schema change required).",
   );
-}
-
-function rowToRecord(cells: string[], lineNumber: number): EnrichmentRow {
-  const get = (index: number) => (cells[index] ?? "").trim();
-  return {
-    id: get(0),
-    name: get(1),
-    homepage_url: get(2),
-    booking_url: get(3),
-    phone: get(4),
-    source_url: get(5),
-    note: get(6),
-    lineNumber,
-  };
 }
 
 function validateRow(
@@ -275,17 +253,32 @@ function main(): void {
   const seenIds = new Set<string>();
   const allIssues: ValidationIssue[] = [];
   const statements: string[] = [];
+  let totalRows = 0;
+  let skippedEmptyRows = 0;
 
   parsed.rows.forEach((cells, index) => {
     const row = rowToRecord(cells, index + 2);
-    if (!row.id && !row.name && !row.homepage_url && !row.booking_url && !row.phone) {
+    if (!row.id && !row.name && !hasCourseLinksUpdateValues(row)) {
       return;
     }
 
+    if (!row.id) {
+      allIssues.push({
+        level: "error",
+        message: `Line ${row.lineNumber}: id is required.`,
+      });
+      return;
+    }
+
+    totalRows += 1;
     allIssues.push(...validateRow(row, seenIds, knownIds));
 
     const statement = buildUpdateStatement(row);
-    if (statement) statements.push(statement);
+    if (statement) {
+      statements.push(statement);
+    } else {
+      skippedEmptyRows += 1;
+    }
   });
 
   const errors = allIssues.filter((i) => i.level === "error");
@@ -327,6 +320,9 @@ ${sqlBody}
   console.log(`CSV encoding detected: ${encoding.encoding} (${encoding.confidence})`);
   console.log(`Output SQL: ${SQL_OUT}`);
   console.log(`Output encoding: UTF-8 (no BOM)`);
+  console.log(`Total rows: ${totalRows}`);
+  console.log(`Rows with updates: ${statements.length}`);
+  console.log(`Skipped empty rows: ${skippedEmptyRows}`);
   console.log(`Update statements: ${statements.length}`);
   console.log(`Warnings: ${warnings.length}`);
   console.log(`Errors: ${errors.length}`);

@@ -1,5 +1,5 @@
 -- GolfMap Korea — course link enrichment updates
--- Generated: 2026-06-19T03:59:31.577Z
+-- Generated: 2026-06-19T04:15:51.958Z
 -- Source CSV: data/enrichment/course_links.csv
 -- Regenerate: npm run generate:course-links-sql
 --

@@ -1,0 +1,448 @@
+import type { CourseInput, ParsedPrice, PriceType } from "./naverPriceCandidates";
+import {
+  computeConfidence,
+  getNaverSearchUrl,
+  normalizeForMatch,
+  overlapRatio,
+  parsePriceText,
+  stripMembershipSuffix,
+} from "./naverPriceCandidates";
+
+export interface ScrapeExtractResult {
+  pageTitle: string;
+  bodyText: string;
+  candidateTitle: string;
+  candidateAddress: string;
+  candidatePhone: string;
+  candidateHomepageUrl: string;
+  candidatePriceText: string;
+  candidatePriceMin: string;
+  candidatePriceMax: string;
+  candidatePriceType: PriceType;
+  reasonNotes: string[];
+}
+
+export interface ScrapePageOptions {
+  query: string;
+  headful: boolean;
+  timeoutMs: number;
+}
+
+const LANDLINE_PHONE =
+  /(?:02|0[3-6]\d|070)[-\s]?\d{3,4}[-\s]?\d{4}/g;
+
+const PRICE_LINE =
+  /(?:그린피|예약|예약가|주중|주말|1인|₩|\d{1,3}(?:,\d{3})+\s*원|\d+\s*원)/;
+
+const NAVER_HOST_BLOCK =
+  /(?:search\.naver|map\.naver|blog\.naver|cafe\.naver|m\.blog\.naver|place\.naver|booking\.naver|smartstore\.naver)/i;
+
+const BOOKING_URL_HINT = /(?:booking|reserve|reservation|예약)/i;
+
+export function buildScrapeSearchQueries(course: CourseInput): string[] {
+  const primary = stripMembershipSuffix(course.name);
+  const queries = [
+    primary,
+    `${primary} 골프장`,
+    `${primary} 네이버`,
+  ];
+  if (course.city.trim()) {
+    queries.push(`${primary} ${course.city.trim()}`);
+  }
+  return [...new Set(queries.map((q) => q.trim()).filter(Boolean))];
+}
+
+export function normalizePhone(raw: string): string {
+  const digits = raw.replace(/[^\d]/g, "");
+  if (digits.startsWith("010")) return "";
+  if (digits.length === 10 && digits.startsWith("02")) {
+    return `${digits.slice(0, 2)}-${digits.slice(2, 6)}-${digits.slice(6)}`;
+  }
+  if (digits.length === 10) {
+    return `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6)}`;
+  }
+  if (digits.length === 11) {
+    return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7)}`;
+  }
+  return raw.trim();
+}
+
+export function extractPhonesFromText(text: string): string[] {
+  const found = new Set<string>();
+  for (const match of text.matchAll(LANDLINE_PHONE)) {
+    const normalized = normalizePhone(match[0]);
+    if (normalized && !normalized.startsWith("010")) {
+      found.add(normalized);
+    }
+  }
+  return [...found];
+}
+
+export function pickBestPhone(phones: string[]): string {
+  if (phones.length === 0) return "";
+  const scored = phones.map((phone) => {
+    let score = 0;
+    if (/^02-/.test(phone)) score += 2;
+    if (/^0[3-6]\d-/.test(phone)) score += 3;
+    if (/^070-/.test(phone)) score += 1;
+    return { phone, score };
+  });
+  scored.sort((a, b) => b.score - a.score);
+  return scored[0]?.phone ?? "";
+}
+
+export function isHomepageCandidate(url: string): boolean {
+  try {
+    const parsed = new URL(url);
+    if (!/^https?:$/i.test(parsed.protocol)) return false;
+    if (NAVER_HOST_BLOCK.test(parsed.hostname)) return false;
+    if (BOOKING_URL_HINT.test(parsed.href)) return false;
+    if (/\.(jpg|jpeg|png|gif|webp|svg|pdf)(\?|$)/i.test(parsed.pathname)) {
+      return false;
+    }
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function extractHomepageUrlsFromText(text: string): string[] {
+  const urls = new Set<string>();
+  const pattern = /https?:\/\/[^\s"'<>)\]]+/gi;
+  for (const match of text.matchAll(pattern)) {
+    const cleaned = match[0].replace(/[.,;]+$/, "");
+    if (isHomepageCandidate(cleaned)) {
+      urls.add(cleaned);
+    }
+  }
+  return [...urls];
+}
+
+export function pickBestHomepage(urls: string[]): { url: string; ambiguous: boolean } {
+  if (urls.length === 0) return { url: "", ambiguous: false };
+  if (urls.length === 1) return { url: urls[0], ambiguous: false };
+  const official = urls.find((u) =>
+    /official|www\.|\.co\.kr|\.com/i.test(u),
+  );
+  if (official) return { url: official, ambiguous: true };
+  return { url: urls[0], ambiguous: true };
+}
+
+export function extractPriceLinesFromText(text: string): ParsedPrice[] {
+  const results: ParsedPrice[] = [];
+  const seen = new Set<string>();
+
+  for (const line of text.split(/\n/)) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.length > 120) continue;
+    if (!PRICE_LINE.test(trimmed)) continue;
+    const parsed = parsePriceText(trimmed);
+    if (!parsed.priceText || seen.has(parsed.priceText)) continue;
+    if (parsed.min === undefined && !/\d{1,3}(?:,\d{3})+\s*원|\d+\s*원|₩/.test(trimmed)) {
+      continue;
+    }
+    if (trimmed.length > 80 && parsed.min === undefined) continue;
+    seen.add(parsed.priceText);
+    results.push(parsed);
+  }
+
+  if (results.length === 0) {
+    const blockMatch = text.match(
+      /(?:그린피|예약가|예약|주중|주말|1인)[^\n]{0,40}(?:\d{1,3}(?:,\d{3})+|\d+)\s*원/g,
+    );
+    if (blockMatch) {
+      for (const fragment of blockMatch.slice(0, 5)) {
+        const parsed = parsePriceText(fragment.trim());
+        if (parsed.priceText && !seen.has(parsed.priceText)) {
+          seen.add(parsed.priceText);
+          results.push(parsed);
+        }
+      }
+    }
+  }
+
+  return results;
+}
+
+export function pickBestPrice(prices: ParsedPrice[]): ParsedPrice {
+  if (prices.length === 0) {
+    return { priceText: "", type: "unknown" };
+  }
+
+  const scored = prices.map((p) => {
+    let score = 0;
+    if (/그린피/i.test(p.priceText)) score += 4;
+    if (/예약|1인/i.test(p.priceText)) score += 3;
+    if (/주중|주말/i.test(p.priceText)) score += 2;
+    if (p.min !== undefined) score += 2;
+    return { p, score };
+  });
+  scored.sort((a, b) => b.score - a.score);
+  return scored[0]?.p ?? prices[0];
+}
+
+function extractLabeledLine(text: string, label: string): string {
+  const lines = text.split(/\n/).map((line) => line.trim());
+  const index = lines.findIndex((line) => line === label);
+  if (index >= 0 && lines[index + 1]) {
+    return lines[index + 1].trim();
+  }
+  return "";
+}
+
+function extractTitleFromBody(bodyText: string, courseName: string): string {
+  const lines = bodyText.split(/\n/).map((l) => l.trim()).filter(Boolean);
+  for (const line of lines) {
+    if (line.length > 60 || line.length < 3) continue;
+    if (/검색 결과|네이버|저장|길찾기|공유|더보기/.test(line)) continue;
+    const normLine = normalizeForMatch(line);
+    const normCourse = normalizeForMatch(courseName);
+    if (
+      normLine.includes(normCourse.slice(0, 4)) ||
+      normCourse.includes(normLine.slice(0, 4))
+    ) {
+      return line;
+    }
+  }
+  return courseName;
+}
+
+function extractTitleFromPageTitle(pageTitle: string, courseName: string): string {
+  const cleaned = pageTitle
+    .replace(/\s*:\s*네이버\s*검색\s*$/, "")
+    .replace(/\s*-\s*네이버\s*$/, "")
+    .trim();
+  if (cleaned && cleaned.length <= 80) return cleaned;
+  return courseName;
+}
+
+function extractAddressFromText(text: string, course: CourseInput): string {
+  const lines = text.split(/\n/).map((l) => l.trim()).filter(Boolean);
+  for (let i = 0; i < lines.length; i += 1) {
+    if (lines[i] === "주소" && lines[i + 1]) {
+      const addr = lines[i + 1].replace(/지도$/, "").trim();
+      if (addr.length >= 8) return addr;
+    }
+  }
+  for (const line of lines) {
+    if (line.length > 120) continue;
+    if (/(시|군|구)\s/.test(line) && /\d/.test(line)) {
+      if (course.city && line.includes(course.city)) return line;
+      if (course.address && overlapRatio(course.address, line) > 0.3) {
+        return line;
+      }
+    }
+  }
+  for (const line of lines) {
+    if (
+      course.city &&
+      line.includes(course.city) &&
+      /(로|길|읍|면|동)\s*\d/.test(line)
+    ) {
+      return line.slice(0, 120);
+    }
+  }
+  return "";
+}
+
+export function extractFromPageContent(
+  pageTitle: string,
+  bodyText: string,
+  course: CourseInput,
+): ScrapeExtractResult {
+  const reasonNotes: string[] = [];
+  const compactText = bodyText.replace(/\s+/g, " ").slice(0, 8000);
+
+  const candidateTitle =
+    extractTitleFromBody(bodyText, course.name) ||
+    extractTitleFromPageTitle(pageTitle, course.name);
+  const candidateAddress = extractAddressFromText(bodyText, course);
+
+  const phones = extractPhonesFromText(compactText);
+  const labeledPhone = extractLabeledLine(bodyText, "전화번호");
+  const candidatePhone = pickBestPhone([
+    ...phones,
+    ...(labeledPhone ? [normalizePhone(labeledPhone)] : []),
+  ].filter(Boolean));
+  if (phones.length > 1 && candidatePhone) {
+    reasonNotes.push(`phone candidates: ${phones.length}`);
+  }
+
+  const homepageUrls = extractHomepageUrlsFromText(compactText);
+  const labeledHomepage = extractLabeledLine(bodyText, "홈페이지");
+  if (labeledHomepage && isHomepageCandidate(labeledHomepage)) {
+    homepageUrls.unshift(labeledHomepage);
+  }
+  const { url: candidateHomepageUrl, ambiguous } = pickBestHomepage(homepageUrls);
+  if (ambiguous) reasonNotes.push("homepage ambiguous");
+  if (homepageUrls.length === 0) reasonNotes.push("homepage not found");
+
+  const priceCandidates = extractPriceLinesFromText(bodyText);
+  const bestPrice = pickBestPrice(priceCandidates);
+  if (priceCandidates.length > 1) {
+    reasonNotes.push(`price lines: ${priceCandidates.length}`);
+  }
+
+  return {
+    pageTitle,
+    bodyText: compactText.slice(0, 500),
+    candidateTitle,
+    candidateAddress,
+    candidatePhone,
+    candidateHomepageUrl,
+    candidatePriceText: bestPrice.priceText,
+    candidatePriceMin:
+      bestPrice.min !== undefined ? String(bestPrice.min) : "",
+    candidatePriceMax:
+      bestPrice.max !== undefined ? String(bestPrice.max) : "",
+    candidatePriceType: bestPrice.type,
+    reasonNotes,
+  };
+}
+
+export function scoreScrapeExtract(
+  course: CourseInput,
+  extract: ScrapeExtractResult,
+): number {
+  const normCourse = normalizeForMatch(course.name);
+  const normTitle = normalizeForMatch(extract.candidateTitle);
+  let score = overlapRatio(normCourse, normTitle) * 100;
+  if (extract.candidateAddress && course.address) {
+    if (extract.candidateAddress.includes(course.city)) score += 20;
+  }
+  if (extract.candidatePhone) score += 10;
+  if (extract.candidateHomepageUrl) score += 8;
+  if (extract.candidatePriceText) score += 15;
+  return score;
+}
+
+export interface ScrapeAttemptResult {
+  query: string;
+  sourceUrl: string;
+  extract: ScrapeExtractResult;
+  score: number;
+}
+
+export async function scrapeNaverSearchWithPlaywright(
+  course: CourseInput,
+  options: {
+    headful: boolean;
+    timeoutMs: number;
+    queries?: string[];
+  },
+): Promise<ScrapeAttemptResult | null> {
+  const { chromium } = await import("playwright");
+  const queries = options.queries ?? buildScrapeSearchQueries(course);
+
+  const browser = await chromium.launch({ headless: !options.headful });
+  try {
+    const context = await browser.newContext({
+      locale: "ko-KR",
+      userAgent:
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+    });
+    const page = await context.newPage();
+
+    let best: ScrapeAttemptResult | null = null;
+
+    for (const query of queries) {
+      const sourceUrl = getNaverSearchUrl(query);
+      try {
+        await page.goto(sourceUrl, {
+          waitUntil: "domcontentloaded",
+          timeout: options.timeoutMs,
+        });
+        await page.waitForTimeout(1500);
+
+        const pageTitle = await page.title();
+        let bodyText = "";
+
+        const regionSelectors = [
+          "#main_pack",
+          ".sp_nreview",
+          ".place_section",
+          ".api_subject_bx",
+          "#place-app-root",
+        ];
+        for (const selector of regionSelectors) {
+          const el = page.locator(selector).first();
+          if ((await el.count()) > 0) {
+            const text = await el.innerText().catch(() => "");
+            if (text && text.length > bodyText.length) {
+              bodyText = text;
+            }
+          }
+        }
+        if (!bodyText || bodyText.length < 200) {
+          bodyText = await page.locator("body").innerText().catch(() => "");
+        }
+
+        if (!bodyText.trim()) continue;
+
+        const extract = extractFromPageContent(pageTitle, bodyText, course);
+        const score = scoreScrapeExtract(course, extract);
+        const attempt: ScrapeAttemptResult = {
+          query,
+          sourceUrl,
+          extract,
+          score,
+        };
+
+        if (!best || score > best.score) {
+          best = attempt;
+        }
+        if (score >= 80) break;
+      } catch (error) {
+        const message =
+          error instanceof Error ? error.message : String(error);
+        console.warn(`[scrape warn] query="${query}": ${message}`);
+      }
+    }
+
+    await context.close();
+    return best;
+  } finally {
+    await browser.close();
+  }
+}
+
+export function buildScrapeCandidateRow(
+  course: CourseInput,
+  attempt: ScrapeAttemptResult,
+  collectedAt: string,
+): import("./naverPriceCandidates").NaverPriceCandidateRow {
+  const { extract, query, sourceUrl } = attempt;
+  const { confidence, reason } = computeConfidence(course, {
+    title: extract.candidateTitle,
+    address: extract.candidateAddress,
+    priceText: extract.candidatePriceText,
+    phone: extract.candidatePhone,
+    homepageUrl: extract.candidateHomepageUrl,
+  });
+
+  const reasonParts = [reason, ...extract.reasonNotes];
+  if (!extract.candidatePriceText) {
+    reasonParts.push("price not found on page");
+  }
+
+  return {
+    id: course.id,
+    name: course.name,
+    address: course.address,
+    query,
+    source: "naver_scrape",
+    candidate_title: extract.candidateTitle,
+    candidate_address: extract.candidateAddress,
+    candidate_phone: extract.candidatePhone,
+    candidate_homepage_url: extract.candidateHomepageUrl,
+    candidate_price_text: extract.candidatePriceText,
+    candidate_price_min: extract.candidatePriceMin,
+    candidate_price_max: extract.candidatePriceMax,
+    candidate_price_type: extract.candidatePriceType,
+    candidate_confidence: confidence,
+    needs_review: "true",
+    reason: reasonParts.join("; "),
+    source_url: sourceUrl,
+    collected_at: collectedAt,
+  };
+}

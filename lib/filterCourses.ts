@@ -28,8 +28,6 @@ function matchesPrice(course: Course, option: string): boolean {
   );
 }
 
-import { normalizeSearchText, courseSearchHaystack } from "@/lib/searchSuggestions";
-
 function matchesQuery(course: Course, query: string): boolean {
   const q = normalizeSearchText(query);
   if (!q) return true;

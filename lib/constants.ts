@@ -64,11 +64,11 @@ export const DESKTOP_INITIAL_KAKAO_MAP_LEVEL = INITIAL_KAKAO_MAP_LEVEL;
 export const MOBILE_INITIAL_MAP_CENTER = { lat: 36.05, lng: 127.6 };
 export const MOBILE_INITIAL_KAKAO_MAP_LEVEL = 12;
 
-/** 모바일 초기 fitBounds UI padding (px) — 상단 검색·하단 half sheet·탭바 고려 */
+/** 모바일 초기 fitBounds UI padding (px) — 상단 검색·하단 half sheet 고려 */
 export const MOBILE_INITIAL_MAP_PADDING = {
   top: 64,
   right: 24,
-  bottom: 248,
+  bottom: 200,
   left: 24,
 } as const;
 

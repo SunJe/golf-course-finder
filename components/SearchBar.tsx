@@ -8,6 +8,9 @@ interface SearchBarProps {
   placeholder?: string;
   size?: "lg" | "md";
   variant?: "default" | "hero" | "mobile";
+  onFocus?: () => void;
+  onBlur?: () => void;
+  onClear?: () => void;
 }
 
 export default function SearchBar({
@@ -16,6 +19,9 @@ export default function SearchBar({
   placeholder = "골프장명, 지역, 주소로 검색",
   size = "md",
   variant = "default",
+  onFocus,
+  onBlur,
+  onClear,
 }: SearchBarProps) {
   const lg = size === "lg";
   const hero = variant === "hero";
@@ -32,6 +38,8 @@ export default function SearchBar({
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onFocus={onFocus}
+        onBlur={onBlur}
         placeholder={placeholder}
         className={`w-full rounded-full border bg-white pl-11 pr-11 text-stone-900 outline-none transition placeholder:text-stone-400 ${
           mobile
@@ -44,7 +52,10 @@ export default function SearchBar({
       {value && (
         <button
           type="button"
-          onClick={() => onChange("")}
+          onClick={() => {
+            onChange("");
+            onClear?.();
+          }}
           aria-label="검색어 지우기"
           className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
         >

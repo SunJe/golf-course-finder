@@ -12,13 +12,13 @@ import {
   isValidCourseCoordinates,
 } from "@/lib/focusCourse";
 import { sortCoursesByName } from "@/lib/courseListUtils";
+import { getSearchSuggestions } from "@/lib/searchSuggestions";
 import DesktopHero from "@/components/DesktopHero";
 import FilterBar from "@/components/FilterBar";
 import CourseList from "@/components/CourseList";
 import CourseMap from "@/components/maps/CourseMap";
 import MobileFilterSheet from "@/components/MobileFilterSheet";
 import MobileTopBar from "@/components/MobileTopBar";
-import MobileTabBar from "@/components/MobileTabBar";
 import MobileBottomSheet, {
   type MobileSheetSnap,
 } from "@/components/MobileBottomSheet";
@@ -35,7 +35,9 @@ function getMobileSheetTitle(
   count: number,
   total: number,
   isFiltered: boolean,
+  searchQuery: string,
 ): string {
+  if (searchQuery) return `'${searchQuery}' 검색 결과 ${count}곳`;
   if (mode === "cluster") return `선택한 묶음의 골프장 ${count}곳`;
   if (mode === "allFiltered") {
     return isFiltered ? `필터 결과 전체 ${count}곳` : `전체 결과 ${count}곳`;
@@ -67,6 +69,7 @@ function ListHeader({
   visitedOnly,
   visitedCount,
   onToggleVisitedOnly,
+  isSearchActive = false,
 }: {
   mode: ListMode;
   count: number;
@@ -85,10 +88,17 @@ function ListHeader({
   visitedOnly: boolean;
   visitedCount: number;
   onToggleVisitedOnly: () => void;
+  isSearchActive?: boolean;
 }) {
   let title: React.ReactNode;
 
-  if (favoriteOnly) {
+  if (isSearchActive && !favoriteOnly && !visitedOnly) {
+    title = (
+      <>
+        검색 결과 <span className="text-brand-600">{count}</span>곳
+      </>
+    );
+  } else if (favoriteOnly) {
     title = (
       <>
         즐겨찾기한 골프장{" "}
@@ -144,7 +154,8 @@ function ListHeader({
     );
   }
 
-  const showViewToggle = mode !== "cluster" && visibleReady;
+  const showViewToggle =
+    !isSearchActive && mode !== "cluster" && visibleReady;
 
   return (
     <div className="mb-3 flex flex-col gap-2.5">
@@ -275,6 +286,10 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
   const [sheetOpen, setSheetOpen] = useState(false);
   const [mobileSheetSnap, setMobileSheetSnap] =
     useState<MobileSheetSnap>("half");
+  const [searchFitSignal, setSearchFitSignal] = useState(0);
+
+  const searchQuery = filters.query.trim();
+  const isSearchActive = searchQuery.length > 0;
 
   const searchFiltered = useMemo(
     () => filterCourses(courses, filters),
@@ -298,14 +313,31 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
   const collectionCourses = useMemo(() => {
     if (favoriteOnly) {
       const idSet = new Set(favoriteCourseIds);
-      return sortCoursesByName(courses.filter((c) => idSet.has(c.id)));
+      return sortCoursesByName(
+        filterCourses(
+          courses.filter((c) => idSet.has(c.id)),
+          filters,
+        ),
+      );
     }
     if (visitedOnly) {
       const idSet = new Set(visitedCourseIds);
-      return sortCoursesByName(courses.filter((c) => idSet.has(c.id)));
+      return sortCoursesByName(
+        filterCourses(
+          courses.filter((c) => idSet.has(c.id)),
+          filters,
+        ),
+      );
     }
     return null;
-  }, [favoriteOnly, visitedOnly, favoriteCourseIds, visitedCourseIds, courses]);
+  }, [
+    favoriteOnly,
+    visitedOnly,
+    favoriteCourseIds,
+    visitedCourseIds,
+    courses,
+    filters,
+  ]);
 
   const baseDisplayCourses = useMemo(() => {
     if (collectionCourses) return collectionCourses;
@@ -317,7 +349,7 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
       );
     }
 
-    if (isShowingAllFilteredResults) {
+    if (isSearchActive || isShowingAllFilteredResults) {
       return sortCoursesByName(searchFiltered);
     }
 
@@ -336,6 +368,8 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
     selectedClusterCourseIds,
     isClusterScopeActive,
     isShowingAllFilteredResults,
+    isSearchActive,
+    collectionCourses,
   ]);
 
   const displayCourses = baseDisplayCourses;
@@ -346,13 +380,15 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
   }, [collectionCourses, searchFiltered]);
 
   const isMapBoundsEmpty =
+    !isSearchActive &&
     visibleReady &&
     !isClusterScopeActive &&
     !isShowingAllFilteredResults &&
     (visibleCourseIds?.length ?? 0) === 0 &&
     searchFiltered.length > 0;
 
-  const isNoFilterResults = searchFiltered.length === 0;
+  const isSearchEmpty = isSearchActive && searchFiltered.length === 0;
+  const isNoFilterResults = !isSearchActive && searchFiltered.length === 0;
 
   const isFavoritesEmpty = favoriteOnly && favoriteCount === 0;
   const isFavoritesFilterEmpty =
@@ -411,6 +447,11 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
           ? searchFiltered.length
           : displayCourses.length;
 
+  const searchSuggestions = useMemo(
+    () => getSearchSuggestions(courses, filters.query),
+    [courses, filters.query],
+  );
+
   const mobileSheetTitle = useMemo(() => {
     if (favoriteOnly) return `즐겨찾기한 골프장 ${listHeaderCount}곳`;
     if (visitedOnly) return `가본 골프장 ${listHeaderCount}곳`;
@@ -419,6 +460,7 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
       listHeaderCount,
       courses.length,
       isFiltered,
+      isSearchActive ? searchQuery : "",
     );
   }, [
     favoriteOnly,
@@ -427,6 +469,28 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
     listHeaderCount,
     courses.length,
     isFiltered,
+    isSearchActive,
+    searchQuery,
+  ]);
+
+  const mapFitToCourseIds = useMemo(() => {
+    const fitSource = collectionCourses ?? searchFiltered;
+    if (isSearchActive && fitSource.length > 1) {
+      return fitSource.map((c) => c.id);
+    }
+    return collectionFitIds;
+  }, [isSearchActive, searchFiltered, collectionCourses, collectionFitIds]);
+
+  const mapFitToCourseIdsSignal = useMemo(() => {
+    const fitSource = collectionCourses ?? searchFiltered;
+    if (isSearchActive && fitSource.length > 1) return searchFitSignal;
+    return collectionFitSignal;
+  }, [
+    isSearchActive,
+    searchFiltered,
+    collectionCourses,
+    searchFitSignal,
+    collectionFitSignal,
   ]);
 
   const updateFilters = useCallback((patch: Partial<CourseFilters>) => {
@@ -537,16 +601,59 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
     setHoveredId(course?.id ?? null);
   }, []);
 
+  const handleSuggestionSelect = useCallback(
+    (course: Course) => {
+      setSelectedClusterCourseIds(null);
+      updateFilters({ query: course.name });
+      setSelectedId(course.id);
+      if (isValidCourseCoordinates(course)) {
+        const target = createMapFocusTarget(course, MOBILE_SELECTED_MAP_LEVEL);
+        if (target) setCenter(target);
+      }
+      setMobileSheetSnap("half");
+    },
+    [updateFilters],
+  );
+
   const filtersKey = useMemo(() => JSON.stringify(filters), [filters]);
+  const searchResultsKey = useMemo(
+    () => searchFiltered.map((c) => c.id).join(","),
+    [searchFiltered],
+  );
 
   useEffect(() => {
     setSelectedClusterCourseIds(null);
-    setIsShowingAllFilteredResults(false);
+    if (!filters.query.trim()) {
+      setIsShowingAllFilteredResults(false);
+    }
     setSelectedId((prev) => {
       if (!prev) return null;
       return searchFiltered.some((c) => c.id === prev) ? prev : null;
     });
   }, [filtersKey, searchFiltered]);
+
+  useEffect(() => {
+    if (!isSearchActive) return;
+
+    const results = collectionCourses ?? searchFiltered;
+
+    if (results.length === 1) {
+      const course = results[0];
+      setSelectedId(course.id);
+      if (isValidCourseCoordinates(course)) {
+        const target = createMapFocusTarget(course, MOBILE_SELECTED_MAP_LEVEL);
+        if (target) setCenter(target);
+      }
+      return;
+    }
+
+    if (results.length > 1) {
+      setSearchFitSignal((n) => n + 1);
+      return;
+    }
+
+    setSelectedId(null);
+  }, [isSearchActive, searchQuery, searchResultsKey, searchFiltered, collectionCourses]);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -597,11 +704,17 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
     clusterScopeCourseIds: selectedClusterCourseIds,
     favoriteCourseIds,
     visitedCourseIds,
-    fitToCourseIds: collectionFitIds,
-    fitToCourseIdsSignal: collectionFitSignal,
+    fitToCourseIds: mapFitToCourseIds,
+    fitToCourseIdsSignal: mapFitToCourseIdsSignal,
   };
 
-  const listEmptyProps = isFavoritesEmpty
+  const listEmptyProps = isSearchEmpty
+    ? {
+        emptyTitle: "검색 결과가 없습니다.",
+        emptyDescription: "다른 골프장명이나 지역으로 검색해보세요.",
+        onReset: resetFilters,
+      }
+    : isFavoritesEmpty
     ? {
         emptyTitle: "아직 즐겨찾기한 골프장이 없습니다.",
         emptyDescription:
@@ -655,6 +768,9 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
     ...listEmptyProps,
   };
 
+  const showMobileViewToggle =
+    !isSearchActive && listMode !== "cluster" && visibleReady;
+
   const headerProps = {
     mode: listMode,
     count: listHeaderCount,
@@ -672,6 +788,7 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
     visitedOnly,
     visitedCount,
     onToggleVisitedOnly: handleToggleVisitedOnly,
+    isSearchActive,
   };
 
   return (
@@ -728,6 +845,8 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
           onQueryChange={(query) => updateFilters({ query })}
           onFilterOpen={() => setSheetOpen(true)}
           activeFilterCount={activeCount}
+          suggestions={searchSuggestions}
+          onSuggestionSelect={handleSuggestionSelect}
         />
 
         <section
@@ -753,13 +872,12 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
           count={listHeaderCount}
           selectedCourse={selectedCourse}
           selectedId={selectedId}
-          onSelect={handleMobileSelect}
           onClearSelection={clearSelection}
           courses={displayCourses}
           onReset={resetFilters}
           onFitResults={handleFitResults}
           onShowAllFilteredEmpty={handleShowAllFiltered}
-          showViewToggle={listMode !== "cluster" && visibleReady}
+          showViewToggle={showMobileViewToggle}
           isShowingAllFilteredResults={isShowingAllFilteredResults}
           onShowMapBased={handleShowMapBased}
           onShowAllFilteredToggle={handleShowAllFiltered}
@@ -770,13 +888,6 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
           onToggleFavoriteOnly={handleToggleFavoriteOnly}
           onToggleVisitedOnly={handleToggleVisitedOnly}
           {...listEmptyProps}
-        />
-
-        <MobileTabBar
-          favoriteOnly={favoriteOnly}
-          visitedOnly={visitedOnly}
-          onToggleFavoriteOnly={handleToggleFavoriteOnly}
-          onToggleVisitedOnly={handleToggleVisitedOnly}
         />
       </div>
 

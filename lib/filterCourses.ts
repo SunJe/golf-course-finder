@@ -1,5 +1,6 @@
 import type { Course, CourseFilters } from "@/types/course";
 import { PRICE_RANGES } from "@/lib/constants";
+import { normalizeSearchText, courseSearchHaystack } from "@/lib/searchSuggestions";
 
 function matchesHoleCount(course: Course, option: string): boolean {
   if (option === "전체") return true;
@@ -27,13 +28,12 @@ function matchesPrice(course: Course, option: string): boolean {
   );
 }
 
+import { normalizeSearchText, courseSearchHaystack } from "@/lib/searchSuggestions";
+
 function matchesQuery(course: Course, query: string): boolean {
-  const q = query.trim().toLowerCase();
+  const q = normalizeSearchText(query);
   if (!q) return true;
-  return [course.name, course.address, course.region, course.city]
-    .join(" ")
-    .toLowerCase()
-    .includes(q);
+  return courseSearchHaystack(course).includes(q);
 }
 
 /** 모든 필터를 AND 조건으로 적용한다. */

@@ -64,14 +64,24 @@ function escapeCsvField(value: string): string {
   return value;
 }
 
-export function rowsToCsv(headers: string[], rows: string[][]): string {
+export function rowsToCsv(
+  headers: string[],
+  rows: string[][],
+  options?: { crlf?: boolean },
+): string {
+  const lineBreak = options?.crlf ? "\r\n" : "\n";
   const lines = [headers.map(escapeCsvField).join(",")];
   for (const row of rows) {
     lines.push(
       headers.map((_, index) => escapeCsvField(row[index] ?? "")).join(","),
     );
   }
-  return `${lines.join("\n")}\n`;
+  return `${lines.join(lineBreak)}${lineBreak}`;
+}
+
+export function writeFileUtf8Bom(filePath: string, content: string): void {
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
+  fs.writeFileSync(filePath, `\uFEFF${content}`, "utf8");
 }
 
 export function readFileUtf8(filePath: string): string {

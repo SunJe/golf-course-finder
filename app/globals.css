@@ -52,12 +52,12 @@ body {
     will-change: height;
   }
 
-  .sheet-drag-zone {
+  .sheet-handle {
     touch-action: none;
     cursor: grab;
   }
 
-  .sheet-drag-zone:active {
+  .sheet-handle:active {
     cursor: grabbing;
   }
 

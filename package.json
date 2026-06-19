@@ -20,7 +20,8 @@
     "sanity:final-import": "tsx scripts/finalSanityCheck.ts",
     "debug:supabase-read": "tsx scripts/debugSupabaseRead.ts",
     "download:golf-sources": "tsx scripts/downloadGolfSources.ts",
-    "analyze:golf-raw": "tsx scripts/analyzeGolfCourseRawData.ts"
+    "analyze:golf-raw": "tsx scripts/analyzeGolfCourseRawData.ts",
+    "generate:course-links-sql": "tsx scripts/generateCourseLinksSql.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",

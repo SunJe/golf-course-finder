@@ -537,11 +537,14 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
       window.kakao.maps as Record<string, unknown>
     ).CustomOverlay as new (opts: Record<string, unknown>) => ClusterOverlayEntry["overlay"];
 
-    const visibleInBounds = coursesRef.current.filter((course) =>
-      isCourseInKakaoBounds(course, bounds, LatLng),
-    );
+    const hasSearch = Boolean(searchKeywordRef.current.trim());
+    const mapDisplayCourses = hasSearch
+      ? coursesRef.current
+      : coursesRef.current.filter((course) =>
+          isCourseInKakaoBounds(course, bounds, LatLng),
+        );
     const level = map.getLevel();
-    const visibleIdSet = new Set(visibleInBounds.map((c) => c.id));
+    const visibleIdSet = new Set(mapDisplayCourses.map((c) => c.id));
     const forceIndividualIds = clusterScopeRef.current?.length
       ? new Set(clusterScopeRef.current)
       : undefined;
@@ -552,12 +555,14 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
       forceIndividualIds,
     };
     const { clusters, pinGroupSizeMap, clusteringEnabled } = resolveClusterDisplay(
-      visibleInBounds,
+      mapDisplayCourses,
       displayOptions,
     );
 
     syncClusterOverlays(map, clusters, LatLng, CustomOverlay);
-    setMapDisplayCount(visibleInBounds.length);
+    setMapDisplayCount(
+      hasSearch ? coursesRef.current.length : mapDisplayCourses.length,
+    );
 
     const selectedId = selectedCourseIdRef.current;
     const hoveredId = hoveredCourseIdRef.current;

@@ -1,0 +1,9 @@
+-- GolfMap Korea — course link enrichment updates
+-- Generated: 2026-06-19T03:59:31.577Z
+-- Source CSV: data/enrichment/course_links.csv
+-- Regenerate: npm run generate:course-links-sql
+--
+-- Run manually in Supabase SQL Editor (do not use service_role in scripts).
+-- Only non-empty homepage_url / booking_url / phone columns are updated.
+--
+-- No update statements (all rows have empty homepage_url, booking_url, and phone).

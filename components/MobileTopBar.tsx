@@ -1,13 +1,18 @@
 "use client";
 
+import { useRef, useState } from "react";
 import { SlidersHorizontal } from "lucide-react";
+import type { Course } from "@/types/course";
 import SearchBar from "@/components/SearchBar";
+import SearchSuggestions from "@/components/SearchSuggestions";
 
 interface MobileTopBarProps {
   query: string;
   onQueryChange: (query: string) => void;
   onFilterOpen: () => void;
   activeFilterCount: number;
+  suggestions: Course[];
+  onSuggestionSelect: (course: Course) => void;
 }
 
 export default function MobileTopBar({
@@ -15,17 +20,57 @@ export default function MobileTopBar({
   onQueryChange,
   onFilterOpen,
   activeFilterCount,
+  suggestions,
+  onSuggestionSelect,
 }: MobileTopBarProps) {
+  const [suggestionsOpen, setSuggestionsOpen] = useState(false);
+  const blurTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const showSuggestions =
+    suggestionsOpen && query.trim().length > 0 && suggestions.length > 0;
+
+  const handleSuggestionPick = (course: Course) => {
+    if (blurTimerRef.current) {
+      clearTimeout(blurTimerRef.current);
+      blurTimerRef.current = null;
+    }
+    onSuggestionSelect(course);
+    setSuggestionsOpen(false);
+  };
+
   return (
-    <div className="mobile-header shrink-0 bg-[#F3F2EA] px-3 pb-2 pt-1.5">
+    <div className="mobile-header relative z-[60] shrink-0 bg-[#F3F2EA] px-3 pb-2 pt-1.5">
       <div className="flex items-center gap-2">
-        <div className="min-w-0 flex-1">
+        <div className="relative min-w-0 flex-1">
           <SearchBar
             value={query}
-            onChange={onQueryChange}
+            onChange={(value) => {
+              onQueryChange(value);
+              setSuggestionsOpen(true);
+            }}
             placeholder="골프장명, 지역, 주소로 검색"
             variant="mobile"
+            onFocus={() => {
+              if (blurTimerRef.current) {
+                clearTimeout(blurTimerRef.current);
+                blurTimerRef.current = null;
+              }
+              setSuggestionsOpen(true);
+            }}
+            onBlur={() => {
+              blurTimerRef.current = setTimeout(() => {
+                setSuggestionsOpen(false);
+              }, 180);
+            }}
+            onClear={() => setSuggestionsOpen(false)}
           />
+          {showSuggestions && (
+            <SearchSuggestions
+              courses={suggestions}
+              onSelect={handleSuggestionPick}
+              onMouseDown={handleSuggestionPick}
+            />
+          )}
         </div>
         <button
           type="button"

@@ -1,0 +1,2 @@
+﻿id,name,homepage_url,booking_url,phone,source_url,note
+gc-60319bf1693c,인천그랜드컨트리클럽,,,,,예시 행 — URL/전화 입력 후 npm run generate:course-links-sql 실행

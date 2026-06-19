@@ -19,7 +19,9 @@ import CourseMap from "@/components/maps/CourseMap";
 import MobileFilterSheet from "@/components/MobileFilterSheet";
 import MobileTopBar from "@/components/MobileTopBar";
 import MobileTabBar from "@/components/MobileTabBar";
-import MobileBottomSheet from "@/components/MobileBottomSheet";
+import MobileBottomSheet, {
+  type MobileSheetSnap,
+} from "@/components/MobileBottomSheet";
 import {
   CourseCollectionsProvider,
   useFavorites,
@@ -271,7 +273,8 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
   const [center, setCenter] = useState<MapFocusTarget | null>(null);
   const [mapViewResetSignal, setMapViewResetSignal] = useState(0);
   const [sheetOpen, setSheetOpen] = useState(false);
-  const [mobileSheetExpanded, setMobileSheetExpanded] = useState(false);
+  const [mobileSheetSnap, setMobileSheetSnap] =
+    useState<MobileSheetSnap>("half");
 
   const searchFiltered = useMemo(
     () => filterCourses(courses, filters),
@@ -478,7 +481,7 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
       }
 
       if (options?.collapseSheet) {
-        setMobileSheetExpanded(false);
+        setMobileSheetSnap("collapsed");
       }
     },
     [],
@@ -552,8 +555,12 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
         setSheetOpen(false);
         return;
       }
-      if (mobileSheetExpanded) {
-        setMobileSheetExpanded(false);
+      if (mobileSheetSnap === "expanded") {
+        setMobileSheetSnap("half");
+        return;
+      }
+      if (mobileSheetSnap === "half") {
+        setMobileSheetSnap("collapsed");
         return;
       }
       if (isClusterScopeActive) {
@@ -569,7 +576,7 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
   }, [
     selectedId,
     sheetOpen,
-    mobileSheetExpanded,
+    mobileSheetSnap,
     clearSelection,
     isClusterScopeActive,
     clearClusterScope,
@@ -715,7 +722,7 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
       </div>
 
       {/* ── 모바일 ── */}
-      <div className="mobile-app fixed inset-x-0 bottom-0 top-11 z-0 flex flex-col overflow-hidden bg-app-warm md:hidden">
+      <div className="mobile-app fixed inset-x-0 bottom-0 top-11 z-0 flex flex-col overflow-hidden bg-[#F3F2EA] md:hidden">
         <MobileTopBar
           query={filters.query}
           onQueryChange={(query) => updateFilters({ query })}
@@ -725,9 +732,9 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
 
         <section
           aria-label="지도"
-          className="mobile-map-area relative min-h-0 flex-1 overflow-hidden px-3"
+          className="mobile-map-area relative min-h-0 flex-1 overflow-hidden px-3 pb-1"
         >
-          <div className="h-full overflow-hidden rounded-2xl border border-stone-200/50 shadow-card ring-1 ring-black/[0.03]">
+          <div className="h-full overflow-hidden rounded-2xl border border-stone-200/40 shadow-[0_2px_12px_rgba(0,0,0,0.06)] ring-1 ring-black/[0.02]">
             <CourseMap
               {...mapProps}
               mapLayout="mobile"
@@ -740,9 +747,8 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
         </section>
 
         <MobileBottomSheet
-          state={mobileSheetExpanded ? "expanded" : "collapsed"}
-          onExpand={() => setMobileSheetExpanded(true)}
-          onCollapse={() => setMobileSheetExpanded(false)}
+          snap={mobileSheetSnap}
+          onSnapChange={setMobileSheetSnap}
           title={mobileSheetTitle}
           count={listHeaderCount}
           selectedCourse={selectedCourse}
@@ -757,6 +763,12 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
           isShowingAllFilteredResults={isShowingAllFilteredResults}
           onShowMapBased={handleShowMapBased}
           onShowAllFilteredToggle={handleShowAllFiltered}
+          favoriteOnly={favoriteOnly}
+          visitedOnly={visitedOnly}
+          favoriteCount={favoriteCount}
+          visitedCount={visitedCount}
+          onToggleFavoriteOnly={handleToggleFavoriteOnly}
+          onToggleVisitedOnly={handleToggleVisitedOnly}
           {...listEmptyProps}
         />
 

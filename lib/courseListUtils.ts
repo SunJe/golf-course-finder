@@ -1,9 +1,12 @@
 import type { Course } from "@/types/course";
+import { sortCoursesForList } from "@/lib/courseSort";
 
-/** 왼쪽 리스트용 가나다순 정렬 */
+/** 왼쪽 리스트용 정렬 (priority course → 가나다순) */
 export function sortCoursesByName(courses: Course[]): Course[] {
-  return [...courses].sort((a, b) => a.name.localeCompare(b.name, "ko"));
+  return sortCoursesForList(courses);
 }
+
+export { normalizeCourseName, getCoursePriority } from "@/lib/courseSort";
 
 export interface KakaoLatLngBounds {
   getSouthWest: () => { getLat: () => number; getLng: () => number };

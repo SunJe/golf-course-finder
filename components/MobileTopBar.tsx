@@ -17,7 +17,7 @@ export default function MobileTopBar({
   activeFilterCount,
 }: MobileTopBarProps) {
   return (
-    <div className="mobile-header shrink-0 px-3 pb-2.5 pt-1.5">
+    <div className="mobile-header shrink-0 bg-[#F3F2EA] px-3 pb-2 pt-1.5">
       <div className="flex items-center gap-2">
         <div className="min-w-0 flex-1">
           <SearchBar

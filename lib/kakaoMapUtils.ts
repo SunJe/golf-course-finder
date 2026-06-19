@@ -9,6 +9,7 @@ import {
   MOBILE_FIT_GEO_PADDING,
   MOBILE_INITIAL_KAKAO_MAP_LEVEL,
   MOBILE_INITIAL_MAP_CENTER,
+  MOBILE_MAP_VISUAL_CENTER_LAT_OFFSET,
   SEARCH_RESULT_FOCUS_LEVEL,
 } from "@/lib/constants";
 
@@ -676,6 +677,23 @@ export function fitInitialNationwideView(
   return true;
 }
 
+/** fitBounds 후 모바일 시각적 중심 보정 (하단 sheet·북쪽 바다 고려) */
+export function applyMobileMapVisualCenterOffset(
+  map: KakaoMapInstance,
+  maps: KakaoMapsApi,
+  latOffset = MOBILE_MAP_VISUAL_CENTER_LAT_OFFSET,
+): void {
+  const bounds = map.getBounds?.();
+  if (!bounds) return;
+
+  const sw = bounds.getSouthWest();
+  const ne = bounds.getNorthEast();
+  const { LatLng } = maps;
+  const lat = (sw.getLat() + ne.getLat()) / 2 + latOffset;
+  const lng = (sw.getLng() + ne.getLng()) / 2;
+  map.setCenter(new LatLng(lat, lng));
+}
+
 /** 모바일 첫 화면: 전체 course bounds + UI/지리 padding */
 export function fitInitialMobileNationwideView(
   map: KakaoMapInstance,
@@ -690,7 +708,10 @@ export function fitInitialMobileNationwideView(
     padding,
     MOBILE_FIT_GEO_PADDING,
   );
-  if (fitted) return true;
+  if (fitted) {
+    applyMobileMapVisualCenterOffset(map, maps);
+    return true;
+  }
 
   const { LatLng } = maps;
   map.setCenter(

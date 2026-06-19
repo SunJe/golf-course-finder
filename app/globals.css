@@ -36,6 +36,7 @@ body {
 @media (max-width: 767px) {
   .mobile-app {
     overflow: hidden;
+    touch-action: manipulation;
   }
 
   .mobile-map-area {
@@ -48,23 +49,25 @@ body {
     flex-direction: column;
     overflow: hidden;
     pointer-events: auto;
+    will-change: height;
   }
 
-  .mobile-bottom-sheet[data-state="collapsed"] {
-    height: 45dvh;
-    max-height: 45dvh;
+  .sheet-drag-zone {
+    touch-action: none;
+    cursor: grab;
   }
 
-  .mobile-bottom-sheet[data-state="expanded"] {
-    height: min(70dvh, 560px);
-    max-height: min(70dvh, 560px);
+  .sheet-drag-zone:active {
+    cursor: grabbing;
   }
 
   .sheet-list {
     flex: 1 1 0%;
     min-height: 0;
-    overflow-y: auto;
     overscroll-behavior: contain;
+  }
+
+  .sheet-list.overflow-y-auto {
     -webkit-overflow-scrolling: touch;
     touch-action: pan-y;
   }

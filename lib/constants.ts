@@ -59,18 +59,39 @@ export const DESKTOP_INITIAL_MAP_CENTER = DEFAULT_MAP_CENTER;
 export const DESKTOP_INITIAL_KAKAO_MAP_LEVEL = INITIAL_KAKAO_MAP_LEVEL;
 
 /**
- * 모바일 fitBounds 실패 시 fallback (북·서쪽으로 약간 이동해 남해 바다 최소화)
+ * 모바일 fitBounds 실패 시 fallback — 남한 본토 중심 (북쪽 바다·북한 최소화)
  */
-export const MOBILE_INITIAL_MAP_CENTER = { lat: 36.55, lng: 127.0 };
+export const MOBILE_INITIAL_MAP_CENTER = { lat: 36.05, lng: 127.6 };
 export const MOBILE_INITIAL_KAKAO_MAP_LEVEL = 12;
 
-/** 모바일 초기 fitBounds UI padding (px) — 상단 검색·하단 바텀시트 고려 */
+/** 모바일 초기 fitBounds UI padding (px) — 상단 검색·하단 half sheet·탭바 고려 */
 export const MOBILE_INITIAL_MAP_PADDING = {
-  top: 80,
-  right: 20,
-  bottom: 148,
-  left: 20,
+  top: 64,
+  right: 24,
+  bottom: 248,
+  left: 24,
 } as const;
+
+/** half sheet 기준 padding (동적 relayout용) */
+export const MOBILE_HALF_SHEET_MAP_PADDING = {
+  top: 64,
+  right: 24,
+  bottom: 248,
+  left: 24,
+} as const;
+
+/** collapsed sheet 기준 padding — 지도 영역 확대 */
+export const MOBILE_COLLAPSED_SHEET_MAP_PADDING = {
+  top: 64,
+  right: 24,
+  bottom: 168,
+  left: 24,
+} as const;
+
+/**
+ * fitBounds 후 남한 본토가 시각적 중심에 오도록 위도 보정 (deg, 음수=남쪽)
+ */
+export const MOBILE_MAP_VISUAL_CENTER_LAT_OFFSET = -0.18;
 
 /** 데스크탑 초기 fitBounds padding (px) */
 export const DESKTOP_INITIAL_MAP_PADDING = {
@@ -82,13 +103,13 @@ export const DESKTOP_INITIAL_MAP_PADDING = {
 
 /**
  * 모바일 전국 fitBounds 지리적 여백 (deg)
- * 남쪽·동쪽(일본 방향) 바다를 줄이고 북부·서부 여유 확보
+ * 북쪽(북한·동해) 여백 축소, 남쪽·서쪽 여유 확보
  */
 export const MOBILE_FIT_GEO_PADDING = {
-  latSouth: 0.02,
-  latNorth: 0.22,
-  lngWest: 0.1,
-  lngEast: 0.03,
+  latSouth: 0.1,
+  latNorth: 0.04,
+  lngWest: 0.08,
+  lngEast: 0.02,
 } as const;
 
 /** 데스크탑/일반 fitBounds 지리적 여백 */
@@ -134,4 +155,4 @@ export const KOREA_BOUNDS = {
   minLng: 125.8,
   maxLng: 129.8,
 };
-
+

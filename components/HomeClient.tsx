@@ -701,6 +701,8 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
     mapViewResetSignal,
     initialViewportCourses: courses,
     searchKeyword: filters.query,
+    favoriteOnly,
+    visitedOnly,
     clusterScopeCourseIds: selectedClusterCourseIds,
     favoriteCourseIds,
     visitedCourseIds,

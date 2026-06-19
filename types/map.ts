@@ -70,6 +70,10 @@ export interface CourseMapBaseProps {
   onHoverCourseChange?: (courseId: string | null) => void;
   /** 검색어 — 있으면 클러스터 해제 */
   searchKeyword?: string;
+  /** 즐겨찾기만 보기 — 소량이면 cluster 해제 */
+  favoriteOnly?: boolean;
+  /** 가본 골프장만 보기 — 소량이면 cluster 해제 */
+  visitedOnly?: boolean;
   /** 클러스터 클릭 후 묶음 내 course id — 개별 pin 우선 */
   clusterScopeCourseIds?: string[] | null;
   /** localStorage 즐겨찾기 course id — 별도 heart overlay layer용 */

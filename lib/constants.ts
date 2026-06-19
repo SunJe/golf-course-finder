@@ -133,14 +133,19 @@ export const DETAIL_KAKAO_MAP_LEVEL = 6;
 export const MOBILE_SELECTED_MAP_LEVEL = 6;
 
 /**
- * 첫 화면(level 12)에서 확대 2단계(level 10)까지 cluster 허용.
- * level 9 이하(확대 3단계~)는 개별 pin만.
+ * 첫 화면(initial level)에서 확대 2단계까지 cluster 허용.
+ * 예: initial 12 → level 12·11·10 cluster, 9 이하 개별 pin.
  */
 export const CLUSTER_MAX_ZOOM_IN_STEPS = 2;
 
-/** cluster 허용 최소 level (= INITIAL - CLUSTER_MAX_ZOOM_IN_STEPS) */
+/** @deprecated getClusterMinLevel(initialLevel) 사용 */
 export const CLUSTER_MIN_LEVEL =
   INITIAL_KAKAO_MAP_LEVEL - CLUSTER_MAX_ZOOM_IN_STEPS;
+
+/** initial level 기준 cluster 해제 level (이 값 미만이면 개별 pin) */
+export function getClusterMinLevel(initialLevel: number): number {
+  return initialLevel - CLUSTER_MAX_ZOOM_IN_STEPS;
+}
 
 /** 필터/검색 결과가 이 값 이하면 클러스터 해제 */
 export const CLUSTER_MAX_DISPLAYED_COUNT = 30;

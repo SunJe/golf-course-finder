@@ -35,6 +35,7 @@ import {
   clusterGroupKey,
   createClusterBadgeElement,
   resolveClusterDisplay,
+  resolveInitialMapLevel,
   updateClusterBadgeElement,
   type ClusterGroup,
 } from "@/lib/kakaoClusterUtils";
@@ -129,6 +130,8 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     mapViewResetSignal = 0,
     initialViewportCourses = [],
     searchKeyword = "",
+    favoriteOnly = false,
+    visitedOnly = false,
     clusterScopeCourseIds = null,
     favoriteCourseIds = [],
     visitedCourseIds = [],
@@ -171,6 +174,11 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
   const coursesRef = useRef(courses);
   const initialViewportCoursesRef = useRef(initialViewportCourses);
   const searchKeywordRef = useRef(searchKeyword);
+  const favoriteOnlyRef = useRef(favoriteOnly);
+  const visitedOnlyRef = useRef(visitedOnly);
+  const initialMapLevelRef = useRef(
+    resolveInitialMapLevel(isMobile),
+  );
   const clusterScopeRef = useRef(clusterScopeCourseIds);
   const favoriteCourseIdsRef = useRef(favoriteCourseIds);
   const visitedCourseIdsRef = useRef(visitedCourseIds);
@@ -222,6 +230,8 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
   coursesRef.current = courses;
   initialViewportCoursesRef.current = initialViewportCourses;
   searchKeywordRef.current = searchKeyword;
+  favoriteOnlyRef.current = favoriteOnly;
+  visitedOnlyRef.current = visitedOnly;
   clusterScopeRef.current = clusterScopeCourseIds;
   favoriteCourseIdsRef.current = favoriteCourseIds;
   visitedCourseIdsRef.current = visitedCourseIds;
@@ -293,6 +303,15 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
 
   reportVisibleRef.current = reportVisibleCourses;
 
+  const captureInitialMapLevel = useCallback(() => {
+    const map = mapRef.current;
+    if (!map || isDetail) return;
+    const level = map.getLevel();
+    if (typeof level === "number" && Number.isFinite(level) && level > 0) {
+      initialMapLevelRef.current = level;
+    }
+  }, [isDetail]);
+
   const fitToCourses = useCallback(() => {
     const map = mapRef.current;
     const maps = mapsApiRef.current;
@@ -350,12 +369,13 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
       map.relayout?.();
       setTimeout(() => {
         map.relayout?.();
+        captureInitialMapLevel();
         reportVisibleRef.current();
         syncMarkerVisualsRef.current();
         isApplyingInitialViewRef.current = false;
       }, 80);
     });
-  }, [isDetail]);
+  }, [isDetail, captureInitialMapLevel]);
 
   const syncClusterOverlays = useCallback(
     (
@@ -544,14 +564,22 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
           isCourseInKakaoBounds(course, bounds, LatLng),
         );
     const level = map.getLevel();
+    const initialLevel = resolveInitialMapLevel(
+      isMobileRef.current,
+      initialMapLevelRef.current,
+    );
     const visibleIdSet = new Set(mapDisplayCourses.map((c) => c.id));
     const forceIndividualIds = clusterScopeRef.current?.length
       ? new Set(clusterScopeRef.current)
       : undefined;
     const displayOptions = {
       level,
+      initialLevel,
+      isMobile: isMobileRef.current,
       displayedCount: coursesRef.current.length,
-      hasSearchKeyword: Boolean(searchKeywordRef.current.trim()),
+      hasSearchKeyword: hasSearch,
+      favoriteOnly: favoriteOnlyRef.current,
+      visitedOnly: visitedOnlyRef.current,
       forceIndividualIds,
     };
     const { clusters, pinGroupSizeMap, clusteringEnabled } = resolveClusterDisplay(
@@ -792,6 +820,8 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     if (mode !== "kakao" || isDetail || userViewportTouchedRef.current) return;
     if (!isActiveLayoutRef.current) return;
 
+    initialMapLevelRef.current = resolveInitialMapLevel(isMobile);
+
     const timer = setTimeout(() => {
       applyInitialMapView();
       initialViewAppliedRef.current = true;
@@ -926,7 +956,7 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
   useEffect(() => {
     if (mode !== "kakao") return;
     syncMarkerVisuals();
-  }, [mode, searchKeyword, clusterScopeCourseIds, syncMarkerVisuals]);
+  }, [mode, searchKeyword, favoriteOnly, visitedOnly, clusterScopeCourseIds, syncMarkerVisuals]);
 
   useEffect(() => {
     if (mode !== "kakao") return;

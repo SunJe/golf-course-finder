@@ -79,9 +79,48 @@ export function rowsToCsv(
   return `${lines.join(lineBreak)}${lineBreak}`;
 }
 
+const WRITE_RETRY_MS = 1000;
+const WRITE_RETRY_COUNT = 5;
+
+function sleepSync(ms: number): void {
+  const end = Date.now() + ms;
+  while (Date.now() < end) {
+    /* wait */
+  }
+}
+
+function isEBUSY(error: unknown): boolean {
+  if (!(error instanceof Error)) return false;
+  const code = (error as NodeJS.ErrnoException).code;
+  return code === "EBUSY" || /EBUSY|resource busy or locked/i.test(error.message);
+}
+
 export function writeFileUtf8Bom(filePath: string, content: string): void {
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
-  fs.writeFileSync(filePath, `\uFEFF${content}`, "utf8");
+  const payload = `\uFEFF${content}`;
+  let lastError: unknown;
+
+  for (let attempt = 1; attempt <= WRITE_RETRY_COUNT; attempt += 1) {
+    try {
+      fs.writeFileSync(filePath, payload, "utf8");
+      return;
+    } catch (error) {
+      lastError = error;
+      if (!isEBUSY(error) || attempt === WRITE_RETRY_COUNT) {
+        break;
+      }
+      console.warn(
+        `[warn] EBUSY writing ${filePath} — retry ${attempt}/${WRITE_RETRY_COUNT} in ${WRITE_RETRY_MS}ms`,
+      );
+      sleepSync(WRITE_RETRY_MS);
+    }
+  }
+
+  const message =
+    lastError instanceof Error ? lastError.message : String(lastError);
+  throw new Error(
+    `Failed to write ${filePath} after ${WRITE_RETRY_COUNT} attempts: ${message}. Close Excel/VS Code preview and retry.`,
+  );
 }
 
 export function readFileUtf8(filePath: string): string {

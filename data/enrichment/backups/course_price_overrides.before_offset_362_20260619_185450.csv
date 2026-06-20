@@ -1,0 +1,2 @@
+﻿id,name,price_text,price_min,price_max,price_type,source_url,source,checked_at,note
+gc-60319bf1693c,인천그랜드컨트리클럽,"네이버 예약: 250,000원; 260,000원; 280,000원",250000,280000,reservation_price,https://search.naver.com/search.naver?where=nexearch&query=%EC%9D%B8%EC%B2%9C%EA%B7%B8%EB%9E%9C%EB%93%9C%EC%BB%A8%ED%8A%B8%EB%A6%AC%ED%81%B4%EB%9F%BD,naver,2026-06-19T05:54:37.568Z,네이버 플레이스 확인

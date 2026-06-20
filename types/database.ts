@@ -29,4 +29,10 @@ export interface GolfCourseRow {
   source: CourseSource | string | null;
   updated_at: string | null;
   created_at?: string | null;
+  price_text: string | null;
+  price_min: number | null;
+  price_max: number | null;
+  price_type: string | null;
+  price_source_url: string | null;
+  price_updated_at: string | null;
 }

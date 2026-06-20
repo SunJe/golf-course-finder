@@ -70,6 +70,16 @@ npm run collect:naver-price-candidates -- --offset 20 --limit 20 --scrape --dela
 # 50개씩
 npm run collect:naver-price-candidates -- --limit 50 --scrape --delay-ms 4000
 
+# 안전 배치 (점검 → 백업 → 수집 → 품질 리포트 → normalize → build)
+npm run collect:naver-safe-batch -- --limit 50
+
+# 점검만 (백업/수집/normalize/build 없음)
+npm run collect:naver-safe-batch -- --limit 50 --dry-run
+
+# 전체 수집 (first missing index부터 batch 반복)
+npm run collect:naver-safe-all -- --batch-size 50 --dry-run
+npm run collect:naver-safe-all -- --batch-size 50 --delay-ms 3000
+
 # 기존 후보 빈칸만 보강 (approve/review·기존 candidate 값 보존)
 npm run collect:naver-price-candidates -- --offset 0 --limit 20 --scrape --force --fill-missing-only --delay-ms 3000
 ```
@@ -121,7 +131,8 @@ REVIEW_ADMIN_ENABLED=true
 
 주의:
 
-- **로컬 전용** — `NODE_ENV=production`(Vercel 배포)에서는 페이지·API 모두 **404**
+- **로컬 전용** — `NODE_ENV=production` 또는 `VERCEL_ENV=production`(Vercel 배포)에서는 페이지·API 모두 **404**
+- **Vercel production 환경 변수에 `REVIEW_ADMIN_ENABLED`를 넣지 마세요** — 실수로 설정해도 production에서는 차단되지만, preview/staging 혼동을 피하기 위해 로컬 `.env.local`에만 두세요
 - `REVIEW_ADMIN_ENABLED=true` 없으면 접근 불가
 - iframe 삽입 없음 — source_url 새 탭 비교 방식
 - 난이도는 CSV에 **숫자만** 저장 (`9`, `2.3`). UI에서만 `/10` 표시
@@ -417,4 +428,205 @@ where id = 'gc-60319bf1693c';
 | unknown id | warning |
 | UTF-8 BOM | read 시 자동 처리 |
 | mojibake | warning |
+
+## 수동 검수 (manual_review_worklist.csv)
+
+전체 수집 완료 후:
+
+```bash
+npm run generate:manual-review-worklist
+npm run generate:enrichment-quality-report
+```
+
+- `data/enrichment/manual_review_worklist.csv` — **532 rows**, candidate + `manual_*` 입력칸
+- `manual_status` 기본값: `pending` (자동 ok 처리 없음)
+- `manual_*` 컬럼은 비워 둠 — 사람이 직접 입력
+- 정렬: suspected_mismatch → low confidence → 빈 필드 → pending
+
+### Excel / CSV 편집 주의
+
+- Excel에서 `9/10`이 **날짜**로 바뀔 수 있음 → `difficulty` / `manual_difficulty`는 **숫자만** (`9`, `2.3`)
+- Excel 저장 시 자동 변환 위험 — VS Code, LibreOffice CSV import, CSV-aware editor 권장
+- Excel 사용 시 difficulty 컬럼을 **숫자 형식**으로 확인
+- 가격 숫자 컬럼: 쉼표 없는 숫자 (`250000`). 원문은 `*_price_text`에
+
+이번 단계에서는 worklist를 **course_links / overrides / Supabase에 merge하지 않음**.
+
+## 직접 수정용 CSV (course_enrichment_edit.csv) — **메인 편집 파일**
+
+```bash
+npm run generate:course-enrichment-edit
+```
+
+- `data/enrichment/course_enrichment_edit.csv` — **532 rows**, 단일 편집용
+- `candidate_*` / `manual_*` 컬럼 **없음**
+- `change_name_to` — 최종 표시 이름 변경용 (비어 있으면 `name` 사용)
+- 크롤링 후보값이 `phone`, `homepage_url`, `price_*`, `difficulty`, `avg_score` 등에 이미 채워짐
+- 빈칸은 직접 수정
+- `needs_check=y` 인 row가 위로 정렬됨
+- **재생성해도 기존 id row는 사람이 수정한 값을 그대로 보존** (새 id만 후보값으로 추가)
+
+보조 파일 (삭제하지 않음, 직접 수정하지 않음):
+
+- `data/enrichment/manual_review_worklist.csv`
+
+나중 merge 기준: `course_enrichment_edit.csv` → `course_enrichment_upload.csv` / Supabase SQL
+
 | 빈 row (url/phone 없음) | SQL UPDATE skip |
+
+## 업로드용 CSV / Supabase SQL 생성
+
+```bash
+npm run generate:course-enrichment-upload
+```
+
+`course_enrichment_edit.csv`를 검증한 뒤 아래 파일을 생성합니다.
+
+| 파일 | 용도 |
+|------|------|
+| `course_enrichment_upload.csv` | 최종 표시 이름(`change_name_to` 반영) + 추적용 `original_name` |
+| `course_enrichment_update.sql` | Supabase `golf_courses` 전체 UPDATE (name/phone/homepage_url만) |
+| `course_enrichment_update_preview.sql` | 테스트용 상위 20건 |
+| `course_price_stats_upload.csv` | 가격/난이도/평균스코어 보관용 (DB 미반영) |
+
+### 이름 규칙
+
+- `change_name_to`가 비어 있지 않으면 **최종 표시/업로드용 name** = `change_name_to`
+- 비어 있으면 기존 `name` 사용
+- `naver_price_candidates.csv` 등 raw/candidate 파일은 **수정하지 않음**
+
+### SQL 반영 범위
+
+- **포함**: `name` (change_name_to 있을 때만), `phone`, `homepage_url`
+- **제외**: `booking_url`, `price_*`, `difficulty`, `avg_score`
+- SQL은 **자동 실행하지 않음** — Supabase SQL Editor에서 직접 확인 후 실행
+
+### Vercel / 로컬 확인 방법
+
+앱이 build 시 Supabase에서 course를 읽어 정적 페이지를 생성하므로, **Supabase SQL만 실행해도 Vercel 화면이 바로 바뀌지 않을 수 있습니다.** 데이터 반영 후 **Vercel redeploy**가 필요할 수 있습니다.
+
+**로컬에서 먼저 확인:**
+
+1. Supabase SQL Editor에서 `course_enrichment_update_preview.sql` 실행
+2. `.env.local`이 Supabase를 바라보는지 확인
+3. `npm run build`
+4. `npm run start` 또는 `npm run dev`
+5. 변경된 course 상세 페이지에서 이름/전화번호/홈페이지 확인
+
+**Vercel에서 확인:**
+
+1. Supabase SQL Editor에서 SQL 실행 (preview → full)
+2. Vercel redeploy 또는 git push
+3. 배포 URL에서 해당 골프장 검색/상세 페이지 확인
+
+### Preview SQL 적용 후 체크리스트
+
+Supabase에 **20건만** 먼저 반영할 때 아래 순서로 확인합니다.
+
+- [ ] Supabase SQL Editor에서 `course_enrichment_update_preview.sql` **만** 실행 (full SQL은 아직 실행하지 않음)
+- [ ] 로컬 `.env.local`이 대상 Supabase를 바라보는지 확인
+- [ ] `npm run build`
+- [ ] `npm run start` 또는 `npm run dev`
+- [ ] preview에 포함된 골프장 **3곳** 검색 (예: 드림파크CC, 뉴스프링빌CC, 가산CC)
+- [ ] 목록·상세 페이지에서 **이름 변경**, **전화번호**, **홈페이지** 링크가 기대값과 일치하는지 확인
+- [ ] 문제 없으면 `course_enrichment_update.sql` 전체 실행 검토
+- [ ] Vercel 반영 시: SQL 실행 후 **redeploy** 또는 git push (SSG이므로 DB만 바꿔도 배포 화면은 즉시 안 바뀔 수 있음)
+
+**이번 단계에서 DB에 넣지 않음:** `difficulty`, `avg_score`, `booking_url`
+
+## 요금(price) DB 반영
+
+### 1. 컬럼 추가 (최초 1회)
+
+Supabase SQL Editor에서 수동 실행:
+
+```bash
+# 파일: data/enrichment/add_price_columns.sql
+```
+
+추가 컬럼: `price_text`, `price_min`, `price_max`, `price_type`, `price_source_url`, `price_updated_at`
+
+### 2. 가격 UPDATE SQL 생성
+
+```bash
+npm run generate:course-price-update
+```
+
+| 파일 | 내용 |
+|------|------|
+| `course_price_update_preview.sql` | 가격 있는 row 상위 20건 |
+| `course_price_update.sql` | 가격 있는 전체 row (현재 ~181건) |
+
+입력: `course_enrichment_edit.csv` (네이버 예약 패널 가격만)
+
+### 3. 테스트 순서
+
+1. `add_price_columns.sql` 실행
+2. `course_price_update_preview.sql` 실행
+3. `.next` 삭제 후 `npm run build` → `npm run dev`
+4. 카드/상세 **예약가** 표시, 가격대 필터 확인
+5. 문제 없으면 `course_price_update.sql` 전체 실행
+6. Vercel redeploy
+
+가격 없는 골프장: **요금 정보 준비 중**
+
+### 가격 필터 정책 (앱)
+
+| 항목 | 정책 |
+|------|------|
+| 필터 기준 | Supabase `price_min` only (`weekdayGreenFeeMin` / mock 미사용) |
+| 필터 미선택 | 가격 없는 골프장 **포함** |
+| 필터 선택 | `price_min` 없으면 **제외** |
+| 다중 선택 | 같은 가격 그룹 **OR** (예: 10~15 + 15~20 → 10만 초과 20만 이하) |
+| 다른 필터와 | **AND** (지역 OR × 가격 OR × …) |
+| `price_max` | 카드/상세 **표시용**, 필터 기준 아님 |
+| `price_text` | 상세 **원문 표시용** |
+| 데이터 출처 | 네이버 예약 패널 후보값 — **변동 가능**, 확정가 아님 |
+
+**UI 라벨:** 데스크탑 `최저 예약가` / 모바일 필터 시트 `예약가`
+
+**옵션:** 전체 · 10만원 이하 · 10~15만원 · 15~20만원 · 20만원 이상
+
+```bash
+npm run verify:price-filter
+```
+
+### 필터 중복 선택
+
+지역·홀수·운영·가격대·태그 모두 **다중 선택** (칩 toggle). 같은 그룹 OR, 그룹 간 AND.
+
+### SQL 했는데 화면이 안 바뀔 때
+
+1. **Supabase에 실제 반영됐는지 먼저 확인** (Table Editor 또는 아래 쿼리)
+   ```sql
+   select id, name, phone, homepage_url
+   from public.golf_courses
+   where id = 'gc-1f14d0ca89b4';
+   ```
+   `name`이 `가산CC`면 DB 반영은 된 것입니다.
+
+2. **실행 순서가 중요합니다** — 반드시 이 순서:
+   - ① Supabase SQL 실행
+   - ② **`.next` 폴더 삭제** (예전 build 캐시 제거)
+   - ③ `npm run build`
+   - ④ `npm run start` 또는 `npm run dev` (**이전 서버 프로세스는 종료 후 재실행**)
+
+   PowerShell:
+   ```powershell
+   Remove-Item -Recurse -Force .next
+   npm run build
+   npm run start
+   ```
+
+3. **`npm run dev`도 예전 `.next`를 재사용할 수 있습니다.** SQL만 실행하고 옛 `.next`가 남아 있으면 dev에서도 옛 이름(예: 마이다스 구미 골프아카데미)이 보일 수 있습니다. Supabase Table Editor에서 `name`이 이미 바뀌었는데 앱만 안 바뀌면 **거의 항상 이 캐시 문제**입니다.
+
+4. **`npm run start`는 `.next` 빌드 결과를 씁니다.** SQL 이후 rebuild 없이 start하면 반영되지 않습니다.
+
+5. **Vercel URL**을 보고 있다면 로컬 rebuild만으로는 안 바뀝니다 → redeploy 필요.
+
+6. **데이터 소스 확인:** 앱은 Supabase `public.golf_courses`만 읽습니다 (mock은 env 없을 때만). 로컬 CSV는 앱 런타임에 사용하지 않습니다.
+
+7. **검색어 주의:** `가산`은 이름뿐 아니라 **주소의 `가산면`**도 매칭합니다. 그래서 `푸른솔 골프클럽 포천`(포천시 가산면)도 함께 나올 수 있습니다. 이름 변경 확인은 **`가산CC`로 검색**하거나 `/courses/gc-1f14d0ca89b4` 상세 페이지를 직접 여세요.
+```bash
+npx tsx scripts/checkPreviewCourses.ts
+```

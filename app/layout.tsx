@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
+import { HomeResetProvider } from "@/contexts/HomeResetContext";
 
 export const metadata: Metadata = {
   title: "GolfMap Korea — 전국 골프장 지도 검색",
@@ -16,8 +17,10 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className="min-h-screen bg-white text-gray-900 antialiased max-md:bg-app-warm md:bg-white">
-        <Header />
-        <main>{children}</main>
+        <HomeResetProvider>
+          <Header />
+          <main>{children}</main>
+        </HomeResetProvider>
       </body>
     </html>
   );

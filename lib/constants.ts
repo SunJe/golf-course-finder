@@ -24,14 +24,18 @@ export interface PriceRangeOption {
   max: number;
 }
 
-/** 주중 그린피(weekdayGreenFeeMin) 기준 가격대 필터 */
+/** 예약가(price_min) 기준 가격대 필터 옵션 */
 export const PRICE_RANGES: PriceRangeOption[] = [
   { label: "전체", min: 0, max: Infinity },
-  { label: "10만원 이하", min: 0, max: 100000 },
-  { label: "10~15만원", min: 100000, max: 150000 },
-  { label: "15~20만원", min: 150000, max: 200000 },
-  { label: "20만원 이상", min: 200000, max: Infinity },
+  { label: "10만원 이하", min: 0, max: 100_000 },
+  { label: "10~15만원", min: 100_000, max: 150_000 },
+  { label: "15~20만원", min: 150_000, max: 200_000 },
+  { label: "20만원 이상", min: 200_000, max: Infinity },
 ];
+
+/** 필터 UI 그룹 라벨 (데스크탑: 최저 예약가 / 모바일: 예약가) */
+export const PRICE_FILTER_GROUP_LABEL = "최저 예약가";
+export const PRICE_FILTER_GROUP_LABEL_MOBILE = "예약가";
 
 export const TAG_OPTIONS = [
   "야간가능",

@@ -3,8 +3,12 @@
 import Link from "next/link";
 import { MapPin, ExternalLink, ChevronRight } from "lucide-react";
 import type { Course } from "@/types/course";
-import { formatHoleCount, isPriceAvailable } from "@/lib/courseDisplay";
-import { formatGreenFeeShort } from "@/lib/format";
+import {
+  formatCardReservationPriceParts,
+  formatDetailReservationPriceSummary,
+  hasReservationPrice,
+} from "@/lib/coursePrice";
+import { formatHoleCount } from "@/lib/courseDisplay";
 import {
   getKakaoMapSearchUrl,
   getNaverMapSearchUrl,
@@ -35,7 +39,8 @@ export default function CourseCard({
   onSelect,
   onHover,
 }: CourseCardProps) {
-  const hasWeekdayPrice = isPriceAvailable(course.weekdayGreenFeeMin);
+  const hasPrice = hasReservationPrice(course);
+  const priceParts = formatCardReservationPriceParts(course);
 
   return (
     <article
@@ -86,16 +91,14 @@ export default function CourseCard({
 
           <div className="shrink-0 text-right">
             <span className="text-[11px] font-medium text-stone-400">
-              그린피
+              {priceParts.label}
             </span>
             <p
               className={`mt-0.5 text-lg font-bold leading-tight ${
-                hasWeekdayPrice ? "text-brand-800" : "text-sm font-medium text-stone-400"
+                hasPrice ? "text-brand-800" : "text-sm font-medium text-stone-400"
               }`}
             >
-              {hasWeekdayPrice
-                ? formatGreenFeeShort(course.weekdayGreenFeeMin)
-                : "정보 없음"}
+              {priceParts.value}
             </p>
           </div>
         </div>

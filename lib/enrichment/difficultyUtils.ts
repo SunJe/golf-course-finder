@@ -91,3 +91,46 @@ export function normalizeReviewDifficultyInput(raw: string): {
   }
   return { difficulty: parsed.difficulty };
 }
+
+/**
+ * Normalize an existing CSV cell. Preserves original in difficultyText when converting slash format.
+ */
+export function normalizeDifficultyField(
+  value: string,
+  existingText = "",
+): ParsedDifficulty & { changed: boolean } {
+  const trimmed = value.trim();
+  const textTrimmed = existingText.trim();
+
+  if (!trimmed) {
+    return {
+      difficulty: "",
+      difficultyText: textTrimmed,
+      changed: false,
+    };
+  }
+
+  if (isDifficultySlashFormat(trimmed)) {
+    const parsed = parseDifficultyRaw(trimmed);
+    return {
+      difficulty: parsed.difficulty,
+      difficultyText: textTrimmed || parsed.difficultyText || trimmed,
+      changed: parsed.difficulty !== trimmed || Boolean(parsed.difficultyText),
+    };
+  }
+
+  const parsed = parseDifficultyRaw(trimmed);
+  if (parsed.difficulty) {
+    return {
+      difficulty: parsed.difficulty,
+      difficultyText: textTrimmed || parsed.difficultyText,
+      changed: parsed.difficulty !== trimmed,
+    };
+  }
+
+  return {
+    difficulty: "",
+    difficultyText: textTrimmed || trimmed,
+    changed: trimmed !== "" && !textTrimmed,
+  };
+}

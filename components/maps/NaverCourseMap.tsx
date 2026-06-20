@@ -8,7 +8,6 @@ import { loadNaverMaps, isNaverConfigured } from "@/lib/naverLoader";
 import {
   DEFAULT_MAP_CENTER,
   DEFAULT_MAP_ZOOM,
-  SELECTED_MAP_ZOOM,
 } from "@/lib/constants";
 import { formatGreenFeeShort } from "@/lib/format";
 import { resolveCourseMapBindings } from "@/lib/courseMapBindings";
@@ -164,7 +163,6 @@ export default function NaverCourseMap(props: CourseMapBaseProps) {
     const sel = courses.find((c) => c.id === selectedCourseId);
     if (sel) {
       map.panTo(new LatLng(sel.latitude, sel.longitude));
-      if (map.getZoom() < SELECTED_MAP_ZOOM) map.setZoom(SELECTED_MAP_ZOOM);
     }
   }, [mode, selectedCourseId, courses]);
 

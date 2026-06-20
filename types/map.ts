@@ -28,7 +28,7 @@ export interface NearbyPlace {
 export interface MapFocusTarget {
   lat: number;
   lng: number;
-  /** 지정 시 해당 level로 이동 (모바일 카드 선택 등) */
+  /** 지정 시 해당 level로 이동 (검색 1건 포커스 등). 미지정 시 zoom 유지 panTo */
   level?: number;
   /** 디버그/검증용 — 포커스 대상 course id */
   courseId?: string;
@@ -85,6 +85,8 @@ export interface CourseMapBaseProps {
   /** collection 필터 ON 시 fitBounds 대상 course id */
   fitToCourseIds?: string[];
   fitToCourseIdsSignal?: number;
+  /** detail 페이지: 현재 골프장 id — marker 강조·근처 pin 구분 */
+  detailPrimaryCourseId?: string | null;
   /** @deprecated selectedCourseId 와 동일 — 하위 호환 */
   selectedId?: string | null;
   /** @deprecated onSelectCourse(id) 대신 Course 객체 — 하위 호환 */

@@ -21,6 +21,8 @@ interface MapFallbackProps {
   className?: string;
   maxVisibleMarkers?: number;
   onClearSelection?: () => void;
+  detailPrimaryCourseId?: string | null;
+  hoveredCourseId?: string | null;
 }
 
 const DEFAULT_MESSAGES: Record<MapProvider, string> = {
@@ -40,6 +42,8 @@ export default function MapFallback({
   className = "",
   maxVisibleMarkers = DEFAULT_MAX_MARKERS,
   onClearSelection,
+  detailPrimaryCourseId = null,
+  hoveredCourseId = null,
 }: MapFallbackProps) {
   const selected = courses.find((c) => c.id === selectedCourseId);
   const selectedPos = selected
@@ -114,7 +118,9 @@ export default function MapFallback({
 
       {visibleCourses.map((course) => {
         const pos = projectToPercent(course.latitude, course.longitude);
-        const isSel = course.id === selectedCourseId;
+        const isPrimary =
+          course.id === (detailPrimaryCourseId ?? selectedCourseId);
+        const isHovered = course.id === hoveredCourseId && !isPrimary;
         return (
           <button
             key={course.id}
@@ -123,12 +129,12 @@ export default function MapFallback({
             style={{
               left: `${pos.left}%`,
               top: `${pos.top}%`,
-              zIndex: isSel ? 30 : 10,
+              zIndex: isPrimary ? 30 : isHovered ? 25 : 10,
             }}
             className="group absolute -translate-x-1/2 -translate-y-full focus:outline-none"
             aria-label={course.name}
           >
-            {isSel ? (
+            {isPrimary ? (
               <span className="flex scale-125 flex-col items-center transition-transform">
                 <span className="flex items-center gap-1 rounded-full border-2 border-white bg-brand-600 px-2.5 py-1 text-xs font-bold text-white shadow-lg">
                   <Flag className="h-3.5 w-3.5" />
@@ -137,8 +143,18 @@ export default function MapFallback({
                 <span className="-mt-0.5 h-2.5 w-2.5 rotate-45 border-b-2 border-r-2 border-white bg-brand-600" />
               </span>
             ) : (
-              <span className="flex flex-col items-center transition-transform group-hover:scale-110">
-                <span className="h-3 w-3 rounded-full border-2 border-white bg-brand-500 shadow-md group-hover:bg-brand-600" />
+              <span
+                className={`flex flex-col items-center transition-transform ${
+                  isHovered ? "scale-125" : "group-hover:scale-110"
+                }`}
+              >
+                <span
+                  className={`h-3 w-3 rounded-full border-2 border-white shadow-md ${
+                    isHovered
+                      ? "bg-orange-500"
+                      : "bg-orange-400 group-hover:bg-orange-500"
+                  }`}
+                />
               </span>
             )}
           </button>

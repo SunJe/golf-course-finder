@@ -34,23 +34,30 @@ export interface Course {
   businessStatus?: string;
   source: CourseSource;
   updatedAt: string;
+  /** Naver reservation price (from enrichment CSV → Supabase) */
+  priceText?: string;
+  priceMin?: number;
+  priceMax?: number;
+  priceType?: string;
+  priceSourceUrl?: string;
+  priceUpdatedAt?: string;
 }
 
-/** UI 필터 상태 */
+/** UI 필터 상태 — 그룹 내 OR, 그룹 간 AND */
 export interface CourseFilters {
   query: string;
-  region: string;
-  holeCount: string;
-  courseType: string;
-  priceRange: string;
+  regions: string[];
+  holeCounts: string[];
+  courseTypes: string[];
+  priceRanges: string[];
   tags: string[];
 }
 
 export const EMPTY_FILTERS: CourseFilters = {
   query: "",
-  region: "전체",
-  holeCount: "전체",
-  courseType: "전체",
-  priceRange: "전체",
+  regions: [],
+  holeCounts: [],
+  courseTypes: [],
+  priceRanges: [],
   tags: [],
 };

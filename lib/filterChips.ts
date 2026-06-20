@@ -1,4 +1,5 @@
 import type { CourseFilters } from "@/types/course";
+import { PRICE_RANGES } from "@/lib/constants";
 
 export interface FilterChip {
   key: string;
@@ -9,17 +10,17 @@ export interface FilterChip {
 export function getActiveFilterChips(filters: CourseFilters): FilterChip[] {
   const chips: FilterChip[] = [];
 
-  if (filters.region !== "전체") {
-    chips.push({ key: "region", label: filters.region });
+  for (const region of filters.regions) {
+    chips.push({ key: `region-${region}`, label: region });
   }
-  if (filters.holeCount !== "전체") {
-    chips.push({ key: "holeCount", label: filters.holeCount });
+  for (const holeCount of filters.holeCounts) {
+    chips.push({ key: `hole-${holeCount}`, label: holeCount });
   }
-  if (filters.courseType !== "전체") {
-    chips.push({ key: "courseType", label: filters.courseType });
+  for (const courseType of filters.courseTypes) {
+    chips.push({ key: `type-${courseType}`, label: courseType });
   }
-  if (filters.priceRange !== "전체") {
-    chips.push({ key: "priceRange", label: filters.priceRange });
+  for (const priceRange of filters.priceRanges) {
+    chips.push({ key: `price-${priceRange}`, label: priceRange });
   }
   for (const tag of filters.tags) {
     chips.push({ key: `tag-${tag}`, label: tag });
@@ -27,3 +28,8 @@ export function getActiveFilterChips(filters: CourseFilters): FilterChip[] {
 
   return chips;
 }
+
+/** 가격대 필터 옵션 (`전체` 제외) */
+export const FILTER_PRICE_OPTIONS = PRICE_RANGES.filter(
+  (range) => range.label !== "전체",
+).map((range) => range.label);

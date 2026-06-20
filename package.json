@@ -27,7 +27,16 @@
     "merge:approved-naver-contacts": "tsx scripts/mergeApprovedNaverContactLinks.ts",
     "merge:approved-naver-prices": "tsx scripts/mergeApprovedNaverPrices.ts",
     "merge:approved-naver-stats": "tsx scripts/mergeApprovedNaverCourseStats.ts",
-    "normalize:naver-stats": "tsx scripts/normalizeNaverStatsCsv.ts"
+    "normalize:naver-stats": "tsx scripts/normalizeNaverStatsCsv.ts",
+    "collect:naver-safe-batch": "tsx scripts/runNaverSafeBatch.ts",
+    "collect:naver-safe-all": "tsx scripts/collectNaverSafeAll.ts",
+    "generate:manual-review-worklist": "tsx scripts/generateManualReviewWorklist.ts",
+    "generate:enrichment-quality-report": "tsx scripts/generateEnrichmentQualityReport.ts",
+    "generate:course-enrichment-edit": "tsx scripts/generateCourseEnrichmentEditCsv.ts",
+    "generate:course-enrichment-upload": "tsx scripts/generateCourseEnrichmentUpload.ts",
+    "generate:course-price-update": "tsx scripts/generateCoursePriceUpdateSql.ts",
+    "verify:map-search-name": "tsx scripts/verifyMapSearchName.ts",
+    "verify:price-filter": "tsx scripts/verifyPriceFilter.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",

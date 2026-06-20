@@ -1,5 +1,6 @@
 import type { Course } from "@/types/course";
 import type { GolfCourseRow } from "@/types/database";
+import { unstable_noStore as noStore } from "next/cache";
 import { mapGolfCourseRowToCourse } from "@/lib/courseMapper";
 import { MOCK_COURSES } from "@/lib/mock";
 import { getSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
@@ -31,6 +32,7 @@ function mapRows(rows: GolfCourseRow[]): Course[] {
 }
 
 async function fetchCoursesFromSupabase(): Promise<Course[] | null> {
+  noStore();
   const supabase = getSupabaseClient();
   if (!isSupabaseConfigured || !supabase) {
     warnFallback("Supabase env not configured");
@@ -64,6 +66,7 @@ export async function getCourses(): Promise<Course[]> {
 }
 
 export async function getCourseById(id: string): Promise<Course | undefined> {
+  noStore();
   const supabase = getSupabaseClient();
   if (isSupabaseConfigured && supabase) {
     const { data, error } = await supabase
@@ -86,6 +89,7 @@ export async function getCourseById(id: string): Promise<Course | undefined> {
 }
 
 export async function getAllCourseIds(): Promise<string[]> {
+  noStore();
   const supabase = getSupabaseClient();
   if (isSupabaseConfigured && supabase) {
     const { data, error } = await supabase.from("golf_courses").select("id");

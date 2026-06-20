@@ -74,6 +74,12 @@ export function mapGolfCourseRowToCourse(row: GolfCourseRow): Course {
     businessStatus: toOptionalString(row.business_status),
     source: toCourseSource(row.source),
     updatedAt: toUpdatedAt(row.updated_at),
+    priceText: toOptionalString(row.price_text),
+    priceMin: toOptionalNumber(row.price_min),
+    priceMax: toOptionalNumber(row.price_max),
+    priceType: toOptionalString(row.price_type),
+    priceSourceUrl: toOptionalString(row.price_source_url),
+    priceUpdatedAt: toOptionalString(row.price_updated_at),
   };
 }
 
@@ -106,5 +112,11 @@ export function mapCourseToGolfCourseRow(course: Course): GolfCourseRow {
     business_status: course.businessStatus ?? null,
     source: course.source,
     updated_at: course.updatedAt,
+    price_text: course.priceText ?? null,
+    price_min: course.priceMin ?? null,
+    price_max: course.priceMax ?? null,
+    price_type: course.priceType ?? null,
+    price_source_url: course.priceSourceUrl ?? null,
+    price_updated_at: course.priceUpdatedAt ?? null,
   };
 }

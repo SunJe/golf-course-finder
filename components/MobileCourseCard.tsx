@@ -2,7 +2,11 @@
 
 import Link from "next/link";
 import type { Course } from "@/types/course";
-import { formatHoleCount, isPriceAvailable } from "@/lib/courseDisplay";
+import { formatHoleCount } from "@/lib/courseDisplay";
+import {
+  formatCardReservationPriceParts,
+  hasReservationPrice,
+} from "@/lib/coursePrice";
 import FavoriteButton from "@/components/FavoriteButton";
 import VisitedButton from "@/components/VisitedButton";
 
@@ -18,16 +22,19 @@ const TYPE_STYLES: Record<string, string> = {
   기타: "bg-stone-100 text-stone-600",
 };
 
-function formatCardPrice(value?: number): string {
-  if (!isPriceAvailable(value)) return "요금 정보 준비 중";
-  return `₩${value!.toLocaleString()}`;
+function formatCardPrice(course: Course): string {
+  const { label, value } = formatCardReservationPriceParts(course);
+  if (value === "요금 정보 준비 중") return value;
+  if (label === "최저 예약가") return `최저 ${value}`;
+  if (label === "예약가") return `예약가 ${value}`;
+  return value;
 }
 
 export default function MobileCourseCard({
   course,
   selected = false,
 }: MobileCourseCardProps) {
-  const hasWeekdayPrice = isPriceAvailable(course.weekdayGreenFeeMin);
+  const hasPrice = hasReservationPrice(course);
   const locationLabel = [course.city, course.region].filter(Boolean).join(" · ");
 
   return (
@@ -67,10 +74,10 @@ export default function MobileCourseCard({
           </div>
           <span
             className={`max-w-[108px] shrink-0 truncate text-right text-[11px] font-semibold leading-none ${
-              hasWeekdayPrice ? "text-brand-900" : "font-normal text-stone-400"
+              hasPrice ? "text-brand-900" : "font-normal text-stone-400"
             }`}
           >
-            {formatCardPrice(course.weekdayGreenFeeMin)}
+            {formatCardPrice(course)}
           </span>
         </div>
       </Link>

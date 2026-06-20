@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getCourseById, getAllCourseIds } from "@/lib/courseRepository";
+import { getCourseById, getAllCourseIds, getCourses } from "@/lib/courseRepository";
 import { getCourseDescription } from "@/lib/courseDisplay";
+import { getNearbyCourses } from "@/lib/nearbyCourses";
 import CourseDetail from "@/components/CourseDetail";
 
 export async function generateStaticParams() {
@@ -29,5 +30,9 @@ export default async function CourseDetailPage({
 }) {
   const course = await getCourseById(params.id);
   if (!course) notFound();
-  return <CourseDetail course={course} />;
+
+  const allCourses = await getCourses();
+  const nearbyCourses = getNearbyCourses(allCourses, course, 6);
+
+  return <CourseDetail course={course} nearbyCourses={nearbyCourses} />;
 }

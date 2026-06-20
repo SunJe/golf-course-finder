@@ -780,6 +780,28 @@ export function focusCourseOnMap(
   return true;
 }
 
+/** 카드/마커 선택 — panTo만, zoom level 유지 */
+export function panToCourseWithoutZoom(
+  map: KakaoMapInstance | null | undefined,
+  maps: KakaoMapsApi | null | undefined,
+  target: { lat: number; lng: number },
+): boolean {
+  if (!map || !maps) return false;
+  if (!Number.isFinite(target.lat) || !Number.isFinite(target.lng)) {
+    return false;
+  }
+
+  const { LatLng } = maps;
+  const pos = new LatLng(target.lat, target.lng);
+  const currentLevel = map.getLevel();
+
+  map.panTo(pos);
+  map.setLevel(currentLevel);
+  map.relayout?.();
+
+  return true;
+}
+
 
 
 function escapeHtml(text: string): string {

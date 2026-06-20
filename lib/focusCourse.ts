@@ -1,6 +1,5 @@
 import type { Course } from "@/types/course";
 import type { MapFocusTarget } from "@/types/map";
-import { MOBILE_SELECTED_MAP_LEVEL } from "@/lib/constants";
 
 export function isValidCourseCoordinates(
   course: Pick<Course, "latitude" | "longitude">,
@@ -15,14 +14,14 @@ export function isValidCourseCoordinates(
 
 export function createMapFocusTarget(
   course: Pick<Course, "id" | "latitude" | "longitude" | "name">,
-  level: number = MOBILE_SELECTED_MAP_LEVEL,
+  level?: number,
 ): MapFocusTarget | null {
   if (!isValidCourseCoordinates(course)) return null;
 
   return {
     lat: course.latitude,
     lng: course.longitude,
-    level,
+    ...(level != null ? { level } : {}),
     courseId: course.id,
     focusToken: Date.now(),
   };

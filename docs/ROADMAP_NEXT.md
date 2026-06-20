@@ -113,3 +113,25 @@
 - **완료 기준**:
   - 운영 체크리스트 완료 + 주요 흐름 QA ✅
 
+---
+
+## 상세페이지 2차 UX — 완료 / TODO
+
+### 완료 (2026-06)
+
+- Hero CTA: 네이버 검색 버튼 (`lib/externalSearchLinks.ts`)
+- 요금 섹션: 출처 확인 제거 → 네이버지도 연결 `예약하기` 버튼
+- 위치 지도: 현재 + 근처 골프장 marker (primary blue / nearby orange)
+- 리스트 ↔ 지도 hover 연동
+- 근처 맛집 카테고리 → 네이버지도 검색 chip
+- Hero fallback (`CourseHeroFallback` CSS gradient)
+- 주소 복사, 거리 표시(haversine), 정보 수정 제보 mailto
+
+### TODO (다음 단계)
+
+- **Hero 이미지**: `homepage_url` og:image 추출, 공식 대표 이미지 수집, `image_url` 컬럼·저작권 검토
+- **맛집 데이터**: 네이버/Kakao POI 직접 수집·DB 저장 (`NearbyPlace` 타입 활용)
+- **모바일 sticky CTA**: 하단 고정 전화 / 네이버지도 / 예약하기 바
+- **정보 제보**: mailto → 폼/Notion/Supabase 제보 테이블
+- **Naver 지도 provider**: 상세 nearby marker 색상·hover (현재 Kakao 우선 구현)
+

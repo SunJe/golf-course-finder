@@ -1,18 +1,29 @@
 import type { Course } from "@/types/course";
+import { normalizeCourseNameForMapSearch } from "@/lib/mapSearchName";
 
-/** 외부 지도 검색어 — 골프장명 우선, 없으면 주소 fallback */
+/** 외부 검색/지도용 plain query — 괄호 제거 이름, 없으면 주소 fallback */
+export function buildExternalSearchQuery(course: Course): string {
+  const searchText = normalizeCourseNameForMapSearch(course.name ?? "");
+  if (searchText) return searchText;
+  return course.address?.trim() ?? "";
+}
+
+/** @deprecated use buildExternalSearchQuery */
 export function buildExternalMapQuery(course: Course): string {
-  const name = course.name?.trim();
-  if (name) return encodeURIComponent(name);
-  return encodeURIComponent(course.address?.trim() ?? "");
+  return encodeURIComponent(buildExternalSearchQuery(course));
 }
 
-/** 카카오맵 장소 검색 URL (이름 기준) */
+/** 네이버 지도 장소 검색 URL (raw query) */
+export function getNaverMapSearchUrlFromQuery(query: string): string {
+  return `https://map.naver.com/p/search/${encodeURIComponent(query)}`;
+}
+
+/** 카카오맵 장소 검색 URL */
 export function getKakaoMapSearchUrl(course: Course): string {
-  return `https://map.kakao.com/link/search/${buildExternalMapQuery(course)}`;
+  return `https://map.kakao.com/link/search/${encodeURIComponent(buildExternalSearchQuery(course))}`;
 }
 
-/** 네이버 지도 장소 검색 URL (이름 기준) */
+/** 네이버 지도 장소 검색 URL */
 export function getNaverMapSearchUrl(course: Course): string {
-  return `https://map.naver.com/p/search/${buildExternalMapQuery(course)}`;
+  return getNaverMapSearchUrlFromQuery(buildExternalSearchQuery(course));
 }

@@ -5,7 +5,6 @@ import type { Course, CourseFilters } from "@/types/course";
 import type { MapFocusTarget } from "@/types/map";
 import { EMPTY_FILTERS } from "@/types/course";
 import { filterCourses, countActiveFilters } from "@/lib/filterCourses";
-import { MOBILE_SELECTED_MAP_LEVEL } from "@/lib/constants";
 import {
   createMapFocusTarget,
   debugFocusCourse,
@@ -27,6 +26,12 @@ import {
   useFavorites,
   useVisited,
 } from "@/contexts/CourseCollectionsContext";
+import { useHomeReset } from "@/contexts/HomeResetContext";
+import {
+  applyHomeResetState,
+  consumeHomeResetPending,
+  clearHomeUrlState,
+} from "@/lib/homeResetState";
 
 type ListMode = "cluster" | "allFiltered" | "visible" | "fallback";
 
@@ -264,6 +269,7 @@ export default function HomeClient({ courses }: { courses: Course[] }) {
 }
 
 function HomeClientInner({ courses }: { courses: Course[] }) {
+  const { registerHomeReset } = useHomeReset();
   const { favoriteCourseIds, favoriteCount } = useFavorites();
   const { visitedCourseIds, visitedCount } = useVisited();
   const [favoriteOnly, setFavoriteOnly] = useState(false);
@@ -499,6 +505,35 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
 
   const resetFilters = useCallback(() => setFilters(EMPTY_FILTERS), []);
 
+  const resetHomeState = useCallback(() => {
+    applyHomeResetState({
+      setFilters,
+      setFavoriteOnly,
+      setVisitedOnly,
+      setCollectionFitIds,
+      setCollectionFitSignal,
+      setSelectedId,
+      setHoveredId,
+      setVisibleCourseIds,
+      setSelectedClusterCourseIds,
+      setIsShowingAllFilteredResults,
+      setCenter,
+      bumpMapViewResetSignal: () => setMapViewResetSignal((value) => value + 1),
+      setSheetOpen,
+      setMobileSheetSnap,
+      setSearchFitSignal,
+    });
+    clearHomeUrlState();
+  }, []);
+
+  useEffect(() => {
+    const unregister = registerHomeReset(resetHomeState);
+    if (consumeHomeResetPending()) {
+      resetHomeState();
+    }
+    return unregister;
+  }, [registerHomeReset, resetHomeState]);
+
   const clearSelection = useCallback(() => {
     setSelectedId(null);
   }, []);
@@ -538,7 +573,7 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
 
       setSelectedId(course.id);
 
-      const target = createMapFocusTarget(course, MOBILE_SELECTED_MAP_LEVEL);
+      const target = createMapFocusTarget(course);
       debugFocusCourse(course, target);
       if (target) {
         setCenter(target);
@@ -607,7 +642,7 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
       updateFilters({ query: course.name });
       setSelectedId(course.id);
       if (isValidCourseCoordinates(course)) {
-        const target = createMapFocusTarget(course, MOBILE_SELECTED_MAP_LEVEL);
+        const target = createMapFocusTarget(course);
         if (target) setCenter(target);
       }
       setMobileSheetSnap("half");
@@ -641,7 +676,7 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
       const course = results[0];
       setSelectedId(course.id);
       if (isValidCourseCoordinates(course)) {
-        const target = createMapFocusTarget(course, MOBILE_SELECTED_MAP_LEVEL);
+        const target = createMapFocusTarget(course);
         if (target) setCenter(target);
       }
       return;

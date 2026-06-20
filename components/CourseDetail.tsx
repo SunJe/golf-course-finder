@@ -1,407 +1,546 @@
 "use client";
 
+import { useMemo, useState, useCallback } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
   MapPin,
   Phone,
   Globe,
-  CalendarCheck,
   Flag,
-  Moon,
-  UserX,
-  Users,
-  Building2,
-  Sun,
-  CircleDollarSign,
   ExternalLink,
-  Navigation,
-  MessageSquareText,
+  ChevronRight,
+  Clock,
+  Search,
+  Copy,
+  Check,
+  CalendarCheck,
+  Mail,
 } from "lucide-react";
 import type { Course } from "@/types/course";
 import {
-  formatOptionalPrice,
   formatHoleCount,
-  getCourseDescription,
-  hasBookingUrl,
   hasHomepage,
   hasPhone,
-  isPriceAvailable,
 } from "@/lib/courseDisplay";
+import {
+  formatPriceBadge,
+  formatPriceRange,
+  hasPrice,
+  PRICE_UNAVAILABLE,
+} from "@/lib/priceFormat";
 import { formatDate } from "@/lib/format";
 import {
   getKakaoMapSearchUrl,
   getNaverMapSearchUrl,
 } from "@/lib/externalMapLinks";
-import Tag from "@/components/Tag";
+import {
+  getNaverSearchUrl,
+  getNearbyRestaurantMapUrl,
+  NEARBY_RESTAURANT_CATEGORIES,
+} from "@/lib/externalSearchLinks";
+import { formatDistanceKm } from "@/lib/geoUtils";
+import HomeResetLink from "@/components/HomeResetLink";
 import CourseMap from "@/components/maps/CourseMap";
-import CourseImage from "@/components/CourseImage";
+import CourseDetailHeroImage from "@/components/CourseDetailHeroImage";
 
-function InfoStat({
-  label,
-  value,
-  icon: Icon,
-  muted = false,
-}: {
-  label: string;
-  value: string;
-  icon: typeof Flag;
-  muted?: boolean;
-}) {
-  return (
-    <div className="flex items-center gap-3 rounded-xl border border-gray-100 bg-gray-50/60 px-4 py-3">
-      <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-white text-brand-600 shadow-sm">
-        <Icon className="h-4.5 w-4.5" />
-      </span>
-      <div className="min-w-0">
-        <div className="text-xs text-gray-500">{label}</div>
-        <div
-          className={`truncate text-sm font-bold ${
-            muted ? "text-gray-500" : "text-gray-900"
-          }`}
-        >
-          {value}
-        </div>
-      </div>
-    </div>
-  );
-}
+const TYPE_STYLES: Record<string, string> = {
+  대중제: "bg-brand-50 text-brand-700 ring-brand-100",
+  회원제: "bg-indigo-50 text-indigo-700 ring-indigo-100",
+  "군 골프장": "bg-amber-50 text-amber-700 ring-amber-100",
+  기타: "bg-gray-100 text-gray-600 ring-gray-200",
+};
 
-function Availability({
-  label,
-  available,
-  icon: Icon,
-}: {
-  label: string;
-  available: boolean;
-  icon: typeof Flag;
-}) {
-  return (
-    <div
-      className={`flex items-center gap-3 rounded-xl border px-4 py-3 ${
-        available
-          ? "border-brand-200 bg-brand-50/70"
-          : "border-gray-100 bg-gray-50/60"
-      }`}
-    >
-      <span
-        className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg shadow-sm ${
-          available ? "bg-brand-600 text-white" : "bg-white text-gray-300"
-        }`}
-      >
-        <Icon className="h-4.5 w-4.5" />
-      </span>
-      <div>
-        <div className="text-sm font-bold text-gray-900">{label}</div>
-        <div
-          className={`text-xs font-medium ${
-            available ? "text-brand-700" : "text-gray-400"
-          }`}
-        >
-          {available ? "가능" : "불가"}
-        </div>
-      </div>
-    </div>
-  );
-}
+const PRICE_BADGE_STYLES = {
+  ready: "bg-white/90 text-gray-800 ring-white/50",
+  priced: "bg-emerald-50/95 text-emerald-800 ring-emerald-100",
+};
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="mb-4 text-lg font-bold text-gray-900">{children}</h2>
+    <h2 className="mb-4 text-lg font-bold tracking-tight text-gray-900 sm:text-xl">
+      {children}
+    </h2>
   );
 }
 
-const TYPE_STYLES: Record<string, string> = {
-  대중제: "bg-brand-50 text-brand-700",
-  회원제: "bg-indigo-50 text-indigo-700",
-  "군 골프장": "bg-amber-50 text-amber-700",
-  기타: "bg-gray-100 text-gray-600",
-};
+function CopyButton({ value }: { value: string }) {
+  const [copied, setCopied] = useState(false);
 
-export default function CourseDetail({ course }: { course: Course }) {
-  const showPhone = hasPhone(course);
-  const showHomepage = hasHomepage(course);
-  const showBooking = hasBookingUrl(course);
-  const actionCount = [showPhone, showHomepage, showBooking].filter(Boolean).length;
-  const hasDescription = Boolean(course.description?.trim());
-
-  const blogReviews = [
-    { title: `${course.name} 라운드 후기 - 코스 컨디션 총정리`, author: "골프블로거 라운드킹" },
-    { title: `주말 ${course.name} 다녀왔어요 (그린피/맛집 정보)`, author: "주말골퍼J" },
-    { title: `초보가 본 ${course.name}, 난이도와 팁`, author: "버디찾아삼만리" },
-  ];
-
-  const searchUrl = `https://search.naver.com/search.naver?query=${encodeURIComponent(
-    course.name + " 골프장 후기",
-  )}`;
+  const handleCopy = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      /* clipboard unavailable */
+    }
+  }, [value]);
 
   return (
-    <div className="mx-auto max-w-5xl bg-app-warm px-4 py-5 sm:bg-white sm:px-6 sm:py-8 md:py-8">
-      <Link
-        href="/"
-        className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 transition hover:text-gray-800"
-      >
+    <button
+      type="button"
+      onClick={handleCopy}
+      className="ml-2 inline-flex shrink-0 items-center gap-1 rounded-md border border-gray-200 bg-white px-2 py-1 text-xs font-semibold text-gray-600 transition hover:border-brand-300 hover:text-brand-700"
+    >
+      {copied ? (
+        <>
+          <Check className="h-3 w-3 text-brand-600" />
+          복사됨
+        </>
+      ) : (
+        <>
+          <Copy className="h-3 w-3" />
+          복사
+        </>
+      )}
+    </button>
+  );
+}
+
+function InfoCardRow({
+  label,
+  value,
+  href,
+  tel,
+  external,
+  copyValue,
+}: {
+  label: string;
+  value: string;
+  href?: string;
+  tel?: boolean;
+  external?: boolean;
+  copyValue?: string;
+}) {
+  const isMissing = value === "정보 준비 중";
+  const content = (
+    <span
+      className={`text-sm font-medium sm:text-base ${
+        isMissing ? "text-gray-400" : "text-gray-900"
+      }`}
+    >
+      {value}
+    </span>
+  );
+
+  return (
+    <div className="flex flex-col gap-1 border-b border-gray-100 px-4 py-3.5 last:border-b-0 sm:flex-row sm:items-start sm:gap-4 sm:py-4">
+      <dt className="w-full shrink-0 text-xs font-semibold uppercase tracking-wide text-gray-500 sm:w-28 sm:text-sm sm:normal-case sm:tracking-normal">
+        {label}
+      </dt>
+      <dd className="min-w-0 flex-1">
+        <div className="flex flex-wrap items-center gap-1">
+          {href && !isMissing ? (
+            <a
+              href={href}
+              target={external ? "_blank" : undefined}
+              rel={external ? "noopener noreferrer" : undefined}
+              className="inline-flex items-center gap-1 text-sm font-medium text-brand-700 underline-offset-2 hover:underline sm:text-base"
+            >
+              {value}
+              {external && <ExternalLink className="h-3.5 w-3.5 shrink-0" />}
+            </a>
+          ) : tel && !isMissing ? (
+            <a
+              href={`tel:${value.replace(/\s/g, "")}`}
+              className="text-sm font-medium text-brand-700 underline-offset-2 hover:underline sm:text-base"
+            >
+              {value}
+            </a>
+          ) : (
+            content
+          )}
+          {copyValue && !isMissing ? <CopyButton value={copyValue} /> : null}
+        </div>
+      </dd>
+    </div>
+  );
+}
+
+function orPlaceholder(value?: string | null): string {
+  return value?.trim() ? value.trim() : "정보 준비 중";
+}
+
+function formatRegionLine(course: Course): string {
+  const parts = [course.region?.trim(), course.city?.trim()].filter(Boolean);
+  return parts.length > 0 ? parts.join(" · ") : "정보 준비 중";
+}
+
+interface CourseDetailProps {
+  course: Course;
+  nearbyCourses?: Course[];
+}
+
+export default function CourseDetail({
+  course,
+  nearbyCourses = [],
+}: CourseDetailProps) {
+  const router = useRouter();
+  const [hoveredNearbyId, setHoveredNearbyId] = useState<string | null>(null);
+
+  const showPhone = hasPhone(course);
+  const showHomepage = hasHomepage(course);
+  const priced = hasPrice(course);
+  const priceBadge = formatPriceBadge(course);
+  const priceSummary = formatPriceRange(course);
+  const priceUpdatedLabel = course.priceUpdatedAt
+    ? formatDate(course.priceUpdatedAt)
+    : null;
+  const priceBasisLabel = priceUpdatedLabel
+    ? `${priceUpdatedLabel} 기준`
+    : "최근 수집 기준";
+
+  const naverMapUrl = getNaverMapSearchUrl(course);
+  const naverSearchUrl = getNaverSearchUrl(course);
+
+  const mapCourses = useMemo(
+    () => [course, ...nearbyCourses],
+    [course, nearbyCourses],
+  );
+
+  const actionButtonClass =
+    "flex min-h-[48px] items-center justify-center gap-2 rounded-xl border px-3 py-3 text-sm font-semibold transition active:scale-[0.98]";
+
+  const handleNearbyMarkerSelect = useCallback(
+    (courseId: string) => {
+      if (courseId !== course.id) {
+        router.push(`/courses/${courseId}`);
+      }
+    },
+    [course.id, router],
+  );
+
+  return (
+    <div className="mx-auto max-w-3xl bg-app-warm px-4 pb-12 pt-4 sm:px-6 sm:pb-16 sm:pt-6 md:max-w-4xl">
+      <HomeResetLink className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 transition hover:text-gray-800">
         <ArrowLeft className="h-4 w-4" />
         목록으로 돌아가기
-      </Link>
+      </HomeResetLink>
 
-      {/* Hero 이미지 */}
-      <div className="relative overflow-hidden rounded-2xl">
-        <CourseImage
-          src={course.imageUrl}
-          alt={course.name}
-          seed={course.id}
-          loading="eager"
-          className="h-40 w-full object-cover object-[center_35%] sm:h-56 md:h-80"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-7">
-          <div className="mb-2 flex flex-wrap items-center gap-2">
-            <span
-              className={`rounded-md px-2.5 py-1 text-xs font-bold ${
-                TYPE_STYLES[course.courseType]
-              }`}
-            >
-              {course.courseType}
-            </span>
-            <span className="rounded-md bg-white/90 px-2.5 py-1 text-xs font-bold text-gray-800">
-              {course.region}
-            </span>
-            <span className="rounded-md bg-white/90 px-2.5 py-1 text-xs font-bold text-gray-800">
-              {formatHoleCount(course.holeCount)}
-            </span>
+      {/* Hero */}
+      <header className="overflow-hidden rounded-2xl border border-gray-200/80 bg-white shadow-sm">
+        <div className="relative">
+          <CourseDetailHeroImage src={course.imageUrl} alt={course.name} />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
+            <p className="mb-2 text-sm font-medium text-white/90">
+              {formatRegionLine(course)}
+            </p>
+            <h1 className="text-2xl font-extrabold leading-tight text-white drop-shadow-sm sm:text-3xl md:text-4xl">
+              {course.name}
+            </h1>
+            <p className="mt-2 flex items-start gap-1.5 text-sm text-white/90 sm:text-base">
+              <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
+              <span>{orPlaceholder(course.address)}</span>
+            </p>
           </div>
-          <h1 className="text-xl font-extrabold text-white drop-shadow-sm sm:text-3xl">
-            {course.name}
-          </h1>
-          <p className="mt-1.5 flex items-center gap-1.5 text-sm text-white/90">
-            <MapPin className="h-4 w-4" />
-            {course.address}
-          </p>
         </div>
-      </div>
 
-      {/* 빠른 액션 */}
-      {actionCount > 0 && (
-        <div
-          className={`mt-5 grid gap-2 ${
-            actionCount === 1
-              ? "grid-cols-1"
-              : actionCount === 2
-                ? "grid-cols-2"
-                : "grid-cols-2 sm:grid-cols-3"
-          }`}
-        >
-          {showPhone && (
+        <div className="flex flex-wrap gap-2 border-b border-gray-100 px-4 py-3 sm:px-6">
+          <span
+            className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-bold ring-1 ring-inset ${
+              TYPE_STYLES[course.courseType] ?? TYPE_STYLES.기타
+            }`}
+          >
+            {course.courseType || "기타"}
+          </span>
+          <span className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-xs font-bold text-gray-700 ring-1 ring-inset ring-gray-200">
+            <Flag className="mr-1 h-3 w-3" />
+            {formatHoleCount(course.holeCount)}
+          </span>
+          <span
+            className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-bold ring-1 ring-inset ${
+              priced ? PRICE_BADGE_STYLES.priced : PRICE_BADGE_STYLES.ready
+            }`}
+          >
+            {priceBadge}
+          </span>
+        </div>
+
+        {/* 핵심 버튼 */}
+        <div className="grid grid-cols-2 gap-2 p-4 sm:grid-cols-3 lg:grid-cols-5 sm:gap-3 sm:p-6">
+          {showPhone ? (
             <a
-              href={`tel:${course.phone}`}
-              className="flex min-h-[44px] items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-sm font-semibold text-gray-700 transition hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700"
+              href={`tel:${course.phone!.replace(/\s/g, "")}`}
+              className={`${actionButtonClass} border-brand-200 bg-brand-600 text-white hover:bg-brand-700`}
             >
               <Phone className="h-4 w-4" />
-              전화
+              전화하기
             </a>
-          )}
-          {showHomepage && (
+          ) : null}
+
+          {showHomepage ? (
             <a
               href={course.homepageUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex min-h-[44px] items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-sm font-semibold text-gray-700 transition hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700"
+              className={`${actionButtonClass} border-gray-200 bg-white text-gray-800 hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700`}
             >
               <Globe className="h-4 w-4" />
               홈페이지
             </a>
-          )}
-          {showBooking && (
+          ) : null}
+
+          <a
+            href={getKakaoMapSearchUrl(course)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${actionButtonClass} border-[#fee500]/60 bg-[#fee500]/10 text-gray-800 hover:bg-[#fee500]/25`}
+          >
+            <ExternalLink className="h-4 w-4" />
+            카카오맵
+          </a>
+          <a
+            href={naverMapUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${actionButtonClass} border-[#03c75a]/30 bg-[#03c75a]/5 text-[#03c75a] hover:bg-[#03c75a]/10`}
+          >
+            <ExternalLink className="h-4 w-4" />
+            네이버지도
+          </a>
+          <a
+            href={naverSearchUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${actionButtonClass} col-span-2 border-gray-200 bg-white text-gray-800 hover:border-[#03c75a]/40 hover:bg-[#03c75a]/5 hover:text-[#03c75a] sm:col-span-1`}
+          >
+            <Search className="h-4 w-4" />
+            네이버 검색
+          </a>
+        </div>
+      </header>
+
+      {/* 기본 정보 */}
+      <section className="mt-6 rounded-2xl border border-gray-200/80 bg-white shadow-sm">
+        <div className="border-b border-gray-100 px-4 py-4 sm:px-6">
+          <SectionTitle>기본 정보</SectionTitle>
+        </div>
+        <dl>
+          <InfoCardRow
+            label="주소"
+            value={orPlaceholder(course.address)}
+            copyValue={course.address?.trim() || undefined}
+          />
+          <InfoCardRow
+            label="전화번호"
+            value={orPlaceholder(course.phone)}
+            tel={showPhone}
+          />
+          <InfoCardRow
+            label="홈페이지"
+            value={showHomepage ? course.homepageUrl! : "정보 준비 중"}
+            href={showHomepage ? course.homepageUrl : undefined}
+            external
+          />
+          <InfoCardRow
+            label="참고 요금"
+            value={priced ? priceSummary : PRICE_UNAVAILABLE}
+          />
+          <InfoCardRow
+            label="운영 형태"
+            value={orPlaceholder(course.courseType)}
+          />
+          <InfoCardRow
+            label="홀수"
+            value={
+              course.holeCount
+                ? formatHoleCount(course.holeCount)
+                : "정보 준비 중"
+            }
+          />
+          <InfoCardRow label="지역" value={formatRegionLine(course)} />
+          <InfoCardRow
+            label="업데이트 기준"
+            value={formatDate(course.updatedAt)}
+          />
+        </dl>
+        <div className="border-t border-gray-100 px-4 py-3 sm:px-6">
+          <a
+            href="mailto:hello@golfmap.kr?subject=골프장%20정보%20수정%20제보"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 transition hover:text-brand-700 sm:text-sm"
+          >
+            <Mail className="h-3.5 w-3.5" />
+            정보가 틀렸나요?
+          </a>
+        </div>
+      </section>
+
+      {/* 요금 정보 */}
+      <section className="mt-6 rounded-2xl border border-gray-200/80 bg-white p-4 shadow-sm sm:p-6">
+        <SectionTitle>요금 정보</SectionTitle>
+        <p className="mb-4 text-xs leading-relaxed text-stone-500 sm:text-sm">
+          네이버 예약 기준 참고 요금입니다. 실제 요금은 날짜, 시간대, 예약
+          조건에 따라 달라질 수 있습니다.
+        </p>
+        <div className="rounded-xl border border-stone-200 bg-stone-50/70 p-4 sm:p-5">
+          <p
+            className={`text-lg font-bold sm:text-xl ${
+              priced ? "text-brand-900" : "text-stone-500"
+            }`}
+          >
+            {priceSummary}
+          </p>
+          {course.priceText?.trim() ? (
+            <p className="mt-3 text-sm leading-relaxed text-stone-600">
+              {course.priceText.trim()}
+            </p>
+          ) : null}
+          <p className="mt-3 inline-flex items-center gap-1 text-xs text-stone-500 sm:text-sm">
+            <Clock className="h-3.5 w-3.5" />
+            {priceBasisLabel}
+          </p>
+        </div>
+        <div className="mt-4">
+          <a
+            href={naverMapUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-xl bg-[#03c75a] px-4 py-3 text-sm font-bold text-white transition hover:bg-[#02b350] sm:w-auto sm:min-w-[160px]"
+          >
+            <CalendarCheck className="h-4 w-4" />
+            예약하기
+          </a>
+          <p className="mt-2 text-xs text-stone-500">
+            네이버지도에서 예약 가능 여부를 확인해보세요.
+          </p>
+        </div>
+      </section>
+
+      {/* 위치 */}
+      <section className="mt-6 rounded-2xl border border-gray-200/80 bg-white p-4 shadow-sm sm:p-6">
+        <SectionTitle>위치</SectionTitle>
+        <p className="mb-3 text-sm font-medium text-gray-700">
+          {nearbyCourses.length > 0
+            ? "현재 골프장과 근처 골프장"
+            : "골프장 위치"}
+        </p>
+        <div className="h-48 w-full overflow-hidden rounded-xl border border-gray-200 sm:h-56">
+          <CourseMap
+            courses={mapCourses}
+            selectedId={course.id}
+            detailPrimaryCourseId={course.id}
+            hoveredCourseId={hoveredNearbyId}
+            onHoverCourseChange={setHoveredNearbyId}
+            onSelectCourse={handleNearbyMarkerSelect}
+            mapMode="detail"
+          />
+        </div>
+        <p className="mt-3 flex items-start gap-1.5 text-sm text-gray-700 sm:text-base">
+          <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />
+          {orPlaceholder(course.address)}
+        </p>
+        <div className="mt-4 grid grid-cols-2 gap-2 sm:gap-3">
+          <a
+            href={getKakaoMapSearchUrl(course)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${actionButtonClass} border-[#fee500]/60 bg-[#fee500]/10 text-gray-800 hover:bg-[#fee500]/25`}
+          >
+            <ExternalLink className="h-4 w-4" />
+            카카오맵 열기
+          </a>
+          <a
+            href={naverMapUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${actionButtonClass} border-[#03c75a]/30 bg-[#03c75a]/5 text-[#03c75a] hover:bg-[#03c75a]/10`}
+          >
+            <ExternalLink className="h-4 w-4" />
+            네이버지도 열기
+          </a>
+        </div>
+      </section>
+
+      {/* 근처 맛집 */}
+      <section className="mt-6 rounded-2xl border border-gray-200/80 bg-white p-4 shadow-sm sm:p-6">
+        <SectionTitle>근처 맛집 찾기</SectionTitle>
+        <p className="mb-4 text-xs text-stone-500 sm:text-sm">
+          네이버지도에서 골프장 주변 음식점을 검색합니다.
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {NEARBY_RESTAURANT_CATEGORIES.map((category) => (
             <a
-              href={course.bookingUrl}
+              key={category}
+              href={getNearbyRestaurantMapUrl(course, category)}
               target="_blank"
               rel="noopener noreferrer"
-              className={`flex items-center justify-center gap-2 rounded-xl bg-brand-600 py-3 text-sm font-bold text-white transition hover:bg-brand-700 ${
-                actionCount === 1 ? "" : "col-span-2 sm:col-span-1"
-              }`}
+              className="inline-flex min-h-[40px] items-center rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-gray-700 transition hover:border-[#03c75a]/40 hover:bg-[#03c75a]/5 hover:text-[#03c75a]"
             >
-              <CalendarCheck className="h-4 w-4" />
-              예약하기
+              {category}
             </a>
-          )}
+          ))}
         </div>
-      )}
+      </section>
 
-      {/* 외부 지도 링크 */}
-      <div className="mt-3 flex flex-wrap gap-2">
-        <a
-          href={getKakaoMapSearchUrl(course)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-700 transition hover:border-[#fee500] hover:bg-[#fee500]/10"
-        >
-          <ExternalLink className="h-4 w-4" />
-          카카오맵에서 보기
-        </a>
-        <a
-          href={getNaverMapSearchUrl(course)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-700 transition hover:border-[#03c75a] hover:bg-[#03c75a]/5 hover:text-[#03c75a]"
-        >
-          <ExternalLink className="h-4 w-4" />
-          네이버지도에서 보기
-        </a>
-      </div>
+      {/* 근처 골프장 */}
+      {nearbyCourses.length > 0 ? (
+        <section className="mt-6 rounded-2xl border border-gray-200/80 bg-white p-4 shadow-sm sm:p-6">
+          <SectionTitle>근처 골프장</SectionTitle>
+          <ul className="flex flex-col gap-2">
+            {nearbyCourses.map((nearby) => {
+              const nearbyPrice = formatPriceRange(nearby);
+              const distance = formatDistanceKm(course, nearby);
+              const isHovered = hoveredNearbyId === nearby.id;
 
-      <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-3">
-        <div className="lg:col-span-2">
-          {/* 기본 정보 */}
-          <section className="mb-8">
-            <SectionTitle>기본 정보</SectionTitle>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-              <InfoStat label="홀수" value={formatHoleCount(course.holeCount)} icon={Flag} />
-              <InfoStat
-                label="운영 방식"
-                value={course.courseType}
-                icon={Building2}
-              />
-              <InfoStat
-                label="주중 그린피"
-                value={formatOptionalPrice(course.weekdayGreenFeeMin)}
-                icon={Sun}
-                muted={!isPriceAvailable(course.weekdayGreenFeeMin)}
-              />
-              <InfoStat
-                label="주말 그린피"
-                value={formatOptionalPrice(course.weekendGreenFeeMin)}
-                icon={CircleDollarSign}
-                muted={!isPriceAvailable(course.weekendGreenFeeMin)}
-              />
-              <InfoStat
-                label="카트비"
-                value={formatOptionalPrice(course.cartFee)}
-                icon={Navigation}
-                muted={!isPriceAvailable(course.cartFee)}
-              />
-              <InfoStat
-                label="캐디피"
-                value={formatOptionalPrice(course.caddieFee)}
-                icon={Users}
-                muted={!isPriceAvailable(course.caddieFee)}
-              />
-            </div>
-          </section>
-
-          {/* 편의 정보 */}
-          <section className="mb-8">
-            <SectionTitle>편의 정보</SectionTitle>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-              <Availability label="야간 라운드" available={Boolean(course.nightRound)} icon={Moon} />
-              <Availability label="노캐디" available={Boolean(course.noCaddie)} icon={UserX} />
-              <Availability label="2인 플레이" available={Boolean(course.twoPlayerAllowed)} icon={Users} />
-              <Availability label="리조트/숙박" available={Boolean(course.resort)} icon={Building2} />
-            </div>
-          </section>
-
-          {/* 태그 + 설명 */}
-          <section className="mb-8">
-            <SectionTitle>골프장 소개</SectionTitle>
-            {course.tags.length > 0 && (
-              <div className="mb-4 flex flex-wrap gap-2">
-                {course.tags.map((t) => (
-                  <Tag key={t} label={t} />
-                ))}
-              </div>
-            )}
-            <p
-              className={`leading-relaxed ${
-                hasDescription ? "text-gray-700" : "text-gray-500 italic"
-              }`}
-            >
-              {getCourseDescription(course)}
-            </p>
-            <p className="mt-3 text-xs text-gray-400">
-              최종 업데이트 {formatDate(course.updatedAt)}
-            </p>
-          </section>
-
-          {/* 블로그 후기 */}
-          <section>
-            <SectionTitle>블로그 후기</SectionTitle>
-            <div className="flex flex-col gap-2">
-              {blogReviews.map((r) => (
-                <a
-                  key={r.title}
-                  href={searchUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 rounded-xl border border-gray-200 bg-white px-4 py-3 transition hover:border-brand-300 hover:bg-brand-50/40"
-                >
-                  <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
-                    <MessageSquareText className="h-4.5 w-4.5" />
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <div className="truncate text-sm font-semibold text-gray-800">
-                      {r.title}
+              return (
+                <li key={nearby.id}>
+                  <Link
+                    href={`/courses/${nearby.id}`}
+                    onMouseEnter={() => setHoveredNearbyId(nearby.id)}
+                    onMouseLeave={() => setHoveredNearbyId(null)}
+                    className={`group flex items-center gap-3 rounded-xl border px-4 py-3.5 transition ${
+                      isHovered
+                        ? "border-brand-400 bg-brand-50/60 shadow-sm"
+                        : "border-gray-200 bg-gray-50/50 hover:border-brand-300 hover:bg-brand-50/40"
+                    }`}
+                  >
+                    <span
+                      className={`h-2.5 w-2.5 shrink-0 rounded-full ${
+                        isHovered ? "bg-orange-500 ring-2 ring-orange-200" : "bg-orange-400"
+                      }`}
+                      aria-hidden
+                    />
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-sm font-bold text-gray-900 group-hover:text-brand-800 sm:text-base">
+                        {nearby.name}
+                      </p>
+                      <p className="mt-0.5 text-xs text-gray-500 sm:text-sm">
+                        {formatRegionLine(nearby)}
+                        {distance ? (
+                          <>
+                            <span className="mx-1.5 text-gray-300">·</span>
+                            <span>{distance}</span>
+                          </>
+                        ) : null}
+                        <span className="mx-1.5 text-gray-300">·</span>
+                        <span
+                          className={
+                            hasPrice(nearby) ? "text-gray-700" : "text-gray-400"
+                          }
+                        >
+                          {nearbyPrice}
+                        </span>
+                      </p>
                     </div>
-                    <div className="text-xs text-gray-400">{r.author}</div>
-                  </div>
-                  <ExternalLink className="h-4 w-4 flex-shrink-0 text-gray-300" />
-                </a>
-              ))}
-            </div>
-          </section>
-        </div>
+                    <span className="inline-flex shrink-0 items-center gap-0.5 text-xs font-semibold text-brand-700 sm:text-sm">
+                      상세보기
+                      <ChevronRight className="h-4 w-4" />
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
 
-        {/* 우측: 지도 + 주변 정보 */}
-        <div className="lg:col-span-1">
-          <div className="lg:sticky lg:top-20">
-            <section className="mb-6">
-              <SectionTitle>위치</SectionTitle>
-              <div className="h-48 w-full sm:h-64">
-                <CourseMap
-                  courses={[course]}
-                  selectedId={course.id}
-                  mapMode="detail"
-                />
-              </div>
-              <p className="mt-2 flex items-start gap-1.5 text-sm text-gray-600">
-                <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-brand-600" />
-                {course.address}
-              </p>
-              <div className="mt-3 flex flex-col gap-2 sm:flex-row">
-                <a
-                  href={getKakaoMapSearchUrl(course)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex min-h-[44px] flex-1 items-center justify-center gap-1.5 rounded-xl border border-gray-200 py-2.5 text-sm font-semibold text-gray-700 transition hover:border-[#fee500] hover:bg-[#fee500]/10"
-                >
-                  <ExternalLink className="h-4 w-4" />
-                  카카오맵
-                </a>
-                <a
-                  href={getNaverMapSearchUrl(course)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex min-h-[44px] flex-1 items-center justify-center gap-1.5 rounded-xl border border-gray-200 py-2.5 text-sm font-semibold text-gray-700 transition hover:border-[#03c75a] hover:bg-[#03c75a]/5 hover:text-[#03c75a]"
-                >
-                  <ExternalLink className="h-4 w-4" />
-                  네이버지도
-                </a>
-              </div>
-            </section>
-
-            <section>
-              <SectionTitle>주변 정보</SectionTitle>
-              <div className="rounded-xl border border-dashed border-gray-200 bg-gray-50/80 px-4 py-8 text-center">
-                <Navigation className="mx-auto mb-2 h-8 w-8 text-gray-300" />
-                <p className="text-sm font-medium text-gray-600">
-                  주변 맛집·숙소 정보는 준비 중입니다.
-                </p>
-                <p className="mt-1 text-xs text-gray-400">
-                  {course.city} · {course.region} 지역
-                </p>
-              </div>
-            </section>
-          </div>
-        </div>
+      <div className="mt-8 text-center">
+        <HomeResetLink className="inline-flex min-h-[44px] items-center justify-center rounded-xl border border-gray-200 bg-white px-6 py-3 text-sm font-semibold text-gray-700 transition hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700">
+          전국 골프장 지도로 돌아가기
+        </HomeResetLink>
       </div>
     </div>
   );

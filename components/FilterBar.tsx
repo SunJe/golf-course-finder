@@ -7,9 +7,12 @@ import {
   REGIONS,
   HOLE_OPTIONS,
   COURSE_TYPE_OPTIONS,
-  PRICE_RANGES,
   TAG_OPTIONS,
+  PRICE_FILTER_GROUP_LABEL,
+  PRICE_FILTER_GROUP_LABEL_MOBILE,
 } from "@/lib/constants";
+import { FILTER_PRICE_OPTIONS } from "@/lib/filterChips";
+import { toggleFilterOption } from "@/lib/filterToggle";
 
 interface FilterBarProps {
   filters: CourseFilters;
@@ -48,7 +51,6 @@ function Pill({
   );
 }
 
-/** 라벨이 칩 앞에 붙는 가로형 그룹 (데스크탑 bar) */
 function InlineGroup({
   label,
   children,
@@ -66,7 +68,6 @@ function InlineGroup({
   );
 }
 
-/** 세로형 그룹 (모바일 시트) */
 function StackGroup({
   label,
   children,
@@ -82,6 +83,35 @@ function StackGroup({
   );
 }
 
+function MultiSelectGroup({
+  label,
+  options,
+  selected,
+  onToggle,
+  compact = false,
+}: {
+  label: string;
+  options: readonly string[];
+  selected: string[];
+  onToggle: (option: string) => void;
+  compact?: boolean;
+}) {
+  return (
+    <>
+      {options.map((option) => (
+        <Pill
+          key={option}
+          compact={compact}
+          active={option === "전체" ? selected.length === 0 : selected.includes(option)}
+          onClick={() => onToggle(option)}
+        >
+          {option}
+        </Pill>
+      ))}
+    </>
+  );
+}
+
 export default function FilterBar({
   filters,
   onChange,
@@ -91,49 +121,60 @@ export default function FilterBar({
 }: FilterBarProps) {
   const [showMore, setShowMore] = useState(false);
 
-  const toggleTag = (tag: string) => {
-    const next = filters.tags.includes(tag)
-      ? filters.tags.filter((t) => t !== tag)
-      : [...filters.tags, tag];
-    onChange({ tags: next });
-  };
+  const toggleRegion = (option: string) =>
+    onChange({ regions: toggleFilterOption(filters.regions, option) });
+  const toggleHole = (option: string) =>
+    onChange({ holeCounts: toggleFilterOption(filters.holeCounts, option) });
+  const toggleType = (option: string) =>
+    onChange({ courseTypes: toggleFilterOption(filters.courseTypes, option) });
+  const togglePrice = (option: string) =>
+    onChange({ priceRanges: toggleFilterOption(filters.priceRanges, option) });
+  const toggleTag = (option: string) =>
+    onChange({ tags: toggleFilterOption(filters.tags, option) });
 
-  // ── 모바일 바텀시트: 세로 전체 표시 ──────────────────────────────
   if (variant === "sheet") {
     return (
       <div className="flex flex-col gap-5 pb-2">
         <StackGroup label="지역">
-          {REGIONS.map((r) => (
-            <Pill key={r} active={filters.region === r} onClick={() => onChange({ region: r })}>
-              {r}
-            </Pill>
-          ))}
+          <MultiSelectGroup
+            label="지역"
+            options={REGIONS}
+            selected={filters.regions}
+            onToggle={toggleRegion}
+          />
         </StackGroup>
         <StackGroup label="홀수">
-          {HOLE_OPTIONS.map((h) => (
-            <Pill key={h} active={filters.holeCount === h} onClick={() => onChange({ holeCount: h })}>
-              {h}
-            </Pill>
-          ))}
+          <MultiSelectGroup
+            label="홀수"
+            options={HOLE_OPTIONS}
+            selected={filters.holeCounts}
+            onToggle={toggleHole}
+          />
         </StackGroup>
         <StackGroup label="운영 방식">
-          {COURSE_TYPE_OPTIONS.map((c) => (
-            <Pill key={c} active={filters.courseType === c} onClick={() => onChange({ courseType: c })}>
-              {c}
-            </Pill>
-          ))}
+          <MultiSelectGroup
+            label="운영"
+            options={COURSE_TYPE_OPTIONS}
+            selected={filters.courseTypes}
+            onToggle={toggleType}
+          />
         </StackGroup>
-        <StackGroup label="가격대 (주중 그린피)">
-          {PRICE_RANGES.map((p) => (
-            <Pill key={p.label} active={filters.priceRange === p.label} onClick={() => onChange({ priceRange: p.label })}>
-              {p.label}
-            </Pill>
-          ))}
+        <StackGroup label={PRICE_FILTER_GROUP_LABEL_MOBILE}>
+          <MultiSelectGroup
+            label="가격"
+            options={["전체", ...FILTER_PRICE_OPTIONS]}
+            selected={filters.priceRanges}
+            onToggle={togglePrice}
+          />
         </StackGroup>
         <StackGroup label="태그">
-          {TAG_OPTIONS.map((t) => (
-            <Pill key={t} active={filters.tags.includes(t)} onClick={() => toggleTag(t)}>
-              {t}
+          {TAG_OPTIONS.map((tag) => (
+            <Pill
+              key={tag}
+              active={filters.tags.includes(tag)}
+              onClick={() => toggleTag(tag)}
+            >
+              {tag}
             </Pill>
           ))}
         </StackGroup>
@@ -141,17 +182,17 @@ export default function FilterBar({
     );
   }
 
-  // ── 데스크탑 바: 컴팩트 가로형 ─────────────────────────────────
   return (
     <div className="flex flex-col gap-2.5">
-      {/* 1행: 지역 + 초기화 */}
       <div className="flex items-start justify-between gap-4">
         <InlineGroup label="지역">
-          {REGIONS.map((r) => (
-            <Pill key={r} compact active={filters.region === r} onClick={() => onChange({ region: r })}>
-              {r}
-            </Pill>
-          ))}
+          <MultiSelectGroup
+            label="지역"
+            options={REGIONS}
+            selected={filters.regions}
+            onToggle={toggleRegion}
+            compact
+          />
         </InlineGroup>
         {activeCount > 0 && (
           <button
@@ -165,37 +206,42 @@ export default function FilterBar({
         )}
       </div>
 
-      {/* 2행: 홀수 · 운영 · 가격대 + 더보기 */}
       <div className="flex items-start justify-between gap-4">
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
           <InlineGroup label="홀수">
-            {HOLE_OPTIONS.map((h) => (
-              <Pill key={h} compact active={filters.holeCount === h} onClick={() => onChange({ holeCount: h })}>
-                {h}
-              </Pill>
-            ))}
+            <MultiSelectGroup
+              label="홀수"
+              options={HOLE_OPTIONS}
+              selected={filters.holeCounts}
+              onToggle={toggleHole}
+              compact
+            />
           </InlineGroup>
           <span className="hidden h-4 w-px bg-gray-200 lg:block" />
           <InlineGroup label="운영">
-            {COURSE_TYPE_OPTIONS.map((c) => (
-              <Pill key={c} compact active={filters.courseType === c} onClick={() => onChange({ courseType: c })}>
-                {c}
-              </Pill>
-            ))}
+            <MultiSelectGroup
+              label="운영"
+              options={COURSE_TYPE_OPTIONS}
+              selected={filters.courseTypes}
+              onToggle={toggleType}
+              compact
+            />
           </InlineGroup>
           <span className="hidden h-4 w-px bg-gray-200 lg:block" />
-          <InlineGroup label="가격대">
-            {PRICE_RANGES.map((p) => (
-              <Pill key={p.label} compact active={filters.priceRange === p.label} onClick={() => onChange({ priceRange: p.label })}>
-                {p.label}
-              </Pill>
-            ))}
+          <InlineGroup label={PRICE_FILTER_GROUP_LABEL}>
+            <MultiSelectGroup
+              label="가격"
+              options={["전체", ...FILTER_PRICE_OPTIONS]}
+              selected={filters.priceRanges}
+              onToggle={togglePrice}
+              compact
+            />
           </InlineGroup>
         </div>
 
         <button
           type="button"
-          onClick={() => setShowMore((v) => !v)}
+          onClick={() => setShowMore((value) => !value)}
           className={`flex flex-shrink-0 items-center gap-1.5 rounded-full border px-3 py-1 text-[13px] font-medium transition ${
             showMore || filters.tags.length > 0
               ? "border-brand-300 bg-brand-50 text-brand-800"
@@ -215,13 +261,17 @@ export default function FilterBar({
         </button>
       </div>
 
-      {/* 3행(펼침): 태그 */}
       {showMore && (
         <div className="animate-fade-in">
           <InlineGroup label="태그">
-            {TAG_OPTIONS.map((t) => (
-              <Pill key={t} compact active={filters.tags.includes(t)} onClick={() => toggleTag(t)}>
-                {t}
+            {TAG_OPTIONS.map((tag) => (
+              <Pill
+                key={tag}
+                compact
+                active={filters.tags.includes(tag)}
+                onClick={() => toggleTag(tag)}
+              >
+                {tag}
               </Pill>
             ))}
           </InlineGroup>

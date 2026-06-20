@@ -455,6 +455,15 @@ async function main(): Promise<void> {
   console.log(`Fill missing only: ${options.fillMissingOnly ? "yes" : "no"}`);
   console.log(`Output candidates: ${CANDIDATES_CSV}`);
   console.log(`Output review    : ${REVIEW_CSV}`);
+  if (options.scrape && !options.dryRun) {
+    console.log("");
+    console.log(
+      "Before running collection, close CSV files in Excel, VS Code preview, or file explorer preview.",
+    );
+    console.log(
+      "Writing files: naver_price_candidates.csv, naver_price_review.csv",
+    );
+  }
   console.log("");
 
   if (options.dryRun) {

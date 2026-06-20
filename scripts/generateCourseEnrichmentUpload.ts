@@ -29,6 +29,18 @@ const SQL_PREVIEW_OUT = path.join(
   ROOT,
   "data/enrichment/course_enrichment_update_preview.sql",
 );
+const SQL_DELTA_OUT = path.join(
+  ROOT,
+  "data/enrichment/course_enrichment_update_delta.sql",
+);
+const SQL_DELTA_PREVIEW_OUT = path.join(
+  ROOT,
+  "data/enrichment/course_enrichment_update_delta_preview.sql",
+);
+const BASELINE_CSV = path.join(
+  ROOT,
+  "data/golf_courses_import_geocoded_final.csv",
+);
 const SCHEMA_PATH = path.join(ROOT, "supabase/schema.sql");
 
 const DB_TABLE = "public.golf_courses";
@@ -92,6 +104,39 @@ function verifyDbSchema(): void {
   );
 }
 
+interface BaselineCourse {
+  name: string;
+  phone: string;
+  homepage_url: string;
+}
+
+function loadBaselineCourses(): Map<string, BaselineCourse> {
+  if (!fs.existsSync(BASELINE_CSV)) {
+    throw new Error(`Baseline CSV not found: ${BASELINE_CSV}`);
+  }
+  const { content } = readCsvWithEncodingGuess(BASELINE_CSV);
+  const { headers, rows } = parseCsv(content);
+  const idIdx = headers.indexOf("id");
+  const nameIdx = headers.indexOf("name");
+  const phoneIdx = headers.indexOf("phone");
+  const homepageIdx = headers.indexOf("homepage_url");
+  if (idIdx < 0 || nameIdx < 0) {
+    throw new Error(`Baseline CSV missing id/name columns: ${BASELINE_CSV}`);
+  }
+
+  const map = new Map<string, BaselineCourse>();
+  for (const cells of rows) {
+    const id = (cells[idIdx] ?? "").trim();
+    if (!id) continue;
+    map.set(id, {
+      name: (cells[nameIdx] ?? "").trim(),
+      phone: phoneIdx >= 0 ? (cells[phoneIdx] ?? "").trim() : "",
+      homepage_url: homepageIdx >= 0 ? (cells[homepageIdx] ?? "").trim() : "",
+    });
+  }
+  return map;
+}
+
 interface SqlUpdate {
   id: string;
   sql: string;
@@ -149,10 +194,68 @@ where id = '${escapeSqlLiteral(row.id)}';`;
   };
 }
 
+function buildDeltaSqlUpdate(
+  row: CourseEnrichmentEditRow,
+  baseline: BaselineCourse | undefined,
+): SqlUpdate | null {
+  const assignments: string[] = [];
+  const changeNameTo = row.change_name_to.trim();
+  const phone = row.phone.trim();
+  const homepage = row.homepage_url.trim();
+  const baseName = baseline?.name.trim() || row.name.trim();
+  const basePhone = baseline?.phone.trim() ?? "";
+  const baseHomepage = baseline?.homepage_url.trim() ?? "";
+
+  if (changeNameTo && changeNameTo !== baseName) {
+    assignments.push(`  name = '${escapeSqlLiteral(changeNameTo)}'`);
+  }
+  if (!basePhone && phone && isValidPhone(phone)) {
+    assignments.push(`  phone = '${escapeSqlLiteral(phone)}'`);
+  }
+  if (!baseHomepage && homepage && isValidHttpUrl(homepage)) {
+    assignments.push(`  homepage_url = '${escapeSqlLiteral(homepage)}'`);
+  }
+
+  if (assignments.length === 0) return null;
+
+  const warnings: string[] = [];
+  if (row.needs_check === "y") warnings.push("needs_check: y");
+  if (row.confidence === "low") warnings.push("confidence: low");
+
+  const parts: string[] = [];
+  if (changeNameTo && changeNameTo !== baseName) parts.push("rename");
+  if (!basePhone && phone) parts.push("fill phone");
+  if (!baseHomepage && homepage) parts.push("fill homepage");
+
+  const comment = [
+    `-- ${warnings.join(" / ") || "ok"} | ${parts.join(", ")}`,
+    `-- original_name: ${row.name}`,
+    changeNameTo ? `-- change_name_to: ${changeNameTo}` : null,
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+  const sql = `${comment}
+update ${DB_TABLE}
+set
+${assignments.join(",\n")}
+where id = '${escapeSqlLiteral(row.id)}';`;
+
+  return {
+    id: row.id,
+    sql,
+    needsCheck: row.needs_check === "y",
+    confidence: row.confidence,
+    originalName: row.name,
+    changeNameTo,
+  };
+}
+
 function writeSqlFile(
   filePath: string,
   title: string,
   updates: SqlUpdate[],
+  extraHeaderLines: string[] = [],
 ): void {
   const header = `-- ${title}
 -- Generated: ${new Date().toISOString()}
@@ -160,6 +263,7 @@ function writeSqlFile(
 -- Fields: name (only when change_name_to set), phone, homepage_url
 -- Excluded: booking_url, price, difficulty, avg_score
 -- Run manually in Supabase SQL Editor. Do not auto-execute.
+${extraHeaderLines.map((line) => `-- ${line}`).join("\n")}
 
 `;
   const body = updates.map((update) => update.sql).join("\n\n");
@@ -279,6 +383,38 @@ function main(): void {
 
   writeSqlFile(SQL_PREVIEW_OUT, "Preview enrichment update SQL (max 20 rows)", preview);
 
+  const baseline = loadBaselineCourses();
+  const deltaUpdates = rows
+    .map((row) => buildDeltaSqlUpdate(row, baseline.get(row.id)))
+    .filter((update): update is SqlUpdate => Boolean(update));
+  const deltaRename = deltaUpdates.filter((u) => u.changeNameTo).length;
+
+  writeSqlFile(
+    SQL_DELTA_OUT,
+    "Delta enrichment update SQL (rename + fill missing phone/homepage)",
+    [
+      ...deltaUpdates.filter((u) => u.needsCheck || u.confidence === "low"),
+      ...deltaUpdates.filter((u) => !u.needsCheck && u.confidence !== "low"),
+    ],
+    [
+      "Baseline: data/golf_courses_import_geocoded_final.csv",
+      "name: only when change_name_to differs from baseline name",
+      "phone/homepage: only when baseline was empty",
+    ],
+  );
+
+  const deltaPreview = deltaUpdates.slice(0, 20);
+  writeSqlFile(
+    SQL_DELTA_PREVIEW_OUT,
+    "Preview delta enrichment update SQL (max 20 rows)",
+    deltaPreview,
+    [
+      "Baseline: data/golf_courses_import_geocoded_final.csv",
+      "name: only when change_name_to differs from baseline name",
+      "phone/homepage: only when baseline was empty",
+    ],
+  );
+
   const nameApplied = uploadRows.filter(
     (row) => row.name !== row.original_name,
   ).length;
@@ -289,6 +425,8 @@ function main(): void {
   console.log(`Price/stats CSV  : ${PRICE_STATS_CSV} (${priceStatsRows.length} rows)`);
   console.log(`Full SQL         : ${SQL_OUT} (${sqlUpdates.length} updates)`);
   console.log(`Preview SQL      : ${SQL_PREVIEW_OUT} (${preview.length} updates)`);
+  console.log(`Delta SQL        : ${SQL_DELTA_OUT} (${deltaUpdates.length} updates, ${deltaRename} with rename)`);
+  console.log(`Delta preview    : ${SQL_DELTA_PREVIEW_OUT} (${deltaPreview.length} updates)`);
   console.log(`Name via change_name_to: ${nameApplied} rows`);
   console.log(`SQL flagged (needs_check/low): ${flagged.length}`);
   console.log(`booking_url in SQL: no`);

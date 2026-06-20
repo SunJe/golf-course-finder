@@ -41,7 +41,7 @@ import {
   NEARBY_RESTAURANT_CATEGORIES,
 } from "@/lib/externalSearchLinks";
 import { formatDistanceKm } from "@/lib/geoUtils";
-import { buildCourseCorrectionMailto, resolveSiteOrigin } from "@/lib/contactMailto";
+import { createCourseReportIssueMailto } from "@/lib/reportIssueLink";
 import HomeResetLink from "@/components/HomeResetLink";
 import CourseMap from "@/components/maps/CourseMap";
 import CourseDetailHeroImage from "@/components/CourseDetailHeroImage";
@@ -200,10 +200,7 @@ export default function CourseDetail({
     () => [course, ...nearbyCourses],
     [course, nearbyCourses],
   );
-  const correctionMailto = useMemo(
-    () => buildCourseCorrectionMailto(course, resolveSiteOrigin()),
-    [course],
-  );
+  const reportIssueMailto = createCourseReportIssueMailto(course);
 
   const actionButtonClass =
     "flex min-h-[48px] items-center justify-center gap-2 rounded-xl border px-3 py-3 text-sm font-semibold transition active:scale-[0.98]";
@@ -364,10 +361,10 @@ export default function CourseDetail({
         </dl>
         <div className="border-t border-gray-100 px-4 py-3 sm:px-6">
           <a
-            href={correctionMailto}
-            className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 transition hover:text-brand-700 sm:text-sm"
+            href={reportIssueMailto}
+            className="-mx-2 inline-flex min-h-[44px] items-center gap-1.5 rounded-lg px-2 py-2 text-xs font-medium text-gray-500 underline-offset-2 transition hover:bg-gray-50 hover:text-brand-700 hover:underline sm:text-sm"
           >
-            <Mail className="h-3.5 w-3.5" />
+            <Mail className="h-4 w-4 shrink-0" aria-hidden />
             정보가 틀렸나요?
           </a>
         </div>

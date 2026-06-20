@@ -1,5 +1,5 @@
 -- Preview price update SQL (max 20 rows)
--- Generated: 2026-06-19T23:42:11.379Z
+-- Generated: 2026-06-20T11:55:06.077Z
 -- Table: public.golf_courses
 -- Fields: price_text, price_min, price_max, price_type, price_source_url, price_updated_at
 -- Excluded: booking_url, difficulty, avg_score
@@ -193,37 +193,34 @@ set
 where id = 'gc-a1d37ac059d4';
 
 -- needs_check: y
--- name: 칠곡아이위시C.C
+-- name: 우리G.C
 update public.golf_courses
 set
-  price_text = '네이버 예약: 80,000원; 90,000원; 140,000원',
-  price_min = 80000,
-  price_max = 140000,
-  price_type = 'reservation_price',
-  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%EC%B9%A0%EA%B3%A1%EC%95%84%EC%9D%B4%EC%9C%84%EC%8B%9CC.C%20%EB%84%A4%EC%9D%B4%EB%B2%84%20%EC%98%88%EC%95%BD',
+  price_min = 40000,
+  price_max = 65000,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%EC%9A%B0%EB%A6%ACG.C%20%EB%84%A4%EC%9D%B4%EB%B2%84',
   price_updated_at = now()
-where id = 'gc-bc41a2489944';
+where id = 'gc-130f7b88bcf3';
 
 -- needs_check: y
--- name: 그린필드GC
+-- name: 오션힐스청도G.C
 update public.golf_courses
 set
-  price_text = '네이버 예약: 137,000원; 167,000원',
-  price_min = 137000,
-  price_max = 167000,
-  price_type = 'reservation_price',
-  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%EA%B7%B8%EB%A6%B0%ED%95%84%EB%93%9CGC',
+  price_min = 180000,
+  price_max = 230000,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%EC%98%A4%EC%85%98%ED%9E%90%EC%8A%A4%EC%B2%AD%EB%8F%84G.C%20%EA%B7%B8%EB%A6%B0%ED%94%BC',
   price_updated_at = now()
-where id = 'gc-7d2ed71b8086';
+where id = 'gc-29c208d17553';
 
 -- needs_check: y
--- name: 로얄포레cc
+-- name: 에콜리안광산골프장
 update public.golf_courses
 set
-  price_text = '네이버 예약: 99,000원; 109,000원; 129,000원; 139,000원',
-  price_min = 99000,
-  price_max = 139000,
-  price_type = 'reservation_price',
-  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%EB%A1%9C%EC%96%84%ED%8F%AC%EB%A0%88cc',
+  price_min = 30000,
+  price_max = 40000,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%EC%97%90%EC%BD%9C%EB%A6%AC%EC%95%88%EA%B4%91%EC%82%B0%EA%B3%A8%ED%94%84%EC%9E%A5%20%EB%84%A4%EC%9D%B4%EB%B2%84',
   price_updated_at = now()
-where id = 'gc-c5f55ef01f20';
+where id = 'gc-2159121d90f9';

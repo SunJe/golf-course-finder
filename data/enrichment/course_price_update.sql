@@ -1,5 +1,5 @@
 -- Full price update SQL
--- Generated: 2026-06-19T23:42:11.380Z
+-- Generated: 2026-06-20T11:55:06.078Z
 -- Table: public.golf_courses
 -- Fields: price_text, price_min, price_max, price_type, price_source_url, price_updated_at
 -- Excluded: booking_url, difficulty, avg_score
@@ -191,6 +191,259 @@ set
   price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%EA%B2%BD%EC%A3%BCC.C%20%EB%84%A4%EC%9D%B4%EB%B2%84%20%EC%98%88%EC%95%BD',
   price_updated_at = now()
 where id = 'gc-a1d37ac059d4';
+
+-- needs_check: y
+-- name: 우리G.C
+update public.golf_courses
+set
+  price_min = 40000,
+  price_max = 65000,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%EC%9A%B0%EB%A6%ACG.C%20%EB%84%A4%EC%9D%B4%EB%B2%84',
+  price_updated_at = now()
+where id = 'gc-130f7b88bcf3';
+
+-- needs_check: y
+-- name: 오션힐스청도G.C
+update public.golf_courses
+set
+  price_min = 180000,
+  price_max = 230000,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%EC%98%A4%EC%85%98%ED%9E%90%EC%8A%A4%EC%B2%AD%EB%8F%84G.C%20%EA%B7%B8%EB%A6%B0%ED%94%BC',
+  price_updated_at = now()
+where id = 'gc-29c208d17553';
+
+-- needs_check: y
+-- name: 에콜리안광산골프장
+update public.golf_courses
+set
+  price_min = 30000,
+  price_max = 40000,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%EC%97%90%EC%BD%9C%EB%A6%AC%EC%95%88%EA%B4%91%EC%82%B0%EA%B3%A8%ED%94%84%EC%9E%A5%20%EB%84%A4%EC%9D%B4%EB%B2%84',
+  price_updated_at = now()
+where id = 'gc-2159121d90f9';
+
+-- needs_check: y
+-- name: 다산베아채골프&리조트
+update public.golf_courses
+set
+  price_min = 85000,
+  price_max = 185000,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%EB%8B%A4%EC%82%B0%EB%B2%A0%EC%95%84%EC%B1%84%EA%B3%A8%ED%94%84%26%EB%A6%AC%EC%A1%B0%ED%8A%B8%20%EA%B7%B8%EB%A6%B0%ED%94%BC',
+  price_updated_at = now()
+where id = 'gc-d5a6f91a588a';
+
+-- needs_check: y
+-- name: 천지CC
+update public.golf_courses
+set
+  price_min = 50000,
+  price_max = 85000,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%EC%B2%9C%EC%A7%80CC%20%EC%A0%84%EB%82%A8',
+  price_updated_at = now()
+where id = 'gc-c8fc5eccf7b9';
+
+-- needs_check: y
+-- name: 떼제베운영
+update public.golf_courses
+set
+  price_min = 120000,
+  price_max = 150000,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%EB%96%BC%EC%A0%9C%EB%B2%A0%EC%9A%B4%EC%98%81',
+  price_updated_at = now()
+where id = 'gc-606fb4b33249';
+
+-- needs_check: y
+-- name: 블랙스톤cc
+update public.golf_courses
+set
+  price_min = 250000,
+  price_max = 330000,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%EB%B8%94%EB%9E%99%EC%8A%A4%ED%86%A4cc%20%EC%A6%9D%ED%8F%89%EA%B5%B0',
+  price_updated_at = now()
+where id = 'gc-97d5d758dc31';
+
+-- needs_check: y
+-- name: 롯데스카이힐제주 (대중제)
+update public.golf_courses
+set
+  price_min = 110000,
+  price_max = 180000,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%EB%A1%AF%EB%8D%B0%EC%8A%A4%EC%B9%B4%EC%9D%B4%ED%9E%90%EC%A0%9C%EC%A3%BC%20(%EB%8C%80%EC%A4%91%EC%A0%9C)',
+  price_updated_at = now()
+where id = 'gc-4d1cbdf3ceb2';
+
+-- needs_check: y
+-- name: 여수시티파크골프&호텔
+update public.golf_courses
+set
+  price_min = 100000,
+  price_max = 140000,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%EC%97%AC%EC%88%98%EC%8B%9C%ED%8B%B0%ED%8C%8C%ED%81%AC%EA%B3%A8%ED%94%84%26%ED%98%B8%ED%85%94%20%EB%84%A4%EC%9D%B4%EB%B2%84',
+  price_updated_at = now()
+where id = 'gc-ae299d74ffe4';
+
+-- needs_check: y
+-- name: 메이플비치골프&리조트
+update public.golf_courses
+set
+  price_min = 120000,
+  price_max = 180000,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%EB%A9%94%EC%9D%B4%ED%94%8C%EB%B9%84%EC%B9%98%EA%B3%A8%ED%94%84%26%EB%A6%AC%EC%A1%B0%ED%8A%B8',
+  price_updated_at = now()
+where id = 'gc-b768a2002431';
+
+-- needs_check: y
+-- name: O2리조트 퍼블릭골프장
+update public.golf_courses
+set
+  price_min = 100000,
+  price_max = 150000,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=O2%EB%A6%AC%EC%A1%B0%ED%8A%B8%20%ED%8D%BC%EB%B8%94%EB%A6%AD%EA%B3%A8%ED%94%84%EC%9E%A5',
+  price_updated_at = now()
+where id = 'gc-e6edfdd39527';
+
+-- needs_check: y
+-- name: 벨라45 오너스 컨트리클럽
+update public.golf_courses
+set
+  price_min = 150000,
+  price_max = 230000,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%EB%B2%A8%EB%9D%BC45%20%EC%98%A4%EB%84%88%EC%8A%A4%20%EC%BB%A8%ED%8A%B8%EB%A6%AC%ED%81%B4%EB%9F%BD',
+  price_updated_at = now()
+where id = 'gc-fac50b03683e';
+
+-- needs_check: y
+-- name: 플라자CC
+update public.golf_courses
+set
+  price_min = 220000,
+  price_max = 290000,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%ED%94%8C%EB%9D%BC%EC%9E%90CC',
+  price_updated_at = now()
+where id = 'gc-4af8a2f8ed32';
+
+-- needs_check: y
+-- name: 태광컨트리클럽(회원제)
+update public.golf_courses
+set
+  price_min = 260000,
+  price_max = 300000,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%ED%83%9C%EA%B4%91%EC%BB%A8%ED%8A%B8%EB%A6%AC%ED%81%B4%EB%9F%BD(%ED%9A%8C%EC%9B%90%EC%A0%9C)',
+  price_updated_at = now()
+where id = 'gc-9da6f2a0f2d9';
+
+-- needs_check: y
+-- name: 태광컨트리클럽(대중제)
+update public.golf_courses
+set
+  price_min = 199000,
+  price_max = 259000,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%ED%83%9C%EA%B4%91%EC%BB%A8%ED%8A%B8%EB%A6%AC%ED%81%B4%EB%9F%BD(%EB%8C%80%EC%A4%91%EC%A0%9C)',
+  price_updated_at = now()
+where id = 'gc-3d63d3179c0f';
+
+-- needs_check: y
+-- name: 국가보훈부 88골프장
+update public.golf_courses
+set
+  price_min = 210000,
+  price_max = 260000,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%EA%B5%AD%EA%B0%80%EB%B3%B4%ED%9B%88%EB%B6%80%2088%EA%B3%A8%ED%94%84%EC%9E%A5%20%EB%84%A4%EC%9D%B4%EB%B2%84',
+  price_updated_at = now()
+where id = 'gc-0f218a599984';
+
+-- needs_check: y
+-- name: 코리아대중CC
+update public.golf_courses
+set
+  price_min = 55000,
+  price_max = 80000,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%EC%BD%94%EB%A6%AC%EC%95%84%EB%8C%80%EC%A4%91CC',
+  price_updated_at = now()
+where id = 'gc-4487ee52808c';
+
+-- needs_check: y
+-- name: 지산퍼블릭
+update public.golf_courses
+set
+  price_min = 50000,
+  price_max = 65000,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%EC%A7%80%EC%82%B0%ED%8D%BC%EB%B8%94%EB%A6%AD',
+  price_updated_at = now()
+where id = 'gc-4687a4044d34';
+
+-- needs_check: y
+-- name: 발리오스컨트리클럽(회원제)
+update public.golf_courses
+set
+  price_min = 230000,
+  price_max = 300000,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%EB%B0%9C%EB%A6%AC%EC%98%A4%EC%8A%A4%EC%BB%A8%ED%8A%B8%EB%A6%AC%ED%81%B4%EB%9F%BD(%ED%9A%8C%EC%9B%90%EC%A0%9C)',
+  price_updated_at = now()
+where id = 'gc-ccb45b4f27e1';
+
+-- needs_check: y
+-- name: 발리오스컨트리클럽(비회원제)
+update public.golf_courses
+set
+  price_min = 115000,
+  price_max = 150000,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%EB%B0%9C%EB%A6%AC%EC%98%A4%EC%8A%A4%EC%BB%A8%ED%8A%B8%EB%A6%AC%ED%81%B4%EB%9F%BD(%EB%B9%84%ED%9A%8C%EC%9B%90%EC%A0%9C)',
+  price_updated_at = now()
+where id = 'gc-2db2d6cad688';
+
+-- needs_check: y
+-- name: 파주 J-Public 골프장
+update public.golf_courses
+set
+  price_min = 63700,
+  price_max = 95500,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%ED%8C%8C%EC%A3%BC%20J-Public',
+  price_updated_at = now()
+where id = 'gc-81becbdb274e';
+
+-- needs_check: y
+-- name: 타이거CC 골프장
+update public.golf_courses
+set
+  price_min = 130000,
+  price_max = 240000,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%ED%83%80%EC%9D%B4%EA%B1%B0CC%20%EA%B3%A8%ED%94%84%EC%9E%A5',
+  price_updated_at = now()
+where id = 'gc-9eb46dae9c9d';
+
+-- needs_check: y
+-- name: 사우스스프링스C.C
+update public.golf_courses
+set
+  price_min = 200000,
+  price_max = 250000,
+  price_type = 'unknown',
+  price_source_url = 'https://search.naver.com/search.naver?where=nexearch&query=%EC%82%AC%EC%9A%B0%EC%8A%A4%EC%8A%A4%ED%94%84%EB%A7%81%EC%8A%A4C.C',
+  price_updated_at = now()
+where id = 'gc-06bb9165507c';
 
 -- needs_check: y
 -- name: 칠곡아이위시C.C

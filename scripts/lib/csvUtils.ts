@@ -95,14 +95,18 @@ function isEBUSY(error: unknown): boolean {
   return code === "EBUSY" || /EBUSY|resource busy or locked/i.test(error.message);
 }
 
-export function writeFileUtf8Bom(filePath: string, content: string): void {
+function writePayloadOnce(filePath: string, payload: string): void {
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
+  fs.writeFileSync(filePath, payload, "utf8");
+}
+
+export function writeFileUtf8Bom(filePath: string, content: string): void {
   const payload = `\uFEFF${content}`;
   let lastError: unknown;
 
   for (let attempt = 1; attempt <= WRITE_RETRY_COUNT; attempt += 1) {
     try {
-      fs.writeFileSync(filePath, payload, "utf8");
+      writePayloadOnce(filePath, payload);
       return;
     } catch (error) {
       lastError = error;
@@ -120,6 +124,62 @@ export function writeFileUtf8Bom(filePath: string, content: string): void {
     lastError instanceof Error ? lastError.message : String(lastError);
   throw new Error(
     `Failed to write ${filePath} after ${WRITE_RETRY_COUNT} attempts: ${message}. Close Excel/VS Code preview and retry.`,
+  );
+}
+
+/** EBUSY 시 .tmp / timestamp backup 경로로 저장 시도. 실제 저장 경로 반환. */
+export function writeFileUtf8BomWithFallback(
+  filePath: string,
+  content: string,
+): string {
+  const payload = `\uFEFF${content}`;
+  let lastError: unknown;
+
+  for (let attempt = 1; attempt <= WRITE_RETRY_COUNT; attempt += 1) {
+    try {
+      writePayloadOnce(filePath, payload);
+      return filePath;
+    } catch (error) {
+      lastError = error;
+      if (!isEBUSY(error)) throw error;
+      if (attempt < WRITE_RETRY_COUNT) {
+        console.warn(
+          `[warn] EBUSY writing ${filePath} — retry ${attempt}/${WRITE_RETRY_COUNT} in ${WRITE_RETRY_MS}ms`,
+        );
+        sleepSync(WRITE_RETRY_MS);
+      }
+    }
+  }
+
+  const baseName = path.basename(filePath);
+  console.error(`${baseName} is locked. Close Excel or VS Code preview.`);
+
+  const timestamp = new Date()
+    .toISOString()
+    .replace(/[-:]/g, "")
+    .replace(/\..+/, "")
+    .replace("T", "_");
+  const dir = path.dirname(filePath);
+  const stem = baseName.replace(/\.csv$/i, "");
+  const fallbacks = [
+    `${filePath}.tmp`,
+    path.join(dir, `${stem}.${timestamp}.backup.csv`),
+  ];
+
+  for (const fallbackPath of fallbacks) {
+    try {
+      writePayloadOnce(fallbackPath, payload);
+      console.warn(`Saved to ${fallbackPath} instead.`);
+      return fallbackPath;
+    } catch (error) {
+      lastError = error;
+    }
+  }
+
+  const message =
+    lastError instanceof Error ? lastError.message : String(lastError);
+  throw new Error(
+    `Failed to write ${filePath} after ${WRITE_RETRY_COUNT} attempts and fallbacks: ${message}`,
   );
 }
 

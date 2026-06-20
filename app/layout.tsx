@@ -2,11 +2,20 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import { HomeResetProvider } from "@/contexts/HomeResetContext";
+import { buildNaverSiteVerificationMetadata } from "@/lib/seoMetadata";
+import { getSiteUrl, siteConfig } from "@/lib/siteConfig";
+
+const naverVerification = buildNaverSiteVerificationMetadata();
 
 export const metadata: Metadata = {
-  title: "GolfMap Korea — 전국 골프장 지도 검색",
-  description:
-    "전국 골프장을 지도와 리스트로 한눈에. 지역, 가격, 홀수, 노캐디, 야간 라운드까지 쉽게 비교하세요.",
+  metadataBase: new URL(getSiteUrl()),
+  title: {
+    default: siteConfig.defaultTitle,
+    template: `%s`,
+  },
+  description: siteConfig.defaultDescription,
+  applicationName: siteConfig.siteName,
+  ...(naverVerification ?? {}),
 };
 
 export default function RootLayout({

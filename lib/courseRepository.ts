@@ -115,6 +115,39 @@ export async function getAllCourseIds(): Promise<string[]> {
   return getMockCourses().map((course) => course.id);
 }
 
+export interface SitemapCourseEntry {
+  id: string;
+  updatedAt?: string;
+}
+
+/** sitemap.xml용 course id + updated_at (Supabase 실패 시 mock fallback) */
+export async function getSitemapEntries(): Promise<SitemapCourseEntry[]> {
+  const supabase = getSupabaseClient();
+  if (isSupabaseConfigured && supabase) {
+    const { data, error } = await supabase
+      .from("golf_courses")
+      .select("id, updated_at");
+
+    if (!error && data && data.length > 0) {
+      return data.map((row) => ({
+        id: row.id as string,
+        updatedAt: (row.updated_at as string | null) ?? undefined,
+      }));
+    }
+
+    if (error) {
+      warnFallback(`getSitemapEntries failed: ${error.message}`);
+    }
+  } else {
+    warnFallback("Supabase env not configured for sitemap");
+  }
+
+  return getMockCourses().map((course) => ({
+    id: course.id,
+    updatedAt: course.updatedAt,
+  }));
+}
+
 /** Supabase row 배열을 Course[]로 변환할 때 사용 (import/seed용) */
 export function mapRowsToCourses(rows: GolfCourseRow[]): Course[] {
   return mapRows(rows);

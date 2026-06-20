@@ -6,7 +6,7 @@ export function resolveSiteOrigin(): string {
   if (typeof window !== "undefined" && window.location.origin) {
     return window.location.origin;
   }
-  return siteConfig.siteUrl;
+  return siteConfig.siteUrl || "https://golfmap.kr";
 }
 
 export function getCoursePageUrl(courseId: string, origin?: string): string {

@@ -1,9 +1,13 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCourseById, getAllCourseIds, getCourses } from "@/lib/courseRepository";
-import { getCourseDescription } from "@/lib/courseDisplay";
 import { getNearbyCourses } from "@/lib/nearbyCourses";
+import {
+  buildCourseMetadata,
+  buildNotFoundCourseMetadata,
+} from "@/lib/seoMetadata";
 import CourseDetail from "@/components/CourseDetail";
+import CourseJsonLd from "@/components/CourseJsonLd";
 
 export async function generateStaticParams() {
   const ids = await getAllCourseIds();
@@ -16,11 +20,8 @@ export async function generateMetadata({
   params: { id: string };
 }): Promise<Metadata> {
   const course = await getCourseById(params.id);
-  if (!course) return { title: "골프장을 찾을 수 없습니다 — GolfMap Korea" };
-  return {
-    title: `${course.name} — GolfMap Korea`,
-    description: course.description ?? getCourseDescription(course),
-  };
+  if (!course) return buildNotFoundCourseMetadata();
+  return buildCourseMetadata(course);
 }
 
 export default async function CourseDetailPage({
@@ -34,5 +35,10 @@ export default async function CourseDetailPage({
   const allCourses = await getCourses();
   const nearbyCourses = getNearbyCourses(allCourses, course, 6);
 
-  return <CourseDetail course={course} nearbyCourses={nearbyCourses} />;
+  return (
+    <>
+      <CourseJsonLd course={course} />
+      <CourseDetail course={course} nearbyCourses={nearbyCourses} />
+    </>
+  );
 }

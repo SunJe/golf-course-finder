@@ -32,15 +32,20 @@ npm run dev
 | `NEXT_PUBLIC_NAVER_MAP_CLIENT_ID` | Naver Map v3 Client ID. 없으면 MapFallback 표시 |
 | `NEXT_PUBLIC_SUPABASE_URL` | (선택) 추후 Supabase 연동용 |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | (선택) 추후 Supabase 연동용 |
+| `NEXT_PUBLIC_SITE_URL` | 공식 도메인 (canonical/sitemap). Production: `https://golfmap.kr` |
 | `NEXT_PUBLIC_CONTACT_EMAIL` | 정보 수정 제보 mailto (기본값 `golfmap.kr@gmail.com`) |
-| `NEXT_PUBLIC_SITE_URL` | (선택) mailto 본문용 공개 URL. 미설정 시 브라우저 origin |
+| `NEXT_PUBLIC_NAVER_SITE_VERIFICATION` | 네이버 서치어드바이저 소유 확인 meta content |
 
 ```env
 NEXT_PUBLIC_MAP_PROVIDER=kakao
 NEXT_PUBLIC_KAKAO_MAP_APP_KEY=your_kakao_map_app_key
 NEXT_PUBLIC_NAVER_MAP_CLIENT_ID=your_naver_map_client_id
+NEXT_PUBLIC_SITE_URL=https://golfmap.kr
 NEXT_PUBLIC_CONTACT_EMAIL=golfmap.kr@gmail.com
+NEXT_PUBLIC_NAVER_SITE_VERIFICATION=53952bdb168063a9886fe7d056af1061aa692392
 ```
+
+**Vercel Production**에도 `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_CONTACT_EMAIL`, `NEXT_PUBLIC_NAVER_SITE_VERIFICATION`을 동일하게 설정하세요.
 
 ### 지도 provider 변경 방법
 

@@ -32,11 +32,14 @@ npm run dev
 | `NEXT_PUBLIC_NAVER_MAP_CLIENT_ID` | Naver Map v3 Client ID. 없으면 MapFallback 표시 |
 | `NEXT_PUBLIC_SUPABASE_URL` | (선택) 추후 Supabase 연동용 |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | (선택) 추후 Supabase 연동용 |
+| `NEXT_PUBLIC_CONTACT_EMAIL` | 정보 수정 제보 mailto (기본값 `golfmap.kr@gmail.com`) |
+| `NEXT_PUBLIC_SITE_URL` | (선택) mailto 본문용 공개 URL. 미설정 시 브라우저 origin |
 
 ```env
 NEXT_PUBLIC_MAP_PROVIDER=kakao
 NEXT_PUBLIC_KAKAO_MAP_APP_KEY=your_kakao_map_app_key
 NEXT_PUBLIC_NAVER_MAP_CLIENT_ID=your_naver_map_client_id
+NEXT_PUBLIC_CONTACT_EMAIL=golfmap.kr@gmail.com
 ```
 
 ### 지도 provider 변경 방법

@@ -41,6 +41,7 @@ import {
   NEARBY_RESTAURANT_CATEGORIES,
 } from "@/lib/externalSearchLinks";
 import { formatDistanceKm } from "@/lib/geoUtils";
+import { buildCourseCorrectionMailto, resolveSiteOrigin } from "@/lib/contactMailto";
 import HomeResetLink from "@/components/HomeResetLink";
 import CourseMap from "@/components/maps/CourseMap";
 import CourseDetailHeroImage from "@/components/CourseDetailHeroImage";
@@ -198,6 +199,10 @@ export default function CourseDetail({
   const mapCourses = useMemo(
     () => [course, ...nearbyCourses],
     [course, nearbyCourses],
+  );
+  const correctionMailto = useMemo(
+    () => buildCourseCorrectionMailto(course, resolveSiteOrigin()),
+    [course],
   );
 
   const actionButtonClass =
@@ -359,7 +364,7 @@ export default function CourseDetail({
         </dl>
         <div className="border-t border-gray-100 px-4 py-3 sm:px-6">
           <a
-            href="mailto:hello@golfmap.kr?subject=골프장%20정보%20수정%20제보"
+            href={correctionMailto}
             className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 transition hover:text-brand-700 sm:text-sm"
           >
             <Mail className="h-3.5 w-3.5" />

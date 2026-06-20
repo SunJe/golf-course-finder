@@ -2,8 +2,18 @@ import fs from "fs";
 import path from "path";
 import type { Metadata } from "next";
 import type { Course } from "@/types/course";
+import { buildCourseDetailDescription } from "@/lib/courseSeoCopy";
 import { absoluteUrl, getNaverSiteVerification, getSiteUrl, siteConfig } from "@/lib/siteConfig";
-import { hasPrice } from "@/lib/priceFormat";
+
+const HOME_KEYWORDS = [
+  "전국 골프장",
+  "골프장 지도",
+  "퍼블릭 골프장",
+  "골프장 요금",
+  "골프장 전화번호",
+  "골프장 홈페이지",
+  "골프장 위치",
+];
 
 /** `<meta name="naver-site-verification" content="..." />` */
 export function buildNaverSiteVerificationMetadata(): Pick<
@@ -71,6 +81,7 @@ export function buildHomeMetadata(): Metadata {
   return {
     title,
     description,
+    keywords: HOME_KEYWORDS,
     alternates: { canonical: url },
     openGraph: buildOpenGraph(title, description, url),
     twitter: buildTwitter(title, description),
@@ -80,14 +91,6 @@ export function buildHomeMetadata(): Metadata {
 export function buildCourseDetailTitle(courseName: string): string {
   const name = courseName.trim() || "골프장";
   return `${name} | 요금·위치·전화번호 | ${siteConfig.siteName}`;
-}
-
-export function buildCourseDetailDescription(course: Course): string {
-  const name = course.name.trim() || "골프장";
-  if (hasPrice(course)) {
-    return `${name}의 위치, 전화번호, 홈페이지, 참고 요금 정보를 ${siteConfig.siteName}에서 확인하세요.`;
-  }
-  return `${name}의 위치, 전화번호, 홈페이지 정보를 ${siteConfig.siteName}에서 확인하세요.`;
 }
 
 export function buildCourseMetadata(course: Course): Metadata {

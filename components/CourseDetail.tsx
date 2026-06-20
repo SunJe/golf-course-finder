@@ -42,6 +42,7 @@ import {
 } from "@/lib/externalSearchLinks";
 import { formatDistanceKm } from "@/lib/geoUtils";
 import { createCourseReportIssueMailto } from "@/lib/reportIssueLink";
+import { buildCourseSeoIntroParagraph } from "@/lib/courseSeoCopy";
 import HomeResetLink from "@/components/HomeResetLink";
 import CourseMap from "@/components/maps/CourseMap";
 import CourseDetailHeroImage from "@/components/CourseDetailHeroImage";
@@ -201,6 +202,7 @@ export default function CourseDetail({
     [course, nearbyCourses],
   );
   const reportIssueMailto = createCourseReportIssueMailto(course);
+  const seoIntro = buildCourseSeoIntroParagraph(course);
 
   const actionButtonClass =
     "flex min-h-[48px] items-center justify-center gap-2 rounded-xl border px-3 py-3 text-sm font-semibold transition active:scale-[0.98]";
@@ -314,6 +316,10 @@ export default function CourseDetail({
           </a>
         </div>
       </header>
+
+      <p className="mt-4 rounded-xl border border-gray-100 bg-white/90 px-4 py-3 text-sm leading-relaxed text-gray-600 shadow-sm sm:px-5">
+        {seoIntro}
+      </p>
 
       {/* 기본 정보 */}
       <section className="mt-6 rounded-2xl border border-gray-200/80 bg-white shadow-sm">

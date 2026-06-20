@@ -5,16 +5,16 @@ function normalizeSiteUrl(url: string): string {
 }
 
 export const siteConfig = {
-  siteName: "GolfMap",
+  siteName: "GolfMap Korea",
   siteNameKo: "골프맵",
   siteUrl: normalizeSiteUrl(
     process.env.NEXT_PUBLIC_SITE_URL?.trim() || DEFAULT_SITE_URL,
   ),
   contactEmail:
     process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim() || "golfmap.kr@gmail.com",
-  defaultTitle: "GolfMap | 전국 골프장 지도",
+  defaultTitle: "GolfMap Korea | 전국 골프장 지도",
   defaultDescription:
-    "전국 골프장의 위치, 요금, 전화번호, 홈페이지 정보를 지도에서 한눈에 확인하세요.",
+    "전국 골프장의 위치, 주소, 전화번호, 홈페이지, 참고 요금 정보를 지도에서 한눈에 확인하세요. 지역별 골프장과 주변 골프장을 쉽게 찾아볼 수 있습니다.",
   defaultOgImage: "/og-image.png",
   naverSiteVerification:
     process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION?.trim() ||

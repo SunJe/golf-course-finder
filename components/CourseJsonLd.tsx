@@ -1,6 +1,8 @@
 import type { Course } from "@/types/course";
+import { buildCourseJsonLdDescription } from "@/lib/courseSeoCopy";
 import { getPriceMax, getPriceMin, hasPrice } from "@/lib/priceFormat";
 import { isValidCourseCoordinates } from "@/lib/focusCourse";
+import { absoluteUrl } from "@/lib/siteConfig";
 
 function buildPriceRange(course: Course): string | undefined {
   if (!hasPrice(course)) return undefined;
@@ -15,42 +17,47 @@ function buildPriceRange(course: Course): string | undefined {
   return `₩${min.toLocaleString("ko-KR")}+`;
 }
 
-/** 상세 페이지 Place / LocalBusiness JSON-LD */
+function compactJsonLd(value: Record<string, unknown>): Record<string, unknown> {
+  return Object.fromEntries(
+    Object.entries(value).filter(
+      ([, entry]) =>
+        entry !== undefined &&
+        entry !== null &&
+        entry !== "" &&
+        !(Array.isArray(entry) && entry.length === 0),
+    ),
+  );
+}
+
+/** 상세 페이지 SportsActivityLocation / LocalBusiness JSON-LD */
 export default function CourseJsonLd({ course }: { course: Course }) {
-  const jsonLd: Record<string, unknown> = {
+  const pageUrl = absoluteUrl(`/courses/${course.id}`);
+  const homepage = course.homepageUrl?.trim();
+
+  const jsonLd = compactJsonLd({
     "@context": "https://schema.org",
-    "@type": ["Place", "LocalBusiness"],
+    "@type": ["SportsActivityLocation", "LocalBusiness", "Place"],
     name: course.name.trim(),
-  };
-
-  if (course.address?.trim()) {
-    jsonLd.address = {
-      "@type": "PostalAddress",
-      streetAddress: course.address.trim(),
-      addressCountry: "KR",
-    };
-  }
-
-  if (course.phone?.trim()) {
-    jsonLd.telephone = course.phone.trim();
-  }
-
-  if (course.homepageUrl?.trim()) {
-    jsonLd.url = course.homepageUrl.trim();
-  }
-
-  if (isValidCourseCoordinates(course)) {
-    jsonLd.geo = {
-      "@type": "GeoCoordinates",
-      latitude: course.latitude,
-      longitude: course.longitude,
-    };
-  }
-
-  const priceRange = buildPriceRange(course);
-  if (priceRange) {
-    jsonLd.priceRange = priceRange;
-  }
+    url: pageUrl,
+    description: buildCourseJsonLdDescription(course),
+    telephone: course.phone?.trim(),
+    sameAs: homepage ? [homepage] : undefined,
+    address: course.address?.trim()
+      ? {
+          "@type": "PostalAddress",
+          streetAddress: course.address.trim(),
+          addressCountry: "KR",
+        }
+      : undefined,
+    geo: isValidCourseCoordinates(course)
+      ? {
+          "@type": "GeoCoordinates",
+          latitude: course.latitude,
+          longitude: course.longitude,
+        }
+      : undefined,
+    priceRange: buildPriceRange(course),
+  });
 
   return (
     <script

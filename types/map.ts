@@ -56,8 +56,11 @@ export interface CourseMapBaseProps {
   mapMode?: "search" | "detail";
   /** 지도 bounds 안에 보이는 course id 목록 변경 */
   onVisibleCoursesChange?: (courseIds: string[]) => void;
-  /** 클러스터 클릭 시 해당 클러스터 course id 목록 */
-  onClusterSelect?: (courseIds: string[]) => void;
+  /** 클러스터 클릭 시 해당 클러스터 key + course id 목록 (누적 선택) */
+  onClusterSelect?: (payload: {
+    clusterKey: string;
+    courseIds: string[];
+  }) => void;
   /** 리스트 카드 hover 시 강조할 course id */
   hoveredCourseId?: string | null;
   /** 증가 시 필터 결과 전체가 보이도록 map bounds 조정 ("결과 위치로 이동") */
@@ -76,6 +79,8 @@ export interface CourseMapBaseProps {
   visitedOnly?: boolean;
   /** 클러스터 클릭 후 묶음 내 course id — 개별 pin 우선 */
   clusterScopeCourseIds?: string[] | null;
+  /** 선택된 cluster key 목록 — badge 선택 스타일 */
+  selectedClusterKeys?: string[];
   /** localStorage 즐겨찾기 course id — 별도 heart overlay layer용 */
   favoriteCourseIds?: string[];
   /** localStorage 가본 골프장 course id — 별도 visited overlay layer용 */

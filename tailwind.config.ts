@@ -24,6 +24,14 @@ const config: Config = {
           800: "#166534",
           900: "#14532d",
         },
+        region: {
+          cream: "#F8F7EF",
+          ink: "#10231A",
+          muted: "#667085",
+          soft: "#EAF7EF",
+          "soft-border": "#BFE8CD",
+          accent: "#F3E8C8",
+        },
       },
       boxShadow: {
         card: "0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.06)",

@@ -31,8 +31,10 @@ function mapRows(rows: GolfCourseRow[]): Course[] {
   return rows.map(mapGolfCourseRowToCourse);
 }
 
-async function fetchCoursesFromSupabase(): Promise<Course[] | null> {
-  noStore();
+async function fetchCoursesFromSupabase(options?: { static?: boolean }): Promise<Course[] | null> {
+  if (!options?.static) {
+    noStore();
+  }
   const supabase = getSupabaseClient();
   if (!isSupabaseConfigured || !supabase) {
     warnFallback("Supabase env not configured");
@@ -62,6 +64,12 @@ async function fetchCoursesFromSupabase(): Promise<Course[] | null> {
 
 export async function getCourses(): Promise<Course[]> {
   const fromSupabase = await fetchCoursesFromSupabase();
+  return fromSupabase ?? getMockCourses();
+}
+
+/** SSG/ISR region landing 등 정적 생성용 — noStore 없이 fetch */
+export async function getCoursesForStaticPages(): Promise<Course[]> {
+  const fromSupabase = await fetchCoursesFromSupabase({ static: true });
   return fromSupabase ?? getMockCourses();
 }
 

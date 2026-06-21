@@ -416,17 +416,20 @@ export function countVisualizedCourses(
 
 
 
-function clusterBadgeStyle(count: number): string {
-
+function clusterBadgeStyle(count: number, selected = false): string {
   const base =
-
     "border:3px solid #ffffff;color:#ffffff;text-align:center;font-weight:bold;" +
-
     "box-shadow:0 2px 8px rgba(0,0,0,0.22);font-family:inherit;cursor:pointer;" +
-
     "pointer-events:auto;touch-action:manipulation;padding:0;line-height:1;";
 
-
+  if (selected) {
+    return (
+      base +
+      "width:46px;height:46px;line-height:40px;font-size:13px;" +
+      "background:rgba(22,101,52,0.96);border-radius:23px;" +
+      "box-shadow:0 0 0 3px rgba(22,163,74,0.45),0 2px 10px rgba(0,0,0,0.25);"
+    );
+  }
 
   if (count >= 50) {
 
@@ -470,36 +473,25 @@ function clusterBadgeStyle(count: number): string {
 
 
 
-export function createClusterBadgeElement(count: number): HTMLButtonElement {
-
+export function createClusterBadgeElement(
+  count: number,
+  selected = false,
+): HTMLButtonElement {
   const btn = document.createElement("button");
-
   btn.type = "button";
-
   btn.textContent = String(count);
-
   btn.setAttribute("aria-label", `골프장 ${count}곳 묶음`);
-
-  btn.style.cssText = clusterBadgeStyle(count);
-
+  btn.style.cssText = clusterBadgeStyle(count, selected);
   return btn;
-
 }
 
-
-
 export function updateClusterBadgeElement(
-
   btn: HTMLButtonElement,
-
   count: number,
-
+  selected = false,
 ): void {
-
   btn.textContent = String(count);
-
-  btn.style.cssText = clusterBadgeStyle(count);
-
+  btn.style.cssText = clusterBadgeStyle(count, selected);
 }
 
 

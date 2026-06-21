@@ -74,6 +74,8 @@ interface MobileBottomSheetProps {
   visitedCount?: number;
   onToggleFavoriteOnly?: () => void;
   onToggleVisitedOnly?: () => void;
+  isClusterMode?: boolean;
+  onClearCluster?: () => void;
 }
 
 export default function MobileBottomSheet({
@@ -101,6 +103,8 @@ export default function MobileBottomSheet({
   visitedCount = 0,
   onToggleFavoriteOnly,
   onToggleVisitedOnly,
+  isClusterMode = false,
+  onClearCluster,
 }: MobileBottomSheetProps) {
   const [viewportHeight, setViewportHeight] = useState(getViewportHeight);
   const [dragHeight, setDragHeight] = useState<number | null>(null);
@@ -235,14 +239,25 @@ export default function MobileBottomSheet({
               </p>
             </div>
             {!collapsed && (
-              <button
-                type="button"
-                onClick={() => onSnapChange(expanded ? "half" : "collapsed")}
-                className="flex min-h-[34px] shrink-0 items-center gap-1 rounded-full border border-stone-200 bg-stone-50 px-2.5 text-[11px] font-semibold text-stone-700"
-              >
-                <Map className="h-3.5 w-3.5" />
-                {expanded ? "접기" : "지도"}
-              </button>
+              <div className="flex shrink-0 items-center gap-1.5">
+                {isClusterMode && onClearCluster && (
+                  <button
+                    type="button"
+                    onClick={onClearCluster}
+                    className="flex min-h-[34px] shrink-0 items-center rounded-full border border-brand-200 bg-brand-50 px-2.5 text-[11px] font-semibold text-brand-800"
+                  >
+                    선택 해제
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={() => onSnapChange(expanded ? "half" : "collapsed")}
+                  className="flex min-h-[34px] shrink-0 items-center gap-1 rounded-full border border-stone-200 bg-stone-50 px-2.5 text-[11px] font-semibold text-stone-700"
+                >
+                  <Map className="h-3.5 w-3.5" />
+                  {expanded ? "접기" : "지도"}
+                </button>
+              </div>
             )}
           </div>
 

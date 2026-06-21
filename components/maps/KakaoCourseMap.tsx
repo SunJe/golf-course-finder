@@ -134,6 +134,7 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     favoriteOnly = false,
     visitedOnly = false,
     clusterScopeCourseIds = null,
+    selectedClusterKeys = [],
     favoriteCourseIds = [],
     visitedCourseIds = [],
     fitToCourseIds = [],
@@ -182,6 +183,7 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     resolveInitialMapLevel(isMobile),
   );
   const clusterScopeRef = useRef(clusterScopeCourseIds);
+  const selectedClusterKeysRef = useRef(selectedClusterKeys);
   const favoriteCourseIdsRef = useRef(favoriteCourseIds);
   const visitedCourseIdsRef = useRef(visitedCourseIds);
   const onSelectPopupOnlyRef = useRef(onSelectPopupOnly);
@@ -236,6 +238,7 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
   favoriteOnlyRef.current = favoriteOnly;
   visitedOnlyRef.current = visitedOnly;
   clusterScopeRef.current = clusterScopeCourseIds;
+  selectedClusterKeysRef.current = selectedClusterKeys;
   favoriteCourseIdsRef.current = favoriteCourseIds;
   visitedCourseIdsRef.current = visitedCourseIds;
   onSelectPopupOnlyRef.current = onSelectPopupOnly;
@@ -395,15 +398,16 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
 
         const key = clusterGroupKey(group.courseIds);
         nextKeys.add(key);
+        const isSelected = selectedClusterKeysRef.current.includes(key);
 
         let entry = clusterOverlaysRef.current.get(key);
         if (!entry) {
           const courseIds = [...group.courseIds];
-          const badgeEl = createClusterBadgeElement(courseIds.length);
+          const badgeEl = createClusterBadgeElement(courseIds.length, isSelected);
           const clickHandler = (e: Event) => {
             e.preventDefault();
             e.stopPropagation();
-            onClusterRef.current?.(courseIds);
+            onClusterRef.current?.({ clusterKey: key, courseIds });
           };
           badgeEl.addEventListener("click", clickHandler);
 
@@ -412,18 +416,18 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
             content: badgeEl,
             xAnchor: 0.5,
             yAnchor: 0.5,
-            zIndex: 80,
+            zIndex: isSelected ? 120 : 80,
             clickable: true,
           });
 
           entry = { overlay, badgeEl, courseIds, clickHandler };
           clusterOverlaysRef.current.set(key, entry);
         } else {
-          updateClusterBadgeElement(entry.badgeEl, group.courseIds.length);
+          updateClusterBadgeElement(entry.badgeEl, group.courseIds.length, isSelected);
           entry.overlay.setPosition(new LatLng(group.lat, group.lng));
         }
 
-        entry.overlay.setZIndex(80);
+        entry.overlay.setZIndex(isSelected ? 120 : 80);
         entry.overlay.setMap(map);
       }
 
@@ -1006,7 +1010,7 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
   useEffect(() => {
     if (mode !== "kakao") return;
     syncMarkerVisuals();
-  }, [mode, searchKeyword, favoriteOnly, visitedOnly, clusterScopeCourseIds, syncMarkerVisuals]);
+  }, [mode, searchKeyword, favoriteOnly, visitedOnly, clusterScopeCourseIds, selectedClusterKeys, syncMarkerVisuals]);
 
   useEffect(() => {
     if (mode !== "kakao") return;

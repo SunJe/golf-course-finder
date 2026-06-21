@@ -32,6 +32,11 @@ import {
   consumeHomeResetPending,
   clearHomeUrlState,
 } from "@/lib/homeResetState";
+import {
+  filterCoursesByRegion,
+  getRegionLandingBySlug,
+  getRegionMapFilterRegion,
+} from "@/lib/regionLanding";
 
 type ListMode = "cluster" | "allFiltered" | "visible" | "fallback";
 
@@ -41,9 +46,14 @@ function getMobileSheetTitle(
   total: number,
   isFiltered: boolean,
   searchQuery: string,
+  selectedClusterCount = 0,
 ): string {
   if (searchQuery) return `'${searchQuery}' 검색 결과 ${count}곳`;
-  if (mode === "cluster") return `선택한 묶음의 골프장 ${count}곳`;
+  if (mode === "cluster") {
+    return selectedClusterCount > 1
+      ? `선택한 묶음들의 골프장 ${count}곳`
+      : `선택한 묶음의 골프장 ${count}곳`;
+  }
   if (mode === "allFiltered") {
     return isFiltered ? `필터 결과 전체 ${count}곳` : `전체 결과 ${count}곳`;
   }
@@ -75,6 +85,7 @@ function ListHeader({
   visitedCount,
   onToggleVisitedOnly,
   isSearchActive = false,
+  selectedClusterCount = 0,
 }: {
   mode: ListMode;
   count: number;
@@ -94,6 +105,7 @@ function ListHeader({
   visitedCount: number;
   onToggleVisitedOnly: () => void;
   isSearchActive?: boolean;
+  selectedClusterCount?: number;
 }) {
   let title: React.ReactNode;
 
@@ -119,7 +131,7 @@ function ListHeader({
   } else if (mode === "cluster") {
     title = (
       <>
-        선택한 묶음의 골프장{" "}
+        {selectedClusterCount > 1 ? "선택한 묶음들의 골프장" : "선택한 묶음의 골프장"}{" "}
         <span className="text-brand-600">{count}</span>곳
       </>
     );
@@ -260,15 +272,30 @@ function ListHeader({
   );
 }
 
-export default function HomeClient({ courses }: { courses: Course[] }) {
+export default function HomeClient({
+  courses,
+  initialRegionSlug,
+}: {
+  courses: Course[];
+  initialRegionSlug?: string;
+}) {
   return (
     <CourseCollectionsProvider>
-      <HomeClientInner courses={courses} />
+      <HomeClientInner
+        courses={courses}
+        initialRegionSlug={initialRegionSlug}
+      />
     </CourseCollectionsProvider>
   );
 }
 
-function HomeClientInner({ courses }: { courses: Course[] }) {
+function HomeClientInner({
+  courses,
+  initialRegionSlug,
+}: {
+  courses: Course[];
+  initialRegionSlug?: string;
+}) {
   const { registerHomeReset } = useHomeReset();
   const { favoriteCourseIds, favoriteCount } = useFavorites();
   const { visitedCourseIds, visitedCount } = useVisited();
@@ -282,11 +309,14 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
   const [visibleCourseIds, setVisibleCourseIds] = useState<string[] | null>(
     null,
   );
-  const [selectedClusterCourseIds, setSelectedClusterCourseIds] = useState<
-    string[] | null
-  >(null);
+  const [selectedClusters, setSelectedClusters] = useState<
+    Record<string, string[]>
+  >({});
   const [isShowingAllFilteredResults, setIsShowingAllFilteredResults] =
     useState(false);
+  const [landingRegionSlug, setLandingRegionSlug] = useState<string | null>(
+    null,
+  );
   const [center, setCenter] = useState<MapFocusTarget | null>(null);
   const [mapViewResetSignal, setMapViewResetSignal] = useState(0);
   const [sheetOpen, setSheetOpen] = useState(false);
@@ -294,12 +324,31 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
     useState<MobileSheetSnap>("half");
   const [searchFitSignal, setSearchFitSignal] = useState(0);
 
+  const selectedClusterKeys = useMemo(
+    () => Object.keys(selectedClusters),
+    [selectedClusters],
+  );
+
+  const selectedClusterCourseIds = useMemo(() => {
+    const ids = new Set<string>();
+    for (const courseIds of Object.values(selectedClusters)) {
+      for (const id of courseIds) ids.add(id);
+    }
+    return ids.size > 0 ? [...ids] : null;
+  }, [selectedClusters]);
+
   const searchQuery = filters.query.trim();
   const isSearchActive = searchQuery.length > 0;
 
+  const sourceCourses = useMemo(() => {
+    if (!landingRegionSlug) return courses;
+    const config = getRegionLandingBySlug(landingRegionSlug);
+    return config ? filterCoursesByRegion(courses, config) : courses;
+  }, [courses, landingRegionSlug]);
+
   const searchFiltered = useMemo(
-    () => filterCourses(courses, filters),
-    [courses, filters],
+    () => filterCourses(sourceCourses, filters),
+    [sourceCourses, filters],
   );
   const activeCount = countActiveFilters(filters);
   const isFiltered = activeCount > 0 || filters.query.trim().length > 0;
@@ -467,6 +516,7 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
       courses.length,
       isFiltered,
       isSearchActive ? searchQuery : "",
+      selectedClusterKeys.length,
     );
   }, [
     favoriteOnly,
@@ -477,6 +527,7 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
     isFiltered,
     isSearchActive,
     searchQuery,
+    selectedClusterKeys.length,
   ]);
 
   const mapFitToCourseIds = useMemo(() => {
@@ -515,7 +566,7 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
       setSelectedId,
       setHoveredId,
       setVisibleCourseIds,
-      setSelectedClusterCourseIds,
+      setSelectedClusters,
       setIsShowingAllFilteredResults,
       setCenter,
       bumpMapViewResetSignal: () => setMapViewResetSignal((value) => value + 1),
@@ -523,8 +574,23 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
       setMobileSheetSnap,
       setSearchFitSignal,
     });
+    setLandingRegionSlug(null);
     clearHomeUrlState();
   }, []);
+
+  useEffect(() => {
+    if (!initialRegionSlug) return;
+    const config = getRegionLandingBySlug(initialRegionSlug);
+    if (!config) return;
+
+    const filterRegion = getRegionMapFilterRegion(initialRegionSlug);
+    if (filterRegion) {
+      setFilters({ ...EMPTY_FILTERS, regions: [filterRegion] });
+    } else {
+      setLandingRegionSlug(initialRegionSlug);
+    }
+    setIsShowingAllFilteredResults(true);
+  }, [initialRegionSlug]);
 
   useEffect(() => {
     const unregister = registerHomeReset(resetHomeState);
@@ -539,7 +605,8 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
   }, []);
 
   const clearClusterScope = useCallback(() => {
-    setSelectedClusterCourseIds(null);
+    setSelectedClusters({});
+    setSelectedId(null);
   }, []);
 
   const handleShowMapBased = useCallback(() => {
@@ -548,11 +615,11 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
 
   const handleShowAllFiltered = useCallback(() => {
     setIsShowingAllFilteredResults(true);
-    setSelectedClusterCourseIds(null);
+    setSelectedClusters({});
   }, []);
 
   const handleFitResults = useCallback(() => {
-    setSelectedClusterCourseIds(null);
+    setSelectedClusters({});
     setIsShowingAllFilteredResults(false);
     setMapViewResetSignal((n) => n + 1);
   }, []);
@@ -560,15 +627,11 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
   const focusCourseOnList = useCallback(
     (
       course: Course,
-      options?: { collapseSheet?: boolean; clearCluster?: boolean },
+      options?: { collapseSheet?: boolean },
     ) => {
       if (!isValidCourseCoordinates(course)) {
         debugFocusCourse(course, null);
         return;
-      }
-
-      if (options?.clearCluster !== false) {
-        setSelectedClusterCourseIds(null);
       }
 
       setSelectedId(course.id);
@@ -615,7 +678,6 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
   );
 
   const handleMapPopupSelect = useCallback((course: Course) => {
-    setSelectedClusterCourseIds(null);
     setSelectedId(course.id);
   }, []);
 
@@ -623,10 +685,22 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
     setVisibleCourseIds(ids);
   }, []);
 
-  const handleClusterSelect = useCallback((ids: string[]) => {
-    setSelectedClusterCourseIds(ids);
-    setIsShowingAllFilteredResults(false);
-  }, []);
+  const handleClusterSelect = useCallback(
+    ({
+      clusterKey,
+      courseIds,
+    }: {
+      clusterKey: string;
+      courseIds: string[];
+    }) => {
+      setSelectedClusters((prev) => {
+        if (prev[clusterKey]) return prev;
+        return { ...prev, [clusterKey]: courseIds };
+      });
+      setIsShowingAllFilteredResults(false);
+    },
+    [],
+  );
 
   const handleHoverCourseId = useCallback((courseId: string | null) => {
     setHoveredId(courseId);
@@ -638,7 +712,7 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
 
   const handleSuggestionSelect = useCallback(
     (course: Course) => {
-      setSelectedClusterCourseIds(null);
+      setSelectedClusters({});
       updateFilters({ query: course.name });
       setSelectedId(course.id);
       if (isValidCourseCoordinates(course)) {
@@ -657,7 +731,7 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
   );
 
   useEffect(() => {
-    setSelectedClusterCourseIds(null);
+    setSelectedClusters({});
     if (!filters.query.trim()) {
       setIsShowingAllFilteredResults(false);
     }
@@ -739,6 +813,7 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
     favoriteOnly,
     visitedOnly,
     clusterScopeCourseIds: selectedClusterCourseIds,
+    selectedClusterKeys,
     favoriteCourseIds,
     visitedCourseIds,
     fitToCourseIds: mapFitToCourseIds,
@@ -826,6 +901,7 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
     visitedCount,
     onToggleVisitedOnly: handleToggleVisitedOnly,
     isSearchActive,
+    selectedClusterCount: selectedClusterKeys.length,
   };
 
   return (
@@ -924,6 +1000,8 @@ function HomeClientInner({ courses }: { courses: Course[] }) {
           visitedCount={visitedCount}
           onToggleFavoriteOnly={handleToggleFavoriteOnly}
           onToggleVisitedOnly={handleToggleVisitedOnly}
+          isClusterMode={isClusterScopeActive}
+          onClearCluster={clearClusterScope}
           {...listEmptyProps}
         />
       </div>

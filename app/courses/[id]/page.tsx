@@ -8,6 +8,7 @@ import {
 } from "@/lib/seoMetadata";
 import CourseDetail from "@/components/CourseDetail";
 import CourseJsonLd from "@/components/CourseJsonLd";
+import RegionLinks from "@/components/RegionLinks";
 
 export async function generateStaticParams() {
   const ids = await getAllCourseIds();
@@ -39,6 +40,9 @@ export default async function CourseDetailPage({
     <>
       <CourseJsonLd course={course} />
       <CourseDetail course={course} nearbyCourses={nearbyCourses} />
+      <div className="mx-auto max-w-3xl px-4 pb-4 sm:px-6 md:max-w-4xl">
+        <RegionLinks />
+      </div>
     </>
   );
 }

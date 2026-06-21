@@ -14,7 +14,7 @@ export const siteConfig = {
     process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim() || "golfmap.kr@gmail.com",
   defaultTitle: "GolfMap Korea | 전국 골프장 지도",
   defaultDescription:
-    "전국 골프장의 위치, 주소, 전화번호, 홈페이지, 참고 요금 정보를 지도에서 한눈에 확인하세요. 지역별 골프장과 주변 골프장을 쉽게 찾아볼 수 있습니다.",
+    "전국 골프장 위치, 전화번호, 홈페이지, 요금 정보를 지도에서 확인하세요.",
   defaultOgImage: "/og-image.png",
   naverSiteVerification:
     process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION?.trim() ||

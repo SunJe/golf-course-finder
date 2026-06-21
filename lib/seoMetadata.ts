@@ -2,12 +2,12 @@ import fs from "fs";
 import path from "path";
 import type { Metadata } from "next";
 import type { Course } from "@/types/course";
-import { buildCourseDetailDescription } from "@/lib/courseSeoCopy";
-import type { RegionLandingConfig } from "@/lib/regionLanding";
 import {
-  formatCityNameList,
-  getTopCityDisplayNames,
-} from "@/lib/regionCityHelpers";
+  buildCourseDetailDescription,
+  META_DESCRIPTION_MAX_LENGTH,
+  truncateMetaDescription,
+} from "@/lib/courseSeoCopy";
+import type { RegionLandingConfig } from "@/lib/regionLanding";
 import { absoluteUrl, getNaverSiteVerification, getSiteUrl, siteConfig } from "@/lib/siteConfig";
 
 const HOME_KEYWORDS = [
@@ -121,15 +121,13 @@ export function buildNotFoundCourseMetadata(): Metadata {
 
 export function buildRegionMetadata(
   config: RegionLandingConfig,
-  courses: Course[] = [],
+  _courses: Course[] = [],
 ): Metadata {
-  const topCities = getTopCityDisplayNames(courses, 3);
-  const cityExamples = topCities.length
-    ? ` ${formatCityNameList(topCities)} ${config.label} 골프장 정보를 한눈에 비교할 수 있습니다.`
-    : ` ${config.label} 골프장 정보를 한눈에 비교할 수 있습니다.`;
-
   const title = `${config.label} 골프장 지도 | 전화번호·홈페이지·요금 정보 | ${siteConfig.siteName}`;
-  const description = `${config.label} 지역 골프장의 위치, 주소, 전화번호, 홈페이지, 참고 요금을 ${siteConfig.siteName}에서 확인하세요.${cityExamples}`;
+  const description = truncateMetaDescription(
+    `${config.label} 골프장 위치, 전화번호, 홈페이지, 요금 정보를 ${siteConfig.siteName}에서 확인하세요.`,
+    META_DESCRIPTION_MAX_LENGTH,
+  );
   const url = absoluteUrl(`/regions/${config.slug}`);
 
   return {

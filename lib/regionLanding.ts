@@ -26,7 +26,7 @@ export const regionLandingPages: RegionLandingConfig[] = [
     aliases: ["경기", "경기도"],
     title: "경기 골프장 지도",
     description:
-      "경기 지역 골프장의 위치, 주소, 전화번호, 홈페이지, 참고 요금을 GolfMap Korea에서 확인하세요.",
+      "경기 골프장 위치, 전화번호, 홈페이지, 요금 정보를 GolfMap Korea에서 확인하세요.",
   },
   {
     slug: "incheon",
@@ -34,7 +34,7 @@ export const regionLandingPages: RegionLandingConfig[] = [
     aliases: ["인천", "인천시", "인천광역시"],
     title: "인천 골프장 지도",
     description:
-      "인천 지역 골프장의 위치, 주소, 전화번호, 홈페이지, 참고 요금을 GolfMap Korea에서 확인하세요.",
+      "인천 골프장 위치, 전화번호, 홈페이지, 요금 정보를 GolfMap Korea에서 확인하세요.",
   },
   {
     slug: "gangwon",
@@ -42,7 +42,7 @@ export const regionLandingPages: RegionLandingConfig[] = [
     aliases: ["강원", "강원도", "강원특별자치도"],
     title: "강원 골프장 지도",
     description:
-      "강원 지역 골프장의 위치, 주소, 전화번호, 홈페이지, 참고 요금을 GolfMap Korea에서 확인하세요.",
+      "강원 골프장 위치, 전화번호, 홈페이지, 요금 정보를 GolfMap Korea에서 확인하세요.",
   },
   {
     slug: "jeju",
@@ -50,7 +50,7 @@ export const regionLandingPages: RegionLandingConfig[] = [
     aliases: ["제주", "제주도", "제주특별자치도"],
     title: "제주 골프장 지도",
     description:
-      "제주 지역 골프장의 위치, 주소, 전화번호, 홈페이지, 참고 요금을 GolfMap Korea에서 확인하세요.",
+      "제주 골프장 위치, 전화번호, 홈페이지, 요금 정보를 GolfMap Korea에서 확인하세요.",
   },
   {
     slug: "busan",
@@ -58,7 +58,7 @@ export const regionLandingPages: RegionLandingConfig[] = [
     aliases: ["부산", "부산시", "부산광역시"],
     title: "부산 골프장 지도",
     description:
-      "부산 지역 골프장의 위치, 주소, 전화번호, 홈페이지, 참고 요금을 GolfMap Korea에서 확인하세요.",
+      "부산 골프장 위치, 전화번호, 홈페이지, 요금 정보를 GolfMap Korea에서 확인하세요.",
   },
 ];
 

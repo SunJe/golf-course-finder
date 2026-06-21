@@ -3,8 +3,14 @@ import { formatHoleCount } from "@/lib/courseDisplay";
 import { formatPriceRange, hasPrice } from "@/lib/priceFormat";
 import { siteConfig } from "@/lib/siteConfig";
 
+/** 네이버 Search Advisor·OG description 권장 길이 */
+export const META_DESCRIPTION_MAX_LENGTH = 80;
+
 /** 메타 description용 — 공백 정리 후 최대 길이 제한 */
-export function truncateMetaDescription(text: string, maxLength = 160): string {
+export function truncateMetaDescription(
+  text: string,
+  maxLength = META_DESCRIPTION_MAX_LENGTH,
+): string {
   const normalized = text.trim().replace(/\s+/g, " ");
   if (normalized.length <= maxLength) return normalized;
   const cut = normalized.slice(0, maxLength - 1);
@@ -22,15 +28,7 @@ export function formatRegionLabel(course: Course): string {
 
 export function buildCourseDetailDescription(course: Course): string {
   const name = course.name.trim() || "골프장";
-  const regionLabel = formatRegionLabel(course);
-  const regionPhrase = regionLabel ? `${regionLabel} ` : "";
-
-  const fields = ["주소", "전화번호", "홈페이지"];
-  if (hasPrice(course)) fields.push("참고 요금");
-  fields.push("위치 정보");
-
-  const base = `${name}의 ${fields.join(", ")}를 ${siteConfig.siteName}에서 확인하세요. ${regionPhrase}골프장 정보와 주변 골프장도 함께 볼 수 있습니다.`;
-
+  const base = `${name}의 주소, 전화번호, 홈페이지, 요금 정보를 ${siteConfig.siteName}에서 확인하세요.`;
   return truncateMetaDescription(base);
 }
 

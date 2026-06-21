@@ -57,6 +57,7 @@ interface CliOptions {
   gotoMinIntervalMs: number;
   allowSearchFallback: boolean;
   skipReservation: boolean;
+  contactOnly: boolean;
   candidateOpenMode: import("./lib/naverMapEnrichment/types").CandidateOpenMode;
 }
 
@@ -77,6 +78,7 @@ function parseArgs(argv: string[]): CliOptions {
     gotoMinIntervalMs: DEFAULT_GOTO_MIN_INTERVAL_MS,
     allowSearchFallback: false,
     skipReservation: true,
+    contactOnly: false,
     candidateOpenMode: "research",
   };
 
@@ -160,6 +162,9 @@ function parseArgs(argv: string[]): CliOptions {
     } else if (arg === "--allow-search-fallback") {
       options.allowSearchFallback = true;
     } else if (arg === "--skip-reservation") {
+      options.skipReservation = true;
+    } else if (arg === "--contact-only") {
+      options.contactOnly = true;
       options.skipReservation = true;
     } else if (arg === "--collect-prices") {
       options.skipReservation = false;
@@ -375,8 +380,9 @@ async function main(): Promise<void> {
     console.log(`retry-failed from: ${options.onlyFailedFrom}`);
     console.log(`include-skipped: ${options.includeSkipped}`);
   }
-  console.log(`mode: minimal contact+stats only (no reservation/price)`);
+  console.log(`mode: ${options.contactOnly ? "contact-only (phone/homepage only)" : "minimal contact+stats only (no reservation/price)"}`);
   console.log(`skip-reservation: ${options.skipReservation}`);
+  console.log(`contact-only: ${options.contactOnly}`);
   console.log(`candidate-open-mode: ${options.candidateOpenMode}`);
   console.log(`address-first: ${options.addressFirst}`);
   console.log(`headful: ${options.headful}, slow: ${options.slowMs}ms`);
@@ -416,6 +422,7 @@ async function main(): Promise<void> {
           maxRetries: options.maxRetries,
           singleSearchPerRow: !options.allowSearchFallback,
           skipReservation: options.skipReservation,
+          contactOnly: options.contactOnly,
           candidateOpenMode: options.candidateOpenMode,
           circuitBreaker,
           gotoRateLimiter,
@@ -471,7 +478,7 @@ async function main(): Promise<void> {
   const merge = buildMergePreview(allRows, collected, {
     fillMissingOnly: options.fillMissingOnly,
     overwrite: options.overwrite,
-    skipPriceFields: options.skipReservation,
+    skipPriceFields: options.skipReservation || options.contactOnly,
   });
   writeMergePreviewCsv(MERGE_PREVIEW_CSV, headers, merge.rows);
   console.log(`merge preview written: ${MERGE_PREVIEW_CSV}`);

@@ -32,11 +32,13 @@
     "collect:naver-safe-all": "tsx scripts/collectNaverSafeAll.ts",
     "collect:naver-map-enrichment": "tsx scripts/collectNaverMapEnrichment.ts",
     "check:naver-map-access": "tsx scripts/checkNaverMapAccess.ts",
+    "check:naver-map-search-access": "tsx scripts/checkNaverMapSearchAccess.ts",
     "generate:manual-review-worklist": "tsx scripts/generateManualReviewWorklist.ts",
     "generate:enrichment-quality-report": "tsx scripts/generateEnrichmentQualityReport.ts",
     "generate:course-enrichment-edit": "tsx scripts/generateCourseEnrichmentEditCsv.ts",
     "generate:course-enrichment-upload": "tsx scripts/generateCourseEnrichmentUpload.ts",
     "generate:golf-course-core-update": "tsx scripts/generateGolfCourseCoreUpdateSql.ts",
+    "generate:golf-course-enrichment-update": "tsx scripts/generateGolfCourseEnrichmentUpdateSql.ts",
     "generate:course-price-update": "tsx scripts/generateCoursePriceUpdateSql.ts",
     "verify:map-search-name": "tsx scripts/verifyMapSearchName.ts",
     "verify:price-filter": "tsx scripts/verifyPriceFilter.ts"
@@ -44,6 +46,7 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",
     "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "lucide-react": "^0.453.0",
     "next": "14.2.x",
     "react": "^18.3.1",

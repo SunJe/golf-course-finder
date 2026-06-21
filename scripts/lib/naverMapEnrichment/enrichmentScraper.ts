@@ -87,6 +87,8 @@ export interface ScraperOptions {
   singleSearchPerRow: boolean;
   /** true면 예약 탭/가격/캘린더 클릭 안 함 (기본) */
   skipReservation: boolean;
+  /** true면 전화/홈페이지/주소만 수집 — avg_score/difficulty/price 탭 접근 금지 */
+  contactOnly: boolean;
   /** address 후보 진입: click=카드 클릭, research=후보 title 재검색 */
   candidateOpenMode: CandidateOpenMode;
   circuitBreaker?: AccessCircuitBreaker;
@@ -1804,23 +1806,29 @@ export async function scrapeEnrichmentRow(
       );
     }
 
-    const details = isLimitedContactMode(match.candidate)
-      ? await scrapeContactOnly(entryFrame ?? ctx.entryFrame, page, options.slowMs)
-      : await scrapePlaceDetails(
-          entryFrame ?? ctx.entryFrame,
-          page,
-          row,
-          options.slowMs,
-          options.skipReservation,
-        );
+    const details =
+      options.contactOnly || isLimitedContactMode(match.candidate)
+        ? await scrapeContactOnly(entryFrame ?? ctx.entryFrame, page, options.slowMs)
+        : await scrapePlaceDetails(
+            entryFrame ?? ctx.entryFrame,
+            page,
+            row,
+            options.slowMs,
+            options.skipReservation,
+          );
 
-    const hasAnyDetail =
-      Boolean(details.scraped_phone?.trim()) ||
-      Boolean(details.scraped_homepage_url?.trim()) ||
-      Boolean(details.scraped_avg_score?.trim()) ||
-      Boolean(details.scraped_difficulty?.trim());
+    const hasAnyDetail = options.contactOnly
+      ? Boolean(details.scraped_phone?.trim()) ||
+        Boolean(details.scraped_homepage_url?.trim())
+      : Boolean(details.scraped_phone?.trim()) ||
+        Boolean(details.scraped_homepage_url?.trim()) ||
+        Boolean(details.scraped_avg_score?.trim()) ||
+        Boolean(details.scraped_difficulty?.trim());
 
-    const detailEmpty = !isLimitedContactMode(match.candidate) && !hasAnyDetail;
+    const detailEmpty =
+      !options.contactOnly &&
+      !isLimitedContactMode(match.candidate) &&
+      !hasAnyDetail;
 
     const contactEmpty =
       isLimitedContactMode(match.candidate) &&
@@ -1882,14 +1890,16 @@ export async function scrapeEnrichmentRow(
       output.note = notes.join("; ");
     }
 
-    const swapped = applySwapToScrapedFields({
-      scraped_avg_score: output.scraped_avg_score,
-      scraped_difficulty: output.scraped_difficulty,
-      note: output.note,
-    });
-    output.scraped_avg_score = swapped.scraped_avg_score;
-    output.scraped_difficulty = swapped.scraped_difficulty;
-    output.note = swapped.note;
+    if (!options.contactOnly) {
+      const swapped = applySwapToScrapedFields({
+        scraped_avg_score: output.scraped_avg_score,
+        scraped_difficulty: output.scraped_difficulty,
+        note: output.note,
+      });
+      output.scraped_avg_score = swapped.scraped_avg_score;
+      output.scraped_difficulty = swapped.scraped_difficulty;
+      output.note = swapped.note;
+    }
 
     return finish(output);
   } catch (error) {

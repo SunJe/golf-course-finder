@@ -1,5 +1,5 @@
 import HomeResetLink from "@/components/HomeResetLink";
-import { Flag, Sparkles, MapPin, User } from "lucide-react";
+import { Flag, Sparkles, MapPin } from "lucide-react";
 
 const NAV = [
   { label: "전국 골프장", href: "/", icon: MapPin, resetHome: true },
@@ -49,14 +49,6 @@ export default function Header() {
             ),
           )}
         </nav>
-
-        <button
-          type="button"
-          className="hidden items-center gap-1.5 rounded-full border border-stone-200 px-4 py-2 text-sm font-semibold text-stone-700 transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-800 md:flex"
-        >
-          <User className="h-4 w-4" />
-          로그인
-        </button>
       </div>
     </header>
   );

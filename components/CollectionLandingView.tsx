@@ -15,6 +15,7 @@ import {
   COLLECTION_DISCLAIMER,
   NEAR_SEOUL_COLLECTION_DISCLAIMER,
   SCORED_COLLECTION_DISCLAIMER,
+  SCORED_REFERENCE_SCORE_DISCLAIMER,
   type CollectionConfig,
   type CollectionLandingStats,
   isNearSeoulCollectionSlug,
@@ -66,8 +67,28 @@ const STAT_ICONS: Record<string, ComponentType<{ className?: string }>> = {
   전화번호: Phone,
   홈페이지: Globe,
   "요금 정보": CircleDollarSign,
-  난이도: Gauge,
+  "난이도 정보": Gauge,
 };
+
+function InfoBadge({
+  active,
+  children,
+}: {
+  active: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <span
+      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ring-1 ring-inset ${
+        active
+          ? "bg-brand-50 text-brand-900 ring-brand-200"
+          : "bg-stone-100 text-stone-500 ring-stone-200"
+      }`}
+    >
+      {children}
+    </span>
+  );
+}
 
 function SectionShell({
   id,
@@ -195,34 +216,25 @@ function CollectionCourseCard({
             />
             <span>{course.address || "주소 정보 준비 중"}</span>
           </p>
-          <div className="mt-3.5 flex flex-col gap-2 text-sm sm:flex-row sm:flex-wrap sm:gap-x-6 sm:text-[0.95rem]">
-            <span className="inline-flex items-center gap-1.5 text-region-ink">
-              <Gauge className="h-4 w-4 shrink-0 text-brand-700/70" aria-hidden />
+          <div className="mt-3.5 flex flex-wrap gap-2">
+            <InfoBadge active={Boolean(course.difficulty && difficultyLabel !== "난이도 정보 없음")}>
               {difficultyLabel}
-            </span>
+            </InfoBadge>
             {isNearSeoulCollectionSlug(slug) && nearSeoul.distanceKm != null ? (
-              <span className="font-medium text-brand-800">
-                서울시청 기준 약 {nearSeoul.distanceKm.toFixed(1)}km
-              </span>
+              <InfoBadge active>
+                서울시청 약 {nearSeoul.distanceKm.toFixed(1)}km
+              </InfoBadge>
             ) : null}
-            <span
-              className={`inline-flex items-center gap-1.5 ${hasPhone ? "font-medium text-region-ink" : "text-region-muted"}`}
-            >
-              <Phone className="h-4 w-4 shrink-0" aria-hidden />
-              {hasPhone ? course.phone : "전화번호 없음"}
-            </span>
-            <span
-              className={`inline-flex items-center gap-1.5 ${hasHomepage ? "font-medium text-region-ink" : "text-region-muted"}`}
-            >
-              <Globe className="h-4 w-4 shrink-0" aria-hidden />
+            <InfoBadge active={hasPhone}>
+              {hasPhone ? "전화번호 있음" : "전화번호 없음"}
+            </InfoBadge>
+            <InfoBadge active={hasHomepage}>
               {hasHomepage ? "홈페이지 있음" : "홈페이지 없음"}
-            </span>
-            <span
-              className={`font-semibold ${hasPrice ? "text-brand-800" : "text-region-muted"}`}
-            >
+            </InfoBadge>
+            <InfoBadge active={hasPrice}>
               {isBudgetCollectionSlug(slug) ? "참고 최저가 " : "참고 요금 "}
               {priceLabel}
-            </span>
+            </InfoBadge>
           </div>
         </div>
         <span className="inline-flex shrink-0 items-center gap-1 self-end rounded-xl border border-brand-200 bg-brand-50 px-4 py-2.5 text-sm font-bold text-brand-800 transition group-hover:border-brand-400 group-hover:bg-brand-100 sm:self-center">
@@ -307,9 +319,14 @@ export default function CollectionLandingView({
             </p>
           ) : null}
           {showScoredNote ? (
-            <p className="mt-3 text-sm font-medium text-region-ink sm:text-base">
-              {SCORED_COLLECTION_DISCLAIMER}
-            </p>
+            <>
+              <p className="mt-3 text-sm font-medium text-region-ink sm:text-base">
+                {SCORED_COLLECTION_DISCLAIMER}
+              </p>
+              <p className="mt-2 text-sm text-region-muted sm:text-base">
+                {SCORED_REFERENCE_SCORE_DISCLAIMER}
+              </p>
+            </>
           ) : null}
           {showBudgetNote ? (
             <p className="mt-3 text-sm font-medium text-amber-900">
@@ -327,7 +344,7 @@ export default function CollectionLandingView({
             <StatCard label="전화번호" value={stats.withPhone} />
             <StatCard label="홈페이지" value={stats.withHomepage} />
             <StatCard label="요금 정보" value={stats.withPrice} />
-            <StatCard label="난이도" value={stats.withDifficulty} />
+            <StatCard label="난이도 정보" value={stats.withDifficulty} />
           </div>
         </SectionShell>
 

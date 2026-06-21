@@ -18,7 +18,7 @@ export default function DesktopHero({
       <div className="mx-auto flex max-w-[1600px] flex-col items-center gap-5 text-center">
         <div className="space-y-1.5">
           <p className="text-sm font-medium text-brand-100/90">
-            전국 {totalCourses.toLocaleString()}개 골프장
+            전체 골프장 {totalCourses.toLocaleString()}곳
           </p>
           <h1 className="text-2xl font-extrabold tracking-tight text-white lg:text-3xl">
             가까운 골프장을 찾아보세요

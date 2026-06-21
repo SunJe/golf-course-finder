@@ -45,7 +45,8 @@ body {
 
   .mobile-map-area {
     flex: 1 1 0%;
-    min-height: 0;
+    min-height: 42vh;
+    min-height: min(52vh, calc(100dvh - 13.5rem - env(safe-area-inset-bottom, 0px)));
   }
 
   .mobile-bottom-sheet {

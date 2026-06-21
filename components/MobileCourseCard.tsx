@@ -39,7 +39,7 @@ export default function MobileCourseCard({
 
   return (
     <div
-      className={`relative min-h-[52px] rounded-xl border bg-white transition active:scale-[0.995] ${
+      className={`relative min-h-[72px] rounded-xl border bg-white transition active:scale-[0.995] ${
         selected
           ? "border-brand-600/45 bg-brand-50/35 ring-1 ring-brand-200/50"
           : "border-stone-200/70 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"

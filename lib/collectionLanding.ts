@@ -76,7 +76,7 @@ export interface CollectionLandingStats {
 }
 
 const DISCLAIMER =
-  "GolfMap Korea 데이터 기준 참고용 분류입니다. 실제 난이도·요금·운영 조건은 달라질 수 있습니다.";
+  "이 목록은 GolfMap Korea 데이터 기준 참고용입니다. 실제 체감 난이도와 요금은 코스 상태, 시즌, 예약 조건에 따라 달라질 수 있습니다.";
 
 function mapHrefFor(slug: CollectionSlug): string {
   return `/?collection=${slug}`;
@@ -631,7 +631,7 @@ export function groupCoursesByRegionField(courses: Course[]): RegionGroup[] {
 export function formatCollectionDifficulty(course: Course): string {
   const normalized = normalizeDifficulty(course.difficulty);
   if (!normalized) return "난이도 정보 없음";
-  return normalized;
+  return `난이도 ${normalized}`;
 }
 
 export { formatRegionCoursePrice, courseHasValidPhone, courseHasValidHomepage };
@@ -639,4 +639,6 @@ export { type CityGroup, groupCoursesByCity };
 export const COLLECTION_DISCLAIMER = DISCLAIMER;
 export const NEAR_SEOUL_COLLECTION_DISCLAIMER = NEAR_SEOUL_DISCLAIMER;
 export const SCORED_COLLECTION_DISCLAIMER =
-  "이 목록은 GolfMap Korea 데이터 기준 참고용 분류이며, 실제 체감 난이도는 코스 상태와 개인 실력에 따라 달라질 수 있습니다.";
+  "이 목록은 GolfMap Korea 데이터 기준 참고용입니다. 실제 체감 난이도와 요금은 코스 상태, 시즌, 예약 조건에 따라 달라질 수 있습니다.";
+export const SCORED_REFERENCE_SCORE_DISCLAIMER =
+  "참고 점수는 난이도, 요금, 운영 형태, 코스 규모를 바탕으로 계산한 GolfMap Korea 내부 기준입니다.";

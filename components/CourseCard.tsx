@@ -48,7 +48,7 @@ export default function CourseCard({
       onClick={() => onSelect?.(course)}
       onMouseEnter={() => onHover?.(course)}
       onMouseLeave={() => onHover?.(null)}
-      className={`group cursor-pointer rounded-2xl border bg-white transition-all duration-200 ${
+      className={`group cursor-pointer rounded-2xl border bg-white transition-all duration-200 min-h-[148px] ${
         selected
           ? "border-brand-600/50 shadow-md ring-2 ring-brand-200/80"
           : hovered

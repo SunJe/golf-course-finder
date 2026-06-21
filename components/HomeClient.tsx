@@ -37,34 +37,13 @@ import {
   getRegionLandingBySlug,
   getRegionMapFilterRegion,
 } from "@/lib/regionLanding";
+import {
+  getListCountLabel,
+  getListCountSublabel,
+} from "@/lib/listCountLabels";
+import QuickFindLinks from "@/components/QuickFindLinks";
 
 type ListMode = "cluster" | "allFiltered" | "visible" | "fallback";
-
-function getMobileSheetTitle(
-  mode: ListMode,
-  count: number,
-  total: number,
-  isFiltered: boolean,
-  searchQuery: string,
-  selectedClusterCount = 0,
-): string {
-  if (searchQuery) return `'${searchQuery}' 검색 결과 ${count}곳`;
-  if (mode === "cluster") {
-    return selectedClusterCount > 1
-      ? `선택한 묶음들의 골프장 ${count}곳`
-      : `선택한 묶음의 골프장 ${count}곳`;
-  }
-  if (mode === "allFiltered") {
-    return isFiltered ? `필터 결과 전체 ${count}곳` : `전체 결과 ${count}곳`;
-  }
-  if (mode === "visible") {
-    return isFiltered
-      ? `이 지역 검색 결과 ${count}곳`
-      : `이 지역 골프장 ${count}곳`;
-  }
-  if (isFiltered) return `검색 결과 ${count}곳`;
-  return `전국 골프장 ${total}곳`;
-}
 
 function ListHeader({
   mode,
@@ -138,7 +117,7 @@ function ListHeader({
   } else if (mode === "allFiltered") {
     title = (
       <>
-        {isFiltered ? "필터 결과 전체" : "전체 결과"}{" "}
+        {isFiltered ? "필터 결과" : "전체 결과"}{" "}
         <span className="text-brand-600">{count}</span>곳
       </>
     );
@@ -166,7 +145,7 @@ function ListHeader({
   } else {
     title = (
       <>
-        전국 골프장 <span className="text-brand-600">{total}</span>곳
+        전체 골프장 <span className="text-brand-600">{total}</span>곳
       </>
     );
   }
@@ -211,7 +190,7 @@ function ListHeader({
                 : "bg-stone-100 text-stone-600 hover:bg-stone-200"
             }`}
           >
-            지도 기준 보기
+            지도 영역 보기
           </button>
           <button
             type="button"
@@ -502,6 +481,50 @@ function HomeClientInner({
           ? searchFiltered.length
           : displayCourses.length;
 
+  const listCountLabel = useMemo(
+    () =>
+      getListCountLabel({
+        mode: listMode,
+        count: listHeaderCount,
+        total: courses.length,
+        isFiltered,
+        favoriteOnly,
+        visitedOnly,
+        isSearchActive,
+        searchQuery: isSearchActive ? searchQuery : "",
+        selectedClusterCount: selectedClusterKeys.length,
+      }),
+    [
+      listMode,
+      listHeaderCount,
+      courses.length,
+      isFiltered,
+      favoriteOnly,
+      visitedOnly,
+      isSearchActive,
+      searchQuery,
+      selectedClusterKeys.length,
+    ],
+  );
+
+  const listCountSublabel = useMemo(
+    () =>
+      getListCountSublabel({
+        mode: listMode,
+        count: listHeaderCount,
+        total: courses.length,
+        isFiltered,
+        isShowingAllFilteredResults,
+      }),
+    [
+      listMode,
+      listHeaderCount,
+      courses.length,
+      isFiltered,
+      isShowingAllFilteredResults,
+    ],
+  );
+
   const searchSuggestions = useMemo(
     () => getSearchSuggestions(courses, filters.query),
     [courses, filters.query],
@@ -510,24 +533,12 @@ function HomeClientInner({
   const mobileSheetTitle = useMemo(() => {
     if (favoriteOnly) return `즐겨찾기한 골프장 ${listHeaderCount}곳`;
     if (visitedOnly) return `가본 골프장 ${listHeaderCount}곳`;
-    return getMobileSheetTitle(
-      listMode,
-      listHeaderCount,
-      courses.length,
-      isFiltered,
-      isSearchActive ? searchQuery : "",
-      selectedClusterKeys.length,
-    );
+    return listCountLabel;
   }, [
     favoriteOnly,
     visitedOnly,
-    listMode,
     listHeaderCount,
-    courses.length,
-    isFiltered,
-    isSearchActive,
-    searchQuery,
-    selectedClusterKeys.length,
+    listCountLabel,
   ]);
 
   const mapFitToCourseIds = useMemo(() => {
@@ -915,18 +926,31 @@ function HomeClientInner({
         />
 
         <section className="shrink-0 border-b border-stone-200 bg-white px-6 py-3.5">
-          <div className="mx-auto flex max-w-[1600px] items-start justify-between gap-6">
-            <div className="min-w-0 flex-1">
-              <FilterBar
-                filters={filters}
-                onChange={updateFilters}
-                onReset={resetFilters}
-                activeCount={activeCount}
-              />
+          <div className="mx-auto max-w-[1600px]">
+            <QuickFindLinks variant="desktop" className="mb-3" />
+            <div className="flex items-start justify-between gap-6">
+              <div className="min-w-0 flex-1">
+                <FilterBar
+                  filters={filters}
+                  onChange={updateFilters}
+                  onReset={resetFilters}
+                  activeCount={activeCount}
+                />
+              </div>
+              <div className="shrink-0 pt-1 text-right">
+                <p className="text-sm font-semibold text-stone-700">
+                  {listCountLabel}
+                </p>
+                {listMode === "visible" &&
+                listHeaderCount !== courses.length &&
+                !favoriteOnly &&
+                !visitedOnly ? (
+                  <p className="mt-0.5 text-xs text-stone-400">
+                    전체 골프장 {courses.length.toLocaleString()}곳
+                  </p>
+                ) : null}
+              </div>
             </div>
-            <p className="shrink-0 pt-1 text-sm font-semibold text-stone-500">
-              {listHeaderCount.toLocaleString()}개 골프장
-            </p>
           </div>
         </section>
 
@@ -938,7 +962,7 @@ function HomeClientInner({
             </div>
           </div>
 
-          <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden rounded-2xl border border-stone-200/80 bg-white p-1.5 shadow-sm">
+          <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden rounded-2xl border border-stone-200/80 bg-white p-1.5 shadow-sm min-h-[480px]">
             <CourseMap
               {...mapProps}
               mapLayout="desktop"
@@ -962,9 +986,13 @@ function HomeClientInner({
           onSuggestionSelect={handleSuggestionSelect}
         />
 
+        <div className="shrink-0 px-3 pb-2 md:hidden">
+          <QuickFindLinks variant="mobile" />
+        </div>
+
         <section
           aria-label="지도"
-          className="mobile-map-area relative min-h-0 flex-1 overflow-hidden px-3 pb-1"
+          className="mobile-map-area relative flex-1 overflow-hidden px-3 pb-1"
         >
           <div className="h-full overflow-hidden rounded-2xl border border-stone-200/40 shadow-[0_2px_12px_rgba(0,0,0,0.06)] ring-1 ring-black/[0.02]">
             <CourseMap
@@ -983,6 +1011,7 @@ function HomeClientInner({
           onSnapChange={setMobileSheetSnap}
           title={mobileSheetTitle}
           count={listHeaderCount}
+          countSublabel={listCountSublabel}
           selectedCourse={selectedCourse}
           selectedId={selectedId}
           onClearSelection={clearSelection}

@@ -9,6 +9,7 @@ import {
   MOBILE_FIT_GEO_PADDING,
   MOBILE_INITIAL_KAKAO_MAP_LEVEL,
   MOBILE_INITIAL_MAP_CENTER,
+  MOBILE_INITIAL_MAX_KAKAO_MAP_LEVEL,
   MOBILE_MAP_VISUAL_CENTER_LAT_OFFSET,
   SEARCH_RESULT_FOCUS_LEVEL,
 } from "@/lib/constants";
@@ -710,6 +711,10 @@ export function fitInitialMobileNationwideView(
   );
   if (fitted) {
     applyMobileMapVisualCenterOffset(map, maps);
+    const level = map.getLevel();
+    if (level > MOBILE_INITIAL_MAX_KAKAO_MAP_LEVEL) {
+      map.setLevel(MOBILE_INITIAL_MAX_KAKAO_MAP_LEVEL);
+    }
     return true;
   }
 

@@ -65,8 +65,8 @@ export const DESKTOP_INITIAL_KAKAO_MAP_LEVEL = INITIAL_KAKAO_MAP_LEVEL;
 /**
  * 모바일 fitBounds 실패 시 fallback — 남한 본토 중심 (북쪽 바다·북한 최소화)
  */
-export const MOBILE_INITIAL_MAP_CENTER = { lat: 36.05, lng: 127.6 };
-export const MOBILE_INITIAL_KAKAO_MAP_LEVEL = 12;
+export const MOBILE_INITIAL_MAP_CENTER = { lat: 36.05, lng: 127.5 };
+export const MOBILE_INITIAL_KAKAO_MAP_LEVEL = 11;
 
 /** 모바일 초기 fitBounds UI padding (px) — 상단 검색·하단 half sheet 고려 */
 export const MOBILE_INITIAL_MAP_PADDING = {
@@ -95,7 +95,7 @@ export const MOBILE_COLLAPSED_SHEET_MAP_PADDING = {
 /**
  * fitBounds 후 남한 본토가 시각적 중심에 오도록 위도 보정 (deg, 음수=남쪽)
  */
-export const MOBILE_MAP_VISUAL_CENTER_LAT_OFFSET = -0.18;
+export const MOBILE_MAP_VISUAL_CENTER_LAT_OFFSET = -0.22;
 
 /** 데스크탑 초기 fitBounds padding (px) */
 export const DESKTOP_INITIAL_MAP_PADDING = {
@@ -110,11 +110,14 @@ export const DESKTOP_INITIAL_MAP_PADDING = {
  * 북쪽(북한·동해) 여백 축소, 남쪽·서쪽 여유 확보
  */
 export const MOBILE_FIT_GEO_PADDING = {
-  latSouth: 0.1,
-  latNorth: 0.04,
-  lngWest: 0.08,
-  lngEast: 0.02,
+  latSouth: 0.08,
+  latNorth: 0.02,
+  lngWest: 0.06,
+  lngEast: 0.01,
 } as const;
+
+/** 모바일 초기 fit 후 과도한 줌아웃 상한 (Kakao level, 클수록 축소) */
+export const MOBILE_INITIAL_MAX_KAKAO_MAP_LEVEL = 11;
 
 /** 데스크탑/일반 fitBounds 지리적 여백 */
 export const DEFAULT_FIT_GEO_PADDING = {

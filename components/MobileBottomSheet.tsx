@@ -10,6 +10,7 @@ import {
 import { Flag, Heart, Map, X } from "lucide-react";
 import type { Course } from "@/types/course";
 import CourseList from "@/components/CourseList";
+import QuickFindLinks from "@/components/QuickFindLinks";
 import MobileCourseCard from "@/components/MobileCourseCard";
 
 export type MobileSheetSnap = "collapsed" | "half" | "expanded";
@@ -54,6 +55,7 @@ interface MobileBottomSheetProps {
   onSnapChange: (snap: MobileSheetSnap) => void;
   title: string;
   count: number;
+  countSublabel?: string | null;
   selectedCourse: Course | null;
   selectedId: string | null;
   onClearSelection: () => void;
@@ -83,6 +85,7 @@ export default function MobileBottomSheet({
   onSnapChange,
   title,
   count,
+  countSublabel,
   selectedCourse,
   selectedId,
   onClearSelection,
@@ -235,7 +238,7 @@ export default function MobileBottomSheet({
                 {title}
               </p>
               <p className="mt-0.5 text-[11px] text-stone-500">
-                {count.toLocaleString()}곳 · 이름순
+                {countSublabel ?? `${count.toLocaleString()}곳 · 이름순`}
               </p>
             </div>
             {!collapsed && (
@@ -260,6 +263,8 @@ export default function MobileBottomSheet({
               </div>
             )}
           </div>
+
+          <QuickFindLinks variant="sheet" className="mt-2.5" />
 
           {(onToggleFavoriteOnly || onToggleVisitedOnly) && (
             <div className="mt-2 flex flex-wrap items-center gap-1.5">
@@ -314,8 +319,9 @@ export default function MobileBottomSheet({
                     ? "bg-brand-800 text-white"
                     : "bg-stone-100 text-stone-600"
                 }`}
+                title="현재 지도 영역에 보이는 골프장만 표시"
               >
-                지도 기준
+                지도 영역
               </button>
               <button
                 type="button"
@@ -325,8 +331,9 @@ export default function MobileBottomSheet({
                     ? "bg-brand-800 text-white"
                     : "bg-stone-100 text-stone-600"
                 }`}
+                title="필터 조건에 맞는 전체 골프장 표시"
               >
-                전체 결과
+                전체 목록
               </button>
             </div>
           )}

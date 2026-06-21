@@ -41,6 +41,8 @@ export interface Course {
   priceType?: string;
   priceSourceUrl?: string;
   priceUpdatedAt?: string;
+  /** Naver/enrichment course difficulty (0–10 scale or text) */
+  difficulty?: string | null;
 }
 
 /** UI 필터 상태 — 그룹 내 OR, 그룹 간 AND */

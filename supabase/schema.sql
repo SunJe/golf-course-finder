@@ -41,6 +41,7 @@ create table if not exists public.golf_courses (
   price_type text,
   price_source_url text,
   price_updated_at timestamptz,
+  difficulty text,
 
   constraint golf_courses_latitude_check
     check (latitude >= -90 and latitude <= 90),

@@ -80,6 +80,7 @@ export function mapGolfCourseRowToCourse(row: GolfCourseRow): Course {
     priceType: toOptionalString(row.price_type),
     priceSourceUrl: toOptionalString(row.price_source_url),
     priceUpdatedAt: toOptionalString(row.price_updated_at),
+    difficulty: toOptionalString(row.difficulty) ?? null,
   };
 }
 
@@ -118,5 +119,6 @@ export function mapCourseToGolfCourseRow(course: Course): GolfCourseRow {
     price_type: course.priceType ?? null,
     price_source_url: course.priceSourceUrl ?? null,
     price_updated_at: course.priceUpdatedAt ?? null,
+    difficulty: course.difficulty ?? null,
   };
 }

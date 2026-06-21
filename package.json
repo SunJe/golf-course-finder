@@ -42,6 +42,8 @@
     "generate:course-price-update": "tsx scripts/generateCoursePriceUpdateSql.ts",
     "verify:map-search-name": "tsx scripts/verifyMapSearchName.ts",
     "verify:price-filter": "tsx scripts/verifyPriceFilter.ts",
+    "analyze:difficulty": "tsx scripts/analyzeDifficultyValues.ts",
+    "generate:difficulty-sql": "tsx scripts/generateDifficultyUpdateSql.ts",
     "generate:og-image": "tsx scripts/generateOgImage.ts"
   },
   "dependencies": {

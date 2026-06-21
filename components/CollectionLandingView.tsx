@@ -5,41 +5,54 @@ import {
   Phone,
   Globe,
   ChevronRight,
-  ArrowRight,
   LayoutGrid,
-  Users,
-  Crown,
   CircleDollarSign,
+  Gauge,
 } from "lucide-react";
 import type { Course } from "@/types/course";
-import { cityAnchorId, getTopCityGroups } from "@/lib/regionCityHelpers";
+import type { CollectionSlug } from "@/lib/collectionLanding";
 import {
+  COLLECTION_DISCLAIMER,
+  NEAR_SEOUL_COLLECTION_DISCLAIMER,
+  SCORED_COLLECTION_DISCLAIMER,
+  type CollectionConfig,
+  type CollectionLandingStats,
+  isNearSeoulCollectionSlug,
+  buildCollectionHeroDescription,
+  buildCollectionHeroPills,
+  buildCollectionFaqItems,
+  formatCollectionDifficulty,
   formatRegionCoursePrice,
-  type RegionLandingConfig,
-  type RegionLandingStats,
-  type ConditionalSectionConfig,
-  buildRegionHeroDescription,
-  buildRegionHeroPills,
-  buildRegionSeoParagraph,
-  buildRegionFaqItems,
-  buildConditionalSectionIntro,
-  buildConditionalChipLabel,
-  getCityQuickLinkDescription,
-  getRegionMapHref,
-  buildRegionAllCoursesDescription,
+  groupCoursesByRegionField,
   courseHasValidPhone,
   courseHasValidHomepage,
-  pickFeaturedCourses,
-  pickRepresentativeCourses,
-  filterCoursesByCondition,
-  CONDITIONAL_SECTIONS,
-  PRIMARY_CONDITIONAL_SECTIONS,
-  SECONDARY_CONDITIONAL_SECTIONS,
-  getCityQuickLinkTitle,
-} from "@/lib/regionLanding";
-import RegionLinks from "@/components/RegionLinks";
-import CollectionLinks from "@/components/CollectionLinks";
+} from "@/lib/collectionLanding";
+import type { CourseWithMeta } from "@/lib/collectionFilters";
 import { formatHoleCount } from "@/lib/courseDisplay";
+import CollectionLinks from "@/components/CollectionLinks";
+import RegionLinks from "@/components/RegionLinks";
+
+const ALL_COURSES_PREVIEW = 25;
+const REGION_GROUP_LIMIT = 12;
+
+const EMPTY_COLLECTION_MESSAGE =
+  "현재 GolfMap Korea 데이터에서 이 조건으로 분류된 골프장이 없습니다. 데이터가 보강되면 페이지를 업데이트할 예정입니다.";
+
+function isScoredCollectionSlug(slug: CollectionSlug): boolean {
+  return (
+    slug === "beginner" ||
+    slug === "baekdori" ||
+    slug === "near-seoul-beginner" ||
+    slug === "near-seoul-baekdori"
+  );
+}
+
+function isBudgetCollectionSlug(slug: CollectionSlug): boolean {
+  return slug === "budget" || slug === "near-seoul-budget";
+}
+
+const FOCUS_RING =
+  "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-700";
 
 const TYPE_STYLES: Record<string, string> = {
   대중제: "bg-emerald-100 text-emerald-900 ring-emerald-300",
@@ -48,21 +61,12 @@ const TYPE_STYLES: Record<string, string> = {
   기타: "bg-stone-200 text-stone-800 ring-stone-300",
 };
 
-const PREVIEW_LIMIT = 5;
-const ALL_COURSES_PREVIEW = 25;
-const CITY_QUICK_LINK_LIMIT = 12;
-const CITY_COURSES_MAX = 10;
-
-const FOCUS_RING =
-  "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-700";
-
 const STAT_ICONS: Record<string, ComponentType<{ className?: string }>> = {
   전체: LayoutGrid,
-  대중제: Users,
-  회원제: Crown,
   전화번호: Phone,
   홈페이지: Globe,
   "요금 정보": CircleDollarSign,
+  난이도: Gauge,
 };
 
 function SectionShell({
@@ -132,11 +136,20 @@ function HeroPill({ suffix, value }: { suffix: string; value: number }) {
   );
 }
 
-function RegionCourseCard({ course }: { course: Course }) {
+function CollectionCourseCard({
+  course,
+  slug,
+}: {
+  course: Course;
+  slug: CollectionSlug;
+}) {
   const hasHomepage = courseHasValidHomepage(course);
   const hasPhone = courseHasValidPhone(course);
   const priceLabel = formatRegionCoursePrice(course);
   const hasPrice = priceLabel !== "요금 정보 준비 중";
+  const nearSeoul = course as CourseWithMeta;
+  const scored = course as CourseWithMeta;
+  const difficultyLabel = formatCollectionDifficulty(course);
 
   return (
     <li>
@@ -161,7 +174,20 @@ function RegionCourseCard({ course }: { course: Course }) {
                 {formatHoleCount(course.holeCount)}
               </span>
             ) : null}
+            {isScoredCollectionSlug(slug) &&
+            scored.referenceScore != null &&
+            scored.referenceScore > 0 ? (
+              <span className="inline-flex items-center rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-bold text-brand-800 ring-1 ring-inset ring-brand-200">
+                참고 점수 {scored.referenceScore}
+              </span>
+            ) : null}
           </div>
+          <p className="mt-2 text-sm font-medium text-region-muted">
+            {course.region}
+            {course.city && course.city !== course.region
+              ? ` · ${course.city}`
+              : ""}
+          </p>
           <p className="mt-3 flex items-start gap-2 text-[0.95rem] leading-relaxed text-region-ink/90 sm:text-base">
             <MapPin
               className="mt-0.5 h-4 w-4 shrink-0 text-brand-700/70"
@@ -170,6 +196,15 @@ function RegionCourseCard({ course }: { course: Course }) {
             <span>{course.address || "주소 정보 준비 중"}</span>
           </p>
           <div className="mt-3.5 flex flex-col gap-2 text-sm sm:flex-row sm:flex-wrap sm:gap-x-6 sm:text-[0.95rem]">
+            <span className="inline-flex items-center gap-1.5 text-region-ink">
+              <Gauge className="h-4 w-4 shrink-0 text-brand-700/70" aria-hidden />
+              {difficultyLabel}
+            </span>
+            {isNearSeoulCollectionSlug(slug) && nearSeoul.distanceKm != null ? (
+              <span className="font-medium text-brand-800">
+                서울시청 기준 약 {nearSeoul.distanceKm.toFixed(1)}km
+              </span>
+            ) : null}
             <span
               className={`inline-flex items-center gap-1.5 ${hasPhone ? "font-medium text-region-ink" : "text-region-muted"}`}
             >
@@ -185,7 +220,8 @@ function RegionCourseCard({ course }: { course: Course }) {
             <span
               className={`font-semibold ${hasPrice ? "text-brand-800" : "text-region-muted"}`}
             >
-              참고 요금 {priceLabel}
+              {isBudgetCollectionSlug(slug) ? "참고 최저가 " : "참고 요금 "}
+              {priceLabel}
             </span>
           </div>
         </div>
@@ -198,116 +234,47 @@ function RegionCourseCard({ course }: { course: Course }) {
   );
 }
 
-function CompactCourseList({
-  courses,
-  emptyMessage,
-}: {
-  courses: Course[];
-  emptyMessage: string;
-}) {
-  if (courses.length === 0) {
-    return (
-      <p className="rounded-xl border border-region-soft-border bg-region-soft/50 p-5 text-base text-region-muted">
-        {emptyMessage}
-      </p>
-    );
-  }
-
-  return (
-    <ul className="flex flex-col gap-3">
-      {courses.map((course) => (
-        <RegionCourseCard key={course.id} course={course} />
-      ))}
-    </ul>
-  );
-}
-
-function ViewAllLink({ href, label }: { href: string; label: string }) {
-  return (
-    <Link
-      href={href}
-      className={`mt-6 inline-flex items-center gap-1.5 rounded-xl border border-brand-300 bg-region-soft px-5 py-3 text-sm font-bold text-brand-800 transition hover:border-brand-500 hover:bg-brand-100 ${FOCUS_RING}`}
-    >
-      {label}
-      <ArrowRight className="h-4 w-4" aria-hidden />
-    </Link>
-  );
-}
-
-function ConditionalListSection({
-  section,
-  config,
-  courses,
-  stats,
-  compact = false,
-}: {
-  section: ConditionalSectionConfig;
-  config: RegionLandingConfig;
-  courses: Course[];
-  stats: RegionLandingStats;
-  compact?: boolean;
-}) {
-  const filtered = filterCoursesByCondition(courses, section.key);
-  const preview = filtered.slice(0, PREVIEW_LIMIT);
-  const intro = buildConditionalSectionIntro(
-    config.label,
-    section,
-    filtered.length,
-  );
-
-  if (filtered.length === 0 && compact) return null;
-
-  return (
-    <SectionShell id={section.id} className="mt-8">
-      <SectionHeading title={section.title} description={intro} />
-      <CompactCourseList
-        courses={preview}
-        emptyMessage={`현재 ${config.label} 지역에 해당 조건의 골프장 정보는 준비 중입니다.`}
-      />
-      {filtered.length > PREVIEW_LIMIT ? (
-        <ViewAllLink
-          href="#all-courses"
-          label={`${config.label} 골프장 전체 ${stats.total}곳 보기`}
-        />
-      ) : null}
-    </SectionShell>
-  );
-}
-
-export default function RegionLandingView({
+export default function CollectionLandingView({
   config,
   courses,
   stats,
 }: {
-  config: RegionLandingConfig;
+  config: CollectionConfig;
   courses: Course[];
-  stats: RegionLandingStats;
+  stats: CollectionLandingStats;
 }) {
-  const featured = pickFeaturedCourses(courses, 5);
-  const h1 = `${config.label} 골프장 지도`;
-  const cityQuickLinks = getTopCityGroups(courses, CITY_QUICK_LINK_LIMIT);
-  const faqItems = buildRegionFaqItems(config.label, stats);
-  const heroPills = buildRegionHeroPills(config.label, stats);
-  const mapHref = getRegionMapHref(config.slug);
+  const heroPills = buildCollectionHeroPills(stats);
+  const faqItems = buildCollectionFaqItems(config, stats);
+  const regionGroups = groupCoursesByRegionField(courses).slice(
+    0,
+    REGION_GROUP_LIMIT,
+  );
   const previewCourses = courses.slice(0, ALL_COURSES_PREVIEW);
+  const mapHref = config.mapHref;
+  const showNearSeoulNote = isNearSeoulCollectionSlug(config.slug);
+  const showScoredNote = isScoredCollectionSlug(config.slug);
+  const showBudgetNote = isBudgetCollectionSlug(config.slug);
 
   return (
     <div className="min-h-screen bg-region-cream">
       <div className="mx-auto max-w-6xl px-4 pb-20 pt-6 sm:px-6 sm:pt-10">
         <nav className="mb-6 text-sm font-medium text-region-muted">
-          <Link href="/" className={`text-brand-800 transition hover:text-brand-900 ${FOCUS_RING}`}>
+          <Link
+            href="/"
+            className={`text-brand-800 transition hover:text-brand-900 ${FOCUS_RING}`}
+          >
             전국 골프장 지도
           </Link>
           <span className="mx-2 text-region-soft-border">/</span>
-          <span className="text-region-ink">{config.label} 골프장</span>
+          <span className="text-region-ink">{config.breadcrumbLabel}</span>
         </nav>
 
         <header className="overflow-hidden rounded-2xl border border-region-soft-border bg-gradient-to-br from-region-soft via-white to-region-accent/25 p-7 shadow-card sm:p-10">
           <h1 className="text-3xl font-extrabold tracking-tight text-region-ink sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
-            {h1}
+            {config.h1}
           </h1>
           <p className="mt-5 max-w-3xl text-base leading-[1.75] text-region-muted sm:text-lg sm:leading-[1.8]">
-            {buildRegionHeroDescription(config.label, stats, courses)}
+            {buildCollectionHeroDescription(config, stats)}
           </p>
           <div className="mt-6 flex flex-wrap gap-2.5">
             {heroPills.map((pill) => (
@@ -319,7 +286,7 @@ export default function RegionLandingView({
               href={mapHref}
               className={`inline-flex min-h-[48px] items-center justify-center rounded-xl bg-brand-700 px-6 py-3 text-base font-bold text-white shadow-sm transition hover:bg-brand-800 ${FOCUS_RING}`}
             >
-              {config.label} 골프장 지도에서 보기
+              지도에서 보기
             </Link>
             <Link
               href="/"
@@ -330,167 +297,91 @@ export default function RegionLandingView({
           </div>
         </header>
 
+        <SectionShell className="mt-8 border-l-4 border-l-amber-400">
+          <p className="text-sm font-semibold text-region-ink sm:text-base">
+            {COLLECTION_DISCLAIMER}
+          </p>
+          {showNearSeoulNote ? (
+            <p className="mt-3 text-sm font-medium text-region-ink sm:text-base">
+              {NEAR_SEOUL_COLLECTION_DISCLAIMER}
+            </p>
+          ) : null}
+          {showScoredNote ? (
+            <p className="mt-3 text-sm font-medium text-region-ink sm:text-base">
+              {SCORED_COLLECTION_DISCLAIMER}
+            </p>
+          ) : null}
+          {showBudgetNote ? (
+            <p className="mt-3 text-sm font-medium text-amber-900">
+              요금 정보는 참고용이며 실제 예약가와 다를 수 있습니다.
+            </p>
+          ) : null}
+          <p className="mt-3 text-base leading-relaxed text-region-muted">
+            {config.filterSummary}
+          </p>
+        </SectionShell>
+
         <SectionShell className="mt-8">
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
             <StatCard label="전체" value={stats.total} />
-            <StatCard label="대중제" value={stats.publicCount} />
-            <StatCard label="회원제" value={stats.memberCount} />
             <StatCard label="전화번호" value={stats.withPhone} />
             <StatCard label="홈페이지" value={stats.withHomepage} />
             <StatCard label="요금 정보" value={stats.withPrice} />
+            <StatCard label="난이도" value={stats.withDifficulty} />
           </div>
         </SectionShell>
 
         <SectionShell className="mt-8 border-l-4 border-l-brand-600">
           <p className="text-base leading-[1.8] text-region-ink/90 sm:text-lg">
-            {buildRegionSeoParagraph(config.label, stats, courses)}
+            {config.seoIntro}
           </p>
+          {showBudgetNote ? (
+            <p className="mt-4 text-sm font-medium text-amber-900">
+              요금 정보는 참고용이며 실제 예약가와 다를 수 있습니다.
+            </p>
+          ) : null}
         </SectionShell>
 
-        {cityQuickLinks.length > 0 ? (
+        {regionGroups.length > 0 ? (
           <SectionShell className="mt-8">
             <SectionHeading
-              title={getCityQuickLinkTitle(config.label)}
-              description={getCityQuickLinkDescription(config.label, courses)}
+              title="지역별 골프장"
+              description="등록된 region 필드 기준으로 지역별 골프장 수를 확인할 수 있습니다."
             />
             <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {cityQuickLinks.map((group) => {
-                const samples = pickRepresentativeCourses(group.courses, 3);
-                const anchor = cityAnchorId(group.slug);
-
-                return (
-                  <li key={group.slug}>
-                    <Link
-                      href={`#${anchor}`}
-                      className={`group flex h-full flex-col rounded-xl border border-region-soft-border bg-white p-5 transition hover:border-brand-600 hover:bg-region-soft hover:shadow-card-hover ${FOCUS_RING}`}
-                    >
-                      <div className="flex items-start justify-between gap-3">
-                        <span className="text-lg font-extrabold text-region-ink group-hover:text-brand-800 sm:text-xl">
-                          {group.name}
-                        </span>
-                        <span className="shrink-0 rounded-full bg-brand-700 px-3 py-1 text-sm font-bold text-white">
-                          {group.count}곳
-                        </span>
-                      </div>
-                      {samples.length > 0 ? (
-                        <p className="mt-3 flex-1 text-sm leading-relaxed text-region-muted sm:text-[0.95rem]">
-                          {samples.map((c) => c.name).join(" · ")}
-                        </p>
-                      ) : null}
-                      <span className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-brand-800 group-hover:text-brand-900">
-                        {group.name} 골프장 {group.count}곳 보기 →
-                        <ArrowRight
-                          className="h-4 w-4 transition group-hover:translate-x-0.5"
-                          aria-hidden
-                        />
-                      </span>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </SectionShell>
-        ) : null}
-
-        <SectionShell className="mt-8">
-          <SectionHeading
-            title={`조건별로 ${config.label} 골프장 보기`}
-            description="운영 형태·정보 유형별로 골프장을 빠르게 찾아볼 수 있습니다."
-          />
-          <ul className="flex flex-wrap gap-3">
-            {CONDITIONAL_SECTIONS.map((section) => {
-              const count = filterCoursesByCondition(
-                courses,
-                section.key,
-              ).length;
-              if (count === 0) return null;
-              return (
-                <li key={section.id}>
-                  <Link
-                    href={`#${section.id}`}
-                    className={`inline-flex min-h-[44px] items-center rounded-full border-2 border-region-soft-border bg-white px-5 py-2.5 text-sm font-bold text-region-ink transition hover:border-brand-600 hover:bg-brand-700 hover:text-white sm:text-base ${FOCUS_RING}`}
-                  >
-                    {buildConditionalChipLabel(section.key, count)}
-                  </Link>
+              {regionGroups.map((group) => (
+                <li
+                  key={group.name}
+                  className="rounded-xl border border-region-soft-border bg-white p-5"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <span className="text-lg font-extrabold text-region-ink">
+                      {group.name}
+                    </span>
+                    <span className="shrink-0 rounded-full bg-brand-700 px-3 py-1 text-sm font-bold text-white">
+                      {group.count}곳
+                    </span>
+                  </div>
                 </li>
-              );
-            })}
-          </ul>
-        </SectionShell>
-
-        {featured.length > 0 ? (
-          <SectionShell className="mt-8">
-            <SectionHeading
-              title="정보가 풍부한 골프장"
-              description="전화번호, 홈페이지, 요금 정보가 함께 제공되는 골프장입니다."
-            />
-            <ul className="flex flex-col gap-3">
-              {featured.map((course) => (
-                <RegionCourseCard key={course.id} course={course} />
               ))}
             </ul>
           </SectionShell>
         ) : null}
 
-        {PRIMARY_CONDITIONAL_SECTIONS.map((section) => (
-          <ConditionalListSection
-            key={section.id}
-            section={section}
-            config={config}
-            courses={courses}
-            stats={stats}
-          />
-        ))}
-
-        {SECONDARY_CONDITIONAL_SECTIONS.map((section) => (
-          <ConditionalListSection
-            key={section.id}
-            section={section}
-            config={config}
-            courses={courses}
-            stats={stats}
-            compact
-          />
-        ))}
-
-        {cityQuickLinks.map((group) => {
-          const showCount = Math.min(CITY_COURSES_MAX, group.count);
-          const sectionCourses = group.courses.slice(0, showCount);
-          return (
-            <SectionShell
-              key={group.slug}
-              id={cityAnchorId(group.slug)}
-              className="mt-8"
-            >
-              <SectionHeading
-                title={`${group.displayName} 골프장`}
-                description={`${group.name} 지역 골프장 ${group.count}곳`}
-              />
-              <ul className="flex flex-col gap-3">
-                {sectionCourses.map((course) => (
-                  <RegionCourseCard key={course.id} course={course} />
-                ))}
-              </ul>
-              {group.count > sectionCourses.length ? (
-                <ViewAllLink
-                  href="#all-courses"
-                  label={`${group.name} 포함 전체 ${stats.total}곳 보기`}
-                />
-              ) : null}
-            </SectionShell>
-          );
-        })}
-
         <SectionShell id="all-courses" className="mt-10">
           <SectionHeading
-            title={`${config.label} 골프장 전체 목록`}
-            description={buildRegionAllCoursesDescription(config.label)}
+            title={`${config.h1} 목록`}
+            description={`${config.primaryKeyword} 조건에 해당하는 골프장 ${stats.total.toLocaleString("ko-KR")}곳`}
           />
           {courses.length > 0 ? (
             <>
               <ul className="flex flex-col gap-3">
                 {previewCourses.map((course) => (
-                  <RegionCourseCard key={course.id} course={course} />
+                  <CollectionCourseCard
+                    key={course.id}
+                    course={course}
+                    slug={config.slug}
+                  />
                 ))}
               </ul>
               {courses.length > ALL_COURSES_PREVIEW ? (
@@ -503,18 +394,18 @@ export default function RegionLandingView({
                 href={mapHref}
                 className={`mt-6 inline-flex items-center gap-1.5 rounded-xl border border-brand-300 bg-region-soft px-5 py-3 text-sm font-bold text-brand-800 transition hover:border-brand-500 hover:bg-brand-100 ${FOCUS_RING}`}
               >
-                {config.label} 골프장 지도에서 더 보기 →
+                지도에서 더 보기 →
               </Link>
             </>
           ) : (
             <p className="rounded-xl border border-region-soft-border bg-white p-6 text-base text-region-muted">
-              현재 {config.label} 지역에 등록된 골프장이 없습니다.
+              {EMPTY_COLLECTION_MESSAGE}
             </p>
           )}
         </SectionShell>
 
         <SectionShell id="faq" className="mt-10">
-          <SectionHeading title={`${config.label} 골프장 자주 묻는 질문`} />
+          <SectionHeading title={`${config.h1} 자주 묻는 질문`} />
           <dl className="space-y-4">
             {faqItems.map((item) => (
               <div
@@ -532,8 +423,8 @@ export default function RegionLandingView({
           </dl>
         </SectionShell>
 
-        <RegionLinks currentSlug={config.slug} className="mt-12" />
-        <CollectionLinks className="mt-8" />
+        <CollectionLinks currentSlug={config.slug} className="mt-12" />
+        <RegionLinks className="mt-8" />
       </div>
     </div>
   );

@@ -43,7 +43,7 @@ function difficultyPointsForBeginner(course: Course): number {
   const score = getDifficultyScore(course.difficulty);
   if (score == null) return 0;
   if (score <= 1) return 4;
-  if (score <= 2) return 2;
+  if (score <= 3) return 2;
   return 0;
 }
 
@@ -51,7 +51,7 @@ function difficultyPointsForBaekdori(course: Course): number {
   if (!hasValidDifficulty(course.difficulty)) return 0;
   const score = getDifficultyScore(course.difficulty);
   if (score == null) return 0;
-  if (score <= 2) return 3;
+  if (score <= 1) return 4;
   if (score <= 3) return 2;
   return 0;
 }
@@ -86,14 +86,17 @@ export function scoreBaekdoriFriendly(course: Course): CollectionScoreBreakdown 
   const courseType = isPublicCourse(course) ? 3 : 0;
   const price = isLowPrice(course, 120_000) ? 2 : 0;
   const region = isSeoulMetro(course) ? 1 : 0;
+  const contact =
+    (courseHasValidPhone(course) ? 1 : 0) +
+    (courseHasValidHomepage(course) ? 1 : 0);
 
   return {
-    total: difficulty + holeCount + courseType + price + region,
+    total: difficulty + holeCount + courseType + price + region + contact,
     difficulty,
     holeCount,
     courseType,
     price,
-    contact: 0,
+    contact,
     region,
   };
 }

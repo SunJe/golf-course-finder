@@ -43,6 +43,7 @@
     "verify:map-search-name": "tsx scripts/verifyMapSearchName.ts",
     "verify:price-filter": "tsx scripts/verifyPriceFilter.ts",
     "analyze:difficulty": "tsx scripts/analyzeDifficultyValues.ts",
+    "analyze:collections": "tsx scripts/analyzeCollectionCounts.ts",
     "generate:difficulty-sql": "tsx scripts/generateDifficultyUpdateSql.ts",
     "generate:og-image": "tsx scripts/generateOgImage.ts"
   },

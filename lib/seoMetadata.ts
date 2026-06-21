@@ -138,3 +138,32 @@ export function buildRegionMetadata(
     twitter: buildTwitter(title, description),
   };
 }
+
+export function buildCollectionMetadata(
+  config: {
+    title: string;
+    seoDescription: string;
+    slug: string;
+  },
+  options?: { noindex?: boolean },
+): Metadata {
+  const title = config.title.includes(siteConfig.siteName)
+    ? config.title
+    : `${config.title} | ${siteConfig.siteName}`;
+  const description = truncateMetaDescription(
+    config.seoDescription,
+    META_DESCRIPTION_MAX_LENGTH,
+  );
+  const url = absoluteUrl(`/collections/${config.slug}`);
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: buildOpenGraph(title, description, url),
+    twitter: buildTwitter(title, description),
+    ...(options?.noindex
+      ? { robots: { index: false, follow: true } }
+      : {}),
+  };
+}

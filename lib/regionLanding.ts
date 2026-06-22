@@ -422,6 +422,8 @@ export function getRegionMapFilterRegion(slug: string): string | null {
       return "서울";
     case "gyeonggi":
       return "경기";
+    case "incheon":
+      return "인천";
     case "gangwon":
       return "강원";
     case "chungcheong":
@@ -433,7 +435,7 @@ export function getRegionMapFilterRegion(slug: string): string | null {
     case "jeju":
       return "제주";
     case "busan":
-      return "경상";
+      return "부산";
     default:
       return null;
   }

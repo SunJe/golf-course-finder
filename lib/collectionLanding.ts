@@ -1,4 +1,5 @@
 import type { Course } from "@/types/course";
+import { getNormalizedRegionLabel } from "@/lib/regionUtils";
 import { formatRegionCoursePrice, courseHasPriceInfo } from "@/lib/regionLanding";
 import { formatPriceRange, hasPrice } from "@/lib/priceFormat";
 import {
@@ -691,7 +692,8 @@ export function groupCoursesByRegionField(courses: Course[]): RegionGroup[] {
   const map = new Map<string, Course[]>();
 
   for (const course of courses) {
-    const region = course.region?.trim() || "기타";
+    const region =
+      getNormalizedRegionLabel(course) ?? (course.region?.trim() || "기타");
     const existing = map.get(region) ?? [];
     existing.push(course);
     map.set(region, existing);

@@ -26,6 +26,7 @@ import {
   courseHasValidPhone,
   courseHasValidHomepage,
 } from "@/lib/collectionLanding";
+import { formatCourseLocationLabel } from "@/lib/regionUtils";
 import type { CourseWithMeta } from "@/lib/collectionFilters";
 import { formatHoleCount } from "@/lib/courseDisplay";
 import {
@@ -259,9 +260,7 @@ function CollectionCourseCard({
   const hasPhone = courseHasValidPhone(course);
   const nearSeoul = course as CourseWithMeta;
   const priceEmphasis = getPriceEmphasis(slug);
-  const regionLabel = [course.region, course.city && course.city !== course.region ? course.city : null]
-    .filter(Boolean)
-    .join(" · ");
+  const regionLabel = formatCourseLocationLabel(course);
   const selectionReasons = buildCourseSelectionReasons(course, slug, nearSeoul, false);
   const mobileSelectionReasons = buildCourseSelectionReasons(course, slug, nearSeoul, true);
   const desktopMetaBadges = buildCardMetaBadges({

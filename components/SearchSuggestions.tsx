@@ -2,6 +2,7 @@
 
 import type { Course } from "@/types/course";
 import { formatHoleCount } from "@/lib/courseDisplay";
+import { formatCourseLocationLabel } from "@/lib/regionUtils";
 
 interface SearchSuggestionsProps {
   courses: Course[];
@@ -36,7 +37,7 @@ export default function SearchSuggestions({
               {course.name}
             </span>
             <span className="line-clamp-1 text-[11px] text-stone-500">
-              {[course.city, course.region].filter(Boolean).join(" · ")}
+              {formatCourseLocationLabel(course)}
               <span className="mx-1 text-stone-300">·</span>
               {course.courseType}
               <span className="mx-1 text-stone-300">·</span>

@@ -9,6 +9,7 @@ import {
 } from "@/lib/coursePrice";
 import FavoriteButton from "@/components/FavoriteButton";
 import VisitedButton from "@/components/VisitedButton";
+import { formatCourseLocationLabel } from "@/lib/regionUtils";
 
 interface MobileCourseCardProps {
   course: Course;
@@ -35,7 +36,7 @@ export default function MobileCourseCard({
   selected = false,
 }: MobileCourseCardProps) {
   const hasPrice = hasReservationPrice(course);
-  const locationLabel = [course.city, course.region].filter(Boolean).join(" · ");
+  const locationLabel = formatCourseLocationLabel(course);
 
   return (
     <div

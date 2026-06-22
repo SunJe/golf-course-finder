@@ -31,6 +31,7 @@ import {
   PRICE_UNAVAILABLE,
 } from "@/lib/priceFormat";
 import { formatDate } from "@/lib/format";
+import { formatCourseLocationLabel } from "@/lib/regionUtils";
 import {
   getKakaoMapSearchUrl,
   getNaverMapSearchUrl,
@@ -166,8 +167,7 @@ function orPlaceholder(value?: string | null): string {
 }
 
 function formatRegionLine(course: Course): string {
-  const parts = [course.region?.trim(), course.city?.trim()].filter(Boolean);
-  return parts.length > 0 ? parts.join(" · ") : "정보 준비 중";
+  return formatCourseLocationLabel(course);
 }
 
 interface CourseDetailProps {

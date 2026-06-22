@@ -1,6 +1,7 @@
 import type { Course, CourseFilters } from "@/types/course";
 import { getReservationPriceMin } from "@/lib/coursePrice";
 import { normalizeSearchText, courseSearchHaystack } from "@/lib/searchSuggestions";
+import { courseMatchesRegionFilter } from "@/lib/regionUtils";
 function matchesHoleCount(course: Course, option: string): boolean {
   if (course.holeCount == null) return false;
   switch (option) {
@@ -47,7 +48,9 @@ export function filterCourses(
 
     if (
       filters.regions.length > 0 &&
-      !filters.regions.includes(course.region)
+      !filters.regions.some((filterRegion) =>
+        courseMatchesRegionFilter(course, filterRegion),
+      )
     ) {
       return false;
     }

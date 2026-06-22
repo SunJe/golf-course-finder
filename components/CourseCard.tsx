@@ -16,6 +16,7 @@ import {
 import CourseFeatureBadges from "@/components/CourseFeatureBadges";
 import FavoriteButton from "@/components/FavoriteButton";
 import VisitedButton from "@/components/VisitedButton";
+import { formatCourseLocationLabel } from "@/lib/regionUtils";
 
 interface CourseCardProps {
   course: Course;
@@ -69,7 +70,7 @@ export default function CourseCard({
             </div>
             </div>
             <p className="mt-1 text-sm text-stone-500">
-              {course.city} · {course.region}
+              {formatCourseLocationLabel(course)}
             </p>
             <p className="mt-0.5 flex items-center gap-1 text-xs text-stone-400">
               <MapPin className="h-3 w-3 shrink-0" />

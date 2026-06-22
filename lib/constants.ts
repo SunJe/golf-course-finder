@@ -2,11 +2,13 @@ export const REGIONS = [
   "전체",
   "서울",
   "경기",
+  "인천",
   "강원",
   "충청",
   "전라",
   "경상",
   "제주",
+  "부산",
 ] as const;
 
 export const HOLE_OPTIONS = ["전체", "9홀", "18홀", "27홀 이상"] as const;

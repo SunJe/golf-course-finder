@@ -21,6 +21,19 @@ function formatManwon(value: number): string {
   return `${Math.round(value / 10000)}`;
 }
 
+/** 단일 금액: `14만원` */
+export function formatSinglePriceManwon(value: number): string {
+  return `${formatManwon(value)}만원`;
+}
+
+/** 모바일 카드용 원화 표기: 만원 단위 정수면 `14만원`, 아니면 `59,000원` */
+export function formatMobileWonAmount(value: number): string {
+  if (value % 10000 === 0) {
+    return `${value / 10000}만원`;
+  }
+  return `${value.toLocaleString("ko-KR")}원`;
+}
+
 /** 요금 요약: `9~11만원` / `9만원~` / `9만원` / `요금 정보 준비 중` */
 export function formatPriceRange(course: Course): string {
   const min = getPriceMin(course);

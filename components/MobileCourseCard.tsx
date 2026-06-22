@@ -3,12 +3,7 @@
 import Link from "next/link";
 import type { Course } from "@/types/course";
 import { formatHoleCount } from "@/lib/courseDisplay";
-import {
-  formatCardReservationPriceParts,
-  hasReservationPrice,
-} from "@/lib/coursePrice";
-import FavoriteButton from "@/components/FavoriteButton";
-import VisitedButton from "@/components/VisitedButton";
+import { getMobilePriceText } from "@/lib/coursePrice";
 import { formatCourseLocationLabel } from "@/lib/regionUtils";
 
 interface MobileCourseCardProps {
@@ -23,20 +18,12 @@ const TYPE_STYLES: Record<string, string> = {
   기타: "bg-stone-100 text-stone-600",
 };
 
-function formatCardPrice(course: Course): string {
-  const { label, value } = formatCardReservationPriceParts(course);
-  if (value === "요금 정보 준비 중") return value;
-  if (label === "최저 예약가") return `최저 ${value}`;
-  if (label === "예약가") return `예약가 ${value}`;
-  return value;
-}
-
 export default function MobileCourseCard({
   course,
   selected = false,
 }: MobileCourseCardProps) {
-  const hasPrice = hasReservationPrice(course);
   const locationLabel = formatCourseLocationLabel(course);
+  const price = getMobilePriceText(course);
 
   return (
     <div
@@ -50,44 +37,46 @@ export default function MobileCourseCard({
         href={`/courses/${course.id}`}
         id={`course-card-${course.id}`}
         aria-label={`${course.name} 상세 정보 보기`}
-        className="flex flex-col px-3.5 py-3 pr-[4.25rem]"
+        className="block px-3.5 py-3"
       >
-        <h3 className="truncate text-[14px] font-bold leading-tight text-stone-900">
+        <h3 className="line-clamp-2 text-[15px] font-bold leading-snug text-stone-900">
           {course.name}
         </h3>
 
-        <div className="mt-1 flex items-center justify-between gap-2">
-          <div className="flex min-w-0 flex-1 items-center gap-1 overflow-hidden">
-            {locationLabel && (
-              <span className="truncate text-[11px] text-stone-500">
-                {locationLabel}
-              </span>
-            )}
-            <span
-              className={`shrink-0 rounded px-1.5 py-px text-[10px] font-semibold leading-none ${
-                TYPE_STYLES[course.courseType] ?? TYPE_STYLES["기타"]
-              }`}
-            >
-              {course.courseType}
+        <p
+          className={
+            price.tone === "highlight"
+              ? "mt-1 text-[18px] font-bold leading-tight tracking-tight text-blue-700"
+              : "mt-1 text-[13px] font-medium leading-snug text-stone-400"
+          }
+        >
+          {price.value}
+        </p>
+
+        <div className="mt-1.5 flex min-w-0 flex-wrap items-center gap-1">
+          {locationLabel ? (
+            <span className="max-w-full truncate text-[11px] text-stone-500">
+              {locationLabel}
             </span>
-            <span className="shrink-0 rounded bg-brand-50 px-1.5 py-px text-[10px] font-semibold leading-none text-brand-800">
-              {formatHoleCount(course.holeCount)}
-            </span>
-          </div>
+          ) : null}
           <span
-            className={`max-w-[108px] shrink-0 truncate text-right text-[11px] font-semibold leading-none ${
-              hasPrice ? "text-brand-900" : "font-normal text-stone-400"
+            className={`shrink-0 rounded px-1.5 py-px text-[10px] font-semibold leading-none ${
+              TYPE_STYLES[course.courseType] ?? TYPE_STYLES["기타"]
             }`}
           >
-            {formatCardPrice(course)}
+            {course.courseType}
+          </span>
+          <span className="shrink-0 rounded bg-brand-50 px-1.5 py-px text-[10px] font-semibold leading-none text-brand-800">
+            {formatHoleCount(course.holeCount)}
           </span>
         </div>
-      </Link>
 
-      <div className="absolute right-0.5 top-1.5 flex items-center">
-        <VisitedButton courseId={course.id} size="sm" />
-        <FavoriteButton courseId={course.id} size="sm" />
-      </div>
+        {course.address ? (
+          <p className="mt-1 truncate text-[11px] text-stone-400">
+            {course.address}
+          </p>
+        ) : null}
+      </Link>
     </div>
   );
 }

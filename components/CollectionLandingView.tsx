@@ -23,7 +23,7 @@ import {
   buildCollectionHeroPills,
   buildCollectionFaqItems,
   formatCollectionDifficulty,
-  formatRegionCoursePrice,
+  formatCollectionCardPrice,
   groupCoursesByRegionField,
   courseHasValidPhone,
   courseHasValidHomepage,
@@ -157,6 +157,90 @@ function HeroPill({ suffix, value }: { suffix: string; value: number }) {
   );
 }
 
+type PriceEmphasis = "strong" | "medium" | "normal";
+
+function getPriceEmphasis(slug: CollectionSlug): PriceEmphasis {
+  if (isBudgetCollectionSlug(slug)) return "strong";
+  if (isScoredCollectionSlug(slug)) return "medium";
+  return "normal";
+}
+
+function priceBoxClass(emphasis: PriceEmphasis, variant: "desktop" | "mobile"): string {
+  const base =
+    variant === "desktop"
+      ? "w-full rounded-xl px-4 py-3"
+      : "shrink-0 rounded-xl px-3 py-2";
+  if (emphasis === "strong") {
+    return `${base} bg-brand-50 ring-1 ring-brand-200`;
+  }
+  if (emphasis === "medium") {
+    return `${base} bg-brand-50/70 ring-1 ring-brand-100`;
+  }
+  return `${base} bg-white ring-1 ring-region-soft-border`;
+}
+
+function priceValueClass(
+  priced: boolean,
+  emphasis: PriceEmphasis,
+  variant: "desktop" | "mobile",
+): string {
+  if (!priced) {
+    return variant === "desktop"
+      ? "text-sm font-medium leading-snug text-stone-400"
+      : "text-xs font-medium leading-snug text-stone-400";
+  }
+  if (emphasis === "strong") {
+    return variant === "desktop"
+      ? "text-2xl font-extrabold leading-none text-brand-800"
+      : "text-lg font-extrabold leading-none text-brand-800";
+  }
+  if (emphasis === "medium") {
+    return variant === "desktop"
+      ? "text-xl font-extrabold leading-none text-brand-800"
+      : "text-base font-extrabold leading-none text-brand-800";
+  }
+  return variant === "desktop"
+    ? "text-lg font-extrabold leading-none text-brand-800"
+    : "text-base font-extrabold leading-none text-brand-800";
+}
+
+function CollectionPriceBlock({
+  course,
+  emphasis = "normal",
+  variant = "desktop",
+  align = "end",
+}: {
+  course: Course;
+  emphasis?: PriceEmphasis;
+  variant?: "desktop" | "mobile";
+  align?: "start" | "end";
+}) {
+  const { label, value, hasPrice: priced } = formatCollectionCardPrice(course);
+  const alignClass = align === "end" ? "items-end text-right" : "items-start text-left";
+
+  return (
+    <div className={`flex flex-col ${alignClass}`}>
+      <p className="text-[10px] font-semibold tracking-wide text-stone-500 sm:text-[11px]">
+        {label}
+      </p>
+      <p className={`mt-1 tabular-nums ${priceValueClass(priced, emphasis, variant)}`}>
+        {value}
+      </p>
+    </div>
+  );
+}
+
+function CollectionDetailButton({ className = "" }: { className?: string }) {
+  return (
+    <span
+      className={`inline-flex items-center justify-center gap-1 rounded-xl border border-brand-200 bg-brand-50 px-4 py-2.5 text-sm font-bold text-brand-800 transition group-hover:border-brand-400 group-hover:bg-brand-100 ${className}`}
+    >
+      상세보기
+      <ChevronRight className="h-4 w-4 shrink-0" aria-hidden />
+    </span>
+  );
+}
+
 function CollectionCourseCard({
   course,
   slug,
@@ -166,63 +250,91 @@ function CollectionCourseCard({
 }) {
   const hasHomepage = courseHasValidHomepage(course);
   const hasPhone = courseHasValidPhone(course);
-  const priceLabel = formatRegionCoursePrice(course);
-  const hasPrice = priceLabel !== "요금 정보 준비 중";
   const nearSeoul = course as CourseWithMeta;
   const scored = course as CourseWithMeta;
   const difficultyLabel = formatCollectionDifficulty(course);
+  const priceEmphasis = getPriceEmphasis(slug);
+  const showScoreBadge =
+    isScoredCollectionSlug(slug) &&
+    scored.referenceScore != null &&
+    scored.referenceScore > 0;
+  const regionLabel = [course.region, course.city && course.city !== course.region ? course.city : null]
+    .filter(Boolean)
+    .join(" · ");
 
   return (
     <li>
       <Link
         href={`/courses/${course.id}`}
-        className={`group flex flex-col gap-4 rounded-2xl border border-region-soft-border bg-white p-5 transition hover:border-brand-600 hover:bg-region-soft hover:shadow-card-hover sm:flex-row sm:items-start sm:gap-6 sm:p-6 ${FOCUS_RING}`}
+        className={`group grid min-h-[148px] grid-cols-1 overflow-hidden rounded-2xl border border-region-soft-border bg-white transition hover:border-brand-600 hover:bg-region-soft hover:shadow-card-hover sm:grid-cols-[minmax(0,1fr)_180px] sm:items-stretch ${FOCUS_RING}`}
       >
-        <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-2.5">
-            <h3 className="text-lg font-extrabold text-region-ink group-hover:text-brand-800 sm:text-xl">
-              {course.name}
-            </h3>
-            <span
-              className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-bold ring-1 ring-inset ${
-                TYPE_STYLES[course.courseType] ?? TYPE_STYLES.기타
-              }`}
+        <div className="flex min-w-0 flex-col p-5 sm:p-6">
+          <div className="flex items-start justify-between gap-3 sm:block">
+            <div className="min-w-0 flex-1">
+              <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
+                <h3 className="text-lg font-extrabold leading-tight text-region-ink group-hover:text-brand-800 sm:text-xl">
+                  {course.name}
+                </h3>
+                <span
+                  className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-bold ring-1 ring-inset ${
+                    TYPE_STYLES[course.courseType] ?? TYPE_STYLES.기타
+                  }`}
+                >
+                  {course.courseType || "기타"}
+                </span>
+                {course.holeCount ? (
+                  <span className="inline-flex items-center rounded-full bg-region-accent/60 px-2.5 py-0.5 text-xs font-bold text-region-ink ring-1 ring-inset ring-amber-200/80">
+                    {formatHoleCount(course.holeCount)}
+                  </span>
+                ) : null}
+              </div>
+            </div>
+            <div
+              className={`sm:hidden ${priceBoxClass(priceEmphasis, "mobile")}`}
             >
-              {course.courseType || "기타"}
-            </span>
-            {course.holeCount ? (
-              <span className="inline-flex items-center rounded-full bg-region-accent/60 px-2.5 py-0.5 text-xs font-bold text-region-ink ring-1 ring-inset ring-amber-200/80">
-                {formatHoleCount(course.holeCount)}
-              </span>
-            ) : null}
-            {isScoredCollectionSlug(slug) &&
-            scored.referenceScore != null &&
-            scored.referenceScore > 0 ? (
+              <CollectionPriceBlock
+                course={course}
+                emphasis={priceEmphasis}
+                variant="mobile"
+                align="end"
+              />
+            </div>
+          </div>
+
+          {showScoreBadge ? (
+            <p className="mt-2">
               <span className="inline-flex items-center rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-bold text-brand-800 ring-1 ring-inset ring-brand-200">
                 참고 점수 {scored.referenceScore}
               </span>
-            ) : null}
-          </div>
-          <p className="mt-2 text-sm font-medium text-region-muted">
-            {course.region}
-            {course.city && course.city !== course.region
-              ? ` · ${course.city}`
-              : ""}
-          </p>
-          <p className="mt-3 flex items-start gap-2 text-[0.95rem] leading-relaxed text-region-ink/90 sm:text-base">
+            </p>
+          ) : null}
+
+          {regionLabel ? (
+            <p className="mt-2 text-sm font-medium text-region-muted">
+              {regionLabel}
+            </p>
+          ) : null}
+
+          <p className="mt-2 flex items-start gap-2 text-sm leading-relaxed text-region-ink/90 sm:text-[0.95rem]">
             <MapPin
               className="mt-0.5 h-4 w-4 shrink-0 text-brand-700/70"
               aria-hidden
             />
             <span>{course.address || "주소 정보 준비 중"}</span>
           </p>
-          <div className="mt-3.5 flex flex-wrap gap-2">
-            <InfoBadge active={Boolean(course.difficulty && difficultyLabel !== "난이도 정보 없음")}>
+
+          <div className="mt-3 flex flex-wrap gap-2">
+            <InfoBadge
+              active={Boolean(
+                course.difficulty && difficultyLabel !== "난이도 정보 없음",
+              )}
+            >
               {difficultyLabel}
             </InfoBadge>
-            {isNearSeoulCollectionSlug(slug) && nearSeoul.distanceKm != null ? (
+            {isNearSeoulCollectionSlug(slug) &&
+            nearSeoul.distanceKm != null ? (
               <InfoBadge active>
-                서울시청 약 {nearSeoul.distanceKm.toFixed(1)}km
+                서울시청 기준 약 {nearSeoul.distanceKm.toFixed(1)}km
               </InfoBadge>
             ) : null}
             <InfoBadge active={hasPhone}>
@@ -231,16 +343,24 @@ function CollectionCourseCard({
             <InfoBadge active={hasHomepage}>
               {hasHomepage ? "홈페이지 있음" : "홈페이지 없음"}
             </InfoBadge>
-            <InfoBadge active={hasPrice}>
-              {isBudgetCollectionSlug(slug) ? "참고 최저가 " : "참고 요금 "}
-              {priceLabel}
-            </InfoBadge>
+          </div>
+
+          <div className="mt-4 sm:hidden">
+            <CollectionDetailButton className="w-full" />
           </div>
         </div>
-        <span className="inline-flex shrink-0 items-center gap-1 self-end rounded-xl border border-brand-200 bg-brand-50 px-4 py-2.5 text-sm font-bold text-brand-800 transition group-hover:border-brand-400 group-hover:bg-brand-100 sm:self-center">
-          상세보기
-          <ChevronRight className="h-4 w-4" aria-hidden />
-        </span>
+
+        <div className="hidden min-h-full flex-col justify-between border-l border-region-soft-border bg-region-soft/20 p-4 sm:flex">
+          <div className={priceBoxClass(priceEmphasis, "desktop")}>
+            <CollectionPriceBlock
+              course={course}
+              emphasis={priceEmphasis}
+              variant="desktop"
+              align="end"
+            />
+          </div>
+          <CollectionDetailButton className="mt-4 w-full" />
+        </div>
       </Link>
     </li>
   );

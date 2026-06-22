@@ -1,5 +1,6 @@
 import type { Course } from "@/types/course";
 import { formatRegionCoursePrice, courseHasPriceInfo } from "@/lib/regionLanding";
+import { formatPriceRange, hasPrice } from "@/lib/priceFormat";
 import {
   courseHasValidHomepage,
   courseHasValidPhone,
@@ -626,6 +627,35 @@ export function groupCoursesByRegionField(courses: Course[]): RegionGroup[] {
       if (b.count !== a.count) return b.count - a.count;
       return a.name.localeCompare(b.name, "ko");
     });
+}
+
+export function formatCollectionCardPrice(course: Course): {
+  label: string;
+  value: string;
+  hasPrice: boolean;
+} {
+  if (hasPrice(course)) {
+    return {
+      label: "참고 최저가",
+      value: formatPriceRange(course),
+      hasPrice: true,
+    };
+  }
+
+  const priceText = course.priceText?.trim();
+  if (priceText) {
+    return {
+      label: "참고 최저가",
+      value: priceText,
+      hasPrice: true,
+    };
+  }
+
+  return {
+    label: "요금",
+    value: "정보 준비 중",
+    hasPrice: false,
+  };
 }
 
 export function formatCollectionDifficulty(course: Course): string {

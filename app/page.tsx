@@ -1,4 +1,5 @@
 import { getCourses } from "@/lib/courseRepository";
+import { toHomeCourses } from "@/lib/homeCourse";
 import HomeClient from "@/components/HomeClient";
 import HomeIntro from "@/components/HomeIntro";
 import RegionLinks from "@/components/RegionLinks";
@@ -12,7 +13,7 @@ export default async function HomePage({
 }: {
   searchParams?: { region?: string };
 }) {
-  const courses = await getCourses();
+  const courses = toHomeCourses(await getCourses());
   return (
     <>
       <HomeClient

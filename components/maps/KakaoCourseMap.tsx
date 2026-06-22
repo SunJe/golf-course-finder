@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState, useMemo, useCallback } from "react";
-import { MapPinned } from "lucide-react";
 import type { Course } from "@/types/course";
 import type { CourseMapBaseProps } from "@/types/map";
 import { loadKakaoMaps, isKakaoConfigured } from "@/lib/kakaoLoader";
@@ -45,6 +44,7 @@ import {
 import { resolveCourseMapBindings } from "@/lib/courseMapBindings";
 import { isValidCourseCoordinates } from "@/lib/focusCourse";
 import MapFallback from "@/components/maps/MapFallback";
+import MapSkeleton from "@/components/maps/MapSkeleton";
 
 type MapMode = "loading" | "kakao" | "fallback";
 
@@ -875,6 +875,13 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
       setMode("fallback");
       return;
     }
+    if (
+      deferInitialViewUntilVisible &&
+      isMobile &&
+      !mapSectionInView
+    ) {
+      return;
+    }
     let cancelled = false;
     loadKakaoMaps()
       .then((kakao) => {
@@ -967,7 +974,7 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
       initialViewAppliedRef.current = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [deferInitialViewUntilVisible, isMobile, mapSectionInView]);
 
   useEffect(() => {
     if (mode !== "kakao" || !mapRef.current || !containerRef.current) return;
@@ -1412,12 +1419,7 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     >
       <div ref={containerRef} className="h-full w-full" />
       {mode === "loading" && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center bg-gray-100">
-          <div className="flex flex-col items-center gap-2 text-gray-400">
-            <MapPinned className="h-8 w-8 animate-pulse" />
-            <span className="text-sm">지도를 불러오는 중...</span>
-          </div>
-        </div>
+        <MapSkeleton className="absolute inset-0 z-10 !rounded-none !border-0" />
       )}
       {mode === "kakao" && !isDetail && mapDisplayCount !== null && (
         <div className="pointer-events-none absolute right-3.5 top-3.5 z-10 rounded-full border border-stone-200/70 bg-white/95 px-2.5 py-1 text-[11px] font-semibold text-stone-700 shadow-[0_1px_6px_rgba(0,0,0,0.08)] backdrop-blur-sm md:right-4 md:top-4">

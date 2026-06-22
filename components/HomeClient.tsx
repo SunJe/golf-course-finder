@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useCallback, useEffect, useRef } from "react";
+import dynamic from "next/dynamic";
 import type { Course, CourseFilters } from "@/types/course";
 import type { MapFocusTarget } from "@/types/map";
 import { EMPTY_FILTERS } from "@/types/course";
@@ -15,7 +16,7 @@ import { getSearchSuggestions } from "@/lib/searchSuggestions";
 import DesktopHero from "@/components/DesktopHero";
 import FilterBar from "@/components/FilterBar";
 import CourseList from "@/components/CourseList";
-import CourseMap from "@/components/maps/CourseMap";
+import MapSkeleton from "@/components/maps/MapSkeleton";
 import MobileFilterSheet from "@/components/MobileFilterSheet";
 import MobileHomeHub from "@/components/MobileHomeHub";
 import MobileBottomSheet, {
@@ -48,6 +49,11 @@ import {
   computeRegionCounts,
   getMobileHubRegionLinks,
 } from "@/lib/regionIndex";
+
+const CourseMap = dynamic(() => import("@/components/maps/CourseMap"), {
+  ssr: false,
+  loading: () => <MapSkeleton className="h-full w-full" />,
+});
 
 type ListMode = "cluster" | "allFiltered" | "visible" | "fallback";
 
@@ -1107,6 +1113,9 @@ function HomeClientInner({
     selectedClusterCount: selectedClusterKeys.length,
   };
 
+  /** 모바일: 허브만 보일 때 Kakao SDK/지도 번들 로드 지연 */
+  const shouldMountMobileMap = mapSectionInView;
+
   return (
     <>
       {/* ── 데스크탑 ── */}
@@ -1117,7 +1126,7 @@ function HomeClientInner({
           onQueryChange={(query) => updateFilters({ query })}
         />
 
-        <section className="shrink-0 border-b border-stone-200 bg-white px-6 py-3.5">
+        <section className="shrink-0 border-b border-stone-200 bg-white px-6 py-3.5 min-h-[5.5rem]">
           <div className="mx-auto max-w-[1600px]">
             <QuickFindLinks variant="desktop" className="mb-3" />
             <div className="flex items-start justify-between gap-6">
@@ -1146,15 +1155,15 @@ function HomeClientInner({
           </div>
         </section>
 
-        <div className="mx-auto flex min-h-0 w-full max-w-[1600px] flex-1 gap-5 px-6 py-4">
-          <div className="flex w-[440px] shrink-0 flex-col lg:w-[460px] xl:w-[480px]">
+        <div className="mx-auto flex h-0 min-h-0 w-full max-w-[1600px] flex-1 gap-5 px-6 py-4">
+          <div className="flex h-full min-h-0 w-[440px] shrink-0 flex-col lg:w-[460px] xl:w-[480px]">
             <ListHeader {...headerProps} onResetFilters={resetFilters} />
             <div className="min-h-0 flex-1 overflow-y-auto pr-1">
               <CourseList {...listProps} />
             </div>
           </div>
 
-          <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden rounded-2xl border border-stone-200/80 bg-white p-1.5 shadow-sm min-h-[480px]">
+          <div className="flex h-full min-h-[480px] min-w-0 flex-1 flex-col overflow-hidden rounded-2xl border border-stone-200/80 bg-white p-1.5 shadow-sm">
             <CourseMap
               {...mapProps}
               mapLayout="desktop"
@@ -1196,17 +1205,24 @@ function HomeClientInner({
             </p>
 
             <div className="mobile-map-area relative mt-3 h-[min(52vh,420px)] min-h-[280px] overflow-hidden rounded-2xl border border-stone-200/40 shadow-[0_2px_12px_rgba(0,0,0,0.06)] ring-1 ring-black/[0.02]">
-              <CourseMap
-                {...mapProps}
-                mapLayout="mobile"
-                deferInitialViewUntilVisible
-                mapSectionInView={mapSectionInView}
-                nationwideFitSignal={nationwideFitSignal}
-                onSelect={handleMobileMapSelect}
-                onSelectPopupOnly={handleMapPopupSelect}
-                maxVisibleMarkers={30}
-                className="h-full w-full !rounded-2xl !border-0"
-              />
+              {shouldMountMobileMap ? (
+                <CourseMap
+                  {...mapProps}
+                  mapLayout="mobile"
+                  deferInitialViewUntilVisible
+                  mapSectionInView={mapSectionInView}
+                  nationwideFitSignal={nationwideFitSignal}
+                  onSelect={handleMobileMapSelect}
+                  onSelectPopupOnly={handleMapPopupSelect}
+                  maxVisibleMarkers={30}
+                  className="h-full w-full !rounded-2xl !border-0"
+                />
+              ) : (
+                <MapSkeleton
+                  className="h-full w-full !rounded-2xl !border-0"
+                  label="스크롤하거나 지도 보기를 누르면 불러옵니다"
+                />
+              )}
             </div>
 
             <div

@@ -3,6 +3,7 @@
 import {
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
   type PointerEvent as ReactPointerEvent,
@@ -19,6 +20,8 @@ const COLLAPSED_HEIGHT_PX = 80;
 const HALF_VH_RATIO = 0.42;
 const EXPANDED_VH_RATIO = 0.74;
 const EXPANDED_MAX_PX = 580;
+const MOBILE_LIST_INITIAL = 25;
+const MOBILE_LIST_STEP = 25;
 
 function getViewportHeight(): number {
   if (typeof window === "undefined") return 700;
@@ -112,7 +115,18 @@ export default function MobileBottomSheet({
   const [viewportHeight, setViewportHeight] = useState(getViewportHeight);
   const [dragHeight, setDragHeight] = useState<number | null>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [listRenderCount, setListRenderCount] = useState(MOBILE_LIST_INITIAL);
   const dragStartRef = useRef<{ y: number; height: number } | null>(null);
+
+  useEffect(() => {
+    setListRenderCount(MOBILE_LIST_INITIAL);
+  }, [courses]);
+
+  const visibleListCourses = useMemo(
+    () => courses.slice(0, listRenderCount),
+    [courses, listRenderCount],
+  );
+  const hasMoreListCourses = listRenderCount < courses.length;
 
   useEffect(() => {
     const sync = () => setViewportHeight(getViewportHeight());
@@ -187,13 +201,26 @@ export default function MobileBottomSheet({
       />
     ) : (
       <div className="flex flex-col gap-1.5">
-        {courses.map((course) => (
+        {visibleListCourses.map((course) => (
           <MobileCourseCard
             key={course.id}
             course={course}
             selected={course.id === selectedId}
           />
         ))}
+        {hasMoreListCourses ? (
+          <button
+            type="button"
+            onClick={() =>
+              setListRenderCount((prev) =>
+                Math.min(prev + MOBILE_LIST_STEP, courses.length),
+              )
+            }
+            className="mt-1 rounded-xl border border-stone-200 bg-stone-50 py-2.5 text-center text-[13px] font-semibold text-stone-600 active:bg-stone-100"
+          >
+            더 보기 ({courses.length - listRenderCount}곳 남음)
+          </button>
+        ) : null}
       </div>
     );
 

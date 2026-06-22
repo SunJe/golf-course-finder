@@ -33,6 +33,7 @@
     "collect:naver-map-enrichment": "tsx scripts/collectNaverMapEnrichment.ts",
     "check:naver-map-access": "tsx scripts/checkNaverMapAccess.ts",
     "check:naver-map-search-access": "tsx scripts/checkNaverMapSearchAccess.ts",
+    "collect:naver-price-ultra-safe": "tsx scripts/collectNaverReservationPriceUltraSafe.ts",
     "generate:manual-review-worklist": "tsx scripts/generateManualReviewWorklist.ts",
     "generate:enrichment-quality-report": "tsx scripts/generateEnrichmentQualityReport.ts",
     "generate:course-enrichment-edit": "tsx scripts/generateCourseEnrichmentEditCsv.ts",

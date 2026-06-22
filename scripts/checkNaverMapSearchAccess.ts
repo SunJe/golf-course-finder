@@ -1,43 +1,10 @@
-import { getNaverMapSearchUrl } from "./lib/naverPriceCandidates";
 import { TEXT_PATTERNS } from "./lib/naverMapEnrichment/selectors";
-
-const BLOCK_PHRASES: Array<{ pattern: RegExp; reason: string; label: string }> = [
-  {
-    pattern: /과도한\s*접근/i,
-    reason: "excessive_access_detected",
-    label: "과도한 접근",
-  },
-  {
-    pattern: /서비스\s*이용\s*제한/i,
-    reason: "service_restricted",
-    label: "서비스 이용 제한",
-  },
-  {
-    pattern: /이용이\s*제한/i,
-    reason: "access_limited",
-    label: "이용이 제한",
-  },
-  {
-    pattern: /비정상(?:적인)?\s*접근/i,
-    reason: "abnormal_access_detected",
-    label: "비정상 접근",
-  },
-  {
-    pattern: /자동화된\s*접근/i,
-    reason: "automated_access_detected",
-    label: "자동화된 접근",
-  },
-  {
-    pattern: /일시적으로\s*제한/i,
-    reason: "temporarily_restricted",
-    label: "일시적으로 제한",
-  },
-  {
-    pattern: /captcha|자동\s*입력\s*방지|보안문자|로봇이\s*아닙니다|로봇\s*확인/i,
-    reason: "captcha_detected",
-    label: "CAPTCHA/보안문자",
-  },
-];
+import {
+  collectVisibleNaverText,
+  detectNaverBlock,
+  sleep,
+} from "./lib/naverMapEnrichment/ultraSafeAccess";
+import { getNaverMapSearchUrl } from "./lib/naverPriceCandidates";
 
 interface CliOptions {
   query: string;
@@ -83,37 +50,6 @@ function parseArgs(argv: string[]): CliOptions {
   return options;
 }
 
-function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-function detectBlock(text: string): { blocked: true; reason: string; matchedText: string } | null {
-  for (const phrase of BLOCK_PHRASES) {
-    const match = text.match(phrase.pattern);
-    if (match) {
-      return {
-        blocked: true,
-        reason: phrase.reason,
-        matchedText: match[0] || phrase.label,
-      };
-    }
-  }
-  return null;
-}
-
-async function collectVisibleText(page: import("playwright").Page): Promise<string> {
-  const parts: string[] = [];
-  parts.push(await page.locator("body").innerText().catch(() => ""));
-
-  for (const frame of page.frames()) {
-    if (/searchIframe|entryIframe|pcmap\.place\.naver\.com/i.test(frame.url() || frame.name())) {
-      parts.push(await frame.locator("body").innerText().catch(() => ""));
-    }
-  }
-
-  return parts.join("\n");
-}
-
 function parseAddressPlaceTitles(text: string): string[] {
   const startMatch = text.match(/이\s*주소의\s*장소\s*\d*/);
   if (!startMatch || startMatch.index === undefined) return [];
@@ -157,8 +93,8 @@ async function main(): Promise<void> {
     await page.goto(url, { waitUntil: "domcontentloaded", timeout: 45_000 });
     await sleep(options.waitMs);
 
-    const combinedText = await collectVisibleText(page);
-    const block = detectBlock(combinedText);
+    const combinedText = await collectVisibleNaverText(page);
+    const block = detectNaverBlock(combinedText);
 
     if (block) {
       console.log("blocked: true");
@@ -170,13 +106,17 @@ async function main(): Promise<void> {
         console.log("browser kept open (--keep-open). Press Ctrl+C to exit.");
         await sleep(Number.MAX_SAFE_INTEGER);
       }
-      process.exitCode = 1;
+      process.exitCode = 2;
       return;
     }
 
     const hasAddressSection =
       TEXT_PATTERNS.addressPlacesSection.test(combinedText) ||
-      (await page.getByText(TEXT_PATTERNS.addressPlacesSection).first().isVisible().catch(() => false));
+      (await page
+        .getByText(TEXT_PATTERNS.addressPlacesSection)
+        .first()
+        .isVisible()
+        .catch(() => false));
 
     const candidates = parseAddressPlaceTitles(combinedText);
     const golfCandidates = candidates.filter((line) => /골프|cc|클럽/i.test(line));
@@ -185,7 +125,7 @@ async function main(): Promise<void> {
       console.log("blocked: false");
       console.log("reason: search_result_loaded");
       console.log("search_result_loaded: true");
-      console.log(`addressPlacesSection: true`);
+      console.log("addressPlacesSection: true");
       if (candidates.length > 0) {
         console.log(`candidates: ${candidates.join(" | ")}`);
       }

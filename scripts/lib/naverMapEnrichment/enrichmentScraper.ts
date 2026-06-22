@@ -93,6 +93,8 @@ export interface ScraperOptions {
   candidateOpenMode: CandidateOpenMode;
   circuitBreaker?: AccessCircuitBreaker;
   gotoRateLimiter?: GotoRateLimiter;
+  /** 페이지 종료 직전 스크린샷 등 (ultra-safe 수집용) */
+  onBeforePageClose?: (page: import("playwright").Page) => Promise<void>;
 }
 
 export interface RowDiagnostics {
@@ -1910,6 +1912,9 @@ export async function scrapeEnrichmentRow(
     output.needs_check = "y";
     return finish(output);
   } finally {
+    if (options.onBeforePageClose) {
+      await options.onBeforePageClose(page).catch(() => undefined);
+    }
     await page.close().catch(() => undefined);
   }
 }

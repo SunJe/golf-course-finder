@@ -25,6 +25,13 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# naver ultra-safe collector runtime outputs (do not commit)
+data/enrichment/naver_reservation_price_results.csv
+data/enrichment/naver_reservation_price_runlog.jsonl
+data/enrichment/naver_blocked_state.json
+data/enrichment/naver_price_collect.lock
+data/enrichment/naver-price-screenshots/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

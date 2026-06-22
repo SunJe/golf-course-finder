@@ -48,6 +48,7 @@ export default function MobileCourseCard({
       <Link
         href={`/courses/${course.id}`}
         id={`course-card-${course.id}`}
+        aria-label={`${course.name} 상세 정보 보기`}
         className="flex flex-col px-3.5 py-3 pr-[4.25rem]"
       >
         <h3 className="truncate text-[14px] font-bold leading-tight text-stone-900">

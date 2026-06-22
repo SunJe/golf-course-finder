@@ -108,6 +108,7 @@ export default function CourseCard({
         <Link
           href={`/courses/${course.id}`}
           onClick={(e) => e.stopPropagation()}
+          aria-label={`${course.name} 상세 정보 보기`}
           className="flex flex-1 items-center justify-center gap-1 py-3 font-semibold text-brand-800 transition hover:bg-brand-50/50"
         >
           상세보기

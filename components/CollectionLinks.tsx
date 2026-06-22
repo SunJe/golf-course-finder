@@ -48,6 +48,7 @@ function CollectionLinkGrid({
         <li key={page.slug}>
           <Link
             href={`/collections/${page.slug}`}
+            title={COLLECTION_CARD_LABELS[page.slug]}
             className="flex h-full flex-col rounded-xl border border-region-soft-border bg-region-soft/40 p-4 transition hover:border-brand-600 hover:bg-region-soft hover:shadow-card-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-700"
           >
             <span className="text-base font-extrabold text-region-ink">
@@ -76,6 +77,7 @@ export default async function CollectionLinks({
   }
 
   const nationalSlugs = NATIONAL_COLLECTION_SLUGS.filter((slug) => {
+    if (slug === "par3" && counts && counts.par3 === 0) return false;
     if (counts && counts[slug] === 0) return false;
     return true;
   });

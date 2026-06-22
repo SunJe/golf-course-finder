@@ -29,6 +29,7 @@ export default function RegionLinks({
           <li key={page.slug}>
             <Link
               href={`/regions/${page.slug}`}
+              title={`${page.label} 골프장 목록 보기`}
               className="inline-flex min-h-[44px] items-center rounded-full border-2 border-region-soft-border bg-region-soft/50 px-5 py-2 text-sm font-bold text-region-ink transition hover:border-brand-600 hover:bg-brand-700 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-700"
             >
               {page.label} 골프장

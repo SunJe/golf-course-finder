@@ -142,7 +142,8 @@ function RegionCourseCard({ course }: { course: Course }) {
     <li>
       <Link
         href={`/courses/${course.id}`}
-        className={`group flex flex-col gap-4 rounded-2xl border border-region-soft-border bg-white p-5 transition hover:border-brand-600 hover:bg-region-soft hover:shadow-card-hover sm:flex-row sm:items-start sm:gap-6 sm:p-6 ${FOCUS_RING}`}
+        aria-label={`${course.name} 상세 정보 보기`}
+        className={`group flex min-h-[148px] flex-col gap-4 rounded-2xl border border-region-soft-border bg-white p-5 transition hover:border-brand-600 hover:bg-region-soft hover:shadow-card-hover sm:flex-row sm:items-start sm:gap-6 sm:p-6 ${FOCUS_RING}`}
       >
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2.5">

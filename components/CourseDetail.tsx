@@ -281,9 +281,10 @@ export default function CourseDetail({
               target="_blank"
               rel="noopener noreferrer"
               className={`${actionButtonClass} border-gray-200 bg-white text-gray-800 hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700`}
+              aria-label={`${course.name} 공식 홈페이지 열기`}
             >
               <Globe className="h-4 w-4" />
-              홈페이지
+              공식 홈페이지
             </a>
           ) : null}
 
@@ -292,18 +293,20 @@ export default function CourseDetail({
             target="_blank"
             rel="noopener noreferrer"
             className={`${actionButtonClass} border-[#fee500]/60 bg-[#fee500]/10 text-gray-800 hover:bg-[#fee500]/25`}
+            aria-label={`${course.name} 카카오맵에서 보기`}
           >
             <ExternalLink className="h-4 w-4" />
-            카카오맵
+            카카오맵 열기
           </a>
           <a
             href={naverMapUrl}
             target="_blank"
             rel="noopener noreferrer"
             className={`${actionButtonClass} border-[#03c75a]/30 bg-[#03c75a]/5 text-[#03c75a] hover:bg-[#03c75a]/10`}
+            aria-label={`${course.name} 네이버지도에서 보기`}
           >
             <ExternalLink className="h-4 w-4" />
-            네이버지도
+            네이버지도 열기
           </a>
           <a
             href={naverSearchUrl}
@@ -317,7 +320,13 @@ export default function CourseDetail({
         </div>
       </header>
 
-      <p className="mt-4 rounded-xl border border-gray-100 bg-white/90 px-4 py-3 text-sm leading-relaxed text-gray-600 shadow-sm sm:px-5">
+      <p className="mt-4 rounded-xl border border-amber-100 bg-amber-50/80 px-4 py-3 text-sm leading-relaxed text-amber-950 shadow-sm sm:px-5">
+        GolfMap Korea에 표시되는 주소, 전화번호, 홈페이지, 참고 요금은 수집·정리
+        기준이며 실제와 다를 수 있습니다. 예약·내장 전에는 골프장 공식 채널에서
+        최신 정보를 확인해 주세요.
+      </p>
+
+      <p className="mt-3 rounded-xl border border-gray-100 bg-white/90 px-4 py-3 text-sm leading-relaxed text-gray-600 shadow-sm sm:px-5">
         {seoIntro}
       </p>
 
@@ -339,7 +348,7 @@ export default function CourseDetail({
           />
           <InfoCardRow
             label="홈페이지"
-            value={showHomepage ? course.homepageUrl! : "정보 준비 중"}
+            value={showHomepage ? "공식 홈페이지 열기" : "정보 준비 중"}
             href={showHomepage ? course.homepageUrl : undefined}
             external
           />
@@ -497,6 +506,7 @@ export default function CourseDetail({
                 <li key={nearby.id}>
                   <Link
                     href={`/courses/${nearby.id}`}
+                    aria-label={`${nearby.name} 상세 정보 보기`}
                     onMouseEnter={() => setHoveredNearbyId(nearby.id)}
                     onMouseLeave={() => setHoveredNearbyId(null)}
                     className={`group flex items-center gap-3 rounded-xl border px-4 py-3.5 transition ${

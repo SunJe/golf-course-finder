@@ -7,22 +7,20 @@ import {
   ChevronRight,
   LayoutGrid,
   CircleDollarSign,
-  Gauge,
+  Flag,
+  Users,
 } from "lucide-react";
 import type { Course } from "@/types/course";
 import type { CollectionSlug } from "@/lib/collectionLanding";
 import {
   COLLECTION_DISCLAIMER,
   NEAR_SEOUL_COLLECTION_DISCLAIMER,
-  SCORED_COLLECTION_DISCLAIMER,
-  SCORED_REFERENCE_SCORE_DISCLAIMER,
   type CollectionConfig,
   type CollectionLandingStats,
   isNearSeoulCollectionSlug,
   buildCollectionHeroDescription,
   buildCollectionHeroPills,
   buildCollectionFaqItems,
-  formatCollectionDifficulty,
   formatCollectionCardPrice,
   groupCoursesByRegionField,
   courseHasValidPhone,
@@ -30,6 +28,13 @@ import {
 } from "@/lib/collectionLanding";
 import type { CourseWithMeta } from "@/lib/collectionFilters";
 import { formatHoleCount } from "@/lib/courseDisplay";
+import {
+  buildCollectionDisplayStats,
+  buildCollectionSortDescription,
+  buildCourseSelectionReasons,
+  buildCardMetaBadges,
+  getCollectionTypeDisclaimer,
+} from "@/lib/collectionCardLabels";
 import CollectionLinks from "@/components/CollectionLinks";
 import RegionLinks from "@/components/RegionLinks";
 
@@ -67,7 +72,9 @@ const STAT_ICONS: Record<string, ComponentType<{ className?: string }>> = {
   전화번호: Phone,
   홈페이지: Globe,
   "요금 정보": CircleDollarSign,
-  "난이도 정보": Gauge,
+  "거리 정보": MapPin,
+  대중제: Users,
+  나인홀: Flag,
 };
 
 function InfoBadge({
@@ -251,21 +258,32 @@ function CollectionCourseCard({
   const hasHomepage = courseHasValidHomepage(course);
   const hasPhone = courseHasValidPhone(course);
   const nearSeoul = course as CourseWithMeta;
-  const scored = course as CourseWithMeta;
-  const difficultyLabel = formatCollectionDifficulty(course);
   const priceEmphasis = getPriceEmphasis(slug);
-  const showScoreBadge =
-    isScoredCollectionSlug(slug) &&
-    scored.referenceScore != null &&
-    scored.referenceScore > 0;
   const regionLabel = [course.region, course.city && course.city !== course.region ? course.city : null]
     .filter(Boolean)
     .join(" · ");
+  const selectionReasons = buildCourseSelectionReasons(course, slug, nearSeoul, false);
+  const mobileSelectionReasons = buildCourseSelectionReasons(course, slug, nearSeoul, true);
+  const desktopMetaBadges = buildCardMetaBadges({
+    slug,
+    meta: nearSeoul,
+    hasPhone,
+    hasHomepage,
+    mobile: false,
+  });
+  const mobileMetaBadges = buildCardMetaBadges({
+    slug,
+    meta: nearSeoul,
+    hasPhone,
+    hasHomepage,
+    mobile: true,
+  });
 
   return (
     <li>
       <Link
         href={`/courses/${course.id}`}
+        aria-label={`${course.name} 상세 정보 보기`}
         className={`group grid min-h-[148px] grid-cols-1 overflow-hidden rounded-2xl border border-region-soft-border bg-white transition hover:border-brand-600 hover:bg-region-soft hover:shadow-card-hover sm:grid-cols-[minmax(0,1fr)_180px] sm:items-stretch ${FOCUS_RING}`}
       >
         <div className="flex min-w-0 flex-col p-5 sm:p-6">
@@ -301,14 +319,6 @@ function CollectionCourseCard({
             </div>
           </div>
 
-          {showScoreBadge ? (
-            <p className="mt-2">
-              <span className="inline-flex items-center rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-bold text-brand-800 ring-1 ring-inset ring-brand-200">
-                참고 점수 {scored.referenceScore}
-              </span>
-            </p>
-          ) : null}
-
           {regionLabel ? (
             <p className="mt-2 text-sm font-medium text-region-muted">
               {regionLabel}
@@ -323,26 +333,27 @@ function CollectionCourseCard({
             <span>{course.address || "주소 정보 준비 중"}</span>
           </p>
 
-          <div className="mt-3 flex flex-wrap gap-2">
-            <InfoBadge
-              active={Boolean(
-                course.difficulty && difficultyLabel !== "난이도 정보 없음",
-              )}
-            >
-              {difficultyLabel}
-            </InfoBadge>
-            {isNearSeoulCollectionSlug(slug) &&
-            nearSeoul.distanceKm != null ? (
-              <InfoBadge active>
-                서울시청 기준 약 {nearSeoul.distanceKm.toFixed(1)}km
+          {selectionReasons.length > 0 ? (
+            <p className="mt-2 text-xs leading-relaxed text-region-muted sm:text-sm">
+              <span className="font-semibold text-region-ink">선정 이유</span>{" "}
+              <span className="hidden sm:inline">{selectionReasons.join(" · ")}</span>
+              <span className="sm:hidden">{mobileSelectionReasons.join(" · ")}</span>
+            </p>
+          ) : null}
+
+          <div className="mt-3 hidden flex-wrap gap-2 sm:flex">
+            {desktopMetaBadges.map((badge) => (
+              <InfoBadge key={badge.text} active={badge.active}>
+                {badge.text}
               </InfoBadge>
-            ) : null}
-            <InfoBadge active={hasPhone}>
-              {hasPhone ? "전화번호 있음" : "전화번호 없음"}
-            </InfoBadge>
-            <InfoBadge active={hasHomepage}>
-              {hasHomepage ? "홈페이지 있음" : "홈페이지 없음"}
-            </InfoBadge>
+            ))}
+          </div>
+          <div className="mt-3 flex flex-wrap gap-2 sm:hidden">
+            {mobileMetaBadges.map((badge) => (
+              <InfoBadge key={badge.text} active={badge.active}>
+                {badge.text}
+              </InfoBadge>
+            ))}
           </div>
 
           <div className="mt-4 sm:hidden">
@@ -383,9 +394,12 @@ export default function CollectionLandingView({
   );
   const previewCourses = courses.slice(0, ALL_COURSES_PREVIEW);
   const mapHref = config.mapHref;
+  const displayStats = buildCollectionDisplayStats(config.slug, courses);
+  const sortDescription = buildCollectionSortDescription(config.slug);
+  const typeDisclaimer = getCollectionTypeDisclaimer(config.slug);
   const showNearSeoulNote = isNearSeoulCollectionSlug(config.slug);
-  const showScoredNote = isScoredCollectionSlug(config.slug);
-  const showBudgetNote = isBudgetCollectionSlug(config.slug);
+  const showBudgetNote =
+    isBudgetCollectionSlug(config.slug) && typeDisclaimer == null;
 
   return (
     <div className="min-h-screen bg-region-cream">
@@ -416,6 +430,7 @@ export default function CollectionLandingView({
           <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Link
               href={mapHref}
+              title={`${config.h1} 지도에서 보기`}
               className={`inline-flex min-h-[48px] items-center justify-center rounded-xl bg-brand-700 px-6 py-3 text-base font-bold text-white shadow-sm transition hover:bg-brand-800 ${FOCUS_RING}`}
             >
               지도에서 보기
@@ -431,24 +446,14 @@ export default function CollectionLandingView({
 
         <SectionShell className="mt-8 border-l-4 border-l-amber-400">
           <p className="text-sm font-semibold text-region-ink sm:text-base">
-            {COLLECTION_DISCLAIMER}
+            {typeDisclaimer ?? COLLECTION_DISCLAIMER}
           </p>
           {showNearSeoulNote ? (
             <p className="mt-3 text-sm font-medium text-region-ink sm:text-base">
               {NEAR_SEOUL_COLLECTION_DISCLAIMER}
             </p>
           ) : null}
-          {showScoredNote ? (
-            <>
-              <p className="mt-3 text-sm font-medium text-region-ink sm:text-base">
-                {SCORED_COLLECTION_DISCLAIMER}
-              </p>
-              <p className="mt-2 text-sm text-region-muted sm:text-base">
-                {SCORED_REFERENCE_SCORE_DISCLAIMER}
-              </p>
-            </>
-          ) : null}
-          {showBudgetNote ? (
+          {showBudgetNote && !typeDisclaimer ? (
             <p className="mt-3 text-sm font-medium text-amber-900">
               요금 정보는 참고용이며 실제 예약가와 다를 수 있습니다.
             </p>
@@ -459,12 +464,16 @@ export default function CollectionLandingView({
         </SectionShell>
 
         <SectionShell className="mt-8">
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-            <StatCard label="전체" value={stats.total} />
-            <StatCard label="전화번호" value={stats.withPhone} />
-            <StatCard label="홈페이지" value={stats.withHomepage} />
-            <StatCard label="요금 정보" value={stats.withPrice} />
-            <StatCard label="난이도 정보" value={stats.withDifficulty} />
+          <div
+            className={`grid grid-cols-2 gap-4 ${
+              displayStats.length >= 5
+                ? "sm:grid-cols-3 lg:grid-cols-5"
+                : "sm:grid-cols-2 lg:grid-cols-4"
+            }`}
+          >
+            {displayStats.map((stat) => (
+              <StatCard key={stat.label} label={stat.label} value={stat.value} />
+            ))}
           </div>
         </SectionShell>
 
@@ -472,43 +481,17 @@ export default function CollectionLandingView({
           <p className="text-base leading-[1.8] text-region-ink/90 sm:text-lg">
             {config.seoIntro}
           </p>
-          {showBudgetNote ? (
+          {showBudgetNote && !typeDisclaimer ? (
             <p className="mt-4 text-sm font-medium text-amber-900">
               요금 정보는 참고용이며 실제 예약가와 다를 수 있습니다.
             </p>
           ) : null}
         </SectionShell>
 
-        {regionGroups.length > 0 ? (
-          <SectionShell className="mt-8">
-            <SectionHeading
-              title="지역별 골프장"
-              description="등록된 region 필드 기준으로 지역별 골프장 수를 확인할 수 있습니다."
-            />
-            <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {regionGroups.map((group) => (
-                <li
-                  key={group.name}
-                  className="rounded-xl border border-region-soft-border bg-white p-5"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <span className="text-lg font-extrabold text-region-ink">
-                      {group.name}
-                    </span>
-                    <span className="shrink-0 rounded-full bg-brand-700 px-3 py-1 text-sm font-bold text-white">
-                      {group.count}곳
-                    </span>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </SectionShell>
-        ) : null}
-
-        <SectionShell id="all-courses" className="mt-10">
+        <SectionShell id="all-courses" className="mt-8">
           <SectionHeading
             title={`${config.h1} 목록`}
-            description={`${config.primaryKeyword} 조건에 해당하는 골프장 ${stats.total.toLocaleString("ko-KR")}곳`}
+            description={`${config.primaryKeyword} 조건에 해당하는 골프장 ${stats.total.toLocaleString("ko-KR")}곳 · ${sortDescription}`}
           />
           {courses.length > 0 ? (
             <>
@@ -529,9 +512,10 @@ export default function CollectionLandingView({
               ) : null}
               <Link
                 href={mapHref}
+                title={`${config.h1} 전체 목록 지도에서 보기`}
                 className={`mt-6 inline-flex items-center gap-1.5 rounded-xl border border-brand-300 bg-region-soft px-5 py-3 text-sm font-bold text-brand-800 transition hover:border-brand-500 hover:bg-brand-100 ${FOCUS_RING}`}
               >
-                지도에서 더 보기 →
+                {config.h1} 지도에서 더 보기 →
               </Link>
             </>
           ) : (
@@ -540,6 +524,28 @@ export default function CollectionLandingView({
             </p>
           )}
         </SectionShell>
+
+        {regionGroups.length > 0 ? (
+          <SectionShell className="mt-8 py-5 sm:py-6">
+            <h2 className="text-base font-extrabold text-region-ink sm:text-lg">
+              지역별 보기
+            </h2>
+            <p className="mt-1.5 text-sm text-region-muted">
+              지역별로 분류된 골프장 수를 확인할 수 있습니다.
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {regionGroups.map((group) => (
+                <span
+                  key={group.name}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-region-soft-border bg-region-soft/50 px-3 py-1.5 text-sm font-medium text-region-ink"
+                >
+                  <span className="font-bold text-brand-800">{group.name}</span>
+                  <span className="text-region-muted">{group.count}곳</span>
+                </span>
+              ))}
+            </div>
+          </SectionShell>
+        ) : null}
 
         <SectionShell id="faq" className="mt-10">
           <SectionHeading title={`${config.h1} 자주 묻는 질문`} />

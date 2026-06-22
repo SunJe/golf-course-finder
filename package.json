@@ -44,6 +44,7 @@
     "verify:price-filter": "tsx scripts/verifyPriceFilter.ts",
     "analyze:difficulty": "tsx scripts/analyzeDifficultyValues.ts",
     "analyze:collections": "tsx scripts/analyzeCollectionCounts.ts",
+    "audit:structured-data": "tsx scripts/auditStructuredData.ts",
     "generate:difficulty-sql": "tsx scripts/generateDifficultyUpdateSql.ts",
     "generate:og-image": "tsx scripts/generateOgImage.ts"
   },

@@ -19,6 +19,20 @@ export function getCourseCoordinate(
   return { lat: course.latitude, lng: course.longitude };
 }
 
+/** 대한민국 영역 내 유효 좌표 — 전국 fitBounds 전용 */
+export function getValidCourseCoordinate(
+  course: Pick<Course, "latitude" | "longitude"> & {
+    lat?: number;
+    lng?: number;
+  },
+): { lat: number; lng: number } | null {
+  const lat = Number(course.lat ?? course.latitude);
+  const lng = Number(course.lng ?? course.longitude);
+  if (!Number.isFinite(lat) || !Number.isFinite(lng)) return null;
+  if (lat < 32 || lat > 39 || lng < 124 || lng > 132) return null;
+  return { lat, lng };
+}
+
 export function createMapFocusTarget(
   course: Pick<Course, "id" | "latitude" | "longitude" | "name">,
   level?: number,

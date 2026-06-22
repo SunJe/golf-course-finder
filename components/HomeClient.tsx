@@ -257,6 +257,23 @@ function ListHeader({
   );
 }
 
+function useIsMobile(breakpoint = 767) {
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia(`(max-width: ${breakpoint}px)`).matches;
+  });
+
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width: ${breakpoint}px)`);
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, [breakpoint]);
+
+  return isMobile;
+}
+
 export default function HomeClient({
   courses,
   initialRegionSlug,
@@ -282,6 +299,7 @@ function HomeClientInner({
   initialRegionSlug?: string;
 }) {
   const { registerHomeReset } = useHomeReset();
+  const isMobile = useIsMobile();
   const { favoriteCourseIds, favoriteCount } = useFavorites();
   const { visitedCourseIds, visitedCount } = useVisited();
   const [favoriteOnly, setFavoriteOnly] = useState(false);
@@ -295,6 +313,7 @@ function HomeClientInner({
     null,
   );
   const [mapViewportReady, setMapViewportReady] = useState(false);
+  const [boundsReady, setBoundsReady] = useState(false);
   const [mapSectionInView, setMapSectionInView] = useState(false);
   const mapSectionRef = useRef<HTMLElement>(null);
   const [selectedClusters, setSelectedClusters] = useState<
@@ -361,10 +380,14 @@ function HomeClientInner({
   const isClusterScopeActive = Boolean(
     selectedClusterCourseIds && selectedClusterCourseIds.length > 0,
   );
-  const visibleReady = mapViewportReady && visibleCourseIds !== null;
+  const visibleReady =
+    mapViewportReady &&
+    visibleCourseIds !== null &&
+    (!mobileNationwideMap || boundsReady);
 
   const suspiciousLowVisible =
     mobileNationwideMap &&
+    boundsReady &&
     courses.length > 100 &&
     (visibleCourseIds?.length ?? 0) <= 5 &&
     !userMapInteracted;
@@ -373,11 +396,15 @@ function HomeClientInner({
     ? "cluster"
     : isShowingAllFilteredResults
       ? "allFiltered"
-      : suspiciousLowVisible
+      : isMobile && !mobileNationwideMap
         ? "fallback"
-        : visibleReady
-          ? "visible"
-          : "fallback";
+        : mobileNationwideMap && !boundsReady
+          ? "fallback"
+          : suspiciousLowVisible
+            ? "fallback"
+            : visibleReady
+              ? "visible"
+              : "fallback";
 
   const collectionCourses = useMemo(() => {
     if (favoriteOnly) {
@@ -517,33 +544,58 @@ function HomeClientInner({
           ? searchFiltered.length
           : displayCourses.length;
 
-  const listCountLabel = useMemo(
-    () =>
-      getListCountLabel({
-        mode: listMode,
-        count: listHeaderCount,
-        total: courses.length,
-        isFiltered,
-        favoriteOnly,
-        visitedOnly,
-        isSearchActive,
-        searchQuery: isSearchActive ? searchQuery : "",
-        selectedClusterCount: selectedClusterKeys.length,
-      }),
-    [
-      listMode,
-      listHeaderCount,
-      courses.length,
+  const listCountLabel = useMemo(() => {
+    if (
+      (isMobile && !mobileNationwideMap && !isFiltered && !favoriteOnly && !visitedOnly && !isSearchActive) ||
+      (mobileNationwideMap &&
+      !boundsReady &&
+      !isFiltered &&
+      !favoriteOnly &&
+      !visitedOnly &&
+      !isSearchActive)
+    ) {
+      return `전국 골프장 ${courses.length.toLocaleString()}곳`;
+    }
+    return getListCountLabel({
+      mode: listMode,
+      count: listHeaderCount,
+      total: courses.length,
       isFiltered,
       favoriteOnly,
       visitedOnly,
       isSearchActive,
-      searchQuery,
-      selectedClusterKeys.length,
-    ],
-  );
+      searchQuery: isSearchActive ? searchQuery : "",
+      selectedClusterCount: selectedClusterKeys.length,
+    });
+  }, [
+    isMobile,
+    mobileNationwideMap,
+    boundsReady,
+    isFiltered,
+    favoriteOnly,
+    visitedOnly,
+    isSearchActive,
+    listMode,
+    listHeaderCount,
+    courses.length,
+    searchQuery,
+    selectedClusterKeys.length,
+  ]);
 
   const listCountSublabel = useMemo(() => {
+    if (
+      (isMobile && !mobileNationwideMap && !isSearchActive && !isShowingAllFilteredResults && !favoriteOnly && !visitedOnly && !isClusterScopeActive) ||
+      (mobileNationwideMap &&
+      !boundsReady &&
+      !isSearchActive &&
+      !isShowingAllFilteredResults &&
+      !favoriteOnly &&
+      !visitedOnly &&
+      !isClusterScopeActive)
+    ) {
+      return "지도를 불러오는 중";
+    }
+
     if (
       !mapViewportReady &&
       !isSearchActive &&
@@ -563,6 +615,9 @@ function HomeClientInner({
       isShowingAllFilteredResults,
     });
   }, [
+    isMobile,
+    mobileNationwideMap,
+    boundsReady,
     mapViewportReady,
     isSearchActive,
     isShowingAllFilteredResults,
@@ -640,6 +695,7 @@ function HomeClientInner({
     setMapSectionInView(false);
     setMobileNationwideMap(false);
     setUserMapInteracted(false);
+    setBoundsReady(false);
     setNationwideFitSignal(0);
     clearHomeUrlState();
   }, []);
@@ -751,9 +807,28 @@ function HomeClientInner({
     setVisibleCourseIds(ids);
   }, []);
 
-  const handleMapViewportReady = useCallback(() => {
-    setMapViewportReady(true);
-  }, []);
+  const handleMapViewportReady = useCallback(
+    (info?: { visibleCount: number; totalCourses: number }) => {
+      setMapViewportReady(true);
+      const visible = info?.visibleCount ?? 0;
+      const total = info?.totalCourses ?? courses.length;
+      const threshold = Math.min(50, Math.max(10, Math.floor(total * 0.05)));
+
+      if (isMobile && !mobileNationwideMap) {
+        return;
+      }
+
+      if (!mobileNationwideMap) {
+        setBoundsReady(true);
+        return;
+      }
+
+      if (visible >= threshold) {
+        setBoundsReady(true);
+      }
+    },
+    [courses.length, isMobile, mobileNationwideMap],
+  );
 
   const handleMapViewportChange = useCallback(() => {
     setUserMapInteracted(true);
@@ -769,13 +844,13 @@ function HomeClientInner({
     setHoveredId(null);
     setVisibleCourseIds(null);
     setMapViewportReady(false);
+    setBoundsReady(false);
     setSelectedClusters({});
     setIsShowingAllFilteredResults(false);
     setCenter(null);
     setLandingRegionSlug(null);
     setMobileNationwideMap(true);
     setUserMapInteracted(false);
-    setMapViewResetSignal((value) => value + 1);
     setNationwideFitSignal((value) => value + 1);
     setSearchFitSignal(0);
   }, []);
@@ -788,6 +863,9 @@ function HomeClientInner({
         .getElementById("mobile-home-map")
         ?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
+    window.setTimeout(() => {
+      setNationwideFitSignal((value) => value + 1);
+    }, 500);
   }, [resetToAllCoursesMap]);
 
   useEffect(() => {

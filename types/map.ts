@@ -72,7 +72,10 @@ export interface CourseMapBaseProps {
   /** 사용자가 지도를 드래그/줌한 경우 (리스트 제목 전환용) */
   onMapViewportChange?: () => void;
   /** 초기 fitBounds·relayout 완료 후 1회 호출 (visible count fallback용) */
-  onMapViewportReady?: () => void;
+  onMapViewportReady?: (info: {
+    visibleCount: number;
+    totalCourses: number;
+  }) => void;
   /** true일 때 지도 섹션이 화면에 들어온 뒤에만 초기 viewport 적용 */
   deferInitialViewUntilVisible?: boolean;
   /** defer 모드에서 지도 섹션 노출 여부 (IntersectionObserver 등) */

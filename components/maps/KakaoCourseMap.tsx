@@ -13,10 +13,10 @@ import {
   type KakaoLatLngBounds,
 } from "@/lib/courseListUtils";
 import {
+  applyMobileNationwideFallback,
   createSplitMarkerDom,
-  fitInitialMobileNationwideView,
-  fitInitialNationwideView,
   fitKakaoMapToCourses,
+  fitMapToAllCourses,
   focusCourseOnMap,
   panToCourseWithoutZoom,
   setInitialKakaoMapView,
@@ -209,6 +209,7 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
   const syncMarkerVisualsRef = useRef<() => void>(() => {});
   const syncFavoriteHeartOverlaysRef = useRef<() => void>(() => {});
   const hoverClearTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const nationwideFitPendingRef = useRef(false);
 
   const HOVER_CLEAR_DELAY_MS = 120;
 
@@ -368,11 +369,13 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     isApplyingInitialViewRef.current = true;
 
     if (isMobileRef.current) {
-      fitInitialMobileNationwideView(
+      const allCourses = initialViewportCoursesRef.current;
+      fitMapToAllCourses(
         map,
         maps,
-        coursesRef.current,
+        allCourses.length > 0 ? allCourses : coursesRef.current,
         { ...MOBILE_INITIAL_MAP_PADDING },
+        { mobile: true },
       );
     } else {
       fitKakaoMapToCourses(map, maps, coursesRef.current, padding);
@@ -386,49 +389,18 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     });
   }, []);
 
-  const finalizeInitialMapView = useCallback(() => {
-    const map = mapRef.current;
-    if (!map) return;
-
-    map.relayout?.();
-    captureInitialMapLevel();
-    initialViewAppliedRef.current = true;
-    isApplyingInitialViewRef.current = false;
-    reportVisibleRef.current();
-    syncMarkerVisualsRef.current();
-    onMapViewportReadyRef.current?.();
-
-    if (process.env.NODE_ENV === "development") {
-      const bounds = map.getBounds?.();
-      const maps = mapsApiRef.current;
-      const visibleCount =
-        bounds && maps
-          ? getCourseIdsInKakaoBounds(
-              coursesRef.current,
-              bounds,
-              maps.LatLng,
-            )?.length ?? 0
-          : 0;
-      console.debug("[KakaoCourseMap] initial viewport ready", {
-        layout: isMobileRef.current ? "mobile" : "desktop",
-        totalCourses: coursesRef.current.length,
-        visibleCount,
-        level: map.getLevel(),
-      });
-    }
-  }, [captureInitialMapLevel]);
-
   const runWhenMapContainerReady = useCallback((run: () => void) => {
     const el = containerRef.current;
     if (!el) return;
 
+    const MIN_HEIGHT = 200;
     let attempts = 0;
     const tick = () => {
-      if (el.offsetWidth > 0 && el.offsetHeight > 0) {
+      if (el.offsetWidth > 0 && el.offsetHeight >= MIN_HEIGHT) {
         run();
         return;
       }
-      if (attempts < 48) {
+      if (attempts < 72) {
         attempts += 1;
         requestAnimationFrame(tick);
       } else {
@@ -438,25 +410,77 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
     tick();
   }, []);
 
+  const countCoursesInMapBounds = useCallback(
+    (sourceCourses: Course[]) => {
+      const map = mapRef.current;
+      const maps = mapsApiRef.current;
+      const bounds = map?.getBounds?.();
+      if (!bounds || !maps) return 0;
+      return (
+        getCourseIdsInKakaoBounds(sourceCourses, bounds, maps.LatLng)?.length ??
+        0
+      );
+    },
+    [],
+  );
+
+  const notifyMapViewportReady = useCallback(
+    (sourceCourses: Course[]) => {
+      const visibleCount = countCoursesInMapBounds(sourceCourses);
+      onMapViewportReadyRef.current?.({
+        visibleCount,
+        totalCourses: initialViewportCoursesRef.current.length,
+      });
+    },
+    [countCoursesInMapBounds],
+  );
+
+  const finalizeInitialMapView = useCallback(
+    (sourceCourses: Course[] = initialViewportCoursesRef.current) => {
+      const map = mapRef.current;
+      if (!map) return;
+
+      map.relayout?.();
+      captureInitialMapLevel();
+      initialViewAppliedRef.current = true;
+      isApplyingInitialViewRef.current = false;
+      reportVisibleRef.current();
+      syncMarkerVisualsRef.current();
+      notifyMapViewportReady(sourceCourses);
+
+      if (process.env.NODE_ENV === "development") {
+        const visibleCount = countCoursesInMapBounds(sourceCourses);
+        console.debug("[KakaoCourseMap] initial viewport ready", {
+          layout: isMobileRef.current ? "mobile" : "desktop",
+          totalCourses: sourceCourses.length,
+          visibleCount,
+          level: map.getLevel(),
+        });
+      }
+    },
+    [captureInitialMapLevel, countCoursesInMapBounds, notifyMapViewportReady],
+  );
+
   const applyInitialMapView = useCallback(() => {
     if (!isActiveLayoutRef.current) return;
+    if (nationwideFitPendingRef.current) return;
+    if (deferInitialViewRef.current && isMobileRef.current) return;
     const map = mapRef.current;
     const maps = mapsApiRef.current;
     if (!map || !maps || isDetail) return;
+
+    const allCourses = initialViewportCoursesRef.current;
 
     runWhenMapContainerReady(() => {
       isApplyingInitialViewRef.current = true;
 
       if (isMobileRef.current) {
-        const viewportCourses =
-          initialViewportCoursesRef.current.length > 0
-            ? initialViewportCoursesRef.current
-            : coursesRef.current;
-        fitInitialMobileNationwideView(
+        fitMapToAllCourses(
           map,
           maps,
-          viewportCourses,
+          allCourses,
           { ...MOBILE_INITIAL_MAP_PADDING },
+          { mobile: true, nationwideAllCourses: true },
         );
       } else {
         setInitialKakaoMapView(map, maps);
@@ -466,43 +490,31 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
         map.relayout?.();
         setTimeout(() => {
           map.relayout?.();
-          const bounds = map.getBounds?.();
-          const visibleIds =
-            bounds && maps
-              ? getCourseIdsInKakaoBounds(
-                  coursesRef.current,
-                  bounds,
-                  maps.LatLng,
-                )
-              : null;
+          const visibleCount = countCoursesInMapBounds(allCourses);
 
           if (
             isMobileRef.current &&
-            coursesRef.current.length > 0 &&
-            (!visibleIds || visibleIds.length === 0)
+            allCourses.length > 0 &&
+            visibleCount <= 5
           ) {
-            const viewportCourses =
-              initialViewportCoursesRef.current.length > 0
-                ? initialViewportCoursesRef.current
-                : coursesRef.current;
-            fitInitialMobileNationwideView(
-              map,
-              maps,
-              viewportCourses,
-              { ...MOBILE_INITIAL_MAP_PADDING },
-            );
+            applyMobileNationwideFallback(map, maps);
             requestAnimationFrame(() => {
               map.relayout?.();
-              setTimeout(() => finalizeInitialMapView(), 120);
+              setTimeout(() => finalizeInitialMapView(allCourses), 120);
             });
             return;
           }
 
-          finalizeInitialMapView();
+          finalizeInitialMapView(allCourses);
         }, 100);
       });
     });
-  }, [isDetail, finalizeInitialMapView, runWhenMapContainerReady]);
+  }, [
+    isDetail,
+    finalizeInitialMapView,
+    runWhenMapContainerReady,
+    countCoursesInMapBounds,
+  ]);
 
   const syncClusterOverlays = useCallback(
     (
@@ -917,7 +929,6 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
 
         eventAdd(map, "dragstart", () => {
           userViewportTouchedRef.current = true;
-          onMapViewportReadyRef.current?.();
           notifyViewportChange();
         });
         eventAdd(map, "dragend", () => {
@@ -928,7 +939,6 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
         eventAdd(map, "zoom_changed", () => {
           if (!isApplyingInitialViewRef.current) {
             userViewportTouchedRef.current = true;
-            onMapViewportReadyRef.current?.();
           }
           notifyViewportChange();
           syncMarkerVisualsRef.current();
@@ -969,7 +979,8 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
         isActiveLayoutRef.current &&
         isMobileRef.current &&
         !isDetail &&
-        !userViewportTouchedRef.current
+        !userViewportTouchedRef.current &&
+        !deferInitialViewRef.current
       ) {
         if (resizeTimer) clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => applyInitialMapView(), 100);
@@ -992,6 +1003,7 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
   useEffect(() => {
     if (mode !== "kakao" || isDetail || userViewportTouchedRef.current) return;
     if (!isActiveLayout) return;
+    if (deferInitialViewUntilVisible && isMobile) return;
     if (
       deferInitialViewUntilVisible &&
       !mapSectionInView
@@ -1028,66 +1040,107 @@ export default function KakaoCourseMap(props: CourseMapBaseProps) {
   useEffect(() => {
     if (mode !== "kakao" || nationwideFitSignal === 0) return;
     if (!isActiveLayoutRef.current || isDetail) return;
+    if (deferInitialViewRef.current && !mapSectionInViewRef.current) return;
 
     const map = mapRef.current;
     const maps = mapsApiRef.current;
     if (!map || !maps) return;
 
-    const viewportCourses =
-      initialViewportCoursesRef.current.length > 0
-        ? initialViewportCoursesRef.current
-        : coursesRef.current;
+    const allCourses = initialViewportCoursesRef.current;
+    if (allCourses.length === 0) return;
 
-    if (viewportCourses.length === 0) return;
-
+    nationwideFitPendingRef.current = true;
     userViewportTouchedRef.current = false;
     initialViewAppliedRef.current = false;
     isApplyingInitialViewRef.current = true;
 
     const padding = { ...MOBILE_INITIAL_MAP_PADDING };
+    const nationwideOptions = {
+      mobile: isMobileRef.current,
+      nationwideAllCourses: true,
+    } as const;
 
-    if (isMobileRef.current) {
-      fitInitialMobileNationwideView(map, maps, viewportCourses, padding);
-    } else {
-      fitKakaoMapToCourses(map, maps, viewportCourses, padding);
-    }
+    const applyAllCourseBounds = () =>
+      fitMapToAllCourses(map, maps, allCourses, padding, nationwideOptions);
 
-    requestAnimationFrame(() => {
-      map.relayout?.();
-      setTimeout(() => {
+    const logMobileInit = (
+      result: ReturnType<typeof fitMapToAllCourses>,
+      visibleCount: number,
+    ) => {
+      if (process.env.NODE_ENV !== "development" || !isMobileRef.current) {
+        return;
+      }
+      const bounds = map.getBounds?.();
+      let center: { lat: number; lng: number } | null = null;
+      if (bounds) {
+        const sw = bounds.getSouthWest();
+        const ne = bounds.getNorthEast();
+        center = {
+          lat: (sw.getLat() + ne.getLat()) / 2,
+          lng: (sw.getLng() + ne.getLng()) / 2,
+        };
+      }
+      console.log("[mobile map init]", {
+        totalCourses: allCourses.length,
+        validCoordCount: result.validCoordCount,
+        fitBoundsSource: "allCourses",
+        usedFallback: result.usedFallback,
+        visibleCount,
+        center,
+        level: map.getLevel(),
+      });
+    };
+
+    const finishFit = (result: ReturnType<typeof fitMapToAllCourses>) => {
+      let visibleCount = countCoursesInMapBounds(allCourses);
+
+      if (allCourses.length > 100 && visibleCount <= 5) {
+        applyMobileNationwideFallback(map, maps);
         map.relayout?.();
-        const bounds = map.getBounds?.();
-        const visibleIds =
-          bounds && maps
-            ? getCourseIdsInKakaoBounds(
-                viewportCourses,
-                bounds,
-                maps.LatLng,
-              )
-            : null;
+        visibleCount = countCoursesInMapBounds(allCourses);
+        logMobileInit(
+          { ...result, fitted: false, usedFallback: true },
+          visibleCount,
+        );
+        nationwideFitPendingRef.current = false;
+        finalizeInitialMapView(allCourses);
+        return;
+      }
 
-        if (
-          isMobileRef.current &&
-          viewportCourses.length > 100 &&
-          (!visibleIds || visibleIds.length <= 5)
-        ) {
-          fitInitialNationwideView(
-            map,
-            maps,
-            viewportCourses,
-            padding,
-          );
-          requestAnimationFrame(() => {
+      logMobileInit(result, visibleCount);
+      nationwideFitPendingRef.current = false;
+      finalizeInitialMapView(allCourses);
+    };
+
+    const runNationwideFit = () => {
+      runWhenMapContainerReady(() => {
+        const result = applyAllCourseBounds();
+
+        requestAnimationFrame(() => {
+          map.relayout?.();
+          applyAllCourseBounds();
+          setTimeout(() => {
             map.relayout?.();
-            setTimeout(() => finalizeInitialMapView(), 120);
-          });
-          return;
-        }
+            const retryResult = applyAllCourseBounds();
+            finishFit(retryResult);
+          }, 120);
+        });
+      });
+    };
 
-        finalizeInitialMapView();
-      }, 100);
-    });
-  }, [mode, nationwideFitSignal, isDetail, finalizeInitialMapView]);
+    const scrollSettleTimer = window.setTimeout(runNationwideFit, 420);
+    return () => {
+      window.clearTimeout(scrollSettleTimer);
+    };
+  }, [
+    mode,
+    nationwideFitSignal,
+    isDetail,
+    mapSectionInView,
+    finalizeInitialMapView,
+    runWhenMapContainerReady,
+    countCoursesInMapBounds,
+  ]);
 
   /** 필터 변경 시 마커만 갱신, 지도 center/level 유지 */
   useEffect(() => {

@@ -1,5 +1,9 @@
 import type { Course } from "@/types/course";
-import { getCourseCoordinate, isValidCourseCoordinates } from "@/lib/focusCourse";
+import {
+  getCourseCoordinate,
+  getValidCourseCoordinate,
+  isValidCourseCoordinates,
+} from "@/lib/focusCourse";
 
 import {
   DEFAULT_MAP_CENTER,
@@ -12,6 +16,7 @@ import {
   MOBILE_INITIAL_MAP_CENTER,
   MOBILE_INITIAL_MAX_KAKAO_MAP_LEVEL,
   MOBILE_MAP_VISUAL_CENTER_LAT_OFFSET,
+  MOBILE_NATIONWIDE_ALL_COURSES_PADDING,
   SEARCH_RESULT_FOCUS_LEVEL,
 } from "@/lib/constants";
 
@@ -506,7 +511,7 @@ export function createClusterHitMarkerImage(
 
 
 
-/** courses 좌표로 경계 계산 (유효 좌표만) */
+/** courses 좌표로 경계 계산 (대한민국 유효 좌표만) */
 export function getCoursesBounds(courses: Course[]) {
   let minLat = Infinity;
   let maxLat = -Infinity;
@@ -515,7 +520,7 @@ export function getCoursesBounds(courses: Course[]) {
   let count = 0;
 
   for (const course of courses) {
-    const coord = getCourseCoordinate(course);
+    const coord = getValidCourseCoordinate(course);
     if (!coord) continue;
     count += 1;
     minLat = Math.min(minLat, coord.lat);
@@ -526,11 +531,66 @@ export function getCoursesBounds(courses: Course[]) {
 
   if (count === 0 || !Number.isFinite(minLat)) return null;
 
-  return { minLat, maxLat, minLng, maxLng };
+  return { minLat, maxLat, minLng, maxLng, count };
 }
 
 export function getCoursesWithValidCoordinates(courses: Course[]): Course[] {
-  return courses.filter(isValidCourseCoordinates);
+  return courses.filter((c) => getValidCourseCoordinate(c) !== null);
+}
+
+const MIN_VALID_COORDS_FOR_NATIONWIDE_BOUNDS = 10;
+
+export interface FitMapToAllCoursesResult {
+  validCoordCount: number;
+  fitted: boolean;
+  usedFallback: boolean;
+}
+
+/** 전국 fit 실패 시 남한 중심 고정 카메라 */
+export function applyMobileNationwideFallback(
+  map: KakaoMapInstance,
+  maps: KakaoMapsApi,
+): void {
+  const { LatLng } = maps;
+  map.setCenter(
+    new LatLng(MOBILE_INITIAL_MAP_CENTER.lat, MOBILE_INITIAL_MAP_CENTER.lng),
+  );
+  map.setLevel(MOBILE_INITIAL_KAKAO_MAP_LEVEL);
+}
+
+/** 전체 골프장 좌표로 전국 fitBounds (visible/filtered 목록 사용 금지) */
+export function fitMapToAllCourses(
+  map: KakaoMapInstance,
+  maps: KakaoMapsApi,
+  allCourses: Course[],
+  padding: MapViewPadding,
+  options: { mobile?: boolean; nationwideAllCourses?: boolean } = {},
+): FitMapToAllCoursesResult {
+  const validCourses = getCoursesWithValidCoordinates(allCourses);
+  const validCoordCount = validCourses.length;
+
+  if (validCoordCount < MIN_VALID_COORDS_FOR_NATIONWIDE_BOUNDS) {
+    applyMobileNationwideFallback(map, maps);
+    return { validCoordCount, fitted: false, usedFallback: true };
+  }
+
+  const fitPadding =
+    options.mobile && options.nationwideAllCourses
+      ? { ...MOBILE_NATIONWIDE_ALL_COURSES_PADDING }
+      : padding;
+
+  if (options.mobile) {
+    if (options.nationwideAllCourses) {
+      // setBounds + 큰 bottom padding은 모바일에서 fit을 깨뜨리므로 고정 카메라 사용
+      applyMobileNationwideFallback(map, maps);
+      return { validCoordCount, fitted: true, usedFallback: true };
+    }
+    fitInitialMobileNationwideView(map, maps, validCourses, fitPadding);
+  } else {
+    fitInitialNationwideView(map, maps, validCourses, fitPadding);
+  }
+
+  return { validCoordCount, fitted: true, usedFallback: false };
 }
 
 export interface MapViewPadding {

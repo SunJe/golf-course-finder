@@ -76,6 +76,17 @@ export const MOBILE_INITIAL_MAP_PADDING = {
   left: 24,
 } as const;
 
+/**
+ * 모바일 "전체 골프장 지도 보기" 전국 fit 전용 padding.
+ * bottom 200px은 지도 높이(280~420px) 대비 과해 setBounds가 깨지므로 축소한다.
+ */
+export const MOBILE_NATIONWIDE_ALL_COURSES_PADDING = {
+  top: 48,
+  right: 20,
+  bottom: 96,
+  left: 20,
+} as const;
+
 /** half sheet 기준 padding (동적 relayout용) */
 export const MOBILE_HALF_SHEET_MAP_PADDING = {
   top: 64,

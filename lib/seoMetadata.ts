@@ -122,10 +122,11 @@ export function buildNotFoundCourseMetadata(): Metadata {
 export function buildRegionMetadata(
   config: RegionLandingConfig,
   _courses: Course[] = [],
+  options?: { noindex?: boolean },
 ): Metadata {
   const title = `${config.label} 골프장 지도 | 전화번호·홈페이지·요금 정보 | ${siteConfig.siteName}`;
   const description = truncateMetaDescription(
-    `${config.label} 골프장 위치, 전화번호, 홈페이지, 요금 정보를 ${siteConfig.siteName}에서 확인하세요.`,
+    config.description,
     META_DESCRIPTION_MAX_LENGTH,
   );
   const url = absoluteUrl(`/regions/${config.slug}`);
@@ -136,6 +137,7 @@ export function buildRegionMetadata(
     alternates: { canonical: url },
     openGraph: buildOpenGraph(title, description, url),
     twitter: buildTwitter(title, description),
+    ...(options?.noindex ? { robots: { index: false } } : {}),
   };
 }
 

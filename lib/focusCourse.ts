@@ -12,6 +12,13 @@ export function isValidCourseCoordinates(
   );
 }
 
+export function getCourseCoordinate(
+  course: Pick<Course, "latitude" | "longitude">,
+): { lat: number; lng: number } | null {
+  if (!isValidCourseCoordinates(course)) return null;
+  return { lat: course.latitude, lng: course.longitude };
+}
+
 export function createMapFocusTarget(
   course: Pick<Course, "id" | "latitude" | "longitude" | "name">,
   level?: number,

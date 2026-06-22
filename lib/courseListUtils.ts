@@ -1,5 +1,6 @@
 import type { Course } from "@/types/course";
 import { sortCoursesForList } from "@/lib/courseSort";
+import { isValidCourseCoordinates } from "@/lib/focusCourse";
 
 /** 왼쪽 리스트용 정렬 (priority course → 가나다순) */
 export function sortCoursesByName(courses: Course[]): Course[] {
@@ -59,7 +60,11 @@ export function getCourseIdsInKakaoBounds(
   if (!isValidKakaoBounds(bounds)) return null;
 
   return courses
-    .filter((c) => isPointInKakaoBounds(c.latitude, c.longitude, bounds, LatLng))
+    .filter(
+      (c) =>
+        isValidCourseCoordinates(c) &&
+        isPointInKakaoBounds(c.latitude, c.longitude, bounds, LatLng),
+    )
     .map((c) => c.id);
 }
 
@@ -69,7 +74,7 @@ export function isCourseInKakaoBounds(
   bounds: KakaoLatLngBounds,
   LatLng: new (lat: number, lng: number) => unknown,
 ): boolean {
-  if (!bounds) return false;
+  if (!bounds || !isValidCourseCoordinates(course)) return false;
   return isPointInKakaoBounds(
     course.latitude,
     course.longitude,

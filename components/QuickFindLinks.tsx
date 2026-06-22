@@ -33,6 +33,8 @@ export const QUICK_FIND_ITEMS = [
   },
 ] as const;
 
+const SHEET_QUICK_FIND_LABELS = new Set(["서울근교", "저렴한", "초보자"]);
+
 type QuickFindVariant = "desktop" | "mobile" | "sheet";
 
 interface QuickFindLinksProps {
@@ -53,6 +55,11 @@ export default function QuickFindLinks({
   variant = "desktop",
   className = "",
 }: QuickFindLinksProps) {
+  const items =
+    variant === "sheet"
+      ? QUICK_FIND_ITEMS.filter((item) => SHEET_QUICK_FIND_LABELS.has(item.label))
+      : QUICK_FIND_ITEMS;
+
   const labelClass =
     variant === "desktop"
       ? "text-xs font-semibold text-stone-600"
@@ -66,7 +73,7 @@ export default function QuickFindLinks({
           variant === "desktop" ? "flex-wrap" : "flex-nowrap"
         }`}
       >
-        {QUICK_FIND_ITEMS.map((item) => (
+        {items.map((item) => (
           <Link
             key={item.href}
             href={item.href}

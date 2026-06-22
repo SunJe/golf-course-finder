@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useCallback, useEffect } from "react";
+import { useMemo, useState, useCallback, useEffect, useRef } from "react";
 import type { Course, CourseFilters } from "@/types/course";
 import type { MapFocusTarget } from "@/types/map";
 import { EMPTY_FILTERS } from "@/types/course";
@@ -17,9 +17,10 @@ import FilterBar from "@/components/FilterBar";
 import CourseList from "@/components/CourseList";
 import CourseMap from "@/components/maps/CourseMap";
 import MobileFilterSheet from "@/components/MobileFilterSheet";
-import MobileTopBar from "@/components/MobileTopBar";
+import MobileHomeHub from "@/components/MobileHomeHub";
 import MobileBottomSheet, {
   type MobileSheetSnap,
+  getMobileSheetHeight,
 } from "@/components/MobileBottomSheet";
 import {
   CourseCollectionsProvider,
@@ -42,6 +43,11 @@ import {
   getListCountSublabel,
 } from "@/lib/listCountLabels";
 import QuickFindLinks from "@/components/QuickFindLinks";
+import { computeCollectionCounts } from "@/lib/collectionIndex";
+import {
+  computeRegionCounts,
+  getMobileHubRegionLinks,
+} from "@/lib/regionIndex";
 
 type ListMode = "cluster" | "allFiltered" | "visible" | "fallback";
 
@@ -288,6 +294,9 @@ function HomeClientInner({
   const [visibleCourseIds, setVisibleCourseIds] = useState<string[] | null>(
     null,
   );
+  const [mapViewportReady, setMapViewportReady] = useState(false);
+  const [mapSectionInView, setMapSectionInView] = useState(false);
+  const mapSectionRef = useRef<HTMLElement>(null);
   const [selectedClusters, setSelectedClusters] = useState<
     Record<string, string[]>
   >({});
@@ -298,10 +307,28 @@ function HomeClientInner({
   );
   const [center, setCenter] = useState<MapFocusTarget | null>(null);
   const [mapViewResetSignal, setMapViewResetSignal] = useState(0);
+  const [nationwideFitSignal, setNationwideFitSignal] = useState(0);
+  const [mobileNationwideMap, setMobileNationwideMap] = useState(false);
+  const [userMapInteracted, setUserMapInteracted] = useState(false);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [mobileSheetSnap, setMobileSheetSnap] =
     useState<MobileSheetSnap>("half");
   const [searchFitSignal, setSearchFitSignal] = useState(0);
+
+  const collectionCounts = useMemo(
+    () => computeCollectionCounts(courses),
+    [courses],
+  );
+
+  const regionCounts = useMemo(
+    () => computeRegionCounts(courses),
+    [courses],
+  );
+
+  const mobileHubRegionLinks = useMemo(
+    () => getMobileHubRegionLinks(regionCounts),
+    [regionCounts],
+  );
 
   const selectedClusterKeys = useMemo(
     () => Object.keys(selectedClusters),
@@ -334,15 +361,23 @@ function HomeClientInner({
   const isClusterScopeActive = Boolean(
     selectedClusterCourseIds && selectedClusterCourseIds.length > 0,
   );
-  const visibleReady = visibleCourseIds !== null;
+  const visibleReady = mapViewportReady && visibleCourseIds !== null;
+
+  const suspiciousLowVisible =
+    mobileNationwideMap &&
+    courses.length > 100 &&
+    (visibleCourseIds?.length ?? 0) <= 5 &&
+    !userMapInteracted;
 
   const listMode: ListMode = isClusterScopeActive
     ? "cluster"
     : isShowingAllFilteredResults
       ? "allFiltered"
-      : visibleReady
-        ? "visible"
-        : "fallback";
+      : suspiciousLowVisible
+        ? "fallback"
+        : visibleReady
+          ? "visible"
+          : "fallback";
 
   const collectionCourses = useMemo(() => {
     if (favoriteOnly) {
@@ -414,6 +449,7 @@ function HomeClientInner({
   }, [collectionCourses, searchFiltered]);
 
   const isMapBoundsEmpty =
+    mapViewportReady &&
     !isSearchActive &&
     visibleReady &&
     !isClusterScopeActive &&
@@ -507,23 +543,37 @@ function HomeClientInner({
     ],
   );
 
-  const listCountSublabel = useMemo(
-    () =>
-      getListCountSublabel({
-        mode: listMode,
-        count: listHeaderCount,
-        total: courses.length,
-        isFiltered,
-        isShowingAllFilteredResults,
-      }),
-    [
-      listMode,
-      listHeaderCount,
-      courses.length,
+  const listCountSublabel = useMemo(() => {
+    if (
+      !mapViewportReady &&
+      !isSearchActive &&
+      !isShowingAllFilteredResults &&
+      !favoriteOnly &&
+      !visitedOnly &&
+      !isClusterScopeActive
+    ) {
+      return "지도를 불러오는 중";
+    }
+
+    return getListCountSublabel({
+      mode: listMode,
+      count: listHeaderCount,
+      total: courses.length,
       isFiltered,
       isShowingAllFilteredResults,
-    ],
-  );
+    });
+  }, [
+    mapViewportReady,
+    isSearchActive,
+    isShowingAllFilteredResults,
+    favoriteOnly,
+    visitedOnly,
+    isClusterScopeActive,
+    listMode,
+    listHeaderCount,
+    courses.length,
+    isFiltered,
+  ]);
 
   const searchSuggestions = useMemo(
     () => getSearchSuggestions(courses, filters.query),
@@ -577,6 +627,7 @@ function HomeClientInner({
       setSelectedId,
       setHoveredId,
       setVisibleCourseIds,
+      setMapViewportReady,
       setSelectedClusters,
       setIsShowingAllFilteredResults,
       setCenter,
@@ -586,6 +637,10 @@ function HomeClientInner({
       setSearchFitSignal,
     });
     setLandingRegionSlug(null);
+    setMapSectionInView(false);
+    setMobileNationwideMap(false);
+    setUserMapInteracted(false);
+    setNationwideFitSignal(0);
     clearHomeUrlState();
   }, []);
 
@@ -696,6 +751,62 @@ function HomeClientInner({
     setVisibleCourseIds(ids);
   }, []);
 
+  const handleMapViewportReady = useCallback(() => {
+    setMapViewportReady(true);
+  }, []);
+
+  const handleMapViewportChange = useCallback(() => {
+    setUserMapInteracted(true);
+  }, []);
+
+  const resetToAllCoursesMap = useCallback(() => {
+    setFilters(EMPTY_FILTERS);
+    setFavoriteOnly(false);
+    setVisitedOnly(false);
+    setCollectionFitIds([]);
+    setCollectionFitSignal(0);
+    setSelectedId(null);
+    setHoveredId(null);
+    setVisibleCourseIds(null);
+    setMapViewportReady(false);
+    setSelectedClusters({});
+    setIsShowingAllFilteredResults(false);
+    setCenter(null);
+    setLandingRegionSlug(null);
+    setMobileNationwideMap(true);
+    setUserMapInteracted(false);
+    setMapViewResetSignal((value) => value + 1);
+    setNationwideFitSignal((value) => value + 1);
+    setSearchFitSignal(0);
+  }, []);
+
+  const showMobileMap = useCallback(() => {
+    resetToAllCoursesMap();
+    setMapSectionInView(true);
+    requestAnimationFrame(() => {
+      document
+        .getElementById("mobile-home-map")
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }, [resetToAllCoursesMap]);
+
+  useEffect(() => {
+    const el = mapSectionRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setMapSectionInView(true);
+        }
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -80px 0px" },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   const handleClusterSelect = useCallback(
     ({
       clusterKey,
@@ -731,8 +842,9 @@ function HomeClientInner({
         if (target) setCenter(target);
       }
       setMobileSheetSnap("half");
+      showMobileMap();
     },
-    [updateFilters],
+    [updateFilters, showMobileMap],
   );
 
   const filtersKey = useMemo(() => JSON.stringify(filters), [filters]);
@@ -815,6 +927,8 @@ function HomeClientInner({
     center,
     onClearSelection: clearSelection,
     onVisibleCoursesChange: handleVisibleCoursesChange,
+    onMapViewportChange: handleMapViewportChange,
+    onMapViewportReady: handleMapViewportReady,
     onClusterSelect: handleClusterSelect,
     onHoverCourseChange: handleHoverCourseId,
     hoveredCourseId: hoveredId,
@@ -975,36 +1089,55 @@ function HomeClientInner({
         </div>
       </div>
 
-      {/* ── 모바일 ── */}
+      {/* ── 모바일: 탐색 허브 + 지도 ── */}
       <div className="mobile-app fixed inset-x-0 bottom-0 top-11 z-0 flex flex-col overflow-hidden bg-[#F3F2EA] md:hidden">
-        <MobileTopBar
-          query={filters.query}
-          onQueryChange={(query) => updateFilters({ query })}
-          onFilterOpen={() => setSheetOpen(true)}
-          activeFilterCount={activeCount}
-          suggestions={searchSuggestions}
-          onSuggestionSelect={handleSuggestionSelect}
-        />
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain">
+          <MobileHomeHub
+            query={filters.query}
+            onQueryChange={(query) => updateFilters({ query })}
+            onFilterOpen={() => setSheetOpen(true)}
+            activeFilterCount={activeCount}
+            suggestions={searchSuggestions}
+            onSuggestionSelect={handleSuggestionSelect}
+            collectionCounts={collectionCounts}
+            regionLinks={mobileHubRegionLinks}
+            onShowMap={showMobileMap}
+          />
 
-        <div className="shrink-0 px-3 pb-2 md:hidden">
-          <QuickFindLinks variant="mobile" />
-        </div>
+          <section
+            id="mobile-home-map"
+            ref={mapSectionRef}
+            aria-label="전국 골프장 지도"
+            className="border-t border-stone-200/60 bg-[#F3F2EA] px-4 pb-4 pt-5"
+          >
+            <h2 className="text-base font-extrabold text-stone-900">
+              전국 골프장 지도
+            </h2>
+            <p className="mt-1 text-sm text-stone-600">
+              지도를 움직이며 지역별 골프장을 확인할 수 있습니다.
+            </p>
 
-        <section
-          aria-label="지도"
-          className="mobile-map-area relative flex-1 overflow-hidden px-3 pb-1"
-        >
-          <div className="h-full overflow-hidden rounded-2xl border border-stone-200/40 shadow-[0_2px_12px_rgba(0,0,0,0.06)] ring-1 ring-black/[0.02]">
-            <CourseMap
-              {...mapProps}
-              mapLayout="mobile"
-              onSelect={handleMobileMapSelect}
-              onSelectPopupOnly={handleMapPopupSelect}
-              maxVisibleMarkers={30}
-              className="h-full w-full !rounded-2xl !border-0"
+            <div className="mobile-map-area relative mt-3 h-[min(52vh,420px)] min-h-[280px] overflow-hidden rounded-2xl border border-stone-200/40 shadow-[0_2px_12px_rgba(0,0,0,0.06)] ring-1 ring-black/[0.02]">
+              <CourseMap
+                {...mapProps}
+                mapLayout="mobile"
+                deferInitialViewUntilVisible
+                mapSectionInView={mapSectionInView}
+                nationwideFitSignal={nationwideFitSignal}
+                onSelect={handleMobileMapSelect}
+                onSelectPopupOnly={handleMapPopupSelect}
+                maxVisibleMarkers={30}
+                className="h-full w-full !rounded-2xl !border-0"
+              />
+            </div>
+
+            <div
+              className="shrink-0"
+              style={{ height: getMobileSheetHeight(mobileSheetSnap) }}
+              aria-hidden
             />
-          </div>
-        </section>
+          </section>
+        </div>
 
         <MobileBottomSheet
           snap={mobileSheetSnap}

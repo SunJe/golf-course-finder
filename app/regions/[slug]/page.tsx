@@ -7,15 +7,26 @@ import {
   computeRegionStats,
   filterCoursesByRegion,
   getRegionLandingBySlug,
-  regionLandingPages,
 } from "@/lib/regionLanding";
+import {
+  computeRegionCounts,
+  getSitemapRegionSlugs,
+} from "@/lib/regionIndex";
 import RegionJsonLd from "@/components/RegionJsonLd";
 import RegionLandingView from "@/components/RegionLandingView";
 
 export const revalidate = 86400;
 
 export async function generateStaticParams() {
-  return regionLandingPages.map((page) => ({ slug: page.slug }));
+  let courses: Course[] = [];
+  try {
+    courses = await getCoursesForStaticPages();
+  } catch (error) {
+    console.warn("[regions] generateStaticParams failed to load courses:", error);
+  }
+
+  const counts = computeRegionCounts(courses);
+  return getSitemapRegionSlugs(counts).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -36,7 +47,9 @@ export async function generateMetadata({
   }
 
   const regionCourses = filterCoursesByRegion(courses, config);
-  return buildRegionMetadata(config, regionCourses);
+  return buildRegionMetadata(config, regionCourses, {
+    noindex: regionCourses.length === 0,
+  });
 }
 
 export default async function RegionLandingPage({
@@ -55,6 +68,8 @@ export default async function RegionLandingPage({
   }
 
   const regionCourses = filterCoursesByRegion(courses, config);
+  if (regionCourses.length === 0) notFound();
+
   const stats = computeRegionStats(regionCourses);
 
   return (

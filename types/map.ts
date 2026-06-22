@@ -65,10 +65,18 @@ export interface CourseMapBaseProps {
   hoveredCourseId?: string | null;
   /** 증가 시 필터 결과 전체가 보이도록 map bounds 조정 ("결과 위치로 이동") */
   mapViewResetSignal?: number;
+  /** 증가 시 전국 골프장 initialViewportCourses 기준으로 fit (모바일 nationwide) */
+  nationwideFitSignal?: number;
   /** 최초 로딩 시 fitBounds에 사용할 전체 골프장 (필터와 무관) */
   initialViewportCourses?: Course[];
   /** 사용자가 지도를 드래그/줌한 경우 (리스트 제목 전환용) */
   onMapViewportChange?: () => void;
+  /** 초기 fitBounds·relayout 완료 후 1회 호출 (visible count fallback용) */
+  onMapViewportReady?: () => void;
+  /** true일 때 지도 섹션이 화면에 들어온 뒤에만 초기 viewport 적용 */
+  deferInitialViewUntilVisible?: boolean;
+  /** defer 모드에서 지도 섹션 노출 여부 (IntersectionObserver 등) */
+  mapSectionInView?: boolean;
   /** 지도 핀 hover 시 (리스트 카드 hover와 동기화) */
   onHoverCourseChange?: (courseId: string | null) => void;
   /** 검색어 — 있으면 클러스터 해제 */

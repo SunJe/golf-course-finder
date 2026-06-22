@@ -1,4 +1,5 @@
 import type { Course } from "@/types/course";
+import { getCourseCoordinate, isValidCourseCoordinates } from "@/lib/focusCourse";
 
 import {
   DEFAULT_MAP_CENTER,
@@ -505,31 +506,31 @@ export function createClusterHitMarkerImage(
 
 
 
-/** courses 좌표로 경계 계산 */
+/** courses 좌표로 경계 계산 (유효 좌표만) */
 export function getCoursesBounds(courses: Course[]) {
-  if (courses.length === 0) return null;
-
   let minLat = Infinity;
   let maxLat = -Infinity;
   let minLng = Infinity;
   let maxLng = -Infinity;
+  let count = 0;
 
   for (const course of courses) {
-    if (
-      !Number.isFinite(course.latitude) ||
-      !Number.isFinite(course.longitude)
-    ) {
-      continue;
-    }
-    minLat = Math.min(minLat, course.latitude);
-    maxLat = Math.max(maxLat, course.latitude);
-    minLng = Math.min(minLng, course.longitude);
-    maxLng = Math.max(maxLng, course.longitude);
+    const coord = getCourseCoordinate(course);
+    if (!coord) continue;
+    count += 1;
+    minLat = Math.min(minLat, coord.lat);
+    maxLat = Math.max(maxLat, coord.lat);
+    minLng = Math.min(minLng, coord.lng);
+    maxLng = Math.max(maxLng, coord.lng);
   }
 
-  if (!Number.isFinite(minLat)) return null;
+  if (count === 0 || !Number.isFinite(minLat)) return null;
 
   return { minLat, maxLat, minLng, maxLng };
+}
+
+export function getCoursesWithValidCoordinates(courses: Course[]): Course[] {
+  return courses.filter(isValidCourseCoordinates);
 }
 
 export interface MapViewPadding {

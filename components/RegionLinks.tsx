@@ -1,5 +1,10 @@
 import Link from "next/link";
+import { getCoursesForStaticPages } from "@/lib/courseRepository";
 import { regionLandingPages } from "@/lib/regionLanding";
+import {
+  computeRegionCounts,
+  getSitemapRegionSlugs,
+} from "@/lib/regionIndex";
 
 interface RegionLinksProps {
   currentSlug?: string;
@@ -7,12 +12,25 @@ interface RegionLinksProps {
   title?: string;
 }
 
-export default function RegionLinks({
+export default async function RegionLinks({
   currentSlug,
   className = "",
   title = "다른 지역 골프장",
 }: RegionLinksProps) {
-  const pages = regionLandingPages.filter((page) => page.slug !== currentSlug);
+  let indexableSlugs: string[] | null = null;
+  try {
+    const courses = await getCoursesForStaticPages();
+    const counts = computeRegionCounts(courses);
+    indexableSlugs = getSitemapRegionSlugs(counts);
+  } catch (error) {
+    console.warn("[RegionLinks] Failed to load region counts:", error);
+  }
+
+  const pages = regionLandingPages.filter((page) => {
+    if (page.slug === currentSlug) return false;
+    if (indexableSlugs && !indexableSlugs.includes(page.slug)) return false;
+    return true;
+  });
 
   if (pages.length === 0) return null;
 

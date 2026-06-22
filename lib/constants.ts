@@ -65,7 +65,7 @@ export const DESKTOP_INITIAL_KAKAO_MAP_LEVEL = INITIAL_KAKAO_MAP_LEVEL;
 /**
  * 모바일 fitBounds 실패 시 fallback — 남한 본토 중심 (북쪽 바다·북한 최소화)
  */
-export const MOBILE_INITIAL_MAP_CENTER = { lat: 36.05, lng: 127.5 };
+export const MOBILE_INITIAL_MAP_CENTER = { lat: 36.3, lng: 127.8 };
 export const MOBILE_INITIAL_KAKAO_MAP_LEVEL = 11;
 
 /** 모바일 초기 fitBounds UI padding (px) — 상단 검색·하단 half sheet 고려 */

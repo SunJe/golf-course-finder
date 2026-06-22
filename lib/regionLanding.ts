@@ -2,6 +2,10 @@ import type { Course } from "@/types/course";
 import { formatHoleCount } from "@/lib/courseDisplay";
 import { hasPrice, formatPriceRange } from "@/lib/priceFormat";
 import {
+  resolveCourseRegionSlug,
+  type RegionSlug,
+} from "@/lib/regionNormalize";
+import {
   formatCityNameList,
   getTopCityDisplayNames,
   type CityGroup,
@@ -21,12 +25,20 @@ export interface RegionLandingConfig {
 
 export const regionLandingPages: RegionLandingConfig[] = [
   {
+    slug: "seoul",
+    label: "서울",
+    aliases: ["서울", "서울시", "서울특별시"],
+    title: "서울 골프장 지도",
+    description:
+      "서울 골프장 위치·전화·홈페이지·요금을 GolfMap Korea에서 한눈에 확인하세요.",
+  },
+  {
     slug: "gyeonggi",
     label: "경기",
     aliases: ["경기", "경기도"],
     title: "경기 골프장 지도",
     description:
-      "경기 골프장 위치, 전화번호, 홈페이지, 요금 정보를 GolfMap Korea에서 확인하세요.",
+      "경기 골프장 위치·전화·홈페이지·요금을 GolfMap Korea에서 한눈에 확인하세요.",
   },
   {
     slug: "incheon",
@@ -34,7 +46,7 @@ export const regionLandingPages: RegionLandingConfig[] = [
     aliases: ["인천", "인천시", "인천광역시"],
     title: "인천 골프장 지도",
     description:
-      "인천 골프장 위치, 전화번호, 홈페이지, 요금 정보를 GolfMap Korea에서 확인하세요.",
+      "인천 골프장 위치·전화·홈페이지·요금을 GolfMap Korea에서 한눈에 확인하세요.",
   },
   {
     slug: "gangwon",
@@ -42,7 +54,31 @@ export const regionLandingPages: RegionLandingConfig[] = [
     aliases: ["강원", "강원도", "강원특별자치도"],
     title: "강원 골프장 지도",
     description:
-      "강원 골프장 위치, 전화번호, 홈페이지, 요금 정보를 GolfMap Korea에서 확인하세요.",
+      "강원 골프장 위치·전화·홈페이지·요금을 GolfMap Korea에서 한눈에 확인하세요.",
+  },
+  {
+    slug: "chungcheong",
+    label: "충청",
+    aliases: ["충청", "충북", "충남", "충청북도", "충청남도", "세종"],
+    title: "충청 골프장 지도",
+    description:
+      "충청·세종 골프장 위치·전화·홈페이지·요금을 GolfMap Korea에서 확인하세요.",
+  },
+  {
+    slug: "jeolla",
+    label: "전라",
+    aliases: ["전라", "전북", "전남", "전라북도", "전라남도"],
+    title: "전라 골프장 지도",
+    description:
+      "전라 골프장 위치·전화·홈페이지·요금을 GolfMap Korea에서 한눈에 확인하세요.",
+  },
+  {
+    slug: "gyeongsang",
+    label: "경상",
+    aliases: ["경상", "경북", "경남", "경상북도", "경상남도", "울산", "대구"],
+    title: "경상 골프장 지도",
+    description:
+      "경상·울산·대구 골프장 위치·전화·홈페이지·요금을 GolfMap Korea에서 확인하세요.",
   },
   {
     slug: "jeju",
@@ -50,7 +86,7 @@ export const regionLandingPages: RegionLandingConfig[] = [
     aliases: ["제주", "제주도", "제주특별자치도"],
     title: "제주 골프장 지도",
     description:
-      "제주 골프장 위치, 전화번호, 홈페이지, 요금 정보를 GolfMap Korea에서 확인하세요.",
+      "제주 골프장 위치·전화·홈페이지·요금을 GolfMap Korea에서 한눈에 확인하세요.",
   },
   {
     slug: "busan",
@@ -58,7 +94,7 @@ export const regionLandingPages: RegionLandingConfig[] = [
     aliases: ["부산", "부산시", "부산광역시"],
     title: "부산 골프장 지도",
     description:
-      "부산 골프장 위치, 전화번호, 홈페이지, 요금 정보를 GolfMap Korea에서 확인하세요.",
+      "부산 골프장 위치·전화·홈페이지·요금을 GolfMap Korea에서 한눈에 확인하세요.",
   },
 ];
 
@@ -68,52 +104,27 @@ export function getRegionLandingBySlug(
   return regionLandingPages.find((page) => page.slug === slug);
 }
 
-function matchesAliases(text: string, aliases: string[]): boolean {
-  const normalized = text.trim();
-  if (!normalized) return false;
-  return aliases.some((alias) => normalized.includes(alias));
-}
-
 /** region/city/address 기준 — 골프장명은 사용하지 않음 */
 export function courseMatchesRegion(
   course: Course,
   config: RegionLandingConfig,
 ): boolean {
+  const slug = resolveCourseRegionSlug(course);
+  if (slug) {
+    return slug === (config.slug as RegionSlug);
+  }
+
   const region = course.region?.trim() ?? "";
   const city = course.city?.trim() ?? "";
   const address = course.address?.trim() ?? "";
+  const aliases = config.aliases;
 
-  if (config.slug === "incheon") {
-    return (
-      /인천/.test(city) ||
-      /인천/.test(address) ||
-      region.includes("인천")
-    );
-  }
-
-  if (config.slug === "busan") {
-    return (
-      /부산광역시/.test(address) ||
-      /^부산/.test(address) ||
-      /부산/.test(city) ||
-      region.includes("부산")
-    );
-  }
-
-  if (config.slug === "gyeonggi") {
-    const inGyeonggi =
-      region.includes("경기") ||
-      address.includes("경기") ||
-      /^경기/.test(address);
-    const inIncheon = /인천/.test(city) || /인천/.test(address);
-    return inGyeonggi && !inIncheon;
-  }
-
-  if (matchesAliases(region, config.aliases)) return true;
-  if (matchesAliases(city, config.aliases)) return true;
-  if (matchesAliases(address, config.aliases)) return true;
-
-  return false;
+  return aliases.some(
+    (alias) =>
+      region.includes(alias) ||
+      city.includes(alias) ||
+      address.includes(alias),
+  );
 }
 
 export function filterCoursesByRegion(
@@ -407,10 +418,18 @@ export function getRegionMapHref(slug: string): string {
 /** 메인 지도 REGIONS 필터 값 — 없으면 slug 기반 랜딩 필터 사용 */
 export function getRegionMapFilterRegion(slug: string): string | null {
   switch (slug) {
+    case "seoul":
+      return "서울";
     case "gyeonggi":
       return "경기";
     case "gangwon":
       return "강원";
+    case "chungcheong":
+      return "충청";
+    case "jeolla":
+      return "전라";
+    case "gyeongsang":
+      return "경상";
     case "jeju":
       return "제주";
     case "busan":

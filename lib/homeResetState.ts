@@ -12,6 +12,7 @@ export interface HomeUiStateSetters {
   setSelectedId: (id: string | null) => void;
   setHoveredId: (id: string | null) => void;
   setVisibleCourseIds: (ids: string[] | null) => void;
+  setMapViewportReady: (value: boolean) => void;
   setSelectedClusters: (clusters: Record<string, string[]>) => void;
   setIsShowingAllFilteredResults: (value: boolean) => void;
   setCenter: (center: null) => void;
@@ -31,6 +32,7 @@ export function applyHomeResetState(setters: HomeUiStateSetters): void {
   setters.setSelectedId(null);
   setters.setHoveredId(null);
   setters.setVisibleCourseIds(null);
+  setters.setMapViewportReady(false);
   setters.setSelectedClusters({});
   setters.setIsShowingAllFilteredResults(false);
   setters.setCenter(null);

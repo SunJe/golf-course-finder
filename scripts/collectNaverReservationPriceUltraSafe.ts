@@ -11,6 +11,11 @@ import {
 } from "./lib/naverMapEnrichment/enrichmentScraper";
 import { mapScrapeToUltraSafeResult } from "./lib/naverMapEnrichment/ultraSafeMapResult";
 import {
+  getRecentBlockedState,
+  printRecentBlockWarning,
+  writeBlockedState,
+} from "./lib/naverMapEnrichment/ultraSafeBlockedState";
+import {
   acquireCollectLock,
   appendResultRow,
   appendRunLog,
@@ -22,7 +27,6 @@ import {
   DEFAULT_SCREENSHOT_DIR,
   readProcessedIds,
   saveScreenshot,
-  writeBlockedState,
 } from "./lib/naverMapEnrichment/ultraSafeIo";
 import { loadTargetRows } from "./lib/naverMapEnrichment/ultraSafeTargets";
 import {
@@ -147,6 +151,13 @@ async function main(): Promise<void> {
     throw new Error(`Input CSV not found: ${options.inputCsv}`);
   }
 
+  const recentBlock = getRecentBlockedState(options.blockedStatePath);
+  if (recentBlock && !options.dryRun) {
+    printRecentBlockWarning(recentBlock);
+    process.exitCode = 2;
+    return;
+  }
+
   const lock = acquireCollectLock(options.lockPath);
   if (!lock) {
     console.error(
@@ -181,6 +192,15 @@ async function main(): Promise<void> {
     return;
   }
 
+  const recentBlockBeforeCollect = getRecentBlockedState(
+    options.blockedStatePath,
+  );
+  if (recentBlockBeforeCollect) {
+    printRecentBlockWarning(recentBlockBeforeCollect);
+    process.exitCode = 2;
+    return;
+  }
+
   if (!options.skipAccessCheck) {
     console.log("Running Naver access check before collect...");
     const access = await runNaverMapAccessCheck({
@@ -193,10 +213,8 @@ async function main(): Promise<void> {
         "Naver access appears blocked. Stop immediately. No crawling attempted.",
       );
       writeBlockedState(options.blockedStatePath, {
-        detectedAt: new Date().toISOString(),
-        phase: "pre_check",
         reason: access.reason,
-        matchedText: access.matchedText ?? "",
+        detectedText: access.matchedText ?? "",
       });
       process.exitCode = 2;
       return;
@@ -273,11 +291,8 @@ async function main(): Promise<void> {
           });
 
           writeBlockedState(options.blockedStatePath, {
-            detectedAt: new Date().toISOString(),
-            phase: "scrape",
-            rowId: row.id,
-            courseName: row.name,
             reason: result.error_reason,
+            detectedText: circuitBreaker.reason || result.error_reason,
             screenshotPath,
           });
 

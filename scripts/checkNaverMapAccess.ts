@@ -1,5 +1,10 @@
 import {
-  detectNaverBlock,
+  DEFAULT_BLOCKED_STATE_PATH,
+  getRecentBlockedState,
+  printRecentBlockWarning,
+  writeBlockedState,
+} from "./lib/naverMapEnrichment/ultraSafeBlockedState";
+import {
   runNaverMapAccessCheck,
   sleep,
 } from "./lib/naverMapEnrichment/ultraSafeAccess";
@@ -44,6 +49,15 @@ async function main(): Promise<void> {
   console.log(`URL: ${NAVER_MAP_BASE}`);
   console.log(`mode: ${options.headless ? "headless" : "headful"}, wait: ${options.waitMs}ms`);
 
+  const recentBlock = getRecentBlockedState(DEFAULT_BLOCKED_STATE_PATH);
+  if (recentBlock) {
+    printRecentBlockWarning(recentBlock);
+    console.log("skipped: true");
+    console.log("reason: recent_blocked_state");
+    process.exitCode = 2;
+    return;
+  }
+
   const result = await runNaverMapAccessCheck({
     headless: options.headless,
     waitMs: options.waitMs,
@@ -53,7 +67,11 @@ async function main(): Promise<void> {
     console.log("blocked: true");
     console.log(`reason: ${result.reason}`);
     console.log(`matchedText: ${result.matchedText ?? ""}`);
-    console.log("recommendation: wait 30-60 minutes before retrying");
+    writeBlockedState(DEFAULT_BLOCKED_STATE_PATH, {
+      reason: result.reason,
+      detectedText: result.matchedText ?? "",
+    });
+    console.log("recommendation: wait at least 7 days before retrying");
     if (options.keepOpen) {
       console.log("Press Ctrl+C to exit (--keep-open ignored; browser already closed).");
       await sleep(Number.MAX_SAFE_INTEGER);

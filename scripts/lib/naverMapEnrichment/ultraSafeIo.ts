@@ -17,10 +17,7 @@ export const DEFAULT_RUNLOG_PATH = path.join(
   ROOT,
   "data/enrichment/naver_reservation_price_runlog.jsonl",
 );
-export const DEFAULT_BLOCKED_STATE_PATH = path.join(
-  ROOT,
-  "data/enrichment/naver_blocked_state.json",
-);
+export { DEFAULT_BLOCKED_STATE_PATH } from "./ultraSafeBlockedState";
 export const DEFAULT_LOCK_PATH = path.join(
   ROOT,
   "data/enrichment/naver_price_collect.lock",
@@ -116,13 +113,7 @@ export function appendRunLog(filePath: string, entry: RunLogEntry): void {
   fs.appendFileSync(filePath, `${JSON.stringify(entry)}\n`, "utf8");
 }
 
-export function writeBlockedState(
-  filePath: string,
-  payload: Record<string, unknown>,
-): void {
-  fs.mkdirSync(path.dirname(filePath), { recursive: true });
-  fs.writeFileSync(filePath, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
-}
+export { writeBlockedState } from "./ultraSafeBlockedState";
 
 export function readProcessedIds(resultsCsvPath: string): Set<string> {
   if (!fs.existsSync(resultsCsvPath)) return new Set();

@@ -43,6 +43,7 @@
     "generate:course-price-update": "tsx scripts/generateCoursePriceUpdateSql.ts",
     "verify:map-search-name": "tsx scripts/verifyMapSearchName.ts",
     "verify:price-filter": "tsx scripts/verifyPriceFilter.ts",
+    "test:search": "tsx scripts/verifyCourseSearch.ts",
     "analyze:difficulty": "tsx scripts/analyzeDifficultyValues.ts",
     "analyze:collections": "tsx scripts/analyzeCollectionCounts.ts",
     "analyze:regions": "tsx scripts/analyzeRegionCounts.ts",

@@ -13,6 +13,7 @@ import {
 } from "@/lib/focusCourse";
 import { sortCoursesByName } from "@/lib/courseListUtils";
 import { getSearchSuggestions } from "@/lib/searchSuggestions";
+import { debugSearchMatches } from "@/lib/courseSearch";
 import DesktopHero from "@/components/DesktopHero";
 import FilterBar from "@/components/FilterBar";
 import CourseList from "@/components/CourseList";
@@ -381,6 +382,16 @@ function HomeClientInner({
     () => filterCourses(sourceCourses, filters),
     [sourceCourses, filters],
   );
+
+  useEffect(() => {
+    if (process.env.NODE_ENV !== "development" || !isSearchActive) return;
+    const debugRows = debugSearchMatches(sourceCourses, searchQuery, 20);
+    console.group(`[search] "${searchQuery}" → ${searchFiltered.length} results`);
+    for (const row of debugRows) {
+      console.log(`${row.name}: ${row.reason} (score ${row.score})`);
+    }
+    console.groupEnd();
+  }, [isSearchActive, searchQuery, sourceCourses, searchFiltered.length]);
   const activeCount = countActiveFilters(filters);
   const isFiltered = activeCount > 0 || filters.query.trim().length > 0;
   const isClusterScopeActive = Boolean(

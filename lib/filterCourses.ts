@@ -1,6 +1,6 @@
 import type { Course, CourseFilters } from "@/types/course";
 import { getReservationPriceMin } from "@/lib/coursePrice";
-import { normalizeSearchText, courseSearchHaystack } from "@/lib/searchSuggestions";
+import { courseMatchesSearchQuery } from "@/lib/courseSearch";
 import { courseMatchesRegionFilter } from "@/lib/regionUtils";
 function matchesHoleCount(course: Course, option: string): boolean {
   if (course.holeCount == null) return false;
@@ -33,9 +33,7 @@ export function matchesPriceRange(priceMin: number, option: string): boolean {
 }
 
 function matchesQuery(course: Course, query: string): boolean {
-  const q = normalizeSearchText(query);
-  if (!q) return true;
-  return courseSearchHaystack(course).includes(q);
+  return courseMatchesSearchQuery(course, query);
 }
 
 /** 모든 필터: 그룹 내 OR, 그룹 간 AND */

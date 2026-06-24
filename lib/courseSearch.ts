@@ -1,5 +1,6 @@
 import type { Course } from "@/types/course";
 import { normalizeCourseNameForMapSearch } from "@/lib/mapSearchName";
+import { resolveCourseSearchAliases } from "@/lib/seo/courseNameAliases";
 
 /** 검색어·텍스트 비교용 정규화 (공백·기호·대소문자) */
 export function normalizeSearchText(value: string): string {
@@ -14,6 +15,11 @@ export type SearchMatchReason =
   | "name_exact"
   | "name_starts_with"
   | "name_contains"
+  | "change_name_exact"
+  | "change_name_starts_with"
+  | "change_name_contains"
+  | "alias_exact"
+  | "alias_starts_with"
   | "alias_contains"
   | "address_contains"
   | "city_exact"
@@ -35,12 +41,23 @@ function countQueryChars(query: string): number {
 
 function getCourseAliases(course: Course): string[] {
   const aliases = new Set<string>();
+  const fromSeo = resolveCourseSearchAliases(course);
+  for (const alias of fromSeo) {
+    const trimmed = alias.trim();
+    if (trimmed) aliases.add(trimmed);
+  }
+
   const parenFree = normalizeCourseNameForMapSearch(course.name);
   if (parenFree) aliases.add(parenFree);
+
+  const changeName = course.changeNameTo?.trim();
+  if (changeName) aliases.add(changeName);
+
   for (const tag of course.tags) {
     const trimmed = tag.trim();
     if (trimmed) aliases.add(trimmed);
   }
+
   return [...aliases];
 }
 
@@ -68,6 +85,29 @@ function fuzzyNameMatches(name: string, normalizedQuery: string): boolean {
   return mismatches <= 1;
 }
 
+function matchAgainstField(
+  normalizedField: string,
+  normalizedQuery: string,
+  exactReason: SearchMatchReason,
+  startsReason: SearchMatchReason,
+  containsReason: SearchMatchReason,
+  exactScore: number,
+  startsScore: number,
+  containsScore: number,
+): SearchMatchResult | null {
+  if (!normalizedField) return null;
+  if (normalizedField === normalizedQuery) {
+    return { matched: true, reason: exactReason, score: exactScore };
+  }
+  if (normalizedField.startsWith(normalizedQuery)) {
+    return { matched: true, reason: startsReason, score: startsScore };
+  }
+  if (normalizedField.includes(normalizedQuery)) {
+    return { matched: true, reason: containsReason, score: containsScore };
+  }
+  return null;
+}
+
 export function matchCourseSearch(
   course: Course,
   rawQuery: string,
@@ -78,25 +118,49 @@ export function matchCourseSearch(
   }
 
   const normalizedName = normalizeSearchText(course.name);
+  const normalizedChangeName = normalizeSearchText(course.changeNameTo ?? "");
   const normalizedCity = normalizeSearchText(course.city);
   const normalizedRegion = normalizeSearchText(course.region);
   const aliases = getCourseAliases(course)
     .map((alias) => normalizeSearchText(alias))
     .filter((alias) => alias && alias !== normalizedName);
 
-  if (normalizedName === normalizedQuery) {
-    return { matched: true, reason: "name_exact", score: 100 };
-  }
-  if (normalizedName.startsWith(normalizedQuery)) {
-    return { matched: true, reason: "name_starts_with", score: 80 };
-  }
-  if (normalizedName.includes(normalizedQuery)) {
-    return { matched: true, reason: "name_contains", score: 60 };
-  }
+  const nameHit = matchAgainstField(
+    normalizedName,
+    normalizedQuery,
+    "name_exact",
+    "name_starts_with",
+    "name_contains",
+    100,
+    85,
+    70,
+  );
+  if (nameHit) return nameHit;
 
-  const aliasHit = aliases.find((alias) => alias.includes(normalizedQuery));
-  if (aliasHit) {
-    return { matched: true, reason: "alias_contains", score: 55 };
+  const changeHit = matchAgainstField(
+    normalizedChangeName,
+    normalizedQuery,
+    "change_name_exact",
+    "change_name_starts_with",
+    "change_name_contains",
+    95,
+    82,
+    65,
+  );
+  if (changeHit) return changeHit;
+
+  for (const alias of aliases) {
+    const aliasHit = matchAgainstField(
+      alias,
+      normalizedQuery,
+      "alias_exact",
+      "alias_starts_with",
+      "alias_contains",
+      78,
+      72,
+      58,
+    );
+    if (aliasHit) return aliasHit;
   }
 
   const isShortQuery = countQueryChars(normalizedQuery) <= 2;

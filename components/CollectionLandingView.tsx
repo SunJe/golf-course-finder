@@ -178,8 +178,8 @@ function getPriceEmphasis(slug: CollectionSlug): PriceEmphasis {
 function priceBoxClass(emphasis: PriceEmphasis, variant: "desktop" | "mobile"): string {
   const base =
     variant === "desktop"
-      ? "w-full rounded-xl px-4 py-3"
-      : "shrink-0 rounded-xl px-3 py-2";
+      ? "flex w-full min-w-[144px] max-w-[160px] shrink-0 flex-col items-center justify-center rounded-xl px-3 py-3 text-center"
+      : "flex min-w-[132px] shrink-0 flex-col items-center justify-center rounded-xl px-3 py-2 text-center";
   if (emphasis === "strong") {
     return `${base} bg-brand-50 ring-1 ring-brand-200`;
   }
@@ -201,39 +201,46 @@ function priceValueClass(
   }
   if (emphasis === "strong") {
     return variant === "desktop"
-      ? "text-2xl font-extrabold leading-none text-brand-800"
-      : "text-lg font-extrabold leading-none text-brand-800";
+      ? "text-[24px] font-extrabold leading-none tracking-[-0.05em] text-brand-800 sm:text-[26px]"
+      : "text-lg font-extrabold leading-none tracking-[-0.04em] text-brand-800";
   }
   if (emphasis === "medium") {
     return variant === "desktop"
-      ? "text-xl font-extrabold leading-none text-brand-800"
-      : "text-base font-extrabold leading-none text-brand-800";
+      ? "text-xl font-extrabold leading-none tracking-[-0.04em] text-brand-800"
+      : "text-base font-extrabold leading-none tracking-[-0.04em] text-brand-800";
   }
   return variant === "desktop"
-    ? "text-lg font-extrabold leading-none text-brand-800"
-    : "text-base font-extrabold leading-none text-brand-800";
+    ? "text-lg font-extrabold leading-none tracking-[-0.04em] text-brand-800"
+    : "text-base font-extrabold leading-none tracking-[-0.04em] text-brand-800";
 }
 
 function CollectionPriceBlock({
   course,
   emphasis = "normal",
   variant = "desktop",
-  align = "end",
+  align = "center",
 }: {
   course: Course;
   emphasis?: PriceEmphasis;
   variant?: "desktop" | "mobile";
-  align?: "start" | "end";
+  align?: "start" | "center" | "end";
 }) {
   const { label, value, hasPrice: priced } = formatCollectionCardPrice(course);
-  const alignClass = align === "end" ? "items-end text-right" : "items-start text-left";
+  const alignClass =
+    align === "end"
+      ? "items-end text-right"
+      : align === "start"
+        ? "items-start text-left"
+        : "items-center text-center";
 
   return (
-    <div className={`flex flex-col ${alignClass}`}>
-      <p className="text-[10px] font-semibold tracking-wide text-stone-500 sm:text-[11px]">
+    <div className={`flex w-full flex-col ${alignClass}`}>
+      <p className="whitespace-nowrap text-[10px] font-semibold tracking-wide text-stone-500 sm:text-[11px]">
         {label}
       </p>
-      <p className={`mt-1 tabular-nums ${priceValueClass(priced, emphasis, variant)}`}>
+      <p
+        className={`mt-1 whitespace-nowrap tabular-nums ${priceValueClass(priced, emphasis, variant)}`}
+      >
         {value}
       </p>
     </div>
@@ -243,7 +250,7 @@ function CollectionPriceBlock({
 function CollectionDetailButton({ className = "" }: { className?: string }) {
   return (
     <span
-      className={`inline-flex items-center justify-center gap-1 rounded-xl border border-brand-200 bg-brand-50 px-4 py-2.5 text-sm font-bold text-brand-800 transition group-hover:border-brand-400 group-hover:bg-brand-100 ${className}`}
+      className={`inline-flex h-10 w-full min-w-[120px] max-w-[160px] items-center justify-center gap-1 whitespace-nowrap rounded-xl border border-brand-200 bg-brand-50 px-4 text-sm font-bold text-brand-800 transition group-hover:border-brand-400 group-hover:bg-brand-100 ${className}`}
     >
       상세보기
       <ChevronRight className="h-4 w-4 shrink-0" aria-hidden />
@@ -285,10 +292,10 @@ function CollectionCourseCard({
       <Link
         href={`/courses/${course.id}`}
         aria-label={`${course.name} 상세 정보 보기`}
-        className={`group grid min-h-[148px] grid-cols-1 overflow-hidden rounded-2xl border border-region-soft-border bg-white transition hover:border-brand-600 hover:bg-region-soft hover:shadow-card-hover sm:grid-cols-[minmax(0,1fr)_180px] sm:items-stretch ${FOCUS_RING}`}
+        className={`group grid min-h-[148px] grid-cols-1 overflow-hidden rounded-2xl border border-region-soft-border bg-white transition hover:border-brand-600 hover:bg-region-soft hover:shadow-card-hover md:grid-cols-[minmax(0,1fr)_176px] md:items-stretch ${FOCUS_RING}`}
       >
-        <div className="flex min-w-0 flex-col p-5 sm:p-6">
-          <div className="flex items-start justify-between gap-3 sm:block">
+        <div className="flex min-w-0 flex-col p-5 md:p-6">
+          <div className="flex items-start justify-between gap-3">
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
                 <h3 className="text-lg font-extrabold leading-tight text-region-ink group-hover:text-brand-800 sm:text-xl">
@@ -307,16 +314,6 @@ function CollectionCourseCard({
                   </span>
                 ) : null}
               </div>
-            </div>
-            <div
-              className={`sm:hidden ${priceBoxClass(priceEmphasis, "mobile")}`}
-            >
-              <CollectionPriceBlock
-                course={course}
-                emphasis={priceEmphasis}
-                variant="mobile"
-                align="end"
-              />
             </div>
           </div>
 
@@ -357,22 +354,30 @@ function CollectionCourseCard({
             ))}
           </div>
 
-          <div className="mt-4 sm:hidden">
-            <CollectionDetailButton className="w-full" />
+          <div className="mt-4 flex items-center justify-between gap-3 border-t border-region-soft-border pt-4 md:hidden">
+            <div className={priceBoxClass(priceEmphasis, "mobile")}>
+              <CollectionPriceBlock
+                course={course}
+                emphasis={priceEmphasis}
+                variant="mobile"
+                align="center"
+              />
+            </div>
+            <CollectionDetailButton className="shrink-0" />
           </div>
         </div>
 
-        <div className="hidden min-h-full flex-col justify-between border-l border-region-soft-border bg-region-soft/20 p-4 sm:flex">
+        <aside className="hidden shrink-0 flex-col items-center justify-center gap-4 border-l border-region-soft-border bg-region-soft/20 p-4 md:flex">
           <div className={priceBoxClass(priceEmphasis, "desktop")}>
             <CollectionPriceBlock
               course={course}
               emphasis={priceEmphasis}
               variant="desktop"
-              align="end"
+              align="center"
             />
           </div>
-          <CollectionDetailButton className="mt-4 w-full" />
-        </div>
+          <CollectionDetailButton />
+        </aside>
       </Link>
     </li>
   );

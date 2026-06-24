@@ -153,12 +153,11 @@ async function main(): Promise<void> {
   }
 
   const processedIds = readProcessedIds(options.outputCsv);
-  const targets = loadTargetRows(
-    options.inputCsv,
+  const targets = loadTargetRows(options.inputCsv, {
     processedIds,
-    options.limit,
-    options.targetName || undefined,
-  );
+    limit: options.limit,
+    targetName: options.targetName || undefined,
+  });
 
   if (targets.length === 0) {
     console.log("No target rows found.");

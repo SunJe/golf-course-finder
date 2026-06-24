@@ -67,7 +67,9 @@ function regionMatchScore(
   const hints = extractRegionHints(address);
   if (hints.length === 0) return 0;
 
-  const haystack = normalizeText(`${candidate.title} ${candidate.region}`);
+  const haystack = normalizeText(
+    `${candidate.title} ${candidate.region} ${candidate.candidate_region} ${candidate.candidate_subregion}`,
+  );
   let score = 0;
   for (const hint of hints) {
     if (haystack.includes(hint)) score += 15;

@@ -2,6 +2,7 @@ import type { Course } from "@/types/course";
 import { buildCourseJsonLdDescription } from "@/lib/courseSeoCopy";
 import { getPriceMax, getPriceMin, hasPrice } from "@/lib/priceFormat";
 import { isValidCourseCoordinates } from "@/lib/focusCourse";
+import { resolveCourseSearchAliases } from "@/lib/seo/courseNameAliases";
 import { absoluteUrl } from "@/lib/siteConfig";
 
 function buildPriceRange(course: Course): string | undefined {
@@ -29,15 +30,24 @@ function compactJsonLd(value: Record<string, unknown>): Record<string, unknown> 
   );
 }
 
-/** 상세 페이지 SportsActivityLocation / LocalBusiness JSON-LD */
+/** 상세 페이지 GolfCourse JSON-LD */
 export default function CourseJsonLd({ course }: { course: Course }) {
   const pageUrl = absoluteUrl(`/courses/${course.id}`);
   const homepage = course.homepageUrl?.trim();
+  const aliases = resolveCourseSearchAliases(course);
+  const alternateName = [
+    ...new Set(
+      aliases
+        .map((alias) => alias.trim())
+        .filter((alias) => alias && alias !== course.name.trim()),
+    ),
+  ];
 
   const jsonLd = compactJsonLd({
     "@context": "https://schema.org",
-    "@type": ["SportsActivityLocation", "LocalBusiness", "Place"],
+    "@type": "GolfCourse",
     name: course.name.trim(),
+    alternateName: alternateName.length > 0 ? alternateName : undefined,
     url: pageUrl,
     description: buildCourseJsonLdDescription(course),
     telephone: course.phone?.trim(),

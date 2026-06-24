@@ -16,6 +16,14 @@ export const DEFAULT_SUMMARY_CSV = path.join(
   ROOT,
   "data/enrichment/teescanner_price_course_summary.csv",
 );
+export const DEFAULT_MANUAL_REVIEW_CSV = path.join(
+  ROOT,
+  "data/enrichment/teescanner_manual_review_list.csv",
+);
+export const DEFAULT_COURSE_RESULTS_CSV = path.join(
+  ROOT,
+  "data/enrichment/teescanner_price_results.csv",
+);
 export const DEFAULT_BATCH_RUNLOG_PATH = path.join(
   ROOT,
   "data/enrichment/teescanner_price_batch_runlog.jsonl",
@@ -24,6 +32,20 @@ export const DEFAULT_BATCH_RUNLOG_PATH = path.join(
 export const DAILY_RESULT_HEADERS = [
   "id",
   "name",
+  "source_row_index",
+  "change_name_to",
+  "primary_search_term",
+  "fallback_search_term",
+  "used_search_term",
+  "search_attempt",
+  "matched_title",
+  "candidate_title",
+  "candidate_region",
+  "candidate_subregion",
+  "candidate_type",
+  "match_status",
+  "review_reason",
+  "suggested_change_name_to",
   "round_day",
   "day_type",
   "status",
@@ -42,37 +64,75 @@ export const DAILY_RESULT_HEADERS = [
   "review_action",
   "detail_url",
   "screenshot_path",
+  "collected_at",
   "golfclub_seq",
   "detail_url_template",
   "per_date_detail_reload",
 ] as const;
 
 export const SUMMARY_HEADERS = [
+  "source_row_index",
   "id",
   "name",
+  "change_name_to",
+  "primary_search_term",
+  "fallback_search_term",
+  "used_search_term",
+  "search_attempt",
   "matched_title",
-  "matched_region",
+  "candidate_title",
+  "candidate_region",
+  "candidate_subregion",
+  "candidate_type",
+  "match_status",
+  "review_action",
+  "review_reason",
+  "suggested_change_name_to",
   "weekday_sample_count",
   "weekend_sample_count",
   "weekday_price_min",
   "weekday_price_max",
   "weekend_price_min",
   "weekend_price_max",
+  "price_min",
+  "price_max",
   "overall_price_min",
   "overall_price_max",
   "success_day_count",
   "no_price_day_count",
   "manual_review_count",
   "accept_price_day_count",
+  "price_scope",
   "price_scope_summary",
+  "slot_load_complete",
+  "matched_region",
   "source_name",
   "last_collected_at",
-  "review_action",
+  "collected_at",
   "detail_url",
+] as const;
+
+export const MANUAL_REVIEW_HEADERS = [
+  "row_index",
+  "id",
+  "name",
+  "change_name_to",
+  "primary_search_term",
+  "fallback_search_term",
+  "used_search_term",
+  "matched_title",
+  "candidate_region",
+  "candidate_subregion",
+  "match_status",
+  "review_reason",
+  "suggested_change_name_to",
+  "screenshot_path",
+  "collected_at",
 ] as const;
 
 export type DailyResultRow = Record<(typeof DAILY_RESULT_HEADERS)[number], string>;
 export type SummaryRow = Record<(typeof SUMMARY_HEADERS)[number], string>;
+export type ManualReviewRow = Record<(typeof MANUAL_REVIEW_HEADERS)[number], string>;
 
 function normalizeDateMismatch(value: string): string {
   const trimmed = value.trim().toLowerCase();
@@ -88,6 +148,20 @@ export function toDailyResultRow(
   return {
     id: result.id,
     name: result.change_name_to || result.name,
+    source_row_index: result.source_row_index,
+    change_name_to: result.change_name_to,
+    primary_search_term: result.primary_search_term,
+    fallback_search_term: result.fallback_search_term,
+    used_search_term: result.used_search_term || result.search_query,
+    search_attempt: result.search_attempt,
+    matched_title: result.matched_title,
+    candidate_title: result.candidate_title || result.matched_title,
+    candidate_region: result.candidate_region,
+    candidate_subregion: result.candidate_subregion,
+    candidate_type: result.candidate_type,
+    match_status: result.match_status,
+    review_reason: result.review_reason,
+    suggested_change_name_to: result.suggested_change_name_to,
     round_day: result.round_day,
     day_type: dayType,
     status: result.status,
@@ -106,6 +180,7 @@ export function toDailyResultRow(
     review_action: result.review_action,
     detail_url: result.detail_url,
     screenshot_path: result.screenshot_path,
+    collected_at: result.collected_at,
     golfclub_seq: result.golfclub_seq,
     detail_url_template: result.detail_url_template,
     per_date_detail_reload: result.per_date_detail_reload,
@@ -156,6 +231,20 @@ function rowCellsToDailyResult(headers: string[], cells: string[]): DailyResultR
   return {
     id: get("id"),
     name: get("name"),
+    source_row_index: get("source_row_index"),
+    change_name_to: get("change_name_to"),
+    primary_search_term: get("primary_search_term"),
+    fallback_search_term: get("fallback_search_term"),
+    used_search_term: get("used_search_term"),
+    search_attempt: get("search_attempt"),
+    matched_title: get("matched_title"),
+    candidate_title: get("candidate_title"),
+    candidate_region: get("candidate_region"),
+    candidate_subregion: get("candidate_subregion"),
+    candidate_type: get("candidate_type"),
+    match_status: get("match_status"),
+    review_reason: get("review_reason"),
+    suggested_change_name_to: get("suggested_change_name_to"),
     round_day: legacyRoundDay,
     day_type: legacyDayType === "weekend" || legacyDayType === "weekday"
       ? legacyDayType
@@ -178,6 +267,7 @@ function rowCellsToDailyResult(headers: string[], cells: string[]): DailyResultR
     review_action: get("review_action"),
     detail_url: get("detail_url"),
     screenshot_path: get("screenshot_path"),
+    collected_at: get("collected_at"),
     golfclub_seq: "",
     detail_url_template: "",
     per_date_detail_reload: "",
@@ -292,6 +382,25 @@ export function writeSummaryCsv(filePath: string, rows: SummaryRow[]): void {
     rows.map((row) => SUMMARY_HEADERS.map((header) => row[header] ?? "")),
   );
   fs.writeFileSync(filePath, `\uFEFF${body}`, "utf8");
+}
+
+export function writeManualReviewCsv(
+  filePath: string,
+  rows: ManualReviewRow[],
+): void {
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
+  const body = rowsToCsv(
+    [...MANUAL_REVIEW_HEADERS],
+    rows.map((row) => MANUAL_REVIEW_HEADERS.map((header) => row[header] ?? "")),
+  );
+  fs.writeFileSync(filePath, `\uFEFF${body}`, "utf8");
+}
+
+export function writeCourseResultsCsv(
+  filePath: string,
+  rows: SummaryRow[],
+): void {
+  writeSummaryCsv(filePath, rows);
 }
 
 export function appendBatchRunLog(

@@ -18,15 +18,23 @@ export type PriceSource =
   | "none";
 
 export interface TeescannerInputRow {
+  row_index?: number;
   id: string;
   name: string;
   change_name_to: string;
   address: string;
+  price_min?: string;
+  price_max?: string;
+  primary_search_term: string;
+  fallback_search_term: string;
 }
 
 export interface TeescannerSearchCandidate {
   title: string;
   region: string;
+  candidate_region: string;
+  candidate_subregion: string;
+  candidate_type: string;
   url: string;
   candidateIndex: number;
   rawText?: string;
@@ -46,10 +54,22 @@ export interface TeescannerPriceResult {
   name: string;
   change_name_to: string;
   address: string;
+  source_row_index: string;
+  primary_search_term: string;
+  fallback_search_term: string;
+  used_search_term: string;
+  search_attempt: string;
   search_query: string;
   round_day: string;
   matched_title: string;
+  candidate_title: string;
+  candidate_region: string;
+  candidate_subregion: string;
+  candidate_type: string;
   matched_region: string;
+  match_status: string;
+  review_reason: string;
+  suggested_change_name_to: string;
   matched_url: string;
   candidate_count: string;
   match_score: string;

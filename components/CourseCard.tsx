@@ -95,7 +95,7 @@ export default function CourseCard({
               {priceParts.label}
             </span>
             <p
-              className={`mt-0.5 text-lg font-bold leading-tight ${
+              className={`mt-0.5 whitespace-nowrap text-lg font-bold leading-none tabular-nums tracking-[-0.03em] ${
                 hasPrice ? "text-brand-800" : "text-sm font-medium text-stone-400"
               }`}
             >

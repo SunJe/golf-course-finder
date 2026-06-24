@@ -1,5 +1,6 @@
 import type { Course, CourseSource, CourseType } from "@/types/course";
 import type { GolfCourseRow } from "@/types/database";
+import { buildCourseNameAliases } from "@/lib/seo/courseNameAliases";
 
 const COURSE_TYPES: CourseType[] = ["대중제", "회원제", "군 골프장", "기타"];
 const COURSE_SOURCES: CourseSource[] = [
@@ -47,9 +48,20 @@ function toUpdatedAt(value: string | null | undefined): string {
 
 /** DB row → 프론트엔드 Course */
 export function mapGolfCourseRowToCourse(row: GolfCourseRow): Course {
+  const changeNameTo = toOptionalString(row.change_name_to);
+  const searchAliases =
+    row.seo_aliases && row.seo_aliases.length > 0
+      ? row.seo_aliases.filter((alias) => alias.trim())
+      : buildCourseNameAliases({
+          name: row.name,
+          changeNameTo,
+        });
+
   return {
     id: row.id,
     name: row.name,
+    changeNameTo,
+    searchAliases,
     region: row.region,
     city: row.city?.trim() || row.region,
     address: row.address,
@@ -89,6 +101,15 @@ export function mapCourseToGolfCourseRow(course: Course): GolfCourseRow {
   return {
     id: course.id,
     name: course.name,
+    change_name_to: course.changeNameTo ?? null,
+    seo_aliases:
+      course.searchAliases && course.searchAliases.length > 0
+        ? course.searchAliases
+        : null,
+    search_keywords:
+      course.searchAliases && course.searchAliases.length > 0
+        ? course.searchAliases.join(" ")
+        : null,
     region: course.region,
     city: course.city || null,
     address: course.address,

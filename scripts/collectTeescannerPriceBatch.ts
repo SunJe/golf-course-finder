@@ -13,12 +13,16 @@ import {
   appendBatchRunLog,
   appendDailyResultRow,
   DEFAULT_BATCH_RUNLOG_PATH,
+  DEFAULT_COURSE_RESULTS_CSV,
   DEFAULT_DAILY_RESULTS_CSV,
+  DEFAULT_MANUAL_REVIEW_CSV,
   DEFAULT_SUMMARY_CSV,
   readCourseIdsMissingDayTypePrice,
   readDailyResults,
   readProcessedCourseDatePairs,
   toDailyResultRow,
+  writeCourseResultsCsv,
+  writeManualReviewCsv,
   writeSummaryCsv,
 } from "./lib/teescanner/batchIo";
 import { buildSampledDates, sortSampledDatesAsc } from "./lib/teescanner/dateSampling";
@@ -39,7 +43,7 @@ import {
   writeBlockedState,
 } from "./lib/teescanner/io";
 import { buildTeescannerSearchQueries } from "./lib/teescanner/search";
-import { buildAllSummaries } from "./lib/teescanner/summary";
+import { buildAllSummaries, buildManualReviewRows } from "./lib/teescanner/summary";
 import { loadTargetRows } from "./lib/teescanner/targets";
 import { getProjectRoot } from "./lib/sourceRegistry";
 
@@ -75,6 +79,9 @@ interface CliOptions {
   screenshotDir: string;
   targetName: string;
   targetId: string;
+  targetMode: "price_missing" | "sequential";
+  includePriced: boolean;
+  skipRecentTeescannerSuccessDays: number;
 }
 
 function parseBoolean(value: string | undefined, fallback: boolean): boolean {
@@ -115,6 +122,9 @@ function parseArgs(argv: string[]): CliOptions {
     screenshotDir: DEFAULT_SCREENSHOT_DIR,
     targetName: "",
     targetId: "",
+    targetMode: "sequential",
+    includePriced: false,
+    skipRecentTeescannerSuccessDays: 0,
   };
 
   for (let i = 0; i < argv.length; i += 1) {
@@ -150,8 +160,18 @@ function parseArgs(argv: string[]): CliOptions {
     } else if (arg === "--input") {
       const value = next();
       options.inputCsv = path.isAbsolute(value) ? value : path.join(ROOT, value);
-    } else if (arg === "--target-name") options.targetName = next();
+    }     else if (arg === "--target-name") options.targetName = next();
     else if (arg === "--target-id") options.targetId = next();
+    else if (arg === "--target-mode") {
+      const value = next() as CliOptions["targetMode"];
+      if (value !== "price_missing" && value !== "sequential") {
+        throw new Error("--target-mode must be price_missing or sequential.");
+      }
+      options.targetMode = value;
+    } else if (arg === "--include-priced") options.includePriced = parseBoolean(next(), true);
+    else if (arg === "--skip-recent-teescanner-success-days") {
+      options.skipRecentTeescannerSuccessDays = Number.parseInt(next(), 10);
+    }
     else if (arg === "--daily-results") {
       const value = next();
       options.dailyResultsCsv = path.isAbsolute(value) ? value : path.join(ROOT, value);
@@ -212,6 +232,11 @@ async function main(): Promise<void> {
     console.log(`retryMissingDayType: ${options.retryMissingDayType}`);
   }
   console.log(`limit: ${options.limit}`);
+  console.log(`targetMode: ${options.targetMode}`);
+  console.log(`includePriced: ${options.includePriced}`);
+  if (options.skipRecentTeescannerSuccessDays > 0) {
+    console.log(`skipRecentTeescannerSuccessDays: ${options.skipRecentTeescannerSuccessDays}`);
+  }
   console.log(`dailyCourseCap: ${options.dailyCourseCap}`);
   console.log(`maxCourseDatePairs: ${options.maxCourseDatePairs}`);
   console.log(`dryRun: ${options.dryRun}`);
@@ -236,13 +261,16 @@ async function main(): Promise<void> {
       : null;
 
   const effectiveLimit = Math.min(options.limit, options.dailyCourseCap);
-  let targets = loadTargetRows(
-    options.inputCsv,
-    new Set(),
-    effectiveLimit,
-    options.targetName || undefined,
-    options.targetId || undefined,
-  );
+  let targets = loadTargetRows(options.inputCsv, {
+    processedIds: new Set(),
+    limit: effectiveLimit,
+    targetName: options.targetName || undefined,
+    targetId: options.targetId || undefined,
+    targetMode: options.targetMode,
+    includePriced: options.includePriced,
+    skipRecentTeescannerSuccessDays: options.skipRecentTeescannerSuccessDays,
+    summaryCsvPath: options.summaryCsv,
+  });
 
   if (retryMissingIds && retryMissingIds.size > 0) {
     targets = targets.filter((course) => retryMissingIds.has(course.id));
@@ -433,7 +461,11 @@ async function main(): Promise<void> {
     const allDaily = readDailyResults(options.dailyResultsCsv);
     const summaries = buildAllSummaries(allDaily);
     writeSummaryCsv(options.summaryCsv, summaries);
+    writeCourseResultsCsv(DEFAULT_COURSE_RESULTS_CSV, summaries);
+    const manualReviewRows = buildManualReviewRows(summaries);
+    writeManualReviewCsv(DEFAULT_MANUAL_REVIEW_CSV, manualReviewRows);
     console.log(`Wrote ${summaries.length} course summary row(s).`);
+    console.log(`Wrote ${manualReviewRows.length} manual review row(s).`);
   } finally {
     lock.release();
     printBatchOutputPaths(options);

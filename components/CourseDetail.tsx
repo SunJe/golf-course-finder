@@ -44,6 +44,10 @@ import {
 import { formatDistanceKm } from "@/lib/geoUtils";
 import { createCourseReportIssueMailto } from "@/lib/reportIssueLink";
 import { buildCourseSeoIntroParagraph } from "@/lib/courseSeoCopy";
+import {
+  formatAliasesForBodyText,
+  resolveCourseSearchAliases,
+} from "@/lib/seo/courseNameAliases";
 import HomeResetLink from "@/components/HomeResetLink";
 import CourseMap from "@/components/maps/CourseMap";
 import CourseDetailHeroImage from "@/components/CourseDetailHeroImage";
@@ -204,6 +208,11 @@ export default function CourseDetail({
   );
   const reportIssueMailto = createCourseReportIssueMailto(course);
   const seoIntro = buildCourseSeoIntroParagraph(course);
+  const searchAliases = useMemo(
+    () => resolveCourseSearchAliases(course),
+    [course],
+  );
+  const aliasBodyText = formatAliasesForBodyText(searchAliases);
 
   const actionButtonClass =
     "flex min-h-[48px] items-center justify-center gap-2 rounded-xl border px-3 py-3 text-sm font-semibold transition active:scale-[0.98]";
@@ -334,6 +343,12 @@ export default function CourseDetail({
       <p className="mt-3 rounded-xl border border-gray-100 bg-white/90 px-4 py-3 text-sm leading-relaxed text-gray-600 shadow-sm sm:px-5">
         {seoIntro}
       </p>
+
+      {searchAliases.length > 1 && aliasBodyText ? (
+        <p className="mt-3 text-sm text-slate-500">
+          이 골프장은 {aliasBodyText} 등으로도 검색됩니다.
+        </p>
+      ) : null}
 
       {/* 기본 정보 */}
       <section className="mt-6 rounded-2xl border border-gray-200/80 bg-white shadow-sm">

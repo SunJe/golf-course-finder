@@ -7,7 +7,7 @@ const RECOMMENDATION_NOISE =
   /MD\s*추천|메가딜|쿠폰\s*증정|^\d+\s*팀$|가까운\s*골프장|국내\/해외\s*투어|달력|새벽|오전|오후|야간|최근\s*검색|조건으로\s*검색/i;
 
 const REGION_LINE =
-  /(서울|경기|인천|부산|대구|대전|광주|울산|세종|강원|충북|충남|전북|전남|경북|경남|제주)[^\n|>]*>\s*[^\s\d.]+/;
+  /(서울|경기|인천|부산|대구|대전|광주|울산|세종|강원|충북|충남|전북|전남|경북|경남|제주|경상|전라|충청)[^\n|>]*>\s*[^\s\d.]+/;
 
 const OVERLAY_SCOPES = [
   '[class*="keyword"]',
@@ -100,6 +100,9 @@ function pushCandidate(
     ...candidate,
     title,
     region: candidate.region.trim(),
+    candidate_region: candidate.candidate_region ?? "",
+    candidate_subregion: candidate.candidate_subregion ?? "",
+    candidate_type: candidate.candidate_type ?? "",
     candidateIndex: candidates.length,
     rawText: rawText.slice(0, 300),
   });
@@ -139,6 +142,9 @@ export async function collectSearchCandidatesWithLocators(
         {
           title: parsed.title,
           region: parsed.region,
+          candidate_region: parsed.candidateRegion,
+          candidate_subregion: parsed.candidateSubregion,
+          candidate_type: parsed.candidateType,
           url,
           candidateIndex: 0,
           rawText: parsed.rawText,
@@ -180,6 +186,9 @@ export async function collectSearchCandidatesWithLocators(
         {
           title: parsed.title,
           region: parsed.region,
+          candidate_region: parsed.candidateRegion,
+          candidate_subregion: parsed.candidateSubregion,
+          candidate_type: parsed.candidateType,
           url: "",
           candidateIndex: 0,
           rawText: parsed.rawText,

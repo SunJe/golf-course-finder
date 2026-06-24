@@ -27,48 +27,9 @@ import {
 
 const PAGE_SETTLE_MS = 5000;
 
-export function buildTeescannerSearchQueries(course: {
-  name: string;
-  change_name_to: string;
-}): string[] {
-  const primary = (course.change_name_to || course.name).trim();
-  const secondary = course.name.trim();
+import { buildTeescannerSearchQueries } from "./courseEnrichment";
 
-  const queries: string[] = [];
-  const seen = new Set<string>();
-
-  const pushQuery = (value: string) => {
-    const trimmed = value.trim();
-    if (!trimmed || seen.has(trimmed)) return;
-    seen.add(trimmed);
-    queries.push(trimmed);
-  };
-
-  const addVariants = (raw: string) => {
-    if (!raw) return;
-
-    const noParen = raw
-      .replace(/\([^)]*(대중제|회원제|퍼블릭|대중형|회원)[^)]*\)/gi, "")
-      .trim();
-    const strippedSuffix = noParen
-      .replace(/컨트리클럽|골프클럽|골프장/gi, "")
-      .replace(/C\.?C\.?/gi, "")
-      .replace(/G\.?C\.?/gi, "")
-      .trim();
-
-    if (strippedSuffix.length >= 2) pushQuery(strippedSuffix);
-    if (noParen && noParen !== strippedSuffix) pushQuery(noParen);
-    if (raw !== noParen && raw !== strippedSuffix) pushQuery(raw);
-  };
-
-  addVariants(primary);
-  if (secondary && secondary !== primary && queries.length < 2) {
-    addVariants(secondary);
-  }
-
-  return queries.slice(0, 2);
-}
-
+export { buildTeescannerSearchQueries };
 function emptyResult(
   course: TeescannerInputRow,
   roundDay: string,
@@ -80,10 +41,22 @@ function emptyResult(
     name: course.name,
     change_name_to: course.change_name_to,
     address: course.address,
+    source_row_index: String(course.row_index ?? ""),
+    primary_search_term: course.primary_search_term,
+    fallback_search_term: course.fallback_search_term,
+    used_search_term: searchQuery,
+    search_attempt: "",
     search_query: searchQuery,
     round_day: roundDay,
     matched_title: "",
+    candidate_title: "",
+    candidate_region: "",
+    candidate_subregion: "",
+    candidate_type: "",
     matched_region: "",
+    match_status: "",
+    review_reason: "",
+    suggested_change_name_to: "",
     matched_url: "",
     candidate_count: "0",
     match_score: "",

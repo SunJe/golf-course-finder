@@ -5,6 +5,9 @@ import {
   META_DESCRIPTION_MAX_LENGTH,
   truncateMetaDescription,
 } from "@/lib/courseSeoCopy";
+import {
+  resolveCourseSearchAliases,
+} from "@/lib/seo/courseNameAliases";
 import type { RegionLandingConfig } from "@/lib/regionLanding";
 import {
   getCollectionSeoImagePath,
@@ -126,13 +129,18 @@ export function buildHomeMetadata(): Metadata {
   };
 }
 
-export function buildCourseDetailTitle(courseName: string): string {
-  const name = courseName.trim() || "골프장";
-  return `${name} | 요금·위치·전화번호 | ${siteConfig.siteName}`;
+export function buildCourseDetailTitle(course: Course): string {
+  const name = course.name.trim() || "골프장";
+  const aliases = resolveCourseSearchAliases(course);
+  const primaryAlias = aliases.find((alias) => alias !== name);
+  if (primaryAlias) {
+    return `${name} ${primaryAlias} | 위치·요금 | ${siteConfig.siteName}`;
+  }
+  return `${name} | 위치·요금 | ${siteConfig.siteName}`;
 }
 
 export function buildCourseMetadata(course: Course): Metadata {
-  const title = buildCourseDetailTitle(course.name);
+  const title = buildCourseDetailTitle(course);
   const description = buildCourseDetailDescription(course);
   const url = absoluteUrl(`/courses/${course.id}`);
   const imagePath = getCourseSeoImagePath(course.id);

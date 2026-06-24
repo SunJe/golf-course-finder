@@ -10,8 +10,8 @@ import {
   resolveCourseBackgroundPath,
   resolveRegionFallbackForCourse,
 } from "./lib/seoImageComposite";
-import type { SeoImageKind } from "./lib/seoImageSquareSvg";
 import { getProjectRoot } from "./lib/sourceRegistry";
+import { logOgFontResolution } from "../lib/seo-images/ogFontConfig";
 
 const DEFAULT_EYEBROW = "전국을 연결하는 골프 정보 플랫폼";
 
@@ -22,6 +22,7 @@ const SAMPLE_COLLECTION_SLUGS = [
   "budget",
   "public",
   "near-seoul",
+  "near-seoul-public",
 ] as const;
 
 const ROOT = getProjectRoot();
@@ -44,7 +45,6 @@ function parseArgs(argv: string[]): { sampleOnly: boolean } {
 }
 
 async function renderCard(
-  kind: SeoImageKind,
   slug: string,
   outputPath: string,
   title: string,
@@ -63,7 +63,6 @@ async function renderCard(
       title,
       eyebrow: DEFAULT_EYEBROW,
       seed: slug,
-      kind,
     },
     outputPath,
     bgPath,
@@ -84,7 +83,6 @@ async function generateCollectionImages(sampleOnly: boolean): Promise<number> {
 
   for (const config of pages) {
     await renderCard(
-      "collection",
       config.slug,
       path.join(dir, `${config.slug}.png`),
       config.h1 || config.title,
@@ -101,7 +99,6 @@ async function generateRegionImages(): Promise<number> {
 
   for (const config of regionLandingPages) {
     await renderCard(
-      "region",
       config.slug,
       path.join(dir, `${config.slug}.png`),
       `${config.label} 골프장`,
@@ -148,7 +145,6 @@ async function generateCourseImages(): Promise<number> {
     const regionSlug = guessRegionSlugFromAddress(address ?? "");
 
     await renderCard(
-      "course",
       id.trim(),
       path.join(dir, `${id.trim()}.png`),
       name.trim(),
@@ -165,6 +161,7 @@ async function main(): Promise<void> {
   const { sampleOnly } = parseArgs(process.argv.slice(2));
   ensureDir(PUBLIC_DIR);
   ensureDir(BACKGROUNDS_ROOT);
+  logOgFontResolution(ROOT);
 
   const collections = await generateCollectionImages(sampleOnly);
   const regions = sampleOnly ? 0 : await generateRegionImages();

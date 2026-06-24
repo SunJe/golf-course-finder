@@ -11,11 +11,12 @@ import {
   buildDetailUrlTemplate,
   parseGolfclubSeqFromUrl,
 } from "./detailUrl";
+import { buildCourseMetaPartial } from "./courseMeta";
 import { matchTeescannerCandidates } from "./matcher";
+import { evaluateMatchStatus, shouldSkipAutoPriceAccept } from "./matchStatus";
 import { formatWonForCsv } from "./priceParse";
 import { resolveReviewAction } from "./reviewAction";
 import {
-  buildTeescannerSearchQueries,
   createTeescannerEmptyResult,
   createTeescannerFailOutcome,
 } from "./search";
@@ -99,15 +100,21 @@ async function searchMatchCandidate(options: {
   | { ok: false; outcome: TeescannerScrapeOutcome }
 > {
   const { page, course, roundDay, shots } = options;
-  const queries = buildTeescannerSearchQueries(course);
+  const queries = [
+    course.primary_search_term,
+    course.fallback_search_term,
+  ].filter((value, index, array) => value && array.indexOf(value) === index);
   const primaryQuery = queries[0] ?? (course.change_name_to || course.name);
 
   let allCandidates: TeescannerSearchCandidate[] = [];
   let usedQuery = primaryQuery;
+  let searchAttempt: "primary" | "fallback" = "primary";
   let lastFlow: Awaited<ReturnType<typeof runTeescannerSearchFlow>> | null = null;
 
-  for (const query of queries) {
+  for (let queryIndex = 0; queryIndex < queries.length; queryIndex += 1) {
+    const query = queries[queryIndex] ?? primaryQuery;
     usedQuery = query;
+    searchAttempt = queryIndex === 0 ? "primary" : "fallback";
     const flow = await runTeescannerSearchFlow({
       page,
       query,
@@ -215,7 +222,28 @@ async function searchMatchCandidate(options: {
   }
 
   const match = matchTeescannerCandidates(course, allCandidates);
-  if (!match.candidate || match.confidence === "low") {
+  const evaluation = evaluateMatchStatus({
+    course,
+    usedSearchTerm: usedQuery,
+    searchAttempt,
+    candidate: match.candidate,
+    candidateCount: match.candidateCount,
+    confidence: match.confidence,
+  });
+
+  const metaPartial = buildCourseMetaPartial(course, {
+    usedSearchTerm: usedQuery,
+    searchAttempt,
+    candidate: match.candidate ?? allCandidates[0] ?? null,
+    evaluation,
+  });
+
+  if (
+    !match.candidate ||
+    match.confidence === "low" ||
+    shouldSkipAutoPriceAccept(evaluation)
+  ) {
+    const selected = match.candidate ?? allCandidates[0] ?? null;
     await shots.capture("failed");
     return {
       ok: false,
@@ -227,7 +255,7 @@ async function searchMatchCandidate(options: {
         shots,
         {
           ...baseDiagnostics,
-          selectedCandidate: match.candidate?.title ?? allCandidates[0]?.title ?? "",
+          selectedCandidate: selected?.title ?? "",
           matchScore: String(match.matchScore),
           confidence: match.confidence,
         },
@@ -237,10 +265,16 @@ async function searchMatchCandidate(options: {
           candidate_count: String(match.candidateCount),
           match_score: String(match.matchScore),
           confidence: match.confidence,
-          matched_title: match.candidate?.title ?? allCandidates[0]?.title ?? "",
-          matched_region: match.candidate?.region ?? allCandidates[0]?.region ?? "",
-          matched_url: match.candidate?.url ?? "",
+          matched_title: selected?.title ?? "",
+          candidate_title: selected?.title ?? "",
+          matched_region: selected?.region ?? "",
+          candidate_region: selected?.candidate_region ?? "",
+          candidate_subregion: selected?.candidate_subregion ?? "",
+          candidate_type: selected?.candidate_type ?? "",
+          matched_url: selected?.url ?? "",
           needs_check: "y",
+          review_action: evaluation.reviewAction,
+          ...metaPartial,
         },
       ),
     };
@@ -249,6 +283,7 @@ async function searchMatchCandidate(options: {
   return {
     ok: true,
     usedQuery,
+    searchAttempt,
     candidate: match.candidate,
     matchScore: match.matchScore,
     confidence: match.confidence,
@@ -302,6 +337,10 @@ function buildDetailOutcome(options: {
     match_score: String(matchScore),
     confidence,
     matched_title: candidate.title,
+    candidate_title: candidate.title,
+    candidate_region: candidate.candidate_region,
+    candidate_subregion: candidate.candidate_subregion,
+    candidate_type: candidate.candidate_type,
     matched_region: candidate.region,
     matched_url: detailResult.detailUrl || candidate.url,
     detail_url: detailResult.detailUrl,

@@ -3,9 +3,12 @@ import {
   DEFAULT_PROMO_DOMAIN,
   DEFAULT_PROMO_EYEBROW,
   DEFAULT_PROMO_TOP_RIGHT,
-  PROMO_ICON_LABELS,
 } from "../../lib/og/promoTypes";
-import { buildKoreaMapOverlayMarkup } from "./koreaMapAsset";
+import {
+  buildKoreaMapIdentityImageMarkup,
+  buildPromoIconsRowImageMarkup,
+  KOREA_MAP_IDENTITY_BOX,
+} from "./seoChromeAssets";
 
 export const WIDTH = 1200;
 export const HEIGHT = 1200;
@@ -111,31 +114,11 @@ function buildBrandLogo(x: number, y: number): string {
   </g>`;
 }
 
-function buildIconRow(): string {
-  const rowY = PANEL.y + PANEL.h - 118;
-  const iconY = rowY + 6;
-  const labelY = rowY + 62;
-  const rowW = 920;
-  const startX = CX - rowW / 2;
-  const colW = rowW / 4;
-
-  const icons = [
-    `<g><rect x="-18" y="-12" width="36" height="28" rx="3" fill="none" stroke="${C.forest}" stroke-width="2"/><path d="M0,10 C8,10 14,4 14,-4 C14,-12 0,-22 0,-22 C0,-22 -14,-12 -14,-4 C-14,4 -8,10 0,10 Z" fill="none" stroke="${C.forest}" stroke-width="2"/><circle cx="0" cy="-4" r="3" fill="${C.forest}"/></g>`,
-    `<g><path d="M-12,-18 C-12,-18 -8,-22 0,-22 C8,-22 12,-18 12,-18 L12,18 C12,18 8,22 0,22 C-8,22 -12,18 -12,18 Z" fill="none" stroke="${C.forest}" stroke-width="2"/><circle cx="0" cy="14" r="2" fill="${C.forest}"/></g>`,
-    `<g><rect x="-18" y="-14" width="36" height="26" rx="2" fill="none" stroke="${C.forest}" stroke-width="2"/><line x1="-18" y1="-8" x2="18" y2="-8" stroke="${C.forest}" stroke-width="2"/><circle cx="12" cy="-12" r="1.5" fill="${C.forest}"/></g>`,
-    `<g><ellipse cx="-8" cy="6" rx="10" ry="5" fill="none" stroke="${C.forest}" stroke-width="2"/><ellipse cx="8" cy="2" rx="10" ry="5" fill="none" stroke="${C.forest}" stroke-width="2"/><ellipse cx="0" cy="-6" rx="10" ry="5" fill="none" stroke="${C.forest}" stroke-width="2"/></g>`,
-  ];
-
-  return PROMO_ICON_LABELS.map((label, i) => {
-    const cx = startX + colW * i + colW / 2;
-    return `
-    <g transform="translate(${cx}, ${iconY})">${icons[i]}</g>
-    <text x="${cx}" y="${labelY}" text-anchor="middle" fill="${C.forest}" font-size="30" font-weight="600" font-family="${FONT}">${escapeXml(label)}</text>
-    ${i < 3 ? `<line x1="${startX + colW * (i + 1)}" y1="${rowY}" x2="${startX + colW * (i + 1)}" y2="${rowY + 82}" stroke="${C.lineSoft}" stroke-width="1"/>` : ""}`;
-  }).join("");
+function buildIconRow(projectRoot: string): string {
+  return buildPromoIconsRowImageMarkup(projectRoot);
 }
 
-function buildGlassPanel(title: string, eyebrow: string): string {
+function buildGlassPanel(title: string, eyebrow: string, projectRoot: string): string {
   const titleSize = titleFontSize(title);
   const lines = wrapTitle(title, titleSize);
   const lineHeight = Math.round(titleSize * 1.08);
@@ -163,7 +146,7 @@ function buildGlassPanel(title: string, eyebrow: string): string {
 
     <text x="${CX}" y="${titleY}" text-anchor="middle" fill="${C.forest}" font-size="${titleSize}" font-weight="800" font-family="${FONT}">${titleTspans}</text>
 
-    ${buildIconRow()}
+    ${buildIconRow(projectRoot)}
 
     <g transform="translate(${PANEL.x + PANEL.w - 120}, ${PANEL.y + 200})" opacity="0.12">
       <line x1="0" y1="0" x2="0" y2="110" stroke="${C.forest}" stroke-width="4"/>
@@ -181,7 +164,6 @@ export function buildSeoOverlaySvg(
   const brand = options.brand?.trim() || DEFAULT_PROMO_BRAND;
   const domain = options.domain?.trim() || DEFAULT_PROMO_DOMAIN;
   const topRight = DEFAULT_PROMO_TOP_RIGHT;
-  const clipId = `koreaClip_${options.seed.replace(/[^a-zA-Z0-9]/g, "")}`;
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 ${WIDTH} ${HEIGHT}">
@@ -201,10 +183,10 @@ export function buildSeoOverlaySvg(
     <text x="148" y="122" fill="${C.green}" font-size="22" font-weight="500">${escapeXml(domain)}</text>
   </g>
 
-  <text x="1136" y="72" text-anchor="end" fill="${C.forest}" font-size="14" font-weight="600" letter-spacing="3" font-family="${FONT}">${escapeXml(topRight)}</text>
-  ${buildKoreaMapOverlayMarkup(projectRoot, undefined, clipId)}
+  <text x="${KOREA_MAP_IDENTITY_BOX.x + KOREA_MAP_IDENTITY_BOX.width}" y="72" text-anchor="end" fill="${C.forest}" font-size="14" font-weight="600" letter-spacing="3" font-family="${FONT}">${escapeXml(topRight)}</text>
+  ${buildKoreaMapIdentityImageMarkup(projectRoot)}
 
-  ${buildGlassPanel(title, eyebrow)}
+  ${buildGlassPanel(title, eyebrow, projectRoot)}
 </svg>`;
 }
 

@@ -21,6 +21,36 @@ function formatManwon(value: number): string {
   return `${Math.round(value / 10000)}`;
 }
 
+/** `10~20만 원` → `10~20만원` 등 표시용 공백 정리 */
+export function normalizeCompactPriceDisplay(value: string): string {
+  const trimmed = value.trim();
+  if (!trimmed || trimmed === PRICE_UNAVAILABLE) return trimmed;
+  return trimmed
+    .replace(/\u00a0/g, "")
+    .replace(/\s*만\s*원/g, "만원")
+    .replace(/(\d)\s*~/g, "$1~")
+    .replace(/~\s*(\d)/g, "~$1")
+    .replace(/(\d)\s+만원/g, "$1만원");
+}
+
+export function formatCompactPriceRange(
+  priceMin?: number | null,
+  priceMax?: number | null,
+): string {
+  const min =
+    priceMin != null && priceMin > 0 ? Math.round(priceMin / 10000) : null;
+  const max =
+    priceMax != null && priceMax > 0 ? Math.round(priceMax / 10000) : null;
+
+  if (min != null && max != null) {
+    if (min === max) return `${min}만원`;
+    return `${min}~${max}만원`;
+  }
+  if (min != null) return `${min}만원~`;
+  if (max != null) return `~${max}만원`;
+  return "";
+}
+
 /** 단일 금액: `14만원` */
 export function formatSinglePriceManwon(value: number): string {
   return `${formatManwon(value)}만원`;
@@ -40,13 +70,8 @@ export function formatPriceRange(course: Course): string {
   if (min == null) return PRICE_UNAVAILABLE;
 
   const max = getPriceMax(course);
-  if (max != null && max !== min) {
-    return `${formatManwon(min)}~${formatManwon(max)}만원`;
-  }
-  if (max != null && max === min) {
-    return `${formatManwon(min)}만원`;
-  }
-  return `${formatManwon(min)}만원~`;
+  const compact = formatCompactPriceRange(min, max ?? null);
+  return compact ? normalizeCompactPriceDisplay(compact) : PRICE_UNAVAILABLE;
 }
 
 /** Hero 뱃지: `예약가 9~11만원` / `최저 예약가 9만원~` */
@@ -80,11 +105,14 @@ export function formatCardPriceParts(course: Course): CardPriceParts {
   if (max != null && max !== min) {
     return {
       label: "예약가",
-      value: `${formatManwon(min)}~${formatManwon(max)}만원`,
+      value: normalizeCompactPriceDisplay(`${formatManwon(min)}~${formatManwon(max)}만원`),
     };
   }
   if (max != null && max === min) {
-    return { label: "예약가", value: `${formatManwon(min)}만원` };
+    return { label: "예약가", value: normalizeCompactPriceDisplay(`${formatManwon(min)}만원`) };
   }
-  return { label: "최저 예약가", value: `${formatManwon(min)}만원~` };
+  return {
+    label: "최저 예약가",
+    value: normalizeCompactPriceDisplay(`${formatManwon(min)}만원~`),
+  };
 }

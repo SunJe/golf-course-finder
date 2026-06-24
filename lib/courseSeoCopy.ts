@@ -1,6 +1,10 @@
 import type { Course } from "@/types/course";
 import { formatHoleCount } from "@/lib/courseDisplay";
 import { formatPriceRange, hasPrice } from "@/lib/priceFormat";
+import {
+  formatAliasesForMetaDescription,
+  resolveCourseSearchAliases,
+} from "@/lib/seo/courseNameAliases";
 import { siteConfig } from "@/lib/siteConfig";
 
 /** 네이버 Search Advisor·OG description 권장 길이 */
@@ -28,7 +32,9 @@ export function formatRegionLabel(course: Course): string {
 
 export function buildCourseDetailDescription(course: Course): string {
   const name = course.name.trim() || "골프장";
-  const base = `${name}의 주소, 전화번호, 홈페이지, 요금 정보를 ${siteConfig.siteName}에서 확인하세요.`;
+  const aliases = resolveCourseSearchAliases(course);
+  const displayName = formatAliasesForMetaDescription(name, aliases);
+  const base = `${displayName}의 주소, 전화번호, 홈페이지, 예약 참고 요금 정보를 ${siteConfig.siteName}에서 확인하세요.`;
   return truncateMetaDescription(base);
 }
 

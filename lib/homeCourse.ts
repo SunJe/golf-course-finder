@@ -22,7 +22,6 @@ export type HomeCourse = Pick<
   | "priceMax"
   | "priceText"
   | "weekdayGreenFeeMin"
-  | "difficulty"
   | "nightRound"
   | "noCaddie"
   | "twoPlayerAllowed"
@@ -51,7 +50,6 @@ export function toHomeCourse(course: Course): HomeCourse {
     priceMax: course.priceMax,
     priceText: course.priceText,
     weekdayGreenFeeMin: course.weekdayGreenFeeMin,
-    difficulty: course.difficulty,
     nightRound: course.nightRound,
     noCaddie: course.noCaddie,
     twoPlayerAllowed: course.twoPlayerAllowed,

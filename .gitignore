@@ -32,6 +32,24 @@ data/enrichment/naver_blocked_state.json
 data/enrichment/naver_price_collect.lock
 data/enrichment/naver-price-screenshots/
 
+# teescanner price collector runtime outputs (do not commit)
+data/enrichment/teescanner_price_results.csv
+data/enrichment/teescanner_price_runlog.jsonl
+data/enrichment/teescanner_price_daily_results.csv
+data/enrichment/teescanner_price_course_summary.csv
+data/enrichment/teescanner_price_batch_runlog.jsonl
+data/enrichment/teescanner_blocked_state.json
+data/enrichment/teescanner_price_collect.lock
+data/enrichment/teescanner-price-screenshots/
+data/enrichment/supabase_teescanner_price_update.sql
+data/enrichment/supabase_teescanner_price_update_preview.csv
+data/enrichment/supabase_teescanner_price_update_report.json
+
+# generated supabase enrichment SQL (local apply artifacts)
+data/enrichment/supabase_course_enrichment_update.sql
+data/enrichment/supabase_course_enrichment_update_report.json
+data/enrichment/supabase_course_enrichment_update_preview.csv
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

@@ -18,7 +18,7 @@ import {
   CalendarCheck,
   Mail,
 } from "lucide-react";
-import type { Course } from "@/types/course";
+import type { PublicCourse } from "@/lib/publicCourse";
 import {
   formatHoleCount,
   hasHomepage,
@@ -47,6 +47,7 @@ import { buildCourseSeoIntroParagraph } from "@/lib/courseSeoCopy";
 import HomeResetLink from "@/components/HomeResetLink";
 import CourseMap from "@/components/maps/CourseMap";
 import CourseDetailHeroImage from "@/components/CourseDetailHeroImage";
+import { getCourseSeoImagePath } from "@/lib/seoImages";
 
 const TYPE_STYLES: Record<string, string> = {
   대중제: "bg-brand-50 text-brand-700 ring-brand-100",
@@ -166,13 +167,13 @@ function orPlaceholder(value?: string | null): string {
   return value?.trim() ? value.trim() : "정보 준비 중";
 }
 
-function formatRegionLine(course: Course): string {
+function formatRegionLine(course: PublicCourse): string {
   return formatCourseLocationLabel(course);
 }
 
 interface CourseDetailProps {
-  course: Course;
-  nearbyCourses?: Course[];
+  course: PublicCourse;
+  nearbyCourses?: PublicCourse[];
 }
 
 export default function CourseDetail({
@@ -226,7 +227,11 @@ export default function CourseDetail({
       {/* Hero */}
       <header className="overflow-hidden rounded-2xl border border-gray-200/80 bg-white shadow-sm">
         <div className="relative">
-          <CourseDetailHeroImage src={course.imageUrl} alt={course.name} />
+          <CourseDetailHeroImage
+            src={course.imageUrl}
+            fallbackSrc={getCourseSeoImagePath(course.id)}
+            alt={course.name}
+          />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
             <p className="mb-2 text-sm font-medium text-white/90">

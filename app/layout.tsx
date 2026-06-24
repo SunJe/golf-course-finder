@@ -3,6 +3,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { HomeResetProvider } from "@/contexts/HomeResetContext";
 import { buildNaverSiteVerificationMetadata } from "@/lib/seoMetadata";
 import { getSiteUrl, siteConfig } from "@/lib/siteConfig";
@@ -27,10 +28,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className="min-h-screen bg-white text-gray-900 antialiased max-md:bg-app-warm md:bg-white">
+      <body className="flex min-h-screen flex-col bg-white text-gray-900 antialiased max-md:bg-app-warm md:bg-white">
         <HomeResetProvider>
           <Header />
-          <main>{children}</main>
+          <main className="flex-1">{children}</main>
+          <Footer />
         </HomeResetProvider>
         <Analytics />
         <SpeedInsights />

@@ -16,7 +16,19 @@ export const revalidate = 86400;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
-  const homeEntry: MetadataRoute.Sitemap[number] = {
+  const staticEntries: MetadataRoute.Sitemap = [
+    "/about",
+    "/contact",
+    "/privacy",
+    "/disclaimer",
+  ].map((path) => ({
+    url: absoluteUrl(path),
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.5,
+  }));
+
+  const hubEntry: MetadataRoute.Sitemap[number] = {
     url: absoluteUrl("/"),
     lastModified: now,
     changeFrequency: "weekly",
@@ -59,9 +71,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     }));
 
-    return [homeEntry, ...regionEntries, ...collectionEntries, ...courseEntries];
+    return [...staticEntries, hubEntry, ...regionEntries, ...collectionEntries, ...courseEntries];
   } catch (error) {
     console.warn("[sitemap] Failed to load course entries:", error);
-    return [homeEntry, ...regionEntries, ...collectionEntries];
+    return [...staticEntries, hubEntry, ...regionEntries, ...collectionEntries];
   }
 }

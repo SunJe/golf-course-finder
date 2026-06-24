@@ -8,6 +8,14 @@ import {
   truncateMetaDescription,
 } from "@/lib/courseSeoCopy";
 import type { RegionLandingConfig } from "@/lib/regionLanding";
+import {
+  getCollectionSeoImagePath,
+  getCourseSeoImagePath,
+  getRegionSeoImagePath,
+  getSeoImageAbsoluteUrl,
+  SEO_IMAGE_HEIGHT,
+  SEO_IMAGE_WIDTH,
+} from "@/lib/seoImages";
 import { absoluteUrl, getNaverSiteVerification, getSiteUrl, siteConfig } from "@/lib/siteConfig";
 
 const HOME_KEYWORDS = [
@@ -41,10 +49,31 @@ function getDefaultOgImageAbsoluteUrl(): string | undefined {
   return absoluteUrl(siteConfig.defaultOgImage);
 }
 
+export function resolveSeoImageMetadata(
+  imagePath: string,
+  alt: string,
+): { url: string; width: number; height: number; alt: string } | undefined {
+  const publicPath = path.join(
+    process.cwd(),
+    "public",
+    imagePath.replace(/^\//, ""),
+  );
+  if (!fs.existsSync(publicPath)) return undefined;
+
+  return {
+    url: getSeoImageAbsoluteUrl(imagePath),
+    width: SEO_IMAGE_WIDTH,
+    height: SEO_IMAGE_HEIGHT,
+    alt,
+  };
+}
+
 function buildOpenGraph(
   title: string,
   description: string,
   url: string,
+  imagePath?: string,
+  imageAlt?: string,
 ): Metadata["openGraph"] {
   const og: Metadata["openGraph"] = {
     title,
@@ -55,24 +84,50 @@ function buildOpenGraph(
     locale: "ko_KR",
   };
 
-  const image = getDefaultOgImageAbsoluteUrl();
+  const image =
+    imagePath && imageAlt
+      ? resolveSeoImageMetadata(imagePath, imageAlt)
+      : undefined;
+  const fallback = getDefaultOgImageAbsoluteUrl();
+
   if (image) {
-    og.images = [{ url: image, alt: siteConfig.defaultTitle }];
+    og.images = [
+      {
+        url: image.url,
+        width: image.width,
+        height: image.height,
+        alt: image.alt,
+      },
+    ];
+  } else if (fallback) {
+    og.images = [{ url: fallback, alt: siteConfig.defaultTitle }];
   }
 
   return og;
 }
 
-function buildTwitter(title: string, description: string): Metadata["twitter"] {
+function buildTwitter(
+  title: string,
+  description: string,
+  imagePath?: string,
+  imageAlt?: string,
+): Metadata["twitter"] {
   const twitter: Metadata["twitter"] = {
     card: "summary_large_image",
     title,
     description,
   };
 
-  const image = getDefaultOgImageAbsoluteUrl();
+  const image =
+    imagePath && imageAlt
+      ? resolveSeoImageMetadata(imagePath, imageAlt)
+      : undefined;
+  const fallback = getDefaultOgImageAbsoluteUrl();
+
   if (image) {
-    twitter.images = [image];
+    twitter.images = [image.url];
+  } else if (fallback) {
+    twitter.images = [fallback];
   }
 
   return twitter;
@@ -102,13 +157,15 @@ export function buildCourseMetadata(course: Course): Metadata {
   const title = buildCourseDetailTitle(course.name);
   const description = buildCourseDetailDescription(course);
   const url = absoluteUrl(`/courses/${course.id}`);
+  const imagePath = getCourseSeoImagePath(course.id);
+  const imageAlt = `${course.name} 골프장 정보 | ${siteConfig.siteName}`;
 
   return {
     title,
     description,
     alternates: { canonical: url },
-    openGraph: buildOpenGraph(title, description, url),
-    twitter: buildTwitter(title, description),
+    openGraph: buildOpenGraph(title, description, url, imagePath, imageAlt),
+    twitter: buildTwitter(title, description, imagePath, imageAlt),
   };
 }
 
@@ -130,14 +187,39 @@ export function buildRegionMetadata(
     META_DESCRIPTION_MAX_LENGTH,
   );
   const url = absoluteUrl(`/regions/${config.slug}`);
+  const imagePath = getRegionSeoImagePath(config.slug);
+  const imageAlt = `${config.label} 골프장 지도 | ${siteConfig.siteName}`;
 
   return {
     title,
     description,
     alternates: { canonical: url },
-    openGraph: buildOpenGraph(title, description, url),
-    twitter: buildTwitter(title, description),
+    openGraph: buildOpenGraph(title, description, url, imagePath, imageAlt),
+    twitter: buildTwitter(title, description, imagePath, imageAlt),
     ...(options?.noindex ? { robots: { index: false } } : {}),
+  };
+}
+
+export function buildStaticPageMetadata(options: {
+  title: string;
+  description: string;
+  path: string;
+}): Metadata {
+  const pageTitle = options.title.includes(siteConfig.siteName)
+    ? options.title
+    : `${options.title} | ${siteConfig.siteName}`;
+  const description = truncateMetaDescription(
+    options.description,
+    META_DESCRIPTION_MAX_LENGTH,
+  );
+  const url = absoluteUrl(options.path);
+
+  return {
+    title: pageTitle,
+    description,
+    alternates: { canonical: url },
+    openGraph: buildOpenGraph(pageTitle, description, url),
+    twitter: buildTwitter(pageTitle, description),
   };
 }
 
@@ -157,13 +239,15 @@ export function buildCollectionMetadata(
     META_DESCRIPTION_MAX_LENGTH,
   );
   const url = absoluteUrl(`/collections/${config.slug}`);
+  const imagePath = getCollectionSeoImagePath(config.slug);
+  const imageAlt = config.title;
 
   return {
     title,
     description,
     alternates: { canonical: url },
-    openGraph: buildOpenGraph(title, description, url),
-    twitter: buildTwitter(title, description),
+    openGraph: buildOpenGraph(title, description, url, imagePath, imageAlt),
+    twitter: buildTwitter(title, description, imagePath, imageAlt),
     ...(options?.noindex
       ? { robots: { index: false, follow: true } }
       : {}),

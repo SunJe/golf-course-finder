@@ -39,6 +39,8 @@ import {
 } from "@/lib/regionLanding";
 import RegionLinks from "@/components/RegionLinks";
 import CollectionLinks from "@/components/CollectionLinks";
+import SeoRepresentativeImage from "@/components/SeoRepresentativeImage";
+import { getRegionSeoImagePath } from "@/lib/seoImages";
 import { formatHoleCount } from "@/lib/courseDisplay";
 
 const TYPE_STYLES: Record<string, string> = {
@@ -512,6 +514,13 @@ export default function RegionLandingView({
               현재 {config.label} 지역에 등록된 골프장이 없습니다.
             </p>
           )}
+        </SectionShell>
+
+        <SectionShell className="mt-10">
+          <SeoRepresentativeImage
+            src={getRegionSeoImagePath(config.slug)}
+            alt={`${config.label} 골프장 지도`}
+          />
         </SectionShell>
 
         <SectionShell id="faq" className="mt-10">

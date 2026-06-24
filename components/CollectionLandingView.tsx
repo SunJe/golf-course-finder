@@ -38,6 +38,8 @@ import {
 } from "@/lib/collectionCardLabels";
 import CollectionLinks from "@/components/CollectionLinks";
 import RegionLinks from "@/components/RegionLinks";
+import SeoRepresentativeImage from "@/components/SeoRepresentativeImage";
+import { getCollectionSeoImagePath } from "@/lib/seoImages";
 
 const ALL_COURSES_PREVIEW = 25;
 const REGION_GROUP_LIMIT = 12;
@@ -545,6 +547,13 @@ export default function CollectionLandingView({
             </div>
           </SectionShell>
         ) : null}
+
+        <SectionShell className="mt-10">
+          <SeoRepresentativeImage
+            src={getCollectionSeoImagePath(config.slug)}
+            alt={`${config.h1} | ${config.title}`}
+          />
+        </SectionShell>
 
         <SectionShell id="faq" className="mt-10">
           <SectionHeading title={`${config.h1} 자주 묻는 질문`} />

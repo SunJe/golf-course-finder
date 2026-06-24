@@ -26,6 +26,12 @@ yarn-error.log*
 .env*.local
 
 # naver ultra-safe collector runtime outputs (do not commit)
+data/enrichment/*.log
+data/enrichment/*runlog.jsonl
+data/enrichment/*screenshots/
+data/enrichment/*preview*.csv
+data/enrichment/*report*.json
+data/enrichment/*.sql
 data/enrichment/naver_reservation_price_results.csv
 data/enrichment/naver_reservation_price_runlog.jsonl
 data/enrichment/naver_blocked_state.json
@@ -41,6 +47,9 @@ data/enrichment/teescanner_price_batch_runlog.jsonl
 data/enrichment/teescanner_blocked_state.json
 data/enrichment/teescanner_price_collect.lock
 data/enrichment/teescanner-price-screenshots/
+data/enrichment/course_enrichment_edit.teescanner_preview.csv
+data/enrichment/course_enrichment_edit.backup.*.csv
+data/enrichment/teescanner_merge_report.json
 data/enrichment/supabase_teescanner_price_update.sql
 data/enrichment/supabase_teescanner_price_update_preview.csv
 data/enrichment/supabase_teescanner_price_update_report.json

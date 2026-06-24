@@ -10,6 +10,12 @@ export type CourseSource =
 export interface Course {
   id: string;
   name: string;
+  /** enrichment CSV / Supabase 보강용 검색 대표명 */
+  changeNameTo?: string;
+  /** SEO·내부 검색용 별칭 (CC/GC/컨트리클럽 등) */
+  searchAliases?: string[];
+  /** Supabase search_keywords (공백 구분 문자열) */
+  searchKeywords?: string | null;
   region: string;
   city: string;
   address: string;

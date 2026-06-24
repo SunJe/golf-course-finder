@@ -59,6 +59,11 @@ data/enrichment/supabase_course_enrichment_update.sql
 data/enrichment/supabase_course_enrichment_update_report.json
 data/enrichment/supabase_course_enrichment_update_preview.csv
 
+# supabase golf courses upload pipeline artifacts
+data/enrichment/backups/
+data/enrichment/*upload_report.json
+data/enrichment/*failed.csv
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

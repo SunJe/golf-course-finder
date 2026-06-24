@@ -36,4 +36,7 @@ export interface GolfCourseRow {
   price_source_url: string | null;
   price_updated_at: string | null;
   difficulty: string | null;
+  change_name_to?: string | null;
+  seo_aliases?: string[] | null;
+  search_keywords?: string | null;
 }

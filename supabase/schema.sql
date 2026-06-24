@@ -42,6 +42,9 @@ create table if not exists public.golf_courses (
   price_source_url text,
   price_updated_at timestamptz,
   difficulty text,
+  change_name_to text,
+  seo_aliases text[] not null default '{}',
+  search_keywords text,
 
   constraint golf_courses_latitude_check
     check (latitude >= -90 and latitude <= 90),
@@ -56,6 +59,10 @@ create index if not exists idx_golf_courses_course_type on public.golf_courses (
 create index if not exists idx_golf_courses_hole_count on public.golf_courses (hole_count);
 create index if not exists idx_golf_courses_lat_lng on public.golf_courses (latitude, longitude);
 create index if not exists idx_golf_courses_tags on public.golf_courses using gin (tags);
+create index if not exists idx_golf_courses_seo_aliases on public.golf_courses using gin (seo_aliases);
 
 comment on table public.golf_courses is '전국 골프장 기본 정보';
 comment on column public.golf_courses.source is 'mock | public_data | manual | naver | kakao';
+comment on column public.golf_courses.change_name_to is 'enrichment 검색 대표명 (표시 name과 다를 때)';
+comment on column public.golf_courses.seo_aliases is 'CC/GC/컨트리클럽 등 검색·SEO 별칭';
+comment on column public.golf_courses.search_keywords is '내부 검색·메타용 별칭 공백 구분 문자열';

@@ -1,5 +1,3 @@
-import fs from "fs";
-import path from "path";
 import type { Metadata } from "next";
 import type { Course } from "@/types/course";
 import {
@@ -43,23 +41,14 @@ export function buildNaverSiteVerificationMetadata(): Pick<
   };
 }
 
-function getDefaultOgImageAbsoluteUrl(): string | undefined {
-  const filePath = path.join(process.cwd(), "public", "og-image.png");
-  if (!fs.existsSync(filePath)) return undefined;
+function getDefaultOgImageAbsoluteUrl(): string {
   return absoluteUrl(siteConfig.defaultOgImage);
 }
 
 export function resolveSeoImageMetadata(
   imagePath: string,
   alt: string,
-): { url: string; width: number; height: number; alt: string } | undefined {
-  const publicPath = path.join(
-    process.cwd(),
-    "public",
-    imagePath.replace(/^\//, ""),
-  );
-  if (!fs.existsSync(publicPath)) return undefined;
-
+): { url: string; width: number; height: number; alt: string } {
   return {
     url: getSeoImageAbsoluteUrl(imagePath),
     width: SEO_IMAGE_WIDTH,
@@ -84,13 +73,8 @@ function buildOpenGraph(
     locale: "ko_KR",
   };
 
-  const image =
-    imagePath && imageAlt
-      ? resolveSeoImageMetadata(imagePath, imageAlt)
-      : undefined;
-  const fallback = getDefaultOgImageAbsoluteUrl();
-
-  if (image) {
+  if (imagePath && imageAlt) {
+    const image = resolveSeoImageMetadata(imagePath, imageAlt);
     og.images = [
       {
         url: image.url,
@@ -99,8 +83,8 @@ function buildOpenGraph(
         alt: image.alt,
       },
     ];
-  } else if (fallback) {
-    og.images = [{ url: fallback, alt: siteConfig.defaultTitle }];
+  } else {
+    og.images = [{ url: getDefaultOgImageAbsoluteUrl(), alt: siteConfig.defaultTitle }];
   }
 
   return og;
@@ -118,16 +102,10 @@ function buildTwitter(
     description,
   };
 
-  const image =
-    imagePath && imageAlt
-      ? resolveSeoImageMetadata(imagePath, imageAlt)
-      : undefined;
-  const fallback = getDefaultOgImageAbsoluteUrl();
-
-  if (image) {
-    twitter.images = [image.url];
-  } else if (fallback) {
-    twitter.images = [fallback];
+  if (imagePath && imageAlt) {
+    twitter.images = [resolveSeoImageMetadata(imagePath, imageAlt).url];
+  } else {
+    twitter.images = [getDefaultOgImageAbsoluteUrl()];
   }
 
   return twitter;

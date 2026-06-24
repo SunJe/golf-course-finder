@@ -22,7 +22,6 @@ import {
   buildHomeMetadata,
   buildRegionMetadata,
   buildStaticPageMetadata,
-  resolveSeoImageMetadata,
 } from "@/lib/seoMetadata";
 import { buildCourseMetadata } from "@/lib/seoMetadata";
 import { getCollectionSeoImagePath, getRegionSeoImagePath } from "@/lib/seoImages";
@@ -304,10 +303,8 @@ async function main(): Promise<void> {
     const imagePath = getCollectionSeoImagePath(config.slug);
     const hasOgImage =
       metadataHasOgImage(metadata) ||
-      Boolean(
-        resolveSeoImageMetadata(imagePath, config.title) ||
-          fs.existsSync(path.join(root, "public", "og-image.png")),
-      );
+      fs.existsSync(path.join(root, "public", imagePath.replace(/^\//, ""))) ||
+      fs.existsSync(path.join(root, "public", "og-image.png"));
 
     audits.push({
       path: `/collections/${config.slug}`,
@@ -338,10 +335,8 @@ async function main(): Promise<void> {
     const imagePath = getRegionSeoImagePath(slug);
     const hasOgImage =
       metadataHasOgImage(metadata) ||
-      Boolean(
-        resolveSeoImageMetadata(imagePath, config.label) ||
-          fs.existsSync(path.join(root, "public", "og-image.png")),
-      );
+      fs.existsSync(path.join(root, "public", imagePath.replace(/^\//, ""))) ||
+      fs.existsSync(path.join(root, "public", "og-image.png"));
 
     audits.push({
       path: `/regions/${slug}`,

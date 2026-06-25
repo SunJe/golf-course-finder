@@ -44,7 +44,7 @@ import {
 } from "./lib/teescanner/io";
 import { buildTeescannerSearchQueries } from "./lib/teescanner/search";
 import { buildAllSummaries, buildManualReviewRows } from "./lib/teescanner/summary";
-import { loadTargetRows } from "./lib/teescanner/targets";
+import { loadAmbiguousTargetIds, loadTargetRows } from "./lib/teescanner/targets";
 import { getProjectRoot } from "./lib/sourceRegistry";
 
 const ROOT = getProjectRoot();
@@ -59,6 +59,9 @@ interface CliOptions {
   weekdayCount: number;
   weekendCount: number;
   limit: number;
+  startRow: number;
+  endRow: number;
+  concurrency: number;
   dailyCourseCap: number;
   maxCourseDatePairs: number;
   clickMinMs: number;
@@ -79,8 +82,9 @@ interface CliOptions {
   screenshotDir: string;
   targetName: string;
   targetId: string;
-  targetMode: "price_missing" | "sequential";
+  targetMode: "price_missing" | "sequential" | "ambiguous";
   includePriced: boolean;
+  forceRecrawl: boolean;
   skipRecentTeescannerSuccessDays: number;
 }
 
@@ -102,6 +106,9 @@ function parseArgs(argv: string[]): CliOptions {
     weekdayCount: 1,
     weekendCount: 1,
     limit: 10,
+    startRow: 1,
+    endRow: 0,
+    concurrency: 1,
     dailyCourseCap: 10,
     maxCourseDatePairs: 20,
     clickMinMs: 2000,
@@ -124,6 +131,7 @@ function parseArgs(argv: string[]): CliOptions {
     targetId: "",
     targetMode: "sequential",
     includePriced: false,
+    forceRecrawl: false,
     skipRecentTeescannerSuccessDays: 0,
   };
 
@@ -139,6 +147,15 @@ function parseArgs(argv: string[]): CliOptions {
     else if (arg === "--weekday-count") options.weekdayCount = Number.parseInt(next(), 10);
     else if (arg === "--weekend-count") options.weekendCount = Number.parseInt(next(), 10);
     else if (arg === "--limit") options.limit = Number.parseInt(next(), 10);
+    else if (arg === "--start-row") options.startRow = Number.parseInt(next(), 10);
+    else if (arg === "--end-row") options.endRow = Number.parseInt(next(), 10);
+    else if (arg === "--gap-ms") options.courseGapMs = Number.parseInt(next(), 10);
+    else if (arg === "--click-delay-ms") {
+      options.clickMinMs = Number.parseInt(next(), 10);
+      options.clickJitterMs = 0;
+    } else if (arg === "--concurrency") {
+      options.concurrency = Number.parseInt(next(), 10);
+    }
     else if (arg === "--daily-course-cap") options.dailyCourseCap = Number.parseInt(next(), 10);
     else if (arg === "--max-course-date-pairs") {
       options.maxCourseDatePairs = Number.parseInt(next(), 10);
@@ -164,11 +181,12 @@ function parseArgs(argv: string[]): CliOptions {
     else if (arg === "--target-id") options.targetId = next();
     else if (arg === "--target-mode") {
       const value = next() as CliOptions["targetMode"];
-      if (value !== "price_missing" && value !== "sequential") {
-        throw new Error("--target-mode must be price_missing or sequential.");
+      if (value !== "price_missing" && value !== "sequential" && value !== "ambiguous") {
+        throw new Error("--target-mode must be price_missing, sequential, or ambiguous.");
       }
       options.targetMode = value;
     } else if (arg === "--include-priced") options.includePriced = parseBoolean(next(), true);
+    else if (arg === "--force-recrawl") options.forceRecrawl = parseBoolean(next(), true);
     else if (arg === "--skip-recent-teescanner-success-days") {
       options.skipRecentTeescannerSuccessDays = Number.parseInt(next(), 10);
     }
@@ -190,6 +208,26 @@ function parseArgs(argv: string[]): CliOptions {
   if (options.maxRetries !== 0) {
     throw new Error("Batch collect only allows --max-retries 0.");
   }
+  if (!Number.isFinite(options.startRow) || options.startRow < 1) {
+    throw new Error("--start-row must be a positive integer.");
+  }
+  if (options.endRow < 0) {
+    throw new Error("--end-row must be zero or a positive integer.");
+  }
+  if (options.targetMode === "ambiguous") {
+    options.forceRecrawl = true;
+    options.includePriced = true;
+  }
+  if (options.concurrency !== 1) {
+    throw new Error("--concurrency must be 1 for TeeScanner batch collect.");
+  }
+
+  const datePairCount = options.weekdayCount + options.weekendCount;
+  options.dailyCourseCap = Math.max(options.dailyCourseCap, options.limit);
+  options.maxCourseDatePairs = Math.max(
+    options.maxCourseDatePairs,
+    options.limit * Math.max(datePairCount, 1),
+  );
 
   for (const label of ["startDay", "weekdayDay", "weekendDay"] as const) {
     const value = options[label];
@@ -232,8 +270,16 @@ async function main(): Promise<void> {
     console.log(`retryMissingDayType: ${options.retryMissingDayType}`);
   }
   console.log(`limit: ${options.limit}`);
+  console.log(`startRow: ${options.startRow}`);
+  if (options.endRow > 0) {
+    console.log(`endRow: ${options.endRow}`);
+  }
   console.log(`targetMode: ${options.targetMode}`);
+  console.log(`concurrency: ${options.concurrency}`);
+  console.log(`courseGapMs: ${options.courseGapMs}`);
+  console.log(`clickMinMs: ${options.clickMinMs}`);
   console.log(`includePriced: ${options.includePriced}`);
+  console.log(`forceRecrawl: ${options.forceRecrawl}`);
   if (options.skipRecentTeescannerSuccessDays > 0) {
     console.log(`skipRecentTeescannerSuccessDays: ${options.skipRecentTeescannerSuccessDays}`);
   }
@@ -261,15 +307,26 @@ async function main(): Promise<void> {
       : null;
 
   const effectiveLimit = Math.min(options.limit, options.dailyCourseCap);
+  const ambiguousIds =
+    options.targetMode === "ambiguous"
+      ? loadAmbiguousTargetIds(options.summaryCsv)
+      : undefined;
+  if (options.targetMode === "ambiguous") {
+    console.log(`ambiguous targets in summary: ${ambiguousIds?.size ?? 0}`);
+  }
+
   let targets = loadTargetRows(options.inputCsv, {
     processedIds: new Set(),
     limit: effectiveLimit,
+    startRow: options.startRow,
+    endRow: options.endRow,
     targetName: options.targetName || undefined,
     targetId: options.targetId || undefined,
     targetMode: options.targetMode,
     includePriced: options.includePriced,
     skipRecentTeescannerSuccessDays: options.skipRecentTeescannerSuccessDays,
     summaryCsvPath: options.summaryCsv,
+    ambiguousIds,
   });
 
   if (retryMissingIds && retryMissingIds.size > 0) {
@@ -303,7 +360,17 @@ async function main(): Promise<void> {
       })),
   );
 
+  const forceRecrawlIds =
+    options.forceRecrawl && options.targetMode === "ambiguous"
+      ? new Set(targets.map((course) => course.id))
+      : options.forceRecrawl
+        ? new Set(targets.map((course) => course.id))
+        : null;
+
   const pendingJobs = jobs.filter((job) => {
+    if (forceRecrawlIds?.has(job.course.id)) {
+      return true;
+    }
     if (retryMissingIds?.has(job.course.id)) {
       return job.sample.dayType === options.retryMissingDayType;
     }

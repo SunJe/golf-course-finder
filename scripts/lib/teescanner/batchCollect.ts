@@ -13,7 +13,7 @@ import {
 } from "./detailUrl";
 import { buildCourseMetaPartial } from "./courseMeta";
 import { matchTeescannerCandidates } from "./matcher";
-import { evaluateMatchStatus, shouldSkipAutoPriceAccept } from "./matchStatus";
+import { evaluateMatchStatus } from "./matchStatus";
 import { formatWonForCsv } from "./priceParse";
 import { resolveReviewAction } from "./reviewAction";
 import {
@@ -238,12 +238,10 @@ async function searchMatchCandidate(options: {
     evaluation,
   });
 
-  if (
-    !match.candidate ||
-    match.confidence === "low" ||
-    shouldSkipAutoPriceAccept(evaluation)
-  ) {
-    const selected = match.candidate ?? allCandidates[0] ?? null;
+  // Proceed to price crawl when a best candidate exists.
+  // Ambiguous / low-confidence matches still collect prices; skip only when no candidate.
+  if (!match.candidate) {
+    const selected = allCandidates[0] ?? null;
     await shots.capture("failed");
     return {
       ok: false,

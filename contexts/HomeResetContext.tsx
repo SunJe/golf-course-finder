@@ -20,6 +20,7 @@ type ResetHomeFn = () => void;
 interface HomeResetContextValue {
   registerHomeReset: (fn: ResetHomeFn) => () => void;
   goHome: (event?: MouseEvent<HTMLElement>) => void;
+  resetCurrentView: () => void;
 }
 
 const HomeResetContext = createContext<HomeResetContextValue | null>(null);
@@ -45,6 +46,11 @@ export function HomeResetProvider({ children }: { children: ReactNode }) {
       markHomeResetPending();
       clearHomeUrlState();
 
+      if (pathname === "/map") {
+        router.push("/");
+        return;
+      }
+
       if (pathname === "/") {
         resetRef.current?.();
         clearHomeResetPending();
@@ -56,8 +62,16 @@ export function HomeResetProvider({ children }: { children: ReactNode }) {
     [pathname, router],
   );
 
+  const resetCurrentView = useCallback(() => {
+    clearHomeUrlState();
+    resetRef.current?.();
+    clearHomeResetPending();
+  }, []);
+
   return (
-    <HomeResetContext.Provider value={{ registerHomeReset, goHome }}>
+    <HomeResetContext.Provider
+      value={{ registerHomeReset, goHome, resetCurrentView }}
+    >
       {children}
     </HomeResetContext.Provider>
   );

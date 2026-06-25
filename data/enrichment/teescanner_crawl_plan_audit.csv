@@ -1,0 +1,533 @@
+﻿row_index,id,name,change_name_to,primary_search_term,fallback_search_term,existing_price_min,existing_price_max,will_crawl,reason
+1,gc-9b37cfc9caa8,뉴스프링빌골프장(대중형),뉴스프링빌CC,뉴스프링빌,뉴스프링빌골프장(대중형),,,yes,included_in_csv_row_order
+2,gc-1f14d0ca89b4,가산CC,가산CC,가산,가산CC,,,yes,included_in_csv_row_order
+3,gc-a862e6d054f2,빅토리아일반대중골프장,빅토리아GC,빅토리아,빅토리아일반대중골프장,,,yes,included_in_csv_row_order
+4,gc-15dd2e00d6c7,오펠골프클럽,군위오펠GC,군위오펠,오펠골프클럽,,,yes,included_in_csv_row_order
+5,gc-9a7cb8103191,오크밸리회원제골프장,오크밸리CC,오크밸리,오크밸리회원제골프장,,,yes,included_in_csv_row_order
+6,gc-7b4833dc4475,월송리 컨트리클럽,월송리CC,월송리,월송리 컨트리클럽,,,yes,included_in_csv_row_order
+7,gc-40bd08295048,Oak Hills컨트리클럽,오크힐스CC,오크힐스,Oak Hills컨트리클럽,,,yes,included_in_csv_row_order
+8,gc-120fdf5098ca,센추리21컨트리클럽Ⅱ,센추리21CC,센추리21,센추리21컨트리클럽Ⅱ,,,yes,included_in_csv_row_order
+9,gc-d2426892b3a5,센추리21퍼블릭,센추리21CC(퍼블릭),센추리21,센추리21퍼블릭,,,yes,included_in_csv_row_order
+10,gc-e9127c84ddf1,소노펠리체 컨트리클럽 비발디파크 웨스트,소노펠리체CC 비발디파크 WEST,소노펠리체CC 비발디파크 WEST,소노펠리체 컨트리클럽 비발디파크 웨스트,,,yes,included_in_csv_row_order
+11,gc-56adaea8c265,소노펠리체 컨트리클럽 비발디파크 마운틴,소노펠리체CC 비발디파크 MOUNTAIN,소노펠리체CC 비발디파크 MOUNTAIN,소노펠리체 컨트리클럽 비발디파크 마운틴,,,yes,included_in_csv_row_order
+12,gc-67d0f65e6b2d,설해원더 레전드 코스,설해원,설해원,설해원더 레전드 코스,,,yes,included_in_csv_row_order
+13,gc-e684f84c8fa4,레이크사이드CC(대중제),레이크사이드CC(퍼블릭),레이크사이드,레이크사이드CC(대중제),,,yes,included_in_csv_row_order
+14,gc-0c833ff6d95f,블루원용인CC(회원제),블루원용인CC(회원제),블루원용인,블루원용인CC(회원제),,,yes,included_in_csv_row_order
+15,gc-bcdfbfe815c7,비에이비스타골프장(회원),비에이비스타CC(회원제),비에이비스타,비에이비스타골프장(회원),,,yes,included_in_csv_row_order
+16,gc-9de1c40fef77,블랙스톤골프장(대중형),"블랙스톤CC(퍼블릭, 서코스)",블랙스톤,블랙스톤골프장(대중형),197000,258000,yes,included_in_csv_row_order_even_with_existing_price
+17,gc-9d709ff43c33,몽베르 컨트리클럽(비회원제),몽베르CC(퍼블릭),몽베르,몽베르 컨트리클럽(비회원제),160000,280000,yes,included_in_csv_row_order_even_with_existing_price
+18,gc-8a797fe2213a,금강컨트리클럽(회원),금강CC(회원제),금강,금강컨트리클럽(회원),,,yes,included_in_csv_row_order
+19,gc-3f6cace5bf14,금강컨트리클럽(대중),"금강CC(퍼블릭, 동코스)",금강,금강컨트리클럽(대중),,,yes,included_in_csv_row_order
+20,gc-6259847b3bba,스카이밸리골프장(비회원),스카이밸리CC(퍼블릭),스카이밸리,스카이밸리골프장(비회원),,,yes,included_in_csv_row_order
+21,gc-6b7f785d4813,힐스카이C.C,힐스카이CC,힐스카이,힐스카이C.C,90000,145000,yes,included_in_csv_row_order_even_with_existing_price
+22,gc-9adfe4aa2a07,안동리버힐C.C,안동리버힐CC,안동리버힐,안동리버힐C.C,90000,145000,yes,included_in_csv_row_order_even_with_existing_price
+23,gc-1730ca5fe304,뉴스프링빌Ⅱ,뉴스프링빌2CC,뉴스프링빌2,뉴스프링빌Ⅱ,130000,200000,yes,included_in_csv_row_order_even_with_existing_price
+24,gc-5607a255716b,파라지오C.C,파라지오CC,파라지오,파라지오C.C,,,yes,included_in_csv_row_order
+25,gc-66dd9ef01893,파미힐스C.C,파미힐스CC,파미힐스,파미힐스C.C,,,yes,included_in_csv_row_order
+26,gc-3d725200e925,울산골프장,울산CC,울산,울산골프장,110000,220000,yes,included_in_csv_row_order_even_with_existing_price
+27,gc-dfddaf985536,순천CC,순천CC,순천,순천CC,50000,80000,yes,included_in_csv_row_order_even_with_existing_price
+28,gc-a6fee0f415b7,화순CC,화순CC,화순,화순CC,80000,190000,yes,included_in_csv_row_order_even_with_existing_price
+29,gc-7c044b23d1a4,에스지아름다운골프&리조트,SG아름다운골프&리조트,SG아름다운골프&,에스지아름다운골프&리조트,,,yes,included_in_csv_row_order
+30,gc-41c9fac17790,㈜호텔롯데 스카이힐 부여CC,롯데스카이힐부여CC,롯데스카이힐부여,㈜호텔롯데 스카이힐 부여CC,135000,250000,yes,included_in_csv_row_order_even_with_existing_price
+31,gc-98e3f829ab99,힐마루컨트리클럽 (대중제),힐마루CC(퍼블릭),힐마루,힐마루컨트리클럽 (대중제),100000,160000,yes,included_in_csv_row_order_even_with_existing_price
+32,gc-43ee7ee149ba,오션힐스포항C.C (대중제),오션힐스 포항CC,오션힐스 포항,오션힐스포항C.C (대중제),130000,230000,yes,included_in_csv_row_order_even_with_existing_price
+33,gc-7ef835cc44ce,엘리시안제주 (회원제),엘리시안제주(회원제),엘리시안제주,엘리시안제주 (회원제),,,yes,included_in_csv_row_order
+34,gc-57d2cac587d2,에버리스CC (대중제),에버리스GR(퍼블릭),에버리스GR,에버리스CC (대중제),130000,160000,yes,included_in_csv_row_order_even_with_existing_price
+35,gc-8c893fc692ea,캐슬렉스제주 (대중제),캐슬렉스제주(퍼블릭),캐슬렉스제주,캐슬렉스제주 (대중제),65000,80000,yes,included_in_csv_row_order_even_with_existing_price
+36,gc-a34d1218714a,해비치CC (대중제),해비치CC(퍼블릭),해비치,해비치CC (대중제),110000,212000,yes,included_in_csv_row_order_even_with_existing_price
+37,gc-ae905ec6b25f,소노펠리체 컨트리클럽 비발디파크 이스트,소노펠리체CC 비발디파크 EAST,소노펠리체CC 비발디파크 EAST,소노펠리체 컨트리클럽 비발디파크 이스트,190000,210000,yes,included_in_csv_row_order_even_with_existing_price
+38,gc-ec8024eb7955,웰리힐리퍼블릭,웰리힐리CC,웰리힐리,웰리힐리퍼블릭,120000,200000,yes,included_in_csv_row_order_even_with_existing_price
+39,gc-07b4c0178c39,블루헤런G.C,블루헤런GC,블루헤런,블루헤런G.C,,,yes,included_in_csv_row_order
+40,gc-69fe3eb3e177,사우스케이프오너스클럽,사우스케이프CC,사우스케이프,사우스케이프오너스클럽,,,yes,included_in_csv_row_order
+41,gc-cd6b63162f39,거창친환경대중골프장,거창CC,거창,거창친환경대중골프장,,,yes,included_in_csv_row_order
+42,gc-a1d37ac059d4,경주C.C,경주CC,경주,경주C.C,140000,170000,yes,included_in_csv_row_order_even_with_existing_price
+43,gc-130f7b88bcf3,우리G.C,우리GC,우리,우리G.C,40000,65000,yes,included_in_csv_row_order_even_with_existing_price
+44,gc-29c208d17553,오션힐스청도G.C,오션힐스 청도GC,오션힐스 청도,오션힐스청도G.C,180000,230000,yes,included_in_csv_row_order_even_with_existing_price
+45,gc-2159121d90f9,에콜리안광산골프장,광산CC,광산,에콜리안광산골프장,30000,40000,yes,included_in_csv_row_order_even_with_existing_price
+46,gc-b0d53a657195,클럽72(바다),클럽72CC,클럽72,클럽72(바다),,,yes,included_in_csv_row_order
+47,gc-a7bb99a4bcec,클럽72(하늘),클럽72CC(하늘),클럽72CC(하늘),클럽72(하늘),,,yes,included_in_csv_row_order
+48,gc-d5a6f91a588a,다산베아채골프&리조트,다산베아채골프&리조트,다산베아채골프&,다산베아채골프&리조트,85000,185000,yes,included_in_csv_row_order_even_with_existing_price
+49,gc-c8fc5eccf7b9,천지CC,함평천지CC,함평천지,천지CC,50000,85000,yes,included_in_csv_row_order_even_with_existing_price
+50,gc-606fb4b33249,떼제베운영,올데이청주떼제베,올데이청주떼제베,떼제베운영,120000,150000,yes,included_in_csv_row_order_even_with_existing_price
+51,gc-97d5d758dc31,블랙스톤cc,블랙스톤CC,블랙스톤,블랙스톤cc,250000,330000,yes,included_in_csv_row_order_even_with_existing_price
+52,gc-ce976348ba8f,아난티클럽제주 (대중제),아난티클럽제주(퍼블릭),아난티클럽제주,아난티클럽제주 (대중제),,,yes,included_in_csv_row_order
+53,gc-4d1cbdf3ceb2,롯데스카이힐제주 (대중제),롯데스카이힐제주CC,롯데스카이힐제주,롯데스카이힐제주 (대중제),110000,180000,yes,included_in_csv_row_order_even_with_existing_price
+54,gc-ae299d74ffe4,여수시티파크골프&호텔,여수시티파크리조트골프장,여수시티파크리조트,여수시티파크골프&호텔,100000,140000,yes,included_in_csv_row_order_even_with_existing_price
+55,gc-b768a2002431,메이플비치골프&리조트,메이플비치골프앤리조트 CC,메이플비치골프앤리조트,메이플비치골프&리조트,120000,180000,yes,included_in_csv_row_order_even_with_existing_price
+56,gc-e6edfdd39527,O2리조트 퍼블릭골프장,오투리조트CC,오투리조트,O2리조트 퍼블릭골프장,100000,150000,yes,included_in_csv_row_order_even_with_existing_price
+57,gc-fac50b03683e,벨라45 오너스 컨트리클럽,벨라45 컨트리클럽,벨라45,벨라45 오너스 컨트리클럽,150000,230000,yes,included_in_csv_row_order_even_with_existing_price
+58,gc-11423b427515,용평리조트골프클럽,,용평리조트,용평리조트골프클럽,,,yes,included_in_csv_row_order
+59,gc-1e4b4a02117e,용평버치힐골프클럽,,용평버치힐,용평버치힐골프클럽,,,yes,included_in_csv_row_order
+60,gc-07cd3007c683,용평리조트대중골프장,,용평리조트대중,용평리조트대중골프장,,,yes,included_in_csv_row_order
+61,gc-4af8a2f8ed32,플라자CC,플라자CC 용인,플라자CC 용인,플라자CC,220000,290000,yes,included_in_csv_row_order_even_with_existing_price
+62,gc-9da6f2a0f2d9,태광컨트리클럽(회원제),태광CC(회원제),태광,태광컨트리클럽(회원제),260000,300000,yes,included_in_csv_row_order_even_with_existing_price
+63,gc-3d63d3179c0f,태광컨트리클럽(대중제),태광CC(퍼블릭),태광,태광컨트리클럽(대중제),199000,259000,yes,included_in_csv_row_order_even_with_existing_price
+64,gc-0f218a599984,국가보훈부 88골프장,88CC,88,국가보훈부 88골프장,210000,260000,yes,included_in_csv_row_order_even_with_existing_price
+65,gc-588d348bc962,레이크사이드CC(회원제),레이크사이드CC(회원제),레이크사이드,레이크사이드CC(회원제),,,yes,included_in_csv_row_order
+66,gc-2ef4e18d677b,블루원용인CC(비회원제),블루원용인CC(퍼블릭),블루원용인,블루원용인CC(비회원제),,,yes,included_in_csv_row_order
+67,gc-4487ee52808c,코리아대중CC,코리아퍼블릭CC,코리아퍼블릭,코리아대중CC,55000,80000,yes,included_in_csv_row_order_even_with_existing_price
+68,gc-4687a4044d34,지산퍼블릭,지산퍼블릭,지산퍼블릭,지산퍼블릭,50000,65000,yes,included_in_csv_row_order_even_with_existing_price
+69,gc-8fbc2ee961a0,고양컨트리클럽,고양컨트리클럽,고양,고양컨트리클럽,,,yes,included_in_csv_row_order
+70,gc-a80360466b97,1·2·3 골프장,123골프클럽,123,1·2·3 골프장,,,yes,included_in_csv_row_order
+71,gc-ccb45b4f27e1,발리오스컨트리클럽(회원제),발리오스CC(회원제),발리오스,발리오스컨트리클럽(회원제),230000,300000,yes,included_in_csv_row_order_even_with_existing_price
+72,gc-2db2d6cad688,발리오스컨트리클럽(비회원제),"발리오스CC(퍼블릭, 남코스)",발리오스,발리오스컨트리클럽(비회원제),115000,150000,yes,included_in_csv_row_order_even_with_existing_price
+73,gc-4905c6ca9b75,화성 상록G.C,화성상록GC,화성상록,화성 상록G.C,,,yes,included_in_csv_row_order
+74,gc-73a2a3982c35,광릉CC(회원제),한림광릉CC(회원제),한림광릉,광릉CC(회원제),,,yes,included_in_csv_row_order
+75,gc-66517960c8f8,광릉CC(비회원제),한림광릉CC(퍼블릭),한림광릉,광릉CC(비회원제),,,yes,included_in_csv_row_order
+76,gc-63e74643a178,더헤븐 컨트리클럽,더헤븐CC,더헤븐,더헤븐 컨트리클럽,,,yes,included_in_csv_row_order
+77,gc-81becbdb274e,파주 J-Public 골프장,파주제이퍼블릭골프클럽,파주제이퍼블릭,파주 J-Public 골프장,63700,95500,yes,included_in_csv_row_order_even_with_existing_price
+78,gc-34f4d067cfc2,파주컨트리클럽,원더클럽 파주CC,원더클럽 파주,파주컨트리클럽,,,yes,included_in_csv_row_order
+79,gc-9eb46dae9c9d,타이거CC 골프장,타이거CC,타이거,타이거CC 골프장,130000,240000,yes,included_in_csv_row_order_even_with_existing_price
+80,gc-f2cf5d51eba9,레이크우드 골프장(회원제),레이크우드CC(회원제),레이크우드,레이크우드 골프장(회원제),,,yes,included_in_csv_row_order
+81,gc-310ce4be2e54,레이크우드 골프장(비회원제),레이크우드CC(퍼블릭),레이크우드,레이크우드 골프장(비회원제),,,yes,included_in_csv_row_order
+82,gc-2f2cc6b9afe3,비에이비스타컨트리클럽(비회원),비에이비스타CC(퍼블릭),비에이비스타,비에이비스타컨트리클럽(비회원),,,yes,included_in_csv_row_order
+83,gc-06bb9165507c,사우스스프링스C.C,사우스스프링스CC,사우스스프링스,사우스스프링스C.C,200000,250000,yes,included_in_csv_row_order_even_with_existing_price
+84,gc-014659dabae9,블랙스톤골프장(회원제),블랙스톤CC,블랙스톤,블랙스톤골프장(회원제),,,yes,included_in_csv_row_order
+85,gc-403c1dbe574a,이천실크밸리골프클럽,이천실크밸리GC,이천실크밸리,이천실크밸리골프클럽,,,yes,included_in_csv_row_order
+86,gc-fde386e28664,마이다스레이크 이천 골프&리조트,마이다스레이크 이천 골프앤리조트,마이다스레이크 이천 골프앤,마이다스레이크 이천 골프&리조트,,,yes,included_in_csv_row_order
+87,gc-cd449267e87f,파인크리크C.C,파인크리크CC,파인크리크,파인크리크C.C,,,yes,included_in_csv_row_order
+88,gc-adc16ee54b54,안성컨트리클럽,안성CC,안성,안성컨트리클럽,,,yes,included_in_csv_row_order
+89,gc-4884a38f1896,포천아도니스 C.C,포천아도니스CC,포천아도니스,포천아도니스 C.C,,,yes,included_in_csv_row_order
+90,gc-e2614722e86e,포천아도니스 대중골프장,포천아도니스CC 퍼블릭,포천아도니스CC 퍼블릭,포천아도니스 대중골프장,,,yes,included_in_csv_row_order
+91,gc-1914b4243487,몽베르 컨트리클럽(회원제),몽베르CC(회원제),몽베르,몽베르 컨트리클럽(회원제),,,yes,included_in_csv_row_order
+92,gc-d569726d2503,일동레이크대중제골프장,일동레이크GC,일동레이크,일동레이크대중제골프장,,,yes,included_in_csv_row_order
+93,gc-51bfec26aa96,자유컨트리클럽,자유CC,자유,자유컨트리클럽,,,yes,included_in_csv_row_order
+94,gc-61ba4f976442,렉스필드 컨트리클럽(회원),렉스필드CC(회원제),렉스필드,렉스필드 컨트리클럽(회원),,,yes,included_in_csv_row_order
+95,gc-657d8f5d1426,렉스필드 컨트리클럽(비회원),렉스필드CC(퍼블릭),렉스필드,렉스필드 컨트리클럽(비회원),,,yes,included_in_csv_row_order
+96,gc-ddb3947686d1,스카이밸리골프장(회원),스카이밸리CC(회원제),스카이밸리,스카이밸리골프장(회원),,,yes,included_in_csv_row_order
+97,gc-2cf253808f7a,캐슬파인골프클럽,캐슬파인GC,캐슬파인,캐슬파인골프클럽,,,yes,included_in_csv_row_order
+98,gc-d14f87b6bb30,썬힐G.C,썬힐GC,썬힐,썬힐G.C,,,yes,included_in_csv_row_order
+99,gc-aa2c41b33610,아난티클럽서울,아난티클럽서울,아난티클럽서울,아난티클럽서울,,,yes,included_in_csv_row_order
+100,gc-a8d0095f2145,가평 베네스트G.C,가평 베네스트GC,가평 베네스트,가평 베네스트G.C,,,yes,included_in_csv_row_order
+101,gc-8503021b2f0d,리앤리C.C,리앤리CC,리앤리,리앤리C.C,,,yes,included_in_csv_row_order
+102,gc-68d69c3be5e4,에덴밸리컨트리클럽,골프존카운티 이든,골프존카운티 이든,에덴밸리컨트리클럽,,,yes,included_in_csv_row_order
+103,gc-60336c4fc30b,고성노벨컨트리클럽,노벨컨트리클럽,노벨,고성노벨컨트리클럽,,,yes,included_in_csv_row_order
+104,gc-dd8a710bd41c,청하이스턴C.C,이스턴CC,이스턴,청하이스턴C.C,,,yes,included_in_csv_row_order
+105,gc-4fc6d117b7f4,경주신라C.C,경주신라CC,경주신라,경주신라C.C,,,yes,included_in_csv_row_order
+106,gc-4826ba3e38b9,마우나오션C.C,마우나오션CC,마우나오션,마우나오션C.C,,,yes,included_in_csv_row_order
+107,gc-16c25d6f3f20,마우나오션블루,마우나오션CC,마우나오션,마우나오션블루,,,yes,included_in_csv_row_order
+108,gc-eb9124b06908,가든골프클럽,코오롱호텔 가든 골프장,코오롱호텔 가든,가든골프클럽,,,yes,included_in_csv_row_order
+109,gc-881d18bae24f,디아너스C.C,강동디아너스CC,강동디아너스,디아너스C.C,,,yes,included_in_csv_row_order
+110,gc-e67c48835b2a,선리치G.C,선리치골프클럽,선리치,선리치G.C,,,yes,included_in_csv_row_order
+111,gc-d69bb1cfadc7,이스트힐C.C,이스트힐컨트리클럽,이스트힐,이스트힐C.C,,,yes,included_in_csv_row_order
+112,gc-bd2c2f813e31,애플밸리C.C,애플밸리CC,애플밸리,애플밸리C.C,,,yes,included_in_csv_row_order
+113,gc-1e3e002ab2ce,포도C.C,김천포도CC,김천포도,포도C.C,,,yes,included_in_csv_row_order
+114,gc-8894492ab1a6,남안동C.C,남안동CC,남안동,남안동C.C,,,yes,included_in_csv_row_order
+115,gc-ddc7e02567ba,구미C.C,구미CC,구미,구미C.C,,,yes,included_in_csv_row_order
+116,gc-f7e7bf534d31,영천C.C,오션힐스 영천CC,오션힐스 영천,영천C.C,,,yes,included_in_csv_row_order
+117,gc-206bb0d5628c,시엘G.C,시엘GC,시엘,시엘G.C,,,yes,included_in_csv_row_order
+118,gc-77f7a5893fb0,문경레저타운골프장,문경GC,문경,문경레저타운골프장,,,yes,included_in_csv_row_order
+119,gc-fe29a1584040,대구C.C,대구컨트리클럽,대구,대구C.C,,,yes,included_in_csv_row_order
+120,gc-c781c317ede3,오션비치C.C,오션비치 골프앤리조트,오션비치 골프앤,오션비치C.C,,,yes,included_in_csv_row_order
+121,gc-911caf331754,그레이스C.C,그레이스CC,그레이스,그레이스C.C,,,yes,included_in_csv_row_order
+122,gc-0665bc0c6cce,유니밸리C.C,고령유니밸리CC,고령유니밸리,유니밸리C.C,,,yes,included_in_csv_row_order
+123,gc-e2e76f635c4a,세븐밸리C.C,세븐밸리CC,세븐밸리,세븐밸리C.C,,,yes,included_in_csv_row_order
+124,gc-bc41a2489944,칠곡아이위시C.C,칠곡아이위시CC,칠곡아이위시,칠곡아이위시C.C,80000,140000,yes,included_in_csv_row_order_even_with_existing_price
+125,gc-7b483fb0f2d1,이지스카이컨트리클럽,이지스카이 골프클럽,이지스카이,이지스카이컨트리클럽,,,yes,included_in_csv_row_order
+126,gc-4906278997cc,대덕복지센터,사이언스대덕골프장,사이언스대덕,대덕복지센터,,,yes,included_in_csv_row_order
+127,gc-de756338755f,해라컨트리클럽,해라CC,해라,해라컨트리클럽,,,yes,included_in_csv_row_order
+128,gc-9407b216837c,더골프골프장,골프존카운티 더골프,골프존카운티 더골프,더골프골프장,,,yes,included_in_csv_row_order
+129,gc-349a94f1be3f,세이지우드 여수경도,세이지우드CC 여수경도,세이지우드CC 여수경도,세이지우드 여수경도,,,yes,included_in_csv_row_order
+130,gc-dcb20414b48e,나주CC,나주CC,나주,나주CC,,,yes,included_in_csv_row_order
+131,gc-050aa8bd6c6f,오시아노골프클럽,파인비치,파인비치,오시아노골프클럽,,,yes,included_in_csv_row_order
+132,gc-5085ddf672a6,cosmos 1,코스모스링스(폐업),코스모스링스(폐업),cosmos 1,,,yes,included_in_csv_row_order
+133,gc-3355d2573fd4,에콜리안영광골프장,에콜리안영광CC,에콜리안영광,에콜리안영광골프장,,,yes,included_in_csv_row_order
+134,gc-667fefd06c3f,푸른솔 골프클럽,푸른솔GC 장성,푸른솔GC 장성,푸른솔 골프클럽,,,yes,included_in_csv_row_order
+135,gc-14ba1ad9ac28,군산CC,군산CC,군산,군산CC,,,yes,included_in_csv_row_order
+136,gc-7e17709a629a,상떼힐CC,익산컨트리클럽,익산,상떼힐CC,,,yes,included_in_csv_row_order
+137,gc-236bf8a0310c,에스페란사GC,에스페란사GC,에스페란사,에스페란사GC,35000,40000,yes,included_in_csv_row_order_even_with_existing_price
+138,gc-6d34f609ed90,금과골프장,금과골프장,금과,금과골프장,,,yes,included_in_csv_row_order
+139,gc-fd40b7bf3b76,디케이레저,순창CC,순창,디케이레저,,,yes,included_in_csv_row_order
+140,gc-7d2ed71b8086,그린필드GC,그린필드GC,그린필드,그린필드GC,137000,167000,yes,included_in_csv_row_order_even_with_existing_price
+141,gc-7860808d29d1,테디밸리,테디밸리CC,테디밸리,테디밸리,,,yes,included_in_csv_row_order
+142,gc-cf50ab88350d,㈜그랜드부민 꿈드림목장,제주힐CC(폐업),제주힐CC(폐업),㈜그랜드부민 꿈드림목장,,,yes,included_in_csv_row_order
+143,gc-ad576aa399b4,아덴힐,아덴힐CC,아덴힐,아덴힐,,,yes,included_in_csv_row_order
+144,gc-baa4851e3f89,플라자CC,플라자CC 제주,플라자CC 제주,플라자CC,,,yes,included_in_csv_row_order
+145,gc-2372496c2665,스프링데일,스프링데일CC,스프링데일,스프링데일,,,yes,included_in_csv_row_order
+146,gc-af1917ce6948,샤인빌파크CC,샤인빌파크 컨트리클럽,샤인빌파크,샤인빌파크CC,,,yes,included_in_csv_row_order
+147,gc-46caa66a0c89,골드리버CC,골드리버CC,골드리버,골드리버CC,,,yes,included_in_csv_row_order
+148,gc-25f812ff383a,계룡산골프장,계룡산골프클럽,계룡산,계룡산골프장,,,yes,included_in_csv_row_order
+149,gc-5df84bcc3bd5,플라밍고C.C,플라밍고CC,플라밍고,플라밍고C.C,,,yes,included_in_csv_row_order
+150,gc-b21ce78f76ca,골든베이골프&리조트,골든베이골프앤리조트,골든베이골프앤,골든베이골프&리조트,,,yes,included_in_csv_row_order
+151,gc-2abf3143e489,스톤비치컨트리클럽,스톤비치컨트리클럽,스톤비치,스톤비치컨트리클럽,60000,120000,yes,included_in_csv_row_order_even_with_existing_price
+152,gc-d0e3ce523b5f,레인보우힐스,레인보우힐스CC,레인보우힐스,레인보우힐스,,,yes,included_in_csv_row_order
+153,gc-c5f55ef01f20,로얄포레cc,로얄포레cc,로얄포레,로얄포레cc,69000,139000,yes,included_in_csv_row_order_even_with_existing_price
+154,gc-ab79864b5bdf,모나크cc,모나크CC,모나크,모나크cc,,,yes,included_in_csv_row_order
+155,gc-5384133fb9bc,가야컨트리클럽 (회원제),가야CC(회원제),가야,가야컨트리클럽 (회원제),,,yes,included_in_csv_row_order
+156,gc-9bd0f98bfdee,가야컨트리클럽 (대중제),가야CC(퍼블릭),가야,가야컨트리클럽 (대중제),,,yes,included_in_csv_row_order
+157,gc-49a45667bbb1,힐마루컨트리클럽 (회원제),힐마루CC(회원제),힐마루,힐마루컨트리클럽 (회원제),,,yes,included_in_csv_row_order
+158,gc-1636db0b5c9f,오션힐스포항C.C (회원제),오션힐스 포항CC(회원제),오션힐스 포항,오션힐스포항C.C (회원제),130000,230000,yes,included_in_csv_row_order_even_with_existing_price
+159,gc-28ff72e3fac8,서라벌G.C,서라벌GC,서라벌,서라벌G.C,100000,180000,yes,included_in_csv_row_order_even_with_existing_price
+160,gc-783a937fe067,엠스클럽의성,엠스클럽 의성 CC,엠스클럽 의성,엠스클럽의성,110000,170000,yes,included_in_csv_row_order_even_with_existing_price
+161,gc-044a801a85d5,골드레이크CC (대중제),골드레이크CC (퍼블릭),골드레이크,골드레이크CC (대중제),85000,200000,yes,included_in_csv_row_order_even_with_existing_price
+162,gc-990342c1d90c,골드레이크CC (회원제),골드레이크CC (회원제),골드레이크,골드레이크CC (회원제),85000,200000,yes,included_in_csv_row_order_even_with_existing_price
+163,gc-660ffc0f1f8d,해피니스CC (회원제),해피니스CC,해피니스,해피니스CC (회원제),65000,165000,yes,included_in_csv_row_order_even_with_existing_price
+164,gc-7c780d37c946,태인CC,태인CC(18홀),태인CC(18홀),태인CC,100000,175000,yes,included_in_csv_row_order_even_with_existing_price
+165,gc-48b0d3b9c2cb,엘리시안제주 (대중제),엘리시안제주(퍼블릭),엘리시안제주,엘리시안제주 (대중제),,,yes,included_in_csv_row_order
+166,gc-81f3ec25ee6f,에버리스CC (회원제),에버리스GR(회원제),에버리스GR,에버리스CC (회원제),130000,160000,yes,included_in_csv_row_order_even_with_existing_price
+167,gc-404df8588434,아난티클럽제주 (회원제),아난티클럽제주(회원제),아난티클럽제주,아난티클럽제주 (회원제),,,yes,included_in_csv_row_order
+168,gc-0654fd7fa764,캐슬렉스제주 (회원제),캐슬렉스제주(회원제),캐슬렉스제주,캐슬렉스제주 (회원제),200000,270000,yes,included_in_csv_row_order_even_with_existing_price
+169,gc-e51deb9a5cbf,해비치CC (회원제),해비치CC(회원제),해비치,해비치CC (회원제),110000,212000,yes,included_in_csv_row_order_even_with_existing_price
+170,gc-834f306ba4e2,롯데스카이힐제주 (회원제),롯데스카이힐제주CC(회원제),롯데스카이힐제주,롯데스카이힐제주 (회원제),110000,180000,yes,included_in_csv_row_order_even_with_existing_price
+171,gc-85e4c645a34a,사이프러스골프 (회원제),사이프러스 골프앤리조트(회원제),사이프러스 골프앤,사이프러스골프 (회원제),145000,200000,yes,included_in_csv_row_order_even_with_existing_price
+172,gc-4365b50502ef,사이프러스골프 (대중제),사이프러스 골프앤리조트(퍼블릭),사이프러스 골프앤,사이프러스골프 (대중제),,,yes,included_in_csv_row_order
+173,gc-029535a99281,나인브릿지 (회원제),나인브릿지CC(회원제),나인브릿지,나인브릿지 (회원제),,,yes,included_in_csv_row_order
+174,gc-41a0194846f8,SK핀크스 (회원제),핀크스GC(회원제),핀크스,SK핀크스 (회원제),,,yes,included_in_csv_row_order
+175,gc-b825d1073c5d,SK핀크스 (대중제),핀크스GC(퍼블릭),핀크스,SK핀크스 (대중제),,,yes,included_in_csv_row_order
+176,gc-18f9f355721d,라데나골프클럽,,라데나,라데나골프클럽,250000,270000,yes,included_in_csv_row_order_even_with_existing_price
+177,gc-669d8ad13333,엘리시안 강촌컨트리클럽,엘리시안강촌CC,엘리시안강촌,엘리시안 강촌컨트리클럽,,,yes,included_in_csv_row_order
+178,gc-5acca8d60a68,제이드팰리스 골프클럽,,제이드팰리스,제이드팰리스 골프클럽,,,yes,included_in_csv_row_order
+179,gc-fa1419df8b1e,남춘천컨트리클럽,남춘천CC,남춘천,남춘천컨트리클럽,,,yes,included_in_csv_row_order
+180,gc-3526f59318a4,휘슬링락컨트리클럽,휘슬링락CC,휘슬링락,휘슬링락컨트리클럽,,,yes,included_in_csv_row_order
+181,gc-3ae54b5361c3,오너스골프클럽,오너스GC,오너스,오너스골프클럽,150000,250000,yes,included_in_csv_row_order_even_with_existing_price
+182,gc-9e436bbbf364,파가니카컨트리클럽,세레니티강촌CC,세레니티강촌,파가니카컨트리클럽,,,yes,included_in_csv_row_order
+183,gc-6b8298356e4e,로드힐스골프클럽,,로드힐스,로드힐스골프클럽,,,yes,included_in_csv_row_order
+184,gc-a78a36b9d428,라비에벨컨트리클럽,라비에벨CC,라비에벨,라비에벨컨트리클럽,,,yes,included_in_csv_row_order
+185,gc-d7a401a860d3,베어크리크 춘천,,베어크리크 춘천,베어크리크 춘천,,,yes,included_in_csv_row_order
+186,gc-920a66bac706,센추리21컨트리클럽,센추리21CC,센추리21,센추리21컨트리클럽,,,yes,included_in_csv_row_order
+187,gc-52110494ceac,파크밸리골프클럽,파크밸리GC,파크밸리,파크밸리골프클럽,129000,149000,yes,included_in_csv_row_order_even_with_existing_price
+188,gc-cbe46e8a03a2,인터불고원주골프클럽,인터불고원주GC,인터불고원주,인터불고원주골프클럽,30000,119000,yes,included_in_csv_row_order_even_with_existing_price
+189,gc-aca146079a3b,오로라 골프 앤 리조트,오로라cc,오로라,오로라 골프 앤 리조트,,,yes,included_in_csv_row_order
+190,gc-076abf5ece38,샌드파인골프클럽,샌드파인GC,샌드파인,샌드파인골프클럽,,,yes,included_in_csv_row_order
+191,gc-5b16502994d3,O2리조트 골프장,오투리조트CC,오투리조트,O2리조트 골프장,,,yes,included_in_csv_row_order
+192,gc-716535d8799a,설악프라자컨트리클럽,플라자CC 설악,플라자CC 설악,설악프라자컨트리클럽,168000,168000,yes,included_in_csv_row_order_even_with_existing_price
+193,gc-d4f47a219511,영랑호컨트리클럽,영랑호CC,영랑호,영랑호컨트리클럽,,,yes,included_in_csv_row_order
+194,gc-5d96ff075544,파인밸리컨트리클럽,파인밸리CC,파인밸리,파인밸리컨트리클럽,145000,145000,yes,included_in_csv_row_order_even_with_existing_price
+195,gc-788ff880fb4f,블랙밸리컨트리클럽,블랙밸리CC,블랙밸리,블랙밸리컨트리클럽,90000,130000,yes,included_in_csv_row_order_even_with_existing_price
+196,gc-3447dbe87ddc,비콘힐스골프클럽,비콘힐스cc,비콘힐스,비콘힐스골프클럽,135000,155000,yes,included_in_csv_row_order_even_with_existing_price
+197,gc-d7beeda963dd,힐드로사이컨트리클럽,힐드로사이CC,힐드로사이,힐드로사이컨트리클럽,220000,240000,yes,included_in_csv_row_order_even_with_existing_price
+198,gc-8322ca96ec3b,세이지우드CC홍천,세이지우드CC 홍천,세이지우드CC 홍천,세이지우드CC홍천,,,yes,included_in_csv_row_order
+199,gc-690b34d2b582,샤인데일골프&리조트,샤인데일CC,샤인데일,샤인데일골프&리조트,160000,210000,yes,included_in_csv_row_order_even_with_existing_price
+200,gc-568fcaa60a5e,카스카디아 골프클럽,카스카디아cc,카스카디아,카스카디아 골프클럽,280000,360000,yes,included_in_csv_row_order_even_with_existing_price
+201,gc-bbf51fd6cc91,웰리힐리컨트리클럽,웰리힐리CC,웰리힐리,웰리힐리컨트리클럽,120000,200000,yes,included_in_csv_row_order_even_with_existing_price
+202,gc-e494f9e1ff69,동원썬밸리컨트리클럽,동원썬밸리CC,동원썬밸리,동원썬밸리컨트리클럽,,,yes,included_in_csv_row_order
+203,gc-17aba5f4eb83,알프스대영컨트리클럽,알프스대영cc,알프스대영,알프스대영컨트리클럽,,,yes,included_in_csv_row_order
+204,gc-43114c6913bc,벨라스톤컨트리클럽,벨라스톤cc,벨라스톤,벨라스톤컨트리클럽,149000,189000,yes,included_in_csv_row_order_even_with_existing_price
+205,gc-535182f1f0fa,올데이 옥스필드,옥스필드CC,옥스필드,올데이 옥스필드,89000,169000,yes,included_in_csv_row_order_even_with_existing_price
+206,gc-908385d35939,동강시스타 골프장,동강시스타CC네이버페이,동강시스타CC네이버페이,동강시스타 골프장,80000,160000,yes,included_in_csv_row_order_even_with_existing_price
+207,gc-98e23645d4c7,휘닉스 컨트리클럽,휘닉스 CC,휘닉스,휘닉스 컨트리클럽,150000,240000,yes,included_in_csv_row_order_even_with_existing_price
+208,gc-716264430902,태기산 나인CC,,태기산 나인,태기산 나인CC,,,yes,included_in_csv_row_order
+209,gc-2b5762bfc60c,알펜시아컨트리클럽,알펜시아cc,알펜시아,알펜시아컨트리클럽,,,yes,included_in_csv_row_order
+210,gc-88fd5807de80,알펜시아 700골프클럽,알펜시아 700cc,알펜시아 700,알펜시아 700골프클럽,,,yes,included_in_csv_row_order
+211,gc-658a43bb77b8,하이원컨트리클럽,하이원cc,하이원,하이원컨트리클럽,133000,170000,yes,included_in_csv_row_order_even_with_existing_price
+212,gc-57059262e040,한탄강컨트리클럽,한탄강CC,한탄강,한탄강컨트리클럽,,,yes,included_in_csv_row_order
+213,gc-af74a0cb154f,설악썬밸리컨트리클럽,설악썬밸리cc,설악썬밸리,설악썬밸리컨트리클럽,,,yes,included_in_csv_row_order
+214,gc-da4ac7ff9f91,소노펠리체 컨트리클럽 델피노,소노펠리체CC 델피노,소노펠리체CC 델피노,소노펠리체 컨트리클럽 델피노,168000,189000,yes,included_in_csv_row_order_even_with_existing_price
+215,gc-4454a258c3a6,파인리즈컨트리클럽,파인리즈CC,파인리즈,파인리즈컨트리클럽,65000,220000,yes,included_in_csv_row_order_even_with_existing_price
+216,gc-318abdb864d5,설해원,,설해원,설해원,,,yes,included_in_csv_row_order
+217,gc-9a7ff16abcee,한원컨트리클럽,한원CC,한원,한원컨트리클럽,220000,220000,yes,included_in_csv_row_order_even_with_existing_price
+218,gc-897c73dbf41b,양지파인골프클럽,,양지파인,양지파인골프클럽,185000,205000,yes,included_in_csv_row_order_even_with_existing_price
+219,gc-38b838344176,수원컨트리클럽,,수원,수원컨트리클럽,,,yes,included_in_csv_row_order
+220,gc-c2ad879f8193,한성컨트리클럽,,한성,한성컨트리클럽,,,yes,included_in_csv_row_order
+221,gc-254a1c054bbe,골드컨트리클럽,,골드,골드컨트리클럽,200000,290000,yes,included_in_csv_row_order_even_with_existing_price
+222,gc-1475a1d902d7,남부컨트리클럽,,남부,남부컨트리클럽,,,yes,included_in_csv_row_order
+223,gc-a53c3fecd592,신원CC,,신원,신원CC,,,yes,included_in_csv_row_order
+224,gc-120c785ee7a3,은화삼컨트리클럽,,은화삼,은화삼컨트리클럽,,,yes,included_in_csv_row_order
+225,gc-25de9ff08a30,아시아나컨트리클럽,,아시아나,아시아나컨트리클럽,,,yes,included_in_csv_row_order
+226,gc-0086afc84101,코리아컨트리클럽,,코리아,코리아컨트리클럽,260000,300000,yes,included_in_csv_row_order_even_with_existing_price
+227,gc-20c1df4aa8fb,지산컨트리클럽,,지산,지산컨트리클럽,,,yes,included_in_csv_row_order
+228,gc-ab63350a5577,화산컨트리클럽,,화산,화산컨트리클럽,,,yes,included_in_csv_row_order
+229,gc-8b59a320f132,한림용인CC,,한림용인,한림용인CC,170000,230000,yes,included_in_csv_row_order_even_with_existing_price
+230,gc-748b687096d1,글렌로스 골프클럽,,글렌로스,글렌로스 골프클럽,290000,290000,yes,included_in_csv_row_order_even_with_existing_price
+231,gc-928514cac4c6,용인CC,,용인,용인CC,175000,195000,yes,included_in_csv_row_order_even_with_existing_price
+232,gc-c45d3f5d316d,써닝포인트 컨트리클럽,,써닝포인트,써닝포인트 컨트리클럽,195000,275000,yes,included_in_csv_row_order_even_with_existing_price
+233,gc-f4bb9638f567,해솔리아 컨트리클럽,,해솔리아,해솔리아 컨트리클럽,200000,200000,yes,included_in_csv_row_order_even_with_existing_price
+234,gc-af63c289d999,세현CC,,세현,세현CC,170000,280000,yes,included_in_csv_row_order_even_with_existing_price
+235,gc-3b60b2dadb3f,뉴코리아 컨트리클럽,,뉴코리아,뉴코리아 컨트리클럽,,,yes,included_in_csv_row_order
+236,gc-18640b625b94,올림픽 골프장,,올림픽,올림픽 골프장,160000,160000,yes,included_in_csv_row_order_even_with_existing_price
+237,gc-41b5c15f44da,일산스프링힐스 컨트리클럽,,일산스프링힐스,일산스프링힐스 컨트리클럽,150000,165000,yes,included_in_csv_row_order_even_with_existing_price
+238,gc-1faa083d0616,한양파인컨트리클럽,,한양파인,한양파인컨트리클럽,,,yes,included_in_csv_row_order
+239,gc-210de13c89f8,남서울컨트리클럽,,남서울,남서울컨트리클럽,,,yes,included_in_csv_row_order
+240,gc-4731f8c98a6d,리베라컨트리클럽,,리베라,리베라컨트리클럽,,,yes,included_in_csv_row_order
+241,gc-7701abd77260,기흥컨트리클럽,,기흥,기흥컨트리클럽,,,yes,included_in_csv_row_order
+242,gc-ee03e5ddbe9f,라비돌컨트리클럽,,라비돌,라비돌컨트리클럽,140000,145000,yes,included_in_csv_row_order_even_with_existing_price
+243,gc-5ec5b76d3c22,화성골프클럽,,화성,화성골프클럽,110000,140000,yes,included_in_csv_row_order_even_with_existing_price
+244,gc-c77232b99bd6,링크나인골프클럽,,링크나인,링크나인골프클럽,,,yes,included_in_csv_row_order
+245,gc-24a9087d99d6,양주 컨트리클럽,,양주,양주 컨트리클럽,300000,300000,yes,included_in_csv_row_order_even_with_existing_price
+246,gc-7471c8142b1e,비전힐스CC,,비전힐스,비전힐스CC,,,yes,included_in_csv_row_order
+247,gc-01a5e4501db9,해비치 컨트리클럽,,해비치,해비치 컨트리클럽,202000,212000,yes,included_in_csv_row_order_even_with_existing_price
+248,gc-29fa36946d15,남양주CC,,남양주,남양주CC,139000,199000,yes,included_in_csv_row_order_even_with_existing_price
+249,gc-5e74f5c1f4b5,제일컨트리클럽,,제일,제일컨트리클럽,,,yes,included_in_csv_row_order
+250,gc-df2b984b36c9,솔트베이 골프클럽,,솔트베이,솔트베이 골프클럽,,,yes,included_in_csv_row_order
+251,gc-d5533edff8e8,아세코밸리골프클럽,,아세코밸리,아세코밸리골프클럽,,,yes,included_in_csv_row_order
+252,gc-962dc7cafd46,서서울 컨트리클럽,,서서울,서서울 컨트리클럽,,,yes,included_in_csv_row_order
+253,gc-0ab02fc6c813,서원밸리 골프장,,서원밸리,서원밸리 골프장,,,yes,included_in_csv_row_order
+254,gc-fabeaa53a815,서원힐스 골프장,,서원힐스,서원힐스 골프장,,,yes,included_in_csv_row_order
+255,gc-d5cd483c8c94,노스팜 컨트리클럽,,노스팜,노스팜 컨트리클럽,,,yes,included_in_csv_row_order
+256,gc-d0e431ff250c,스마트KU 골프 파빌리온,,스마트KU 골프 파빌리온,스마트KU 골프 파빌리온,,,yes,included_in_csv_row_order
+257,gc-e04bb1d7bba9,남촌컨트리클럽,,남촌,남촌컨트리클럽,,,yes,included_in_csv_row_order
+258,gc-b37c66474de6,이스트밸리CC,,이스트밸리,이스트밸리CC,,,yes,included_in_csv_row_order
+259,gc-bed5fc0dc1f2,그린힐 컨트리클럽,,그린힐,그린힐 컨트리클럽,,,yes,included_in_csv_row_order
+260,gc-2fa514959418,강남300 컨트리클럽,,강남300,강남300 컨트리클럽,,,yes,included_in_csv_row_order
+261,gc-4cbc2f4feecc,로제비앙GC,,로제비앙,로제비앙GC,,,yes,included_in_csv_row_order
+262,gc-14e8979016a9,곤지암GC,,곤지암,곤지암GC,,,yes,included_in_csv_row_order
+263,gc-f28133275bb9,중부컨트리클럽,,중부,중부컨트리클럽,,,yes,included_in_csv_row_order
+264,gc-3c54aee76615,뉴서울컨트리클럽,,뉴서울,뉴서울컨트리클럽,,,yes,included_in_csv_row_order
+265,gc-3e570fca0614,캐슬렉스골프클럽,,캐슬렉스,캐슬렉스골프클럽,,,yes,included_in_csv_row_order
+266,gc-9944c1872c71,안양컨트리클럽,,안양,안양컨트리클럽,,,yes,included_in_csv_row_order
+267,gc-9bb0cbe01084,송추 컨트리클럽,,송추,송추 컨트리클럽,,,yes,included_in_csv_row_order
+268,gc-82563fee9804,에이치원 클럽,,에이치원 클럽,에이치원 클럽,280000,310000,yes,included_in_csv_row_order_even_with_existing_price
+269,gc-eb40a22304aa,뉴스프링빌골프장,,뉴스프링빌,뉴스프링빌골프장,,,yes,included_in_csv_row_order
+270,gc-b046571c4182,더반 골프클럽,더반GC,더반,더반 골프클럽,,,yes,included_in_csv_row_order
+271,gc-085e92730123,웰링턴컨트리클럽,,웰링턴,웰링턴컨트리클럽,,,yes,included_in_csv_row_order
+272,gc-d76bd69feda5,더크로스비골프클럽,,더크로스비,더크로스비골프클럽,250000,280000,yes,included_in_csv_row_order_even_with_existing_price
+273,gc-152613ee89f3,골프클럽Q,,골프클럽Q,골프클럽Q,200000,250000,yes,included_in_csv_row_order_even_with_existing_price
+274,gc-0151ec2b5b3a,마에스트로 CC,,마에스트로,마에스트로 CC,220000,230000,yes,included_in_csv_row_order_even_with_existing_price
+275,gc-2c8ffe1e182d,신안컨트리클럽,,신안,신안컨트리클럽,,,yes,included_in_csv_row_order
+276,gc-a026faeee8ac,윈체스트 골프클럽 대중,,윈체스트 골프클럽 대중,윈체스트 골프클럽 대중,,,yes,included_in_csv_row_order
+277,gc-5062dbcbfa1c,포웰CC 안성,,포웰CC 안성,포웰CC 안성,120000,170000,yes,included_in_csv_row_order_even_with_existing_price
+278,gc-16fca0551d98,한림안성,,한림안성,한림안성,90000,170000,yes,included_in_csv_row_order_even_with_existing_price
+279,gc-5495f8d48bf7,에덴블루 컨트리클럽,,에덴블루,에덴블루 컨트리클럽,209000,229000,yes,included_in_csv_row_order_even_with_existing_price
+280,gc-1f3e33adbac2,이글몬트CC,,이글몬트,이글몬트CC,160000,260000,yes,included_in_csv_row_order_even_with_existing_price
+281,gc-b46ed64b80b6,필로스 골프클럽,,필로스,필로스 골프클럽,160000,180000,yes,included_in_csv_row_order_even_with_existing_price
+282,gc-02352ab50684,일동레이크 골프클럽,,일동레이크,일동레이크 골프클럽,,,yes,included_in_csv_row_order
+283,gc-f2158c0fa417,푸른솔 골프클럽 포천,,푸른솔 골프클럽 포천,푸른솔 골프클럽 포천,,,yes,included_in_csv_row_order
+284,gc-564e2ae6067a,포천힐스 컨트리클럽,,포천힐스,포천힐스 컨트리클럽,,,yes,included_in_csv_row_order
+285,gc-b7fd5ee009ca,포레스트힐 컨트리클럽,,포레스트힐,포레스트힐 컨트리클럽,110000,195000,yes,included_in_csv_row_order_even_with_existing_price
+286,gc-7c76a7546834,샴발라 컨트리클럽,,샴발라,샴발라 컨트리클럽,150000,150000,yes,included_in_csv_row_order_even_with_existing_price
+287,gc-81ecacc0ae41,라싸 골프클럽,라싸GC,라싸,라싸 골프클럽,,,yes,included_in_csv_row_order
+288,gc-7ef394db717b,힐마루 골프앤리조트 포천,힐마루 골프앤리조트 포천,힐마루 골프앤리조트 포천,힐마루 골프앤리조트 포천,,,yes,included_in_csv_row_order
+289,gc-5ca66aa29c0b,양평TPC GC,,양평TPC,양평TPC GC,160000,240000,yes,included_in_csv_row_order_even_with_existing_price
+290,gc-88f7a6754606,YJC골프클럽,,YJC,YJC골프클럽,240000,270000,yes,included_in_csv_row_order_even_with_existing_price
+291,gc-7e1dadf46eaa,소피아그린,,소피아그린,소피아그린,190000,220000,yes,included_in_csv_row_order_even_with_existing_price
+292,gc-b55900a1fcf9,솔모로골프장,,솔모로,솔모로골프장,,,yes,included_in_csv_row_order
+293,gc-c0e3c44b953c,아리지 골프장,,아리지,아리지 골프장,210000,250000,yes,included_in_csv_row_order_even_with_existing_price
+294,gc-75ecca302d46,이포골프장,,이포,이포골프장,,,yes,included_in_csv_row_order
+295,gc-d388a17be449,신라컨트리클럽,,신라,신라컨트리클럽,170000,210000,yes,included_in_csv_row_order_even_with_existing_price
+296,gc-c6db7aa6cbe6,해슬리나인브릿지 컨트리클럽,,해슬리나인브릿지,해슬리나인브릿지 컨트리클럽,,,yes,included_in_csv_row_order
+297,gc-30fa81244c96,세라지오GC,,세라지오,세라지오GC,,,yes,included_in_csv_row_order
+298,gc-13ed08c1c42b,360도 컨트리클럽,,360도,360도 컨트리클럽,,,yes,included_in_csv_row_order
+299,gc-417ae947fa4c,여주썬밸리 컨트리클럽,,여주썬밸리,여주썬밸리 컨트리클럽,,,yes,included_in_csv_row_order
+300,gc-bd3f6011928e,페럼클럽,,페럼클럽,페럼클럽,235000,275000,yes,included_in_csv_row_order_even_with_existing_price
+301,gc-41b908991867,ROUTE52CC,루트52CC,루트52,ROUTE52CC,70000,200000,yes,included_in_csv_row_order_even_with_existing_price
+302,gc-79abd327c051,티클라우드컨트리클럽,,티클라우드,티클라우드컨트리클럽,,,yes,included_in_csv_row_order
+303,gc-14a40331e62c,마이다스밸리 청평 골프클럽,,마이다스밸리 청평,마이다스밸리 청평 골프클럽,,,yes,included_in_csv_row_order
+304,gc-b4f940680084,프리스틴밸리 골프클럽,,프리스틴밸리,프리스틴밸리 골프클럽,,,yes,included_in_csv_row_order
+305,gc-f0e079a5a368,크리스탈밸리C.C,,크리스탈밸리,크리스탈밸리C.C,,,yes,included_in_csv_row_order
+306,gc-068617149ff3,베뉴지CC,,베뉴지,베뉴지CC,,,yes,included_in_csv_row_order
+307,gc-1635f231cd12,자유로컨트리클럽,,자유로,자유로컨트리클럽,,,yes,included_in_csv_row_order
+308,gc-ba63455c375f,창원컨트리클럽,,창원,창원컨트리클럽,,,yes,included_in_csv_row_order
+309,gc-bfc85ba9acd0,용원컨트리클럽,,용원,용원컨트리클럽,190000,215000,yes,included_in_csv_row_order_even_with_existing_price
+310,gc-745bb2ca1c75,아라미르골프앤리조트,,아라미르골프앤,아라미르골프앤리조트,,,yes,included_in_csv_row_order
+311,gc-25bf0a715d27,진주컨트리클럽,,진주,진주컨트리클럽,150000,175000,yes,included_in_csv_row_order_even_with_existing_price
+312,gc-d052d2018eeb,삼삼컨트리클럽,,삼삼,삼삼컨트리클럽,,,yes,included_in_csv_row_order
+313,gc-7c631a53804f,김해정산컨트리클럽,,김해정산,김해정산컨트리클럽,240000,240000,yes,included_in_csv_row_order_even_with_existing_price
+314,gc-60d067e583df,포웰CC 김해,,포웰CC 김해,포웰CC 김해,140000,160000,yes,included_in_csv_row_order_even_with_existing_price
+315,gc-57ce42c5a27d,리더스컨트리클럽,,리더스,리더스컨트리클럽,150000,175000,yes,included_in_csv_row_order_even_with_existing_price
+316,gc-db7809fe87b9,밀양컨트리클럽,,밀양,밀양컨트리클럽,80000,80000,yes,included_in_csv_row_order_even_with_existing_price
+317,gc-a33f55e2efe0,밀양노벨컨트리클럽,,밀양노벨,밀양노벨컨트리클럽,110000,110000,yes,included_in_csv_row_order_even_with_existing_price
+318,gc-2b0f0302ba03,거제드비치골프클럽,,거제드비치,거제드비치골프클럽,110000,130000,yes,included_in_csv_row_order_even_with_existing_price
+319,gc-cc0251be98e6,거제뷰컨트리클럽,,거제뷰,거제뷰컨트리클럽,95000,129000,yes,included_in_csv_row_order_even_with_existing_price
+320,gc-37a17c98d697,통도파인이스트컨트리클럽,,통도파인이스트,통도파인이스트컨트리클럽,,,yes,included_in_csv_row_order
+321,gc-7031ce912de8,동부산컨트리클럽,,동부산,동부산컨트리클럽,,,yes,included_in_csv_row_order
+322,gc-e85969d2e40c,에이원컨트리클럽,,에이원,에이원컨트리클럽,,,yes,included_in_csv_row_order
+323,gc-68aed81d1384,양산컨트리클럽,,양산,양산컨트리클럽,160000,170000,yes,included_in_csv_row_order_even_with_existing_price
+324,gc-e33531fed221,다이아몬드컨트리클럽,,다이아몬드,다이아몬드컨트리클럽,152000,180000,yes,included_in_csv_row_order_even_with_existing_price
+325,gc-afaf2442a07f,양산동원로얄CC,,양산동원로얄,양산동원로얄CC,135000,170000,yes,included_in_csv_row_order_even_with_existing_price
+326,gc-1a979a076b10,의령친환경골프장,,의령친환경,의령친환경골프장,,,yes,included_in_csv_row_order
+327,gc-f2927c01eff1,의령 리온컨트리클럽,,의령 리온,의령 리온컨트리클럽,,,yes,included_in_csv_row_order
+328,gc-5aff806af4f9,부곡컨트리클럽,,부곡,부곡컨트리클럽,160000,165000,yes,included_in_csv_row_order_even_with_existing_price
+329,gc-5eecfb4b22ad,고성컨트리클럽,,고성,고성컨트리클럽,,,yes,included_in_csv_row_order
+330,gc-11e571536868,아난티남해CC,,아난티남해,아난티남해CC,,,yes,included_in_csv_row_order
+331,gc-a2ecc8249f1d,아난티남해GC,,아난티남해,아난티남해GC,,,yes,included_in_csv_row_order
+332,gc-64e6bf7be0a4,경남스카이뷰CC,,경남스카이뷰,경남스카이뷰CC,119000,149000,yes,included_in_csv_row_order_even_with_existing_price
+333,gc-993e536ad4ee,클럽디거창,,클럽디거창,클럽디거창,140000,140000,yes,included_in_csv_row_order_even_with_existing_price
+334,gc-2a08fd4bdc5e,아델스코트 컨트리클럽,,아델스코트,아델스코트 컨트리클럽,,,yes,included_in_csv_row_order
+335,gc-4b9a9d1f37d8,보문G.C,보문GC,보문,보문G.C,,,yes,included_in_csv_row_order
+336,gc-6ec3dc97bc62,안강레전드G.C,안강레전드GC,안강레전드,안강레전드G.C,,,yes,included_in_csv_row_order
+337,gc-94b561c2c97d,안동레이크골프클럽,,안동레이크,안동레이크골프클럽,130000,140000,yes,included_in_csv_row_order_even_with_existing_price
+338,gc-addca096eb8a,인터불고컨트리클럽,,인터불고,인터불고컨트리클럽,150000,160000,yes,included_in_csv_row_order_even_with_existing_price
+339,gc-96fce8122d04,펜타뷰골프클럽,,펜타뷰,펜타뷰골프클럽,95000,95000,yes,included_in_csv_row_order_even_with_existing_price
+340,gc-8809b27cc2be,마스터피스CC,,마스터피스,마스터피스CC,145000,150000,yes,included_in_csv_row_order_even_with_existing_price
+341,gc-043cdfb2fdcd,대가야CC,,대가야,대가야CC,,,yes,included_in_csv_row_order
+342,gc-078c6e56af3a,마린CC,,마린,마린CC,133000,133000,yes,included_in_csv_row_order_even_with_existing_price
+343,gc-abff7021616b,빛고을컨트리클럽,,빛고을,빛고을컨트리클럽,,,yes,included_in_csv_row_order
+344,gc-96881a9924c5,어등산컨트리클럽,,어등산,어등산컨트리클럽,135000,160000,yes,included_in_csv_row_order_even_with_existing_price
+345,gc-3b059ef8ec97,팔공컨트리클럽,,팔공,팔공컨트리클럽,140000,140000,yes,included_in_csv_row_order_even_with_existing_price
+346,gc-7b7b0fc1d2dd,냉천컨트리클럽,,냉천,냉천컨트리클럽,,,yes,included_in_csv_row_order
+347,gc-5164e33152d9,구니컨트리클럽,,구니,구니컨트리클럽,100000,100000,yes,included_in_csv_row_order_even_with_existing_price
+348,gc-28ed803e0e26,유성컨트리클럽,,유성,유성컨트리클럽,,,yes,included_in_csv_row_order
+349,gc-c9369c96907d,금실대덕밸리CC,,금실대덕밸리,금실대덕밸리CC,99000,135000,yes,included_in_csv_row_order_even_with_existing_price
+350,gc-485bb35864fb,부산컨트리클럽,,부산,부산컨트리클럽,,,yes,included_in_csv_row_order
+351,gc-38215b654b62,동래베네스트골프클럽,,동래베네스트,동래베네스트골프클럽,220000,270000,yes,included_in_csv_row_order_even_with_existing_price
+352,gc-9262179bfeaa,하이스트컨트리클럽,,하이스트,하이스트컨트리클럽,105000,125000,yes,included_in_csv_row_order_even_with_existing_price
+353,gc-2070c1511760,아시아드컨트리클럽,,아시아드,아시아드컨트리클럽,,,yes,included_in_csv_row_order
+354,gc-0cacc131d4d7,해운대컨트리클럽,,해운대,해운대컨트리클럽,150000,150000,yes,included_in_csv_row_order_even_with_existing_price
+355,gc-dceb317bb674,베이사이드골프클럽,,베이사이드,베이사이드골프클럽,,,yes,included_in_csv_row_order
+356,gc-80348568c7d7,기장동원로얄컨트리클럽,,기장동원로얄,기장동원로얄컨트리클럽,110000,120000,yes,included_in_csv_row_order_even_with_existing_price
+357,gc-4fba6a0ae29e,스톤게이트컨트리클럽,,스톤게이트,스톤게이트컨트리클럽,190000,190000,yes,included_in_csv_row_order_even_with_existing_price
+358,gc-dd6fca373d1b,인서울27골프클럽,,인서울27,인서울27골프클럽,,,yes,included_in_csv_row_order
+359,gc-2b09ff38b37c,세종에머슨컨트리클럽,,세종에머슨,세종에머슨컨트리클럽,,,yes,included_in_csv_row_order
+360,gc-1e8879a575c1,세종레이캐슬골프&리조트,,세종레이캐슬골프&,세종레이캐슬골프&리조트,,,yes,included_in_csv_row_order
+361,gc-312ef6603be3,보라골프장,,보라,보라골프장,250000,250000,yes,included_in_csv_row_order_even_with_existing_price
+362,gc-bb197f80e910,베이스타즈CC,,베이스타즈,베이스타즈CC,130000,189000,yes,included_in_csv_row_order_even_with_existing_price
+363,gc-442afb70220e,오르비스골프클럽,,오르비스,오르비스골프클럽,,,yes,included_in_csv_row_order
+364,gc-fa1a5b7b0f98,인천국제컨트리클럽,,인천국제,인천국제컨트리클럽,,,yes,included_in_csv_row_order
+365,gc-68bd427a4957,송도골프클럽,,송도,송도골프클럽,,,yes,included_in_csv_row_order
+366,gc-60319bf1693c,인천그랜드컨트리클럽,인천그랜드CC,인천그랜드,인천그랜드컨트리클럽,220000,260000,yes,included_in_csv_row_order_even_with_existing_price
+367,gc-fa55dbc73e9b,베어즈베스트청라골프클럽,베어즈베스트 청라GC,베어즈베스트 청라,베어즈베스트청라골프클럽,,,yes,included_in_csv_row_order
+368,gc-781728826076,석모도컨트리클럽,,석모도,석모도컨트리클럽,,,yes,included_in_csv_row_order
+369,gc-496303f3c77c,오렌지듄스 영종골프클럽,,오렌지듄스 영종,오렌지듄스 영종골프클럽,,,yes,included_in_csv_row_order
+370,gc-868a31e611a3,강화 선두리 골프장,,강화 선두리,강화 선두리 골프장,,,yes,included_in_csv_row_order
+371,gc-043ae5d51851,베르힐CC 영종,,베르힐CC 영종,베르힐CC 영종,270000,270000,yes,included_in_csv_row_order_even_with_existing_price
+372,gc-4c57c6fd7298,디오션CC,,디오션,디오션CC,215000,215000,yes,included_in_csv_row_order_even_with_existing_price
+373,gc-295d6bb19311,포라이즌,,포라이즌,포라이즌,204000,204000,yes,included_in_csv_row_order_even_with_existing_price
+374,gc-95d86b96417d,파인힐스CC,,파인힐스,파인힐스CC,125000,155000,yes,included_in_csv_row_order_even_with_existing_price
+375,gc-a4b9d0a94686,순천부영CC,,순천부영,순천부영CC,160000,160000,yes,included_in_csv_row_order_even_with_existing_price
+376,gc-2042973e4c2d,나주힐스CC,,나주힐스,나주힐스CC,,,yes,included_in_csv_row_order
+377,gc-e87bc5cc22aa,광양CC,,광양,광양CC,,,yes,included_in_csv_row_order
+378,gc-1236a882f178,창평CC,,창평,창평CC,,,yes,included_in_csv_row_order
+379,gc-98d4ad236944,레이나CC,,레이나,레이나CC,,,yes,included_in_csv_row_order
+380,gc-353e04416544,죽향CC,,죽향,죽향CC,,,yes,included_in_csv_row_order
+381,gc-7be0893151f7,광주CC,,광주,광주CC,,,yes,included_in_csv_row_order
+382,gc-39d4525a34c6,옥과기안CC,,옥과기안,옥과기안CC,,,yes,included_in_csv_row_order
+383,gc-8c40f9db402e,르오네뜨CC,,르오네뜨,르오네뜨CC,,,yes,included_in_csv_row_order
+384,gc-496a04b9cf3f,보성CC,,보성,보성CC,105280,150400,yes,included_in_csv_row_order_even_with_existing_price
+385,gc-2d39844d8485,보성에덴CC,,보성에덴,보성에덴CC,,,yes,included_in_csv_row_order
+386,gc-658ae3503358,엘리체CC,,엘리체,엘리체CC,,,yes,included_in_csv_row_order
+387,gc-ecd9077e6622,조아밸리CC,,조아밸리,조아밸리CC,,,yes,included_in_csv_row_order
+388,gc-e8468ec9b024,무등산CC,무등산CC,무등산,무등산CC,,,yes,included_in_csv_row_order
+389,gc-9885ff9a556f,JNJ골프리조트,,JNJ골프,JNJ골프리조트,122200,141000,yes,included_in_csv_row_order_even_with_existing_price
+390,gc-437ea8156737,파인비치골프링크스,,파인비치골프링크스,파인비치골프링크스,220000,300000,yes,included_in_csv_row_order_even_with_existing_price
+391,gc-5b534d8afc35,솔라시도CC,,솔라시도,솔라시도CC,120000,135000,yes,included_in_csv_row_order_even_with_existing_price
+392,gc-068d49f9d08c,아크로CC,,아크로,아크로CC,100000,150000,yes,included_in_csv_row_order_even_with_existing_price
+393,gc-138f4498623e,무안CC,,무안,무안CC,,,yes,included_in_csv_row_order
+394,gc-a043a2488af5,클린밸리CC,,클린밸리,클린밸리CC,134000,134000,yes,included_in_csv_row_order_even_with_existing_price
+395,gc-80a626b2053e,엘리체CC,,엘리체,엘리체CC,,,yes,included_in_csv_row_order
+396,gc-e50b3c8c38c0,베르힐컨트리클럽,,베르힐,베르힐컨트리클럽,,,yes,included_in_csv_row_order
+397,gc-cc31ca848991,웨스트오션CC,,웨스트오션,웨스트오션CC,115000,130000,yes,included_in_csv_row_order_even_with_existing_price
+398,gc-db3f5634c5ee,백양우리CC,,백양우리,백양우리CC,130000,130000,yes,included_in_csv_row_order_even_with_existing_price
+399,gc-0b047be49f03,전주월드컵골프장,,전주월드컵,전주월드컵골프장,,,yes,included_in_csv_row_order
+400,gc-e66e37a5892a,익산컨트리클럽,,익산,익산컨트리클럽,,,yes,included_in_csv_row_order
+401,gc-11d936495fd4,포세븐금강컨트리클럽,,포세븐금강,포세븐금강컨트리클럽,160000,190000,yes,included_in_csv_row_order_even_with_existing_price
+402,gc-db9ee81a1a70,내장산골프&리조트,,내장산골프&,내장산골프&리조트,180000,180000,yes,included_in_csv_row_order_even_with_existing_price
+403,gc-555dca97c252,남원상록골프장,,남원상록,남원상록골프장,150000,150000,yes,included_in_csv_row_order_even_with_existing_price
+404,gc-93d79516b4dd,아네스빌CC,,아네스빌,아네스빌CC,,,yes,included_in_csv_row_order
+405,gc-8cda6b72d361,김제스파힐스CC,,김제스파힐스,김제스파힐스CC,160000,160000,yes,included_in_csv_row_order_even_with_existing_price
+406,gc-51bc2ed864d2,더나인골프클럽,,더나인,더나인골프클럽,119000,139000,yes,included_in_csv_row_order_even_with_existing_price
+407,gc-3dc796a63edd,OKCC,,OK,OKCC,,,yes,included_in_csv_row_order
+408,gc-af220a47e9ad,써미트CC,,써미트,써미트CC,,,yes,included_in_csv_row_order
+409,gc-dede5bb789cf,무주덕유산CC,,무주덕유산,무주덕유산CC,180000,180000,yes,included_in_csv_row_order_even_with_existing_price
+410,gc-6d636874e191,장수골프리조트,,장수골프,장수골프리조트,150400,150400,yes,included_in_csv_row_order_even_with_existing_price
+411,gc-a2c85434539e,전주샹그릴라CC,,전주샹그릴라,전주샹그릴라CC,175000,180000,yes,included_in_csv_row_order_even_with_existing_price
+412,gc-e6f654f8efb6,고창CC,,고창,고창CC,,,yes,included_in_csv_row_order
+413,gc-8f5c8d0f5d46,석정힐CC,,석정힐,석정힐CC,140000,185000,yes,included_in_csv_row_order_even_with_existing_price
+414,gc-c96a1655bd5c,타미우스cc,,타미우스,타미우스cc,,,yes,included_in_csv_row_order
+415,gc-aff117457c45,라헨느CC,,라헨느,라헨느CC,120000,130000,yes,included_in_csv_row_order_even_with_existing_price
+416,gc-ed4f10d4c149,볼카노골프앤리조트,,볼카노골프앤,볼카노골프앤리조트,,,yes,included_in_csv_row_order
+417,gc-464e4a545027,에코랜드,에코랜드GC,에코랜드,에코랜드,,,yes,included_in_csv_row_order
+418,gc-0e0131544801,라온골프클럽,라온CC,라온,라온골프클럽,135000,180000,yes,included_in_csv_row_order_even_with_existing_price
+419,gc-84bb21f2b77e,크라운CC,,크라운,크라운CC,,,yes,included_in_csv_row_order
+420,gc-5f82bbc964a8,더시에나CC,더 시에나CC,더 시에나,더시에나CC,175000,175000,yes,included_in_csv_row_order_even_with_existing_price
+421,gc-d03e2b710be0,한라산CC,,한라산,한라산CC,,,yes,included_in_csv_row_order
+422,gc-e0165d4e49cd,부영CC,,부영,부영CC,,,yes,included_in_csv_row_order
+423,gc-7dcfb1b60ab9,서귀포팬텀 골프앤리조트,서귀포팬텀cc,서귀포팬텀,서귀포팬텀 골프앤리조트,130000,130000,yes,included_in_csv_row_order_even_with_existing_price
+424,gc-c96f2da1a4dc,중문GC,중문CC,중문,중문GC,,,yes,included_in_csv_row_order
+425,gc-a441de4b462a,더클래식CC,,더클래식,더클래식CC,,,yes,included_in_csv_row_order
+426,gc-e401cda7a8ad,우정힐스 컨트리클럽,우정힐스CC,우정힐스,우정힐스 컨트리클럽,,,yes,included_in_csv_row_order
+427,gc-7681bcbcf45d,천안상록 골프장,천안상록cc,천안상록,천안상록 골프장,,,yes,included_in_csv_row_order
+428,gc-2c27b8854e6b,마론컨트리클럽,마론cc,마론,마론컨트리클럽,180000,180000,yes,included_in_csv_row_order_even_with_existing_price
+429,gc-5631e69db45e,보령베이스CC,보령베이스CC,보령베이스,보령베이스CC,109000,109000,yes,included_in_csv_row_order_even_with_existing_price
+430,gc-de2b5fc511da,에스앤 골프리조트,에스앤cc,에스앤,에스앤 골프리조트,85000,119000,yes,included_in_csv_row_order_even_with_existing_price
+431,gc-c9dda49e7539,서산수 골프앤리조트,서산수cc,서산수,서산수 골프앤리조트,230000,240000,yes,included_in_csv_row_order_even_with_existing_price
+432,gc-e3f0db78167a,더힐 컨트리클럽,더힐cc,더힐,더힐 컨트리클럽,70000,100000,yes,included_in_csv_row_order_even_with_existing_price
+433,gc-c0cdb2271518,아리스타 CC,아리스타CC,아리스타,아리스타 CC,135000,155000,yes,included_in_csv_row_order_even_with_existing_price
+434,gc-699579941cf6,파인스톤 컨트리클럽,파인스톤CC,파인스톤,파인스톤 컨트리클럽,,,yes,included_in_csv_row_order
+435,gc-95696dbd5d40,파나시아 골프클럽,파나시아GC,파나시아,파나시아 골프클럽,,,yes,included_in_csv_row_order
+436,gc-b48ba0827aa2,에딘버러 컨트리클럽,에딘버러CC,에딘버러,에딘버러 컨트리클럽,110000,200000,yes,included_in_csv_row_order_even_with_existing_price
+437,gc-19f328d2bc87,백제컨트리클럽,백제CC,백제,백제컨트리클럽,100000,190000,yes,included_in_csv_row_order_even_with_existing_price
+438,gc-bf183cd699c7,로얄링스 CC,로얄링스cc,로얄링스,로얄링스 CC,,,yes,included_in_csv_row_order
+439,gc-167a7f95d402,솔라고CC,솔라고CC,솔라고,솔라고CC,120000,200000,yes,included_in_csv_row_order_even_with_existing_price
+440,gc-04b372ccad13,내포골프클럽,내포골프클럽,내포,내포골프클럽,120000,140000,yes,included_in_csv_row_order_even_with_existing_price
+441,gc-81f36c789316,그랜드cc,그랜드CC,그랜드,그랜드cc,140000,155000,yes,included_in_csv_row_order_even_with_existing_price
+442,gc-6ea98adb1954,아난티 중앙골프클럽,아난티 중앙 골프클럽,아난티 중앙,아난티 중앙골프클럽,,,yes,included_in_csv_row_order
+443,gc-a81df4ea7927,천 룡cc,천룡CC,천룡,천 룡cc,,,yes,included_in_csv_row_order
+444,gc-8ccf3d19f9bb,세레니티cc,,세레니티,세레니티cc,130000,200000,yes,included_in_csv_row_order_even_with_existing_price
+445,gc-ce7b0e81cf22,스 타cc,스타CC,스타,스 타cc,,,yes,included_in_csv_row_order
+446,gc-760b850e4451,천 룡cc,천룡CC,천룡,천 룡cc,,,yes,included_in_csv_row_order
+447,gc-ac8ec878e912,썬밸리cc,,썬밸리,썬밸리cc,,,yes,included_in_csv_row_order
+448,gc-54e8d6f41d3b,중 원cc,중원CC,중원,중 원cc,,,yes,included_in_csv_row_order
+449,gc-8ded1998e36a,히든밸리cc,,히든밸리,히든밸리cc,,,yes,included_in_csv_row_order
+450,gc-663ebcd52f5e,골드나인cc,,골드나인,골드나인cc,,,yes,included_in_csv_row_order
+451,gc-3d68f1ae46e5,센테리움cc,,센테리움,센테리움cc,109000,199000,yes,included_in_csv_row_order_even_with_existing_price
+452,gc-f261ddd7cd1a,대호단양cc,,대호단양,대호단양cc,189000,189000,yes,included_in_csv_row_order_even_with_existing_price
+453,gc-6bee4df56cf5,대영베이스cc,,대영베이스,대영베이스cc,,,yes,included_in_csv_row_order
+454,gc-facbcadf0522,오창 에딘버러,,오창 에딘버러,오창 에딘버러,90000,130000,yes,included_in_csv_row_order_even_with_existing_price
+455,gc-9c36390d43ba,이븐데일cc,,이븐데일,이븐데일cc,114000,175800,yes,included_in_csv_row_order_even_with_existing_price
+456,gc-717efe03426f,킹즈락cc,,킹즈락,킹즈락cc,160000,195000,yes,included_in_csv_row_order_even_with_existing_price
+457,gc-eec2e96ca1a7,젠스필드cc,,젠스필드,젠스필드cc,100000,110000,yes,included_in_csv_row_order_even_with_existing_price
+458,gc-1cfb7d6583c7,대영힐스cc,,대영힐스,대영힐스cc,,,yes,included_in_csv_row_order
+459,gc-617f2f73c737,진양밸리cc,,진양밸리,진양밸리cc,190000,240000,yes,included_in_csv_row_order_even_with_existing_price
+460,gc-e02aaeea09ed,코스카cc,,코스카,코스카cc,105000,220000,yes,included_in_csv_row_order_even_with_existing_price
+461,gc-914eaef995a0,클럽디속리산,속리산CC,속리산,클럽디속리산,130000,210000,yes,included_in_csv_row_order_even_with_existing_price
+462,gc-2bace244ca44,동 촌cc,동촌CC,동촌,동 촌cc,80000,215000,yes,included_in_csv_row_order_even_with_existing_price
+463,gc-0a89c1c9b286,세 일cc,모카컨트리클럽,모카,세 일cc,70000,189000,yes,included_in_csv_row_order_even_with_existing_price
+464,gc-746ebce39dd0,클럽디보은,클럽디 보은,클럽디 보은,클럽디보은,90000,175000,yes,included_in_csv_row_order_even_with_existing_price
+465,gc-ca6baf196057,올데이 골프앤리조트,올데이골프앤리조트,올데이골프앤,올데이 골프앤리조트,49000,149000,yes,included_in_csv_row_order_even_with_existing_price
+466,gc-b86dec31683a,감곡CC,감곡CC,감곡,감곡CC,100000,220000,yes,included_in_csv_row_order_even_with_existing_price
+467,gc-a8e246e93ac3,일라이트 컨트리클럽,일라이트CC,일라이트,일라이트 컨트리클럽,80000,190000,yes,included_in_csv_row_order_even_with_existing_price
+468,gc-e14661a32922,일레븐cc,일레븐CC,일레븐,일레븐cc,80000,150000,yes,included_in_csv_row_order_even_with_existing_price
+469,gc-8d9ee33d1f22,킹스데일cc,킹스데일GC,킹스데일,킹스데일cc,110000,240000,yes,included_in_csv_row_order_even_with_existing_price
+470,gc-cf2911a3e910,음성 힐데스하임cc,힐데스하임CC,힐데스하임,음성 힐데스하임cc,70000,160000,yes,included_in_csv_row_order_even_with_existing_price
+471,gc-736ecb0e589a,세레니티cc,세레니티cc,세레니티,세레니티cc,130000,275000,yes,included_in_csv_row_order_even_with_existing_price
+472,gc-a043ad4dfcf6,서경타니CC,서경타니CC,서경타니,서경타니CC,,,yes,included_in_csv_row_order
+473,gc-53f5c270575b,해피니스CC (대중제),해피니스CC (퍼블릭),해피니스,해피니스CC (대중제),60000,165000,yes,included_in_csv_row_order_even_with_existing_price
+474,gc-06c10aaf3618,나인브릿지 (대중제),나인브릿지CC(퍼블릭),나인브릿지,나인브릿지 (대중제),,,yes,included_in_csv_row_order
+475,gc-1ce1b36ed2da,시그너스cc,시그너스cc,시그너스,시그너스cc,160000,160000,yes,included_in_csv_row_order_even_with_existing_price
+476,gc-17fef5525b26,스프링베일리조트,스프링베일GC,스프링베일,스프링베일리조트,55000,125000,yes,included_in_csv_row_order_even_with_existing_price
+477,gc-ba3362c686e4,골프존카운티 안성H,골프존카운티 안성H,골프존카운티 안성H,골프존카운티 안성H,90000,220000,yes,included_in_csv_row_order_even_with_existing_price
+478,gc-411771a420e7,골프존카운티 안성W,골프존카운티 안성W,골프존카운티 안성W,골프존카운티 안성W,80000,220000,yes,included_in_csv_row_order_even_with_existing_price
+479,gc-945ef0204a99,골프존카운티 사천,골프존카운티 사천,골프존카운티 사천,골프존카운티 사천,,,yes,included_in_csv_row_order
+480,gc-968de8ceffeb,밀양에스파크골프리조트,밀양에스파크컨트리클럽,밀양에스파크,밀양에스파크골프리조트,140000,190000,yes,included_in_csv_row_order_even_with_existing_price
+481,gc-09693194d3fb,골프존카운티 경남,골프존카운티 경남,골프존카운티 경남,골프존카운티 경남,88000,168000,yes,included_in_csv_row_order_even_with_existing_price
+482,gc-96bed6159452,골프존카운티 감포,골프존카운티 감포,골프존카운티 감포,골프존카운티 감포,,,yes,included_in_csv_row_order
+483,gc-6a587177a23c,골프존카운티 선산,골프존카운티 선산,골프존카운티 선산,골프존카운티 선산,,,yes,included_in_csv_row_order
+484,gc-a944350f5db1,골프존카운티 구미,골프존카운티 구미,골프존카운티 구미,골프존카운티 구미,,,yes,included_in_csv_row_order
+485,gc-01d6a94bf335,골프존카운티 청통,골프존카운티 청통,골프존카운티 청통,골프존카운티 청통,71000,142000,yes,included_in_csv_row_order_even_with_existing_price
+486,gc-3f766167d45e,잭 니클라우스 골프클럽 코리아,잭니클라우스골프클럽코리아,잭니클라우스골프클럽코리아,잭 니클라우스 골프클럽 코리아,,,yes,included_in_csv_row_order
+487,gc-4005648f63d2,골프존카운티 송도 골프장,골프존카운티 송도,골프존카운티 송도,골프존카운티 송도 골프장,139000,269000,yes,included_in_csv_row_order_even_with_existing_price
+488,gc-3269edc70897,골프존카운티,골프존카운티 순천,골프존카운티 순천,골프존카운티,70000,140000,yes,included_in_csv_row_order_even_with_existing_price
+489,gc-982325a51789,골프존카운티 영암,골프존카운티 영암,골프존카운티 영암,골프존카운티 영암,49000,94000,yes,included_in_csv_row_order_even_with_existing_price
+490,gc-2a867c283a2c,골프존카운티무주,골프존카운티 무주,골프존카운티 무주,골프존카운티무주,61000,113000,yes,included_in_csv_row_order_even_with_existing_price
+491,gc-1f1578e897f2,골프존카운티선운,골프존카운티 선운,골프존카운티 선운,골프존카운티선운,70000,136000,yes,included_in_csv_row_order_even_with_existing_price
+492,gc-adeec421c374,골프존카운티 천안,골프존카운티 천안,골프존카운티 천안,골프존카운티 천안,71000,158000,yes,included_in_csv_row_order_even_with_existing_price
+493,gc-226b2263c6f6,골프존카운티 진천cc,골프존카운티 진천,골프존카운티 진천,골프존카운티 진천cc,71000,226000,yes,included_in_csv_row_order_even_with_existing_price
+494,gc-ab22b2f16924,골프존카운티 화랑cc,골프존카운티 화랑,골프존카운티 화랑,골프존카운티 화랑cc,65000,159000,yes,included_in_csv_row_order_even_with_existing_price
+495,gc-01762fe809b0,골프존 카운티 드래곤,골프존카운티 드래곤,골프존카운티 드래곤,골프존 카운티 드래곤,51000,151000,yes,included_in_csv_row_order_even_with_existing_price
+496,gc-d780ed19a4d0,골프존카운티오라 (회원제),골프존카운티 오라,골프존카운티 오라,골프존카운티오라 (회원제),,,yes,included_in_csv_row_order
+497,gc-4949c11c28bf,골프존카운티오라 (대중제),골프존카운티 오라,골프존카운티 오라,골프존카운티오라 (대중제),,,yes,included_in_csv_row_order
+498,gc-74de2175f831,블랙스톤제주,블랙스톤 제주,블랙스톤 제주,블랙스톤제주,,,yes,included_in_csv_row_order
+499,gc-56c3be8c5a61,더플레이어스 골프클럽,클럽디 더플레이어스,클럽디 더플레이어스,더플레이어스 골프클럽,125000,240000,yes,included_in_csv_row_order_even_with_existing_price
+500,gc-3b9faaf01e87,성문안 컨트리클럽,성문안CC,성문안,성문안 컨트리클럽,260000,350000,yes,included_in_csv_row_order_even_with_existing_price
+501,gc-3eb069c5fb2a,동서울레스피아,동서울컨트리클럽,동서울,동서울레스피아,40000,109000,yes,included_in_csv_row_order_even_with_existing_price
+502,gc-426fc575906a,클럽모우골프 &라이프스타일,클럽모우CC,클럽모우,클럽모우골프 &라이프스타일,110000,210000,yes,included_in_csv_row_order_even_with_existing_price
+503,gc-a09581c58781,벨라45마스터스 컨트리클럽,벨라45 컨트리클럽,벨라45,벨라45마스터스 컨트리클럽,150000,200000,yes,included_in_csv_row_order_even_with_existing_price
+504,gc-c97aebfdffe3,에콜리안정선골프장,에콜리안정선CC,에콜리안정선,에콜리안정선골프장,,,yes,included_in_csv_row_order
+505,gc-fc0e80550b95,석천CC,용인CC(석천코스),용인CC(석천코스),석천CC,95000,190000,yes,included_in_csv_row_order_even_with_existing_price
+506,gc-27324df1736a,한양컨트리클럽,서울한양CC,서울한양,한양컨트리클럽,230000,280000,yes,included_in_csv_row_order_even_with_existing_price
+507,gc-a68be6870289,김포SEASIDE 컨트리클럽,김포씨사이드CC,김포씨사이드,김포SEASIDE 컨트리클럽,220000,270000,yes,included_in_csv_row_order_even_with_existing_price
+508,gc-fb2e8a3b34d8,베스트밸리 골프클럽,베스트밸리GC,베스트밸리,베스트밸리 골프클럽,170000,210000,yes,included_in_csv_row_order_even_with_existing_price
+509,gc-2e3210c9d979,안성베네스트G.C,안성베네스트GC(회원제),안성베네스트,안성베네스트G.C,149000,250000,yes,included_in_csv_row_order_even_with_existing_price
+510,gc-8f72ace0d89a,안성베네스트골프클럽 일반대중홀,안성베네스트GC(퍼블릭),안성베네스트,안성베네스트골프클럽 일반대중홀,149000,250000,yes,included_in_csv_row_order_even_with_existing_price
+511,gc-2c90528d411e,신안 퍼블릭 CC,신안CC,신안,신안 퍼블릭 CC,120000,180000,yes,included_in_csv_row_order_even_with_existing_price
+512,gc-fb0d61e3914d,베어크리크골프클럽,베어크리크 골프클럽,베어크리크,베어크리크골프클럽,140000,250000,yes,included_in_csv_row_order_even_with_existing_price
+513,gc-825e9c261de2,참밸리 컨트리클럽,코브스윙(참밸리CC),코브스윙(참밸리CC),참밸리 컨트리클럽,100000,200000,yes,included_in_csv_row_order_even_with_existing_price
+514,gc-a15f33b9f89a,더스타휴 컨트리클럽,더스타휴골프앤리조트,더스타휴골프앤,더스타휴 컨트리클럽,250000,320000,yes,included_in_csv_row_order_even_with_existing_price
+515,gc-59ee5f28d2c8,남여주대중골프장,남여주GC,남여주,남여주대중골프장,90000,200000,yes,included_in_csv_row_order_even_with_existing_price
+516,gc-d18fa63ecde3,통영동원로얄컨트리클럽,동원로얄CC,동원로얄,통영동원로얄컨트리클럽,80000,170000,yes,included_in_csv_row_order_even_with_existing_price
+517,gc-49239d9192d1,김해상록컨트리클럽,김해상록골프클럽,김해상록,김해상록컨트리클럽,130000,170000,yes,included_in_csv_row_order_even_with_existing_price
+518,gc-9c3aa425a935,포항C.C,포항CC,포항,포항C.C,90000,160000,yes,included_in_csv_row_order_even_with_existing_price
+519,gc-dac303292dae,오펠G.C,영천오펠GC,영천오펠,오펠G.C,,,yes,included_in_csv_row_order
+520,gc-91f353d46004,블루원상주골프리조트,블루원 상주CC,블루원 상주,블루원상주골프리조트,120000,210000,yes,included_in_csv_row_order_even_with_existing_price
+521,gc-385ee578118d,다산 샤인힐CC,고령오펠GC,고령오펠,다산 샤인힐CC,170000,200000,yes,included_in_csv_row_order_even_with_existing_price
+522,gc-a1c00071e4b8,한맥C.C&노블리아,한맥컨트리클럽,한맥,한맥C.C&노블리아,80000,170000,yes,included_in_csv_row_order_even_with_existing_price
+523,gc-a9d6992e56d4,해운대비치골프앤리조트,해운대비치골프앤리조트,해운대비치골프앤,해운대비치골프앤리조트,102000,228000,yes,included_in_csv_row_order_even_with_existing_price
+524,gc-dc3aed15fe4c,건설공제조합세종필드골프클럽,세종필드GC,세종필드,건설공제조합세종필드골프클럽,120000,210000,yes,included_in_csv_row_order_even_with_existing_price
+525,gc-8c92f9985671,삼남골프장,골드그린GC,골드그린,삼남골프장,60000,110000,yes,included_in_csv_row_order_even_with_existing_price
+526,gc-45a6c468cd91,웅포컨트리클럽,,웅포,웅포컨트리클럽,80000,180000,yes,included_in_csv_row_order_even_with_existing_price
+527,gc-0bd7dd5c03df,케이밸리컨트리클럽,케이밸리CC,케이밸리,케이밸리컨트리클럽,,,yes,included_in_csv_row_order
+528,gc-9655898af6a6,프린세스 골프클럽,포웰CC프린세스,포웰CC프린세스,프린세스 골프클럽,70000,175000,yes,included_in_csv_row_order_even_with_existing_price
+529,gc-e91593f65b4b,도고컨트리 구락부,도고CC,도고,도고컨트리 구락부,,,yes,included_in_csv_row_order
+530,gc-ae86fbe36e97,임페리얼레이크,임페리얼레이크CC,임페리얼레이크,임페리얼레이크,59000,149000,yes,included_in_csv_row_order_even_with_existing_price
+531,gc-3d728357d622,에콜리안제천,에콜리안제천CC,에콜리안제천,에콜리안제천,,,yes,included_in_csv_row_order
+532,gc-fa86c43067e7,드림파크골프장,드림파크CC,드림파크,드림파크골프장,,,yes,included_in_csv_row_order

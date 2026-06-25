@@ -1,0 +1,104 @@
+import Link from "next/link";
+import Image from "next/image";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { BLOG_POSTS, getBlogPostBySlug } from "@/lib/blogPosts";
+import BlogPostJsonLd from "@/components/BlogPostJsonLd";
+import { BlogPostBody } from "@/components/BlogPostBody";
+import { buildBlogPostMetadata } from "@/lib/seoMetadata";
+import { enrichBlogPost } from "@/lib/enrichBlogPost";
+
+export const revalidate = 86400;
+
+export async function generateStaticParams() {
+  return BLOG_POSTS.map((post) => ({ slug: post.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const post = getBlogPostBySlug(params.slug);
+  if (!post) {
+    return { title: "글을 찾을 수 없습니다 | GolfMap Korea", robots: { index: false } };
+  }
+  return buildBlogPostMetadata(post);
+}
+
+function formatBlogDate(date: string): string {
+  return date.replace(/-/g, ".");
+}
+
+export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+  const post = getBlogPostBySlug(params.slug);
+  if (!post) notFound();
+  const enrichedPost = await enrichBlogPost(post);
+
+  return (
+    <>
+      <BlogPostJsonLd post={enrichedPost} />
+      <article className="pb-16">
+        <header className="border-b border-stone-200/80 bg-gradient-to-b from-brand-50/50 to-white">
+          <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 sm:py-12 lg:grid-cols-[1fr_200px] lg:px-8">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-brand-700">
+                {post.categoryLabel}
+              </p>
+              <h1 className="mt-2 text-2xl font-extrabold leading-tight tracking-tight text-stone-900 sm:text-3xl lg:text-4xl">
+                {post.title}
+              </h1>
+              <p className="mt-4 max-w-2xl text-sm leading-relaxed text-stone-600 sm:text-base">
+                {post.description}
+              </p>
+              <p className="mt-4 text-sm text-stone-400">
+                {formatBlogDate(post.date)}
+              </p>
+            </div>
+            <div className="hidden justify-end lg:flex">
+              <div className="relative aspect-square w-[200px] shrink-0 overflow-hidden rounded-2xl border border-stone-200/80 bg-stone-100 shadow-sm">
+                <Image
+                  src={post.thumbnail}
+                  alt={post.thumbnailAlt}
+                  fill
+                  sizes="200px"
+                  className="object-cover object-center"
+                  priority
+                />
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
+          <BlogPostBody post={enrichedPost} />
+
+          <div className="mt-12 flex flex-wrap gap-4 border-t border-stone-100 pt-8 text-sm">
+            <Link href="/blog" className="font-medium text-brand-800 hover:underline">
+              ← 블로그 목록
+            </Link>
+            {post.relatedCollectionSlug && (
+              <Link
+                href={`/collections/${post.relatedCollectionSlug}`}
+                className="font-medium text-brand-800 hover:underline"
+              >
+                관련 컬렉션 보기 →
+              </Link>
+            )}
+            {post.relatedRegionSlug && (
+              <Link
+                href={`/regions/${post.relatedRegionSlug}`}
+                className="font-medium text-brand-800 hover:underline"
+              >
+                {post.relatedRegionSlug} 지역 보기 →
+              </Link>
+            )}
+            <Link href="/recommended" className="font-medium text-brand-800 hover:underline">
+              추천 골프장 보기 →
+            </Link>
+          </div>
+        </div>
+      </article>
+    </>
+  );
+}

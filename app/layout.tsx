@@ -28,6 +28,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+        />
+      </head>
       <body className="flex min-h-screen flex-col bg-white text-gray-900 antialiased max-md:bg-app-warm md:bg-white">
         <HomeResetProvider>
           <Header />

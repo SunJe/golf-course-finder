@@ -64,6 +64,13 @@ export function formatMobileWonAmount(value: number): string {
   return `${value.toLocaleString("ko-KR")}원`;
 }
 
+/** 홈 추천 캐러셀: 최저가만 `22만원~` 형식 */
+export function formatHomeCarouselPrice(course: Course): string {
+  const min = getPriceMin(course);
+  if (min == null) return PRICE_UNAVAILABLE;
+  return normalizeCompactPriceDisplay(`${formatManwon(min)}만원~`);
+}
+
 /** 요금 요약: `9~11만원` / `9만원~` / `9만원` / `요금 정보 준비 중` */
 export function formatPriceRange(course: Course): string {
   const min = getPriceMin(course);

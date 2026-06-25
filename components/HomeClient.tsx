@@ -41,6 +41,13 @@ import {
   getRegionMapFilterRegion,
 } from "@/lib/regionLanding";
 import {
+  applyCollectionFilter,
+} from "@/lib/collectionFilters";
+import {
+  isCollectionSlug,
+  type CollectionSlug,
+} from "@/lib/collectionLanding";
+import {
   getListCountLabel,
   getListCountSublabel,
 } from "@/lib/listCountLabels";
@@ -284,15 +291,18 @@ function useIsMobile(breakpoint = 767) {
 export default function HomeClient({
   courses,
   initialRegionSlug,
+  initialCollectionSlug,
 }: {
   courses: Course[];
   initialRegionSlug?: string;
+  initialCollectionSlug?: CollectionSlug;
 }) {
   return (
     <CourseCollectionsProvider>
       <HomeClientInner
         courses={courses}
         initialRegionSlug={initialRegionSlug}
+        initialCollectionSlug={initialCollectionSlug}
       />
     </CourseCollectionsProvider>
   );
@@ -301,9 +311,11 @@ export default function HomeClient({
 function HomeClientInner({
   courses,
   initialRegionSlug,
+  initialCollectionSlug,
 }: {
   courses: Course[];
   initialRegionSlug?: string;
+  initialCollectionSlug?: CollectionSlug;
 }) {
   const { registerHomeReset } = useHomeReset();
   const isMobile = useIsMobile();
@@ -331,6 +343,8 @@ function HomeClientInner({
   const [landingRegionSlug, setLandingRegionSlug] = useState<string | null>(
     null,
   );
+  const [landingCollectionSlug, setLandingCollectionSlug] =
+    useState<CollectionSlug | null>(null);
   const [center, setCenter] = useState<MapFocusTarget | null>(null);
   const [mapViewResetSignal, setMapViewResetSignal] = useState(0);
   const [nationwideFitSignal, setNationwideFitSignal] = useState(0);
@@ -373,10 +387,13 @@ function HomeClientInner({
   const isSearchActive = searchQuery.length > 0;
 
   const sourceCourses = useMemo(() => {
+    if (landingCollectionSlug) {
+      return applyCollectionFilter(courses, landingCollectionSlug);
+    }
     if (!landingRegionSlug) return courses;
     const config = getRegionLandingBySlug(landingRegionSlug);
     return config ? filterCoursesByRegion(courses, config) : courses;
-  }, [courses, landingRegionSlug]);
+  }, [courses, landingRegionSlug, landingCollectionSlug]);
 
   const searchFiltered = useMemo(
     () => filterCourses(sourceCourses, filters),
@@ -709,6 +726,7 @@ function HomeClientInner({
       setSearchFitSignal,
     });
     setLandingRegionSlug(null);
+    setLandingCollectionSlug(null);
     setMapSectionInView(false);
     setMobileNationwideMap(false);
     setUserMapInteracted(false);
@@ -730,6 +748,14 @@ function HomeClientInner({
     }
     setIsShowingAllFilteredResults(true);
   }, [initialRegionSlug]);
+
+  useEffect(() => {
+    if (!initialCollectionSlug || !isCollectionSlug(initialCollectionSlug)) {
+      return;
+    }
+    setLandingCollectionSlug(initialCollectionSlug);
+    setIsShowingAllFilteredResults(true);
+  }, [initialCollectionSlug]);
 
   useEffect(() => {
     const unregister = registerHomeReset(resetHomeState);
@@ -866,6 +892,7 @@ function HomeClientInner({
     setIsShowingAllFilteredResults(false);
     setCenter(null);
     setLandingRegionSlug(null);
+    setLandingCollectionSlug(null);
     setMobileNationwideMap(true);
     setUserMapInteracted(false);
     setNationwideFitSignal((value) => value + 1);

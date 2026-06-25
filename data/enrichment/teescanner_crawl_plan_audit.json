@@ -1,0 +1,85 @@
+{
+  "generatedAt": "2026-06-24T13:34:15.995Z",
+  "inputCsv": "C:\\Users\\이선제\\golf-course-finder\\data\\enrichment\\course_enrichment_edit.csv",
+  "totalRows": 532,
+  "crawlOrder": "course_enrichment_edit.csv row order",
+  "priceMissingFilter": false,
+  "idSort": false,
+  "nameSort": false,
+  "withExistingPrice": 245,
+  "withoutExistingPrice": 287,
+  "sampleSearchTerms": [
+    {
+      "row_index": "1",
+      "name": "뉴스프링빌골프장(대중형)",
+      "primary_search_term": "뉴스프링빌",
+      "fallback_search_term": "뉴스프링빌골프장(대중형)"
+    },
+    {
+      "row_index": "2",
+      "name": "가산CC",
+      "primary_search_term": "가산",
+      "fallback_search_term": "가산CC"
+    },
+    {
+      "row_index": "3",
+      "name": "빅토리아일반대중골프장",
+      "primary_search_term": "빅토리아",
+      "fallback_search_term": "빅토리아일반대중골프장"
+    },
+    {
+      "row_index": "4",
+      "name": "오펠골프클럽",
+      "primary_search_term": "군위오펠",
+      "fallback_search_term": "오펠골프클럽"
+    },
+    {
+      "row_index": "5",
+      "name": "오크밸리회원제골프장",
+      "primary_search_term": "오크밸리",
+      "fallback_search_term": "오크밸리회원제골프장"
+    },
+    {
+      "row_index": "6",
+      "name": "월송리 컨트리클럽",
+      "primary_search_term": "월송리",
+      "fallback_search_term": "월송리 컨트리클럽"
+    },
+    {
+      "row_index": "7",
+      "name": "Oak Hills컨트리클럽",
+      "primary_search_term": "오크힐스",
+      "fallback_search_term": "Oak Hills컨트리클럽"
+    },
+    {
+      "row_index": "8",
+      "name": "센추리21컨트리클럽Ⅱ",
+      "primary_search_term": "센추리21",
+      "fallback_search_term": "센추리21컨트리클럽Ⅱ"
+    },
+    {
+      "row_index": "9",
+      "name": "센추리21퍼블릭",
+      "primary_search_term": "센추리21",
+      "fallback_search_term": "센추리21퍼블릭"
+    },
+    {
+      "row_index": "10",
+      "name": "소노펠리체 컨트리클럽 비발디파크 웨스트",
+      "primary_search_term": "소노펠리체CC 비발디파크 WEST",
+      "fallback_search_term": "소노펠리체 컨트리클럽 비발디파크 웨스트"
+    }
+  ],
+  "geochangExample": {
+    "row_index": "41",
+    "id": "gc-cd6b63162f39",
+    "name": "거창친환경대중골프장",
+    "change_name_to": "거창CC",
+    "primary_search_term": "거창",
+    "fallback_search_term": "거창친환경대중골프장",
+    "existing_price_min": "",
+    "existing_price_max": "",
+    "will_crawl": "yes",
+    "reason": "included_in_csv_row_order"
+  }
+}

@@ -81,7 +81,7 @@ const DISCLAIMER =
   "이 목록은 GolfMap Korea 데이터 기준 참고용입니다. 실제 체감 난이도와 요금은 코스 상태, 시즌, 예약 조건에 따라 달라질 수 있습니다.";
 
 function mapHrefFor(slug: CollectionSlug): string {
-  return `/?collection=${slug}`;
+  return `/map?collection=${slug}`;
 }
 
 function baseFaq(

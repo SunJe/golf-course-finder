@@ -1,17 +1,6 @@
 import type { DailyResultRow, ManualReviewRow, SummaryRow } from "./batchIo";
 import { inferDayTypeFromRoundDay } from "./dateSampling";
 
-const MANUAL_REVIEW_STATUSES = new Set([
-  "possible_renamed_course",
-  "candidate_mismatch",
-  "ambiguous_match",
-  "ambiguous",
-  "no_result",
-  "search_failed",
-  "blocked",
-  "manual_review",
-]);
-
 function parseIntOrNull(value: string): number | null {
   const trimmed = value.trim().replace(/,/g, "");
   if (!trimmed) return null;
@@ -196,11 +185,9 @@ export function buildAllSummaries(dailyRows: DailyResultRow[]): SummaryRow[] {
 export function buildManualReviewRows(summaries: SummaryRow[]): ManualReviewRow[] {
   return summaries
     .filter((row) => {
+      if (row.review_action === "accept_price") return false;
       if (row.review_action === "manual_review") return true;
-      if (MANUAL_REVIEW_STATUSES.has(row.match_status)) return true;
-      if (row.price_scope.includes("partial") && row.review_action !== "accept_price") {
-        return true;
-      }
+      if (row.price_scope.includes("partial")) return true;
       return false;
     })
     .map((row) => ({

@@ -317,7 +317,7 @@ export async function scrapeTeescannerCourse(options: {
   }
 
   const match = matchTeescannerCandidates(course, allCandidates);
-  if (!match.candidate || match.confidence === "low") {
+  if (!match.candidate) {
     await shots.capture("failed");
     return failOutcome(
       course,
@@ -327,7 +327,7 @@ export async function scrapeTeescannerCourse(options: {
       shots,
       {
         ...baseDiagnostics,
-        selectedCandidate: match.candidate?.title ?? candidateTitles[0] ?? "",
+        selectedCandidate: candidateTitles[0] ?? "",
         matchScore: String(match.matchScore),
         confidence: match.confidence,
       },
@@ -337,9 +337,9 @@ export async function scrapeTeescannerCourse(options: {
         candidate_count: String(match.candidateCount),
         match_score: String(match.matchScore),
         confidence: match.confidence,
-        matched_title: match.candidate?.title ?? candidateTitles[0] ?? "",
-        matched_region: match.candidate?.region ?? candidateRegions[0] ?? "",
-        matched_url: match.candidate?.url ?? "",
+        matched_title: candidateTitles[0] ?? "",
+        matched_region: candidateRegions[0] ?? "",
+        matched_url: "",
         needs_check: "y",
       },
     );

@@ -149,10 +149,3 @@ export function evaluateMatchStatus(options: {
     suggestedChangeNameTo: "",
   };
 }
-
-export function shouldSkipAutoPriceAccept(evaluation: MatchEvaluation): boolean {
-  return (
-    evaluation.reviewAction === "manual_review" &&
-    evaluation.matchStatus !== "no_price"
-  );
-}

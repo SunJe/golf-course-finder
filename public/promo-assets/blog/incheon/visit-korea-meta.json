@@ -1,0 +1,126 @@
+[
+  {
+    "key": "incheon-grand",
+    "courseId": "gc-60319bf1693c",
+    "title": "인천그랜드CC",
+    "rank": 1,
+    "searchKeywords": [
+      "인천그랜드CC",
+      "인천그랜드"
+    ],
+    "contentId": "2781611",
+    "apiTitle": "인천그랜드CC",
+    "apiAddr": "인천광역시 서구 원석로 195 (원창동)",
+    "overview": "서울에서 30분, 서인천 IC에서 3Km에 위치해 접근성이 좋고, 국내 최초로 공공하수처리장 방류수를 중수 처리하여 골프장 조경 용수로 재활용하는 자연 친화적인 환경 시스템을 운영하고 있다. 18홀 전 홀 라이트 시설을 설치하여 일몰 후에도 야간 라운딩을 즐길 수 있다. 전장 길이가 6,310야드(Regular Tee)로 플랫하면서도 곳곳에 배치된 폰드와 벙커로 난이도를 달리하였다.",
+    "homepage": "https://www.incheongrand.cc/",
+    "tel": "",
+    "imagePath": "/promo-assets/blog/incheon/incheon-grand.jpg",
+    "imagePath2": "/promo-assets/blog/incheon/incheon-grand-2.jpg",
+    "imageCredit": "출처 : ⓒ한국관광콘텐츠랩",
+    "imageCount": 4
+  },
+  {
+    "key": "dream-park",
+    "courseId": "gc-fa86c43067e7",
+    "title": "드림파크CC",
+    "rank": 2,
+    "searchKeywords": [
+      "드림파크CC",
+      "드림파크골프"
+    ],
+    "contentId": "2768223",
+    "apiTitle": "드림파크CC",
+    "apiAddr": "인천광역시 서구 자원순환로260번길 46 (백석동)",
+    "overview": "1992년부터 2000년도까지 6,500만 톤 폐기물을 매립한 제1매립장 상부에 조성한 대중 골프장으로 산림을 훼손하지 않고 조성한 자연친화적 골프장이다. 2013년에 개장한 드림파크 골프클럽은 인위적인 조경을 최소화하고 매립지의 자연 지형을 최대한 살려 조성되었으며, 총 36홀을 갖추고 있다. 드림파크는 2가지 코스가 있으며 안정된 홀 간격의 정통 코스인 드림 코스와 벙커와 폰드로 다양함을 추구하는 파크 코스가 있다. 스타트 하우스 2개 동과 그늘집 4개 동, 식당과 사우나 라커 등 부대시설도 잘 갖춰져 있다.",
+    "homepage": "https://www.dreamparkcc.or.kr/",
+    "tel": "",
+    "imagePath": "/promo-assets/blog/incheon/dream-park.jpg",
+    "imagePath2": "/promo-assets/blog/incheon/dream-park-2.jpg",
+    "imageCredit": "출처 : ⓒ한국관광콘텐츠랩",
+    "imageCount": 4
+  },
+  {
+    "key": "bears-best-cheongna",
+    "courseId": "gc-fa55dbc73e9b",
+    "title": "베어즈베스트청라GC",
+    "rank": 3,
+    "searchKeywords": [
+      "베어즈베스트청라GC",
+      "베어즈베스트청라",
+      "베어즈베스트"
+    ],
+    "contentId": "2781467",
+    "apiTitle": "베어즈베스트청라GC",
+    "apiAddr": "인천광역시 서구 청라대로316번길 45 (청라동)",
+    "overview": "Jack Nicklaus가 직접 설계한 전 세계 최고의 Signature Hole 중 최고만 선별하여 구성한 클럽으로, 전체 길이가 9,525m(파 72)에 이르고, 9홀 평균 길이가 3,100m 이상인 챔피언십 코스로 PGA 국제 토너먼트 규격을 충족하는 코스이다. \"오로지 땅과 자연과 경쟁한다\"는 Jack Nicklaus의 골프철학을 코스세팅에 담아 호쾌한 드라이브샷을 즐길 수 있는 넓고 플랫 한 홀과 짧지만 결코 방심할 수 없는 홀의 절묘한 배치를 실현하였다. 또한 수도권에서 자동차로 40~50분 거리에 위치하여 접근성이 좋다는 장점이 있다.",
+    "homepage": "https://www.bearsbestcheongnagc.com/",
+    "tel": "",
+    "imagePath": "/promo-assets/blog/incheon/bears-best-cheongna.jpg",
+    "imagePath2": "/promo-assets/blog/incheon/bears-best-cheongna-2.jpg",
+    "imageCredit": "출처 : ⓒ한국관광콘텐츠랩",
+    "imageCount": 4
+  },
+  {
+    "key": "songdo",
+    "courseId": "gc-68bd427a4957",
+    "title": "송도골프클럽",
+    "rank": 4,
+    "searchKeywords": [
+      "송도골프클럽",
+      "송도골프"
+    ],
+    "contentId": "2767803",
+    "apiTitle": "송도골프클럽",
+    "apiAddr": "인천광역시 연수구 능허대로 236 (옥련동)",
+    "overview": "인천 연수구 송도동 위치한 송도 골프클럽은 유원지의 보트장을 매립하여 1991년 친환경 골프장으로 개장하였다. 천연잔디로 조성된 9홀(Par. 32) 퍼블릭 골프 코스로, 1라운드 소요 시간은 평일 1시간 40분, 주말 공휴일 2시간가량이다. 인천시민에게는 신분증 지참 시 할인요금이 적용된다.",
+    "homepage": "http://songdogolf.co.kr/",
+    "tel": "",
+    "imagePath": "/promo-assets/blog/incheon/songdo.jpg",
+    "imagePath2": "/promo-assets/blog/incheon/songdo-2.jpg",
+    "imageCredit": "출처 : ⓒ한국관광콘텐츠랩",
+    "imageCount": 4
+  },
+  {
+    "key": "orange-dunes-yeongjong",
+    "courseId": "gc-496303f3c77c",
+    "title": "오렌지듄스 영종골프클럽",
+    "rank": 5,
+    "searchKeywords": [
+      "오렌지듄스 영종",
+      "오렌지듄스영종",
+      "영종골프",
+      "오렌지듄스"
+    ],
+    "contentId": "2767812",
+    "apiTitle": "오렌지듄스 GC",
+    "apiAddr": "인천광역시 연수구 인천신항대로 1120",
+    "overview": "오렌지 골프클럽이 2013년 국내 최초로 송도에 듄스 코스(Dunes Course)로 조성된 골프클럽을 개장하여 운영하고 있는 곳이다. 듄스 코스는 해안과 내륙의 크고 작은 모래언덕(Sand Dunes) 사이에 만들어진 코스로 도전적이고 전략적인 코스 공략을 추구하는 골퍼들이 선호하는 코스이다. 면적 4,775m²의 클럽하우스에 전장 6,422m, 70,234 야드, 파 71의 코스 규모를 갖추고 있다.",
+    "homepage": "https://www.orangedunes.com/index.asp",
+    "tel": "",
+    "imagePath": "/promo-assets/blog/incheon/orange-dunes-yeongjong.jpg",
+    "imagePath2": "/promo-assets/blog/incheon/orange-dunes-yeongjong-2.jpg",
+    "imageCredit": "출처 : ⓒ한국관광콘텐츠랩",
+    "imageCount": 4
+  },
+  {
+    "key": "jack-nicklaus",
+    "courseId": "gc-3f766167d45e",
+    "title": "잭니클라우스GC코리아",
+    "rank": 6,
+    "searchKeywords": [
+      "잭니클라우스GC코리아",
+      "잭니클라우스",
+      "잭 니클라우스"
+    ],
+    "contentId": "2778089",
+    "apiTitle": "잭니클라우스GC코리아",
+    "apiAddr": "인천광역시 연수구 아카데미로 209",
+    "overview": "인천 연수구에 위치한 잭니클라우스GC코리아는 세계 남자 프로 골프 4대 대회를 모두 석권한 미국의 골든베어로 상징되는 프로골퍼 잭 니클라우스의 설계로 만들어진 골프장이다. 토너먼트 티를 기준으로 7,413야드(6.8 km)가 넘는 코스로 세계 최고 수준의 기준을 적용하여 설계되고 건설되었다. 18개 홀로 구성된 난도가 높은 골프장으로 방문 전 홈페이지를 통해 코스 공략법을 숙지하고 방문하는 것이 좋다.",
+    "homepage": "http://www.jacknicklausgolfclubkorea.com",
+    "tel": "",
+    "imagePath": "/promo-assets/blog/incheon/jack-nicklaus.jpg",
+    "imagePath2": "/promo-assets/blog/incheon/jack-nicklaus-2.jpg",
+    "imageCredit": "출처 : ⓒ한국관광콘텐츠랩",
+    "imageCount": 3
+  }
+]

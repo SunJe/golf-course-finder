@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useHomeReset } from "@/contexts/HomeResetContext";
 
 interface HomeResetLinkProps {
@@ -9,14 +10,15 @@ interface HomeResetLinkProps {
   onClick?: () => void;
 }
 
-/** 로고 / 홈 네비 클릭 시 홈 UI를 초기 상태로 되돌린다. */
+/** 같은 경로면 UI 초기화, 홈(/map) 이동 시 라우팅·초기화 처리 */
 export default function HomeResetLink({
   href = "/",
   className,
   children,
   onClick,
 }: HomeResetLinkProps) {
-  const { goHome } = useHomeReset();
+  const { goHome, resetCurrentView } = useHomeReset();
+  const pathname = usePathname();
 
   return (
     <a
@@ -24,7 +26,15 @@ export default function HomeResetLink({
       className={className}
       onClick={(event) => {
         onClick?.();
-        goHome(event);
+        if (pathname === href) {
+          event.preventDefault();
+          resetCurrentView();
+          return;
+        }
+        if (href === "/") {
+          goHome(event);
+          return;
+        }
       }}
     >
       {children}

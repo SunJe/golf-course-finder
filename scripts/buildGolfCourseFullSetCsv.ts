@@ -176,18 +176,12 @@ function formatPriceText(options: {
 }
 
 function isManualReviewSummary(summary: Record<string, string>): boolean {
-  const status = summary.match_status?.trim() ?? "";
   const action = summary.review_action?.trim() ?? "";
+  if (action === "accept_price") return false;
   if (action === "manual_review") return true;
-  return [
-    "possible_renamed_course",
-    "candidate_mismatch",
-    "ambiguous",
-    "no_result",
-    "search_failed",
-    "blocked",
-    "manual_review",
-  ].includes(status);
+  const priceScope = summary.price_scope_summary?.trim() ?? summary.price_scope?.trim() ?? "";
+  if (priceScope.includes("partial")) return true;
+  return false;
 }
 
 function formatPostgresTextArray(values: string[]): string {

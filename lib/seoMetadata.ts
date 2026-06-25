@@ -115,9 +115,78 @@ function buildTwitter(
 }
 
 export function buildHomeMetadata(): Metadata {
-  const title = siteConfig.defaultTitle;
-  const description = siteConfig.defaultDescription;
-  const url = getSiteUrl();
+  const title = "GolfMap Korea | 전국 골프장 지도·가격·추천 코스";
+  const description =
+    "전국 골프장을 지도에서 찾고, 서울 근교·저렴한 골프장·대중제·9홀·파3 골프장을 조건별로 비교해 보세요.";
+  const url = absoluteUrl("/");
+
+  return {
+    title,
+    description,
+    keywords: HOME_KEYWORDS,
+    alternates: { canonical: url },
+    openGraph: buildOpenGraph(title, description, url),
+    twitter: buildTwitter(title, description),
+  };
+}
+
+export function buildRecommendedMetadata(): Metadata {
+  return buildStaticPageMetadata({
+    title: "추천 골프장 | GolfMap Korea",
+    description:
+      "접근성, 가격 정보, 운영 형태를 기준으로 골라본 추천 골프장입니다.",
+    path: "/recommended",
+  });
+}
+
+export function buildBlogMetadata(): Metadata {
+  return buildStaticPageMetadata({
+    title: "골프장 추천 블로그 | GolfMap Korea",
+    description:
+      "서울 근교, 저렴한 골프장, Par 3, 지역별 골프장 가이드를 정리한 GolfMap Korea 블로그입니다.",
+    path: "/blog",
+  });
+}
+
+export function buildBlogPostMetadata(post: {
+  title: string;
+  description: string;
+  slug: string;
+  thumbnail: string;
+  thumbnailAlt: string;
+}): Metadata {
+  const pageTitle = `${post.title} | GolfMap Korea`;
+  const description = truncateMetaDescription(
+    post.description,
+    META_DESCRIPTION_MAX_LENGTH,
+  );
+  const url = absoluteUrl(`/blog/${post.slug}`);
+
+  return {
+    title: pageTitle,
+    description,
+    alternates: { canonical: url },
+    openGraph: buildOpenGraph(
+      pageTitle,
+      description,
+      url,
+      post.thumbnail,
+      post.thumbnailAlt,
+    ),
+    twitter: buildTwitter(
+      pageTitle,
+      description,
+      post.thumbnail,
+      post.thumbnailAlt,
+    ),
+  };
+}
+
+export function buildMapMetadata(): Metadata {
+  const title = "골프장 지도 | GolfMap Korea";
+  const description =
+    "전국 골프장을 지도에서 확인하고 지역, 가격, 운영 형태 기준으로 필터링해 보세요.";
+  const url = absoluteUrl("/map");
 
   return {
     title,

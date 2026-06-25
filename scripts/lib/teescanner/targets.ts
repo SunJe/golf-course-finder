@@ -5,6 +5,7 @@ import {
   hasValidTeescannerPrice,
   parseSummaryRows,
 } from "../../../lib/enrichment/teescannerPriceMerge";
+import { readSummaryRows } from "./batchIo";
 import { buildCourseSearchTerms, findChangeNameColumnIndex } from "./courseEnrichment";
 import { enrichInputRowFromCourse } from "./courseMeta";
 import type { TeescannerInputRow } from "./types";
@@ -28,17 +29,20 @@ const METRO_REGIONS = [
   "세종",
 ];
 
-export type TargetMode = "price_missing" | "sequential";
+export type TargetMode = "price_missing" | "sequential" | "ambiguous";
 
 export interface LoadTargetOptions {
   processedIds: Set<string>;
   limit: number;
+  startRow?: number;
+  endRow?: number;
   targetName?: string;
   targetId?: string;
   targetMode?: TargetMode;
   includePriced?: boolean;
   skipRecentTeescannerSuccessDays?: number;
   summaryCsvPath?: string;
+  ambiguousIds?: Set<string>;
 }
 
 function isBlank(value: string | undefined): boolean {
@@ -131,6 +135,41 @@ function loadRecentSuccessfulIds(
   return recentIds;
 }
 
+function isAmbiguousSummaryRow(row: {
+  match_status: string;
+  review_reason: string;
+  review_action: string;
+}): boolean {
+  if (row.review_action === "accept_price") return false;
+  if (row.match_status === "ambiguous") return true;
+  const reason = (row.review_reason ?? "").trim();
+  return (
+    reason === "ambiguous_match" ||
+    reason === "multiple similar candidates"
+  );
+}
+
+export function loadAmbiguousTargetIds(summaryCsvPath: string): Set<string> {
+  const ids = new Set<string>();
+  for (const summary of readSummaryRows(summaryCsvPath)) {
+    if (!summary.id) continue;
+    if (isAmbiguousSummaryRow(summary)) {
+      ids.add(summary.id);
+    }
+  }
+  return ids;
+}
+
+function withinRowRange(
+  rowIndex: number,
+  startRow: number,
+  endRow: number,
+): boolean {
+  if (rowIndex < startRow) return false;
+  if (endRow > 0 && rowIndex > endRow) return false;
+  return true;
+}
+
 export function loadTargetRows(
   inputCsvPath: string,
   options: LoadTargetOptions,
@@ -140,12 +179,15 @@ export function loadTargetRows(
   const {
     processedIds,
     limit,
+    startRow = 1,
+    endRow = 0,
     targetName,
     targetId,
     targetMode = "sequential",
     includePriced = false,
     skipRecentTeescannerSuccessDays = 0,
     summaryCsvPath,
+    ambiguousIds,
   } = options;
 
   const content = readCsvWithEncodingGuess(inputCsvPath).content;
@@ -169,6 +211,9 @@ export function loadTargetRows(
       const haystack = `${input.name} ${input.change_name_to}`.toLowerCase();
       if (!haystack.includes(needle)) return;
     }
+    if (targetMode === "ambiguous") {
+      if (!ambiguousIds?.has(input.id)) return;
+    }
     if (priceMissingOnly && !isPriceMissing(headers, row)) return;
     if (recentSuccessIds.has(input.id)) return;
 
@@ -181,6 +226,7 @@ export function loadTargetRows(
 
   if (!priceMissingOnly) {
     return candidates
+      .filter((item) => withinRowRange(item.input.row_index ?? item.index + 1, startRow, endRow))
       .sort((a, b) => a.index - b.index)
       .slice(0, limit)
       .map((item) => item.input);

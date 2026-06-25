@@ -1,21 +1,28 @@
+import Link from "next/link";
 import HomeResetLink from "@/components/HomeResetLink";
-import { Flag, Sparkles, MapPin } from "lucide-react";
+import SiteContainer from "@/components/layout/SiteContainer";
+import { Flag } from "lucide-react";
 
-const NAV = [
-  { label: "전국 골프장", href: "/", icon: MapPin, resetHome: true },
-  { label: "추천 골프장", href: "/#recommended", icon: Sparkles, resetHome: false },
-];
+const NAV_ITEMS = [
+  { label: "홈", href: "/" },
+  { label: "추천 골프장", href: "/recommended" },
+  { label: "골프맵", href: "/map", resetOnSamePath: true as const },
+  { label: "블로그", href: "/blog" },
+] as const;
+
+const FOCUS_RING =
+  "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-700";
 
 export default function Header() {
   return (
     <header className="sticky top-0 z-30 border-b border-stone-200/60 bg-app-warm/95 backdrop-blur md:border-stone-200/80 md:bg-white/95">
-      <div className="mx-auto flex h-11 max-w-[1600px] items-center justify-between gap-2 px-3 sm:px-4 md:h-14 md:gap-3 md:px-6">
-        <HomeResetLink
+      <SiteContainer className="flex h-11 items-center justify-between gap-2 md:h-14 md:gap-3">
+        <Link
           href="/"
-          className="flex min-w-0 items-center gap-2 md:gap-2.5"
+          className={`flex min-w-0 shrink-0 items-center gap-2 md:gap-2.5 ${FOCUS_RING}`}
         >
           <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand-800 text-white shadow-sm md:h-9 md:w-9 md:rounded-xl">
-            <Flag className="h-3.5 w-3.5 md:h-[18px] md:w-[18px]" />
+            <Flag className="h-3.5 w-3.5 md:h-[18px] md:w-[18px]" aria-hidden />
           </span>
           <span className="truncate text-sm font-bold tracking-tight text-stone-900 md:text-[17px]">
             GolfMap{" "}
@@ -24,32 +31,30 @@ export default function Header() {
               <span className="hidden md:inline">Korea</span>
             </span>
           </span>
-        </HomeResetLink>
+        </Link>
 
-        <nav className="hidden items-center gap-0.5 md:flex">
-          {NAV.map(({ label, href, icon: Icon, resetHome }) =>
-            resetHome ? (
+        <nav className="flex min-w-0 shrink-0 items-center justify-end gap-0.5 overflow-x-auto md:gap-1">
+          {NAV_ITEMS.map(({ label, href, ...rest }) =>
+            "resetOnSamePath" in rest && rest.resetOnSamePath ? (
               <HomeResetLink
                 key={label}
                 href={href}
-                className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-stone-600 transition-colors hover:bg-stone-50 hover:text-stone-900"
+                className={`whitespace-nowrap rounded-lg px-2.5 py-2 text-xs font-medium text-stone-600 transition-colors hover:bg-stone-50 hover:text-stone-900 md:px-3 md:text-sm ${FOCUS_RING}`}
               >
-                <Icon className="h-4 w-4" />
                 {label}
               </HomeResetLink>
             ) : (
-              <a
+              <Link
                 key={label}
                 href={href}
-                className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-stone-600 transition-colors hover:bg-stone-50 hover:text-stone-900"
+                className={`whitespace-nowrap rounded-lg px-2.5 py-2 text-xs font-medium text-stone-600 transition-colors hover:bg-stone-50 hover:text-stone-900 md:px-3 md:text-sm ${FOCUS_RING}`}
               >
-                <Icon className="h-4 w-4" />
                 {label}
-              </a>
+              </Link>
             ),
           )}
         </nav>
-      </div>
+      </SiteContainer>
     </header>
   );
 }

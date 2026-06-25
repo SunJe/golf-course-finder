@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SiteContainer from "@/components/layout/SiteContainer";
 import { siteConfig } from "@/lib/siteConfig";
 
 const FOOTER_LINKS = [
@@ -16,10 +17,10 @@ export default function Footer() {
 
   return (
     <footer className="mt-auto border-t border-stone-200/80 bg-app-warm/50 md:bg-stone-50">
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <SiteContainer className="py-8">
         <nav
           aria-label="서비스 정보"
-          className="flex flex-wrap justify-center gap-x-4 gap-y-2 sm:justify-start sm:gap-x-6"
+          className="flex flex-wrap gap-x-6 gap-y-2"
         >
           {FOOTER_LINKS.map(({ label, href }) => (
             <Link
@@ -31,11 +32,11 @@ export default function Footer() {
             </Link>
           ))}
         </nav>
-        <p className="mt-4 text-center text-xs text-stone-500 sm:text-left">
+        <p className="mt-4 text-xs leading-relaxed text-stone-500">
           © {year} {siteConfig.siteName}. 골프장 정보는 참고용이며 예약 전 공식
           홈페이지에서 확인하세요.
         </p>
-      </div>
+      </SiteContainer>
     </footer>
   );
 }

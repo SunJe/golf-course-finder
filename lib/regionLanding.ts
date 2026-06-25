@@ -412,7 +412,7 @@ export function getCityQuickLinkTitle(label: string): string {
 }
 
 export function getRegionMapHref(slug: string): string {
-  return `/?region=${encodeURIComponent(slug)}`;
+  return `/map?region=${encodeURIComponent(slug)}`;
 }
 
 /** 메인 지도 REGIONS 필터 값 — 없으면 slug 기반 랜딩 필터 사용 */

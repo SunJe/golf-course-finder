@@ -298,7 +298,7 @@ export default function RegionLandingView({
     <div className="min-h-screen bg-region-cream">
       <div className="mx-auto max-w-6xl px-4 pb-20 pt-6 sm:px-6 sm:pt-10">
         <nav className="mb-6 text-sm font-medium text-region-muted">
-          <Link href="/" className={`text-brand-800 transition hover:text-brand-900 ${FOCUS_RING}`}>
+          <Link href="/map" className={`text-brand-800 transition hover:text-brand-900 ${FOCUS_RING}`}>
             전국 골프장 지도
           </Link>
           <span className="mx-2 text-region-soft-border">/</span>
@@ -325,7 +325,7 @@ export default function RegionLandingView({
               {config.label} 골프장 지도에서 보기
             </Link>
             <Link
-              href="/"
+              href="/map"
               className={`inline-flex min-h-[48px] items-center justify-center rounded-xl border-2 border-region-soft-border bg-white px-6 py-3 text-base font-bold text-region-ink transition hover:border-brand-600 hover:bg-region-soft ${FOCUS_RING}`}
             >
               전국 골프장 지도로 돌아가기

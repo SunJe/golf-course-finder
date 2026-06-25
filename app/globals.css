@@ -18,7 +18,16 @@ body {
 body {
   background-color: #ffffff;
   color: #111827;
+  font-family:
+    Pretendard,
+    SUIT,
+    "Noto Sans KR",
+    "Apple SD Gothic Neo",
+    "Malgun Gothic",
+    sans-serif;
+  letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .prose-static {

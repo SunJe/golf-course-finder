@@ -38,6 +38,7 @@
     "collect:teescanner-price-batch": "tsx scripts/collectTeescannerPriceBatch.ts",
     "collect:teescanner-prices": "tsx scripts/collectTeescannerPriceBatch.ts",
     "audit:teescanner-crawl-plan": "tsx scripts/auditTeescannerCrawlPlan.ts",
+    "approve:teescanner-manual-prices": "tsx scripts/approveTeescannerManualReviewPrices.ts",
     "build:golf-full-set": "tsx scripts/buildGolfCourseFullSetCsv.ts",
     "audit:golf-supabase-upload": "tsx scripts/auditGolfCoursesSupabaseUpload.ts",
     "backup:supabase-golf-courses": "tsx scripts/backupSupabaseGolfCourses.ts",
@@ -74,7 +75,16 @@
     "generate:promo-images": "tsx scripts/generatePromoImages.ts",
     "generate:promo-images:all": "tsx scripts/generatePromoImages.ts -- --all",
     "generate:promo-images:sample": "tsx scripts/generatePromoImages.ts -- --sample",
-    "render:promo-sample": "tsx scripts/renderPromoFromLayers.ts"
+    "render:promo-sample": "tsx scripts/renderPromoFromLayers.ts",
+    "check:blog-posts": "tsx scripts/checkBlogPosts.ts",
+    "generate:blog-thumbnails": "tsx scripts/generateBlogThumbnails.ts",
+    "generate:blog-thumbnail-sources": "tsx scripts/generateBlogThumbnailSourcesOpenAI.ts",
+    "normalize:blog-thumbnails": "tsx scripts/normalizeBlogThumbnails.ts",
+    "import:blog-thumbnail-sources": "tsx scripts/importBlogThumbnailSources.ts",
+    "check:blog-thumbnails": "tsx scripts/checkBlogThumbnailDimensions.ts",
+    "fetch:visit-korea-incheon-golf": "tsx scripts/fetchVisitKoreaIncheonGolf.ts",
+    "fetch:visit-korea-gapyeong-golf": "tsx scripts/fetchVisitKoreaGapyeongGolf.ts",
+    "seed:incheon-blog-images": "tsx scripts/seedIncheonBlogImagePlaceholders.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",

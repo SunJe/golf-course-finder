@@ -1,7 +1,7 @@
 import type { Course } from "@/types/course";
 import { getNormalizedRegionLabel } from "@/lib/regionUtils";
 import { formatRegionCoursePrice, courseHasPriceInfo } from "@/lib/regionLanding";
-import { formatPriceRange, hasPrice, normalizeCompactPriceDisplay } from "@/lib/priceFormat";
+import { formatPriceRange, hasPrice } from "@/lib/priceFormat";
 import {
   courseHasValidHomepage,
   courseHasValidPhone,
@@ -722,15 +722,6 @@ export function formatCollectionCardPrice(course: Course): {
     return {
       label: "참고 최저가",
       value: formatPriceRange(course),
-      hasPrice: true,
-    };
-  }
-
-  const priceText = course.priceText?.trim();
-  if (priceText) {
-    return {
-      label: "참고 최저가",
-      value: normalizeCompactPriceDisplay(priceText),
       hasPrice: true,
     };
   }

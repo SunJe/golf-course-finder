@@ -11,7 +11,6 @@ import {
   Flag,
   ExternalLink,
   ChevronRight,
-  Clock,
   Search,
   Copy,
   Check,
@@ -28,6 +27,8 @@ import {
   formatPriceBadge,
   formatPriceRange,
   hasPrice,
+  PRICE_CHECK_ON_BOOKING_PAGE,
+  PRICE_REFERENCE_DISCLAIMER,
   PRICE_UNAVAILABLE,
 } from "@/lib/priceFormat";
 import { formatDate } from "@/lib/format";
@@ -192,14 +193,8 @@ export default function CourseDetail({
   const priced = hasPrice(course);
   const priceBadge = formatPriceBadge(course);
   const priceSummary = formatPriceRange(course);
-  const priceUpdatedLabel = course.priceUpdatedAt
-    ? formatDate(course.priceUpdatedAt)
-    : null;
-  const priceBasisLabel = priceUpdatedLabel
-    ? `${priceUpdatedLabel} 기준`
-    : "최근 수집 기준";
-
   const naverMapUrl = getNaverMapSearchUrl(course);
+  const bookingHref = showHomepage ? course.homepageUrl : naverMapUrl;
   const naverSearchUrl = getNaverSearchUrl(course);
 
   const mapCourses = useMemo(
@@ -409,8 +404,7 @@ export default function CourseDetail({
       <section className="mt-6 rounded-2xl border border-gray-200/80 bg-white p-4 shadow-sm sm:p-6">
         <SectionTitle>요금 정보</SectionTitle>
         <p className="mb-4 text-xs leading-relaxed text-stone-500 sm:text-sm">
-          네이버 예약 기준 참고 요금입니다. 실제 요금은 날짜, 시간대, 예약
-          조건에 따라 달라질 수 있습니다.
+          {PRICE_REFERENCE_DISCLAIMER}
         </p>
         <div className="rounded-xl border border-stone-200 bg-stone-50/70 p-4 sm:p-5">
           <p
@@ -418,30 +412,21 @@ export default function CourseDetail({
               priced ? "text-brand-900" : "text-stone-500"
             }`}
           >
-            {priceSummary}
-          </p>
-          {course.priceText?.trim() ? (
-            <p className="mt-3 text-sm leading-relaxed text-stone-600">
-              {course.priceText.trim()}
-            </p>
-          ) : null}
-          <p className="mt-3 inline-flex items-center gap-1 text-xs text-stone-500 sm:text-sm">
-            <Clock className="h-3.5 w-3.5" />
-            {priceBasisLabel}
+            {priced ? priceSummary : PRICE_CHECK_ON_BOOKING_PAGE}
           </p>
         </div>
         <div className="mt-4">
           <a
-            href={naverMapUrl}
+            href={bookingHref}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-xl bg-[#03c75a] px-4 py-3 text-sm font-bold text-white transition hover:bg-[#02b350] sm:w-auto sm:min-w-[160px]"
           >
             <CalendarCheck className="h-4 w-4" />
-            예약하기
+            예약 정보 확인
           </a>
           <p className="mt-2 text-xs text-stone-500">
-            네이버지도에서 예약 가능 여부를 확인해보세요.
+            네이버지도 또는 공식 홈페이지에서 예약 가능 여부를 확인해보세요.
           </p>
         </div>
       </section>

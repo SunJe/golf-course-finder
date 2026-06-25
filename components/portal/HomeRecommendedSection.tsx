@@ -6,7 +6,8 @@ import {
   formatHomeCarouselPrice,
   hasPrice,
   PRICE_UNAVAILABLE,
-} from "@/lib/priceFormat";import PortalSection from "@/components/portal/PortalSection";
+} from "@/lib/priceFormat";
+import PortalSection from "@/components/portal/PortalSection";
 import RecommendedCourseCarousel from "@/components/RecommendedCourseCarousel";
 
 export default async function HomeRecommendedSection() {
@@ -36,6 +37,7 @@ export default async function HomeRecommendedSection() {
       description="처음 방문하신 분들을 위해 접근성, 정보 완성도, 가격 정보를 기준으로 골라봤어요."
       actionHref="/recommended"
       actionLabel="전체보기"
+      containerVariant="narrow"
     >
       <RecommendedCourseCarousel courses={carouselItems} />
     </PortalSection>

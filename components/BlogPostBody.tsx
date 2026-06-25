@@ -117,7 +117,7 @@ export function BlogPostBody({ post }: { post: BlogPost }) {
 
   return (
 
-    <div className="prose prose-stone max-w-none">
+    <div className="w-full max-w-none">
 
       {post.sections.map((section) => (
 

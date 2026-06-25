@@ -10,6 +10,7 @@ interface PortalSectionProps {
   className?: string;
   actionHref?: string;
   actionLabel?: string;
+  containerVariant?: "default" | "narrow";
 }
 
 export default function PortalSection({
@@ -20,6 +21,7 @@ export default function PortalSection({
   className = "",
   actionHref,
   actionLabel = "전체보기",
+  containerVariant = "default",
 }: PortalSectionProps) {
   return (
     <section
@@ -27,7 +29,7 @@ export default function PortalSection({
       aria-labelledby={id ? `${id}-heading` : undefined}
       className={`py-12 sm:py-14 ${className}`}
     >
-      <SiteContainer>
+      <SiteContainer variant={containerVariant}>
         <div className="flex items-end justify-between gap-4">
           <div className="max-w-3xl">
             <h2

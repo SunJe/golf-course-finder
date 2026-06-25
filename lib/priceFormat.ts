@@ -2,6 +2,12 @@ import type { Course } from "@/types/course";
 
 export const PRICE_UNAVAILABLE = "요금 정보 준비 중";
 
+/** 상세페이지 요금 정보 섹션 안내 문구 */
+export const PRICE_REFERENCE_DISCLAIMER =
+  "네이버 예약/홈페이지 참고 요금입니다. 실제 요금은 날짜, 시간대, 예약 조건에 따라 달라질 수 있습니다.";
+
+export const PRICE_CHECK_ON_BOOKING_PAGE = "예약 페이지에서 확인해주세요";
+
 export function getPriceMin(course: Course): number | undefined {
   if (course.priceMin != null && course.priceMin > 0) return course.priceMin;
   return undefined;
@@ -35,19 +41,12 @@ export function normalizeCompactPriceDisplay(value: string): string {
 
 export function formatCompactPriceRange(
   priceMin?: number | null,
-  priceMax?: number | null,
+  _priceMax?: number | null,
 ): string {
   const min =
     priceMin != null && priceMin > 0 ? Math.round(priceMin / 10000) : null;
-  const max =
-    priceMax != null && priceMax > 0 ? Math.round(priceMax / 10000) : null;
 
-  if (min != null && max != null) {
-    if (min === max) return `${min}만원`;
-    return `${min}~${max}만원`;
-  }
   if (min != null) return `${min}만원~`;
-  if (max != null) return `~${max}만원`;
   return "";
 }
 
@@ -64,36 +63,28 @@ export function formatMobileWonAmount(value: number): string {
   return `${value.toLocaleString("ko-KR")}원`;
 }
 
-/** 홈 추천 캐러셀: 최저가만 `22만원~` 형식 */
+/** 홈 추천: 최저가만 `22만원~` 형식 */
 export function formatHomeCarouselPrice(course: Course): string {
-  const min = getPriceMin(course);
-  if (min == null) return PRICE_UNAVAILABLE;
-  return normalizeCompactPriceDisplay(`${formatManwon(min)}만원~`);
+  return formatPriceRange(course);
 }
 
-/** 요금 요약: `9~11만원` / `9만원~` / `9만원` / `요금 정보 준비 중` */
+/** UI 표시용 참고 요금 — price_min만 사용 */
+export function formatPublicPriceDisplay(course: Course): string {
+  return formatPriceRange(course);
+}
+
+/** 요금 요약: `22만원~` / `요금 정보 준비 중` (max 미표시) */
 export function formatPriceRange(course: Course): string {
   const min = getPriceMin(course);
   if (min == null) return PRICE_UNAVAILABLE;
 
-  const max = getPriceMax(course);
-  const compact = formatCompactPriceRange(min, max ?? null);
+  const compact = formatCompactPriceRange(min, null);
   return compact ? normalizeCompactPriceDisplay(compact) : PRICE_UNAVAILABLE;
 }
 
-/** Hero 뱃지: `예약가 9~11만원` / `최저 예약가 9만원~` */
+/** Hero 뱃지: `22만원~` */
 export function formatPriceBadge(course: Course): string {
-  const min = getPriceMin(course);
-  if (min == null) return PRICE_UNAVAILABLE;
-
-  const max = getPriceMax(course);
-  if (max != null && max !== min) {
-    return `예약가 ${formatManwon(min)}~${formatManwon(max)}만원`;
-  }
-  if (max != null && max === min) {
-    return `예약가 ${formatManwon(min)}만원`;
-  }
-  return `최저 예약가 ${formatManwon(min)}만원~`;
+  return formatPriceRange(course);
 }
 
 export interface CardPriceParts {
@@ -108,18 +99,8 @@ export function formatCardPriceParts(course: Course): CardPriceParts {
     return { label: "요금", value: PRICE_UNAVAILABLE };
   }
 
-  const max = getPriceMax(course);
-  if (max != null && max !== min) {
-    return {
-      label: "예약가",
-      value: normalizeCompactPriceDisplay(`${formatManwon(min)}~${formatManwon(max)}만원`),
-    };
-  }
-  if (max != null && max === min) {
-    return { label: "예약가", value: normalizeCompactPriceDisplay(`${formatManwon(min)}만원`) };
-  }
   return {
-    label: "최저 예약가",
+    label: "참고 요금",
     value: normalizeCompactPriceDisplay(`${formatManwon(min)}만원~`),
   };
 }

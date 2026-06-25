@@ -7,6 +7,10 @@ import BlogPostJsonLd from "@/components/BlogPostJsonLd";
 import { BlogPostBody } from "@/components/BlogPostBody";
 import { buildBlogPostMetadata } from "@/lib/seoMetadata";
 import { enrichBlogPost } from "@/lib/enrichBlogPost";
+import {
+  BLOG_ARTICLE_CONTAINER_CLASS,
+  BLOG_CONTENT_CLASS,
+} from "@/lib/siteLayout";
 
 export const revalidate = 86400;
 
@@ -40,15 +44,17 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       <BlogPostJsonLd post={enrichedPost} />
       <article className="pb-16">
         <header className="border-b border-stone-200/80 bg-gradient-to-b from-brand-50/50 to-white">
-          <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 sm:py-12 lg:grid-cols-[1fr_200px] lg:px-8">
-            <div>
+          <div
+            className={`${BLOG_ARTICLE_CONTAINER_CLASS} grid gap-6 py-8 sm:py-10 lg:grid-cols-[1fr_168px] lg:items-start lg:gap-8`}
+          >
+            <div className={BLOG_CONTENT_CLASS}>
               <p className="text-xs font-semibold uppercase tracking-wide text-brand-700">
                 {post.categoryLabel}
               </p>
-              <h1 className="mt-2 text-2xl font-extrabold leading-tight tracking-tight text-stone-900 sm:text-3xl lg:text-4xl">
+              <h1 className="mt-2 text-2xl font-extrabold leading-tight tracking-tight text-stone-900 sm:text-3xl">
                 {post.title}
               </h1>
-              <p className="mt-4 max-w-2xl text-sm leading-relaxed text-stone-600 sm:text-base">
+              <p className="mt-4 text-sm leading-relaxed text-stone-600 sm:text-base">
                 {post.description}
               </p>
               <p className="mt-4 text-sm text-stone-400">
@@ -56,12 +62,12 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
               </p>
             </div>
             <div className="hidden justify-end lg:flex">
-              <div className="relative aspect-square w-[200px] shrink-0 overflow-hidden rounded-2xl border border-stone-200/80 bg-stone-100 shadow-sm">
+              <div className="relative aspect-square w-[168px] shrink-0 overflow-hidden rounded-2xl border border-stone-200/80 bg-stone-100 shadow-sm">
                 <Image
                   src={post.thumbnail}
                   alt={post.thumbnailAlt}
                   fill
-                  sizes="200px"
+                  sizes="168px"
                   className="object-cover object-center"
                   priority
                 />
@@ -70,10 +76,14 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
           </div>
         </header>
 
-        <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
-          <BlogPostBody post={enrichedPost} />
+        <div className={`${BLOG_ARTICLE_CONTAINER_CLASS} py-8 sm:py-10`}>
+          <div className={BLOG_CONTENT_CLASS}>
+            <BlogPostBody post={enrichedPost} />
+          </div>
 
-          <div className="mt-12 flex flex-wrap gap-4 border-t border-stone-100 pt-8 text-sm">
+          <div
+            className={`${BLOG_CONTENT_CLASS} mt-12 flex flex-wrap gap-4 border-t border-stone-100 pt-8 text-sm`}
+          >
             <Link href="/blog" className="font-medium text-brand-800 hover:underline">
               ← 블로그 목록
             </Link>

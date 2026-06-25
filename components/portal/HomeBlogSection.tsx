@@ -12,6 +12,7 @@ export default function HomeBlogSection() {
       actionHref="/blog"
       actionLabel="전체보기"
       className="border-t border-stone-100 bg-stone-50/30"
+      containerVariant="narrow"
     >
       <HomeBlogCarousel posts={posts} />
     </PortalSection>

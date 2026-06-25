@@ -8,7 +8,7 @@ const FOCUS_RING =
 export default function PortalHero() {
   return (
     <section className="border-b border-stone-100 bg-gradient-to-b from-emerald-50/60 to-white">
-      <SiteContainer className="py-8 md:py-10">
+      <SiteContainer variant="narrow" className="py-8 md:py-10">
         <Link
           href="/map"
           className={`inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl bg-brand-800 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-900 ${FOCUS_RING}`}

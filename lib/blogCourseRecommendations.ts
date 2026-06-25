@@ -9,8 +9,8 @@ export function buildCourseRecommendationReasons(
 
   return [
     kmText
-      ? `서울에서 30분~1시간 거리 (${kmText}km)`
-      : "서울에서 30분~1시간 거리",
-    "아름다운 코스",
+      ? `서울 근교에서 접근 가능한 코스 (약 ${kmText}km)`
+      : "서울 근교에서 접근 가능한 코스",
+    "자연 경관이 아름다운 코스",
   ];
 }

@@ -16,7 +16,10 @@ const FOCUS_RING =
 export default function Header() {
   return (
     <header className="sticky top-0 z-30 border-b border-stone-200/60 bg-app-warm/95 backdrop-blur md:border-stone-200/80 md:bg-white/95">
-      <SiteContainer className="flex h-11 items-center justify-between gap-2 md:h-14 md:gap-3">
+      <SiteContainer
+        variant="narrow"
+        className="flex h-12 items-center gap-4 md:h-[60px] md:gap-6"
+      >
         <Link
           href="/"
           className={`flex min-w-0 shrink-0 items-center gap-2 md:gap-2.5 ${FOCUS_RING}`}
@@ -33,13 +36,13 @@ export default function Header() {
           </span>
         </Link>
 
-        <nav className="flex min-w-0 shrink-0 items-center justify-end gap-0.5 overflow-x-auto md:gap-1">
+        <nav className="flex min-w-0 items-center justify-start gap-0.5 overflow-x-auto md:gap-1.5">
           {NAV_ITEMS.map(({ label, href, ...rest }) =>
             "resetOnSamePath" in rest && rest.resetOnSamePath ? (
               <HomeResetLink
                 key={label}
                 href={href}
-                className={`whitespace-nowrap rounded-lg px-2.5 py-2 text-xs font-medium text-stone-600 transition-colors hover:bg-stone-50 hover:text-stone-900 md:px-3 md:text-sm ${FOCUS_RING}`}
+                className={`whitespace-nowrap rounded-lg px-2.5 py-2 text-[15px] font-medium text-stone-600 transition-colors hover:bg-stone-50 hover:text-stone-900 md:px-3 md:text-[17px] ${FOCUS_RING}`}
               >
                 {label}
               </HomeResetLink>
@@ -47,7 +50,7 @@ export default function Header() {
               <Link
                 key={label}
                 href={href}
-                className={`whitespace-nowrap rounded-lg px-2.5 py-2 text-xs font-medium text-stone-600 transition-colors hover:bg-stone-50 hover:text-stone-900 md:px-3 md:text-sm ${FOCUS_RING}`}
+                className={`whitespace-nowrap rounded-lg px-2.5 py-2 text-[15px] font-medium text-stone-600 transition-colors hover:bg-stone-50 hover:text-stone-900 md:px-3 md:text-[17px] ${FOCUS_RING}`}
               >
                 {label}
               </Link>

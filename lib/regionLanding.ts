@@ -1,6 +1,6 @@
 import type { Course } from "@/types/course";
 import { formatHoleCount } from "@/lib/courseDisplay";
-import { hasPrice, formatPriceRange } from "@/lib/priceFormat";
+import { hasPrice, formatPriceRange, formatPublicPriceDisplay } from "@/lib/priceFormat";
 import {
   resolveCourseRegionSlug,
   type RegionSlug,
@@ -450,9 +450,7 @@ export { courseHasValidPhone, courseHasValidHomepage } from "@/lib/regionContact
 export { type CityGroup };
 
 export function formatRegionCoursePrice(course: Course): string {
-  if (hasPrice(course)) return formatPriceRange(course);
-  if (course.priceText?.trim()) return course.priceText.trim();
-  return "요금 정보 준비 중";
+  return formatPublicPriceDisplay(course);
 }
 
 export function formatRegionCourseMeta(course: Course): string {

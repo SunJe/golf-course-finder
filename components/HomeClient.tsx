@@ -19,7 +19,10 @@ import FilterBar from "@/components/FilterBar";
 import CourseList from "@/components/CourseList";
 import MapSkeleton from "@/components/maps/MapSkeleton";
 import MobileFilterSheet from "@/components/MobileFilterSheet";
-import MobileHomeHub from "@/components/MobileHomeHub";
+import {
+  MobileHomeHubDiscovery,
+  MobileHomeHubToolbar,
+} from "@/components/MobileHomeHub";
 import MobileBottomSheet, {
   type MobileSheetSnap,
   getMobileSheetHeight,
@@ -333,7 +336,7 @@ function HomeClientInner({
   );
   const [mapViewportReady, setMapViewportReady] = useState(false);
   const [boundsReady, setBoundsReady] = useState(false);
-  const [mapSectionInView, setMapSectionInView] = useState(false);
+  const [mapSectionInView, setMapSectionInView] = useState(true);
   const mapSectionRef = useRef<HTMLElement>(null);
   const [selectedClusters, setSelectedClusters] = useState<
     Record<string, string[]>
@@ -1217,32 +1220,22 @@ function HomeClientInner({
       {/* ── 모바일: 탐색 허브 + 지도 ── */}
       <div className="mobile-app fixed inset-x-0 bottom-0 top-11 z-0 flex flex-col overflow-hidden bg-[#F3F2EA] md:hidden">
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain">
-          <MobileHomeHub
+          <MobileHomeHubToolbar
             query={filters.query}
             onQueryChange={(query) => updateFilters({ query })}
             onFilterOpen={() => setSheetOpen(true)}
             activeFilterCount={activeCount}
             suggestions={searchSuggestions}
             onSuggestionSelect={handleSuggestionSelect}
-            collectionCounts={collectionCounts}
-            regionLinks={mobileHubRegionLinks}
-            onShowMap={showMobileMap}
           />
 
           <section
             id="mobile-home-map"
             ref={mapSectionRef}
             aria-label="전국 골프장 지도"
-            className="border-t border-stone-200/60 bg-[#F3F2EA] px-4 pb-4 pt-5"
+            className="bg-[#F3F2EA] px-4 pb-2"
           >
-            <h2 className="text-base font-extrabold text-stone-900">
-              전국 골프장 지도
-            </h2>
-            <p className="mt-1 text-sm text-stone-600">
-              지도를 움직이며 지역별 골프장을 확인할 수 있습니다.
-            </p>
-
-            <div className="mobile-map-area relative mt-3 h-[min(52vh,420px)] min-h-[280px] overflow-hidden rounded-2xl border border-stone-200/40 shadow-[0_2px_12px_rgba(0,0,0,0.06)] ring-1 ring-black/[0.02]">
+            <div className="mobile-map-area relative h-[min(52vh,420px)] min-h-[280px] overflow-hidden rounded-2xl border border-stone-200/40 shadow-[0_2px_12px_rgba(0,0,0,0.06)] ring-1 ring-black/[0.02]">
               {shouldMountMobileMap ? (
                 <CourseMap
                   {...mapProps}
@@ -1258,7 +1251,7 @@ function HomeClientInner({
               ) : (
                 <MapSkeleton
                   className="h-full w-full !rounded-2xl !border-0"
-                  label="스크롤하거나 지도 보기를 누르면 불러옵니다"
+                  label="지도를 불러오는 중"
                 />
               )}
             </div>
@@ -1269,6 +1262,12 @@ function HomeClientInner({
               aria-hidden
             />
           </section>
+
+          <MobileHomeHubDiscovery
+            collectionCounts={collectionCounts}
+            regionLinks={mobileHubRegionLinks}
+            showIntro
+          />
         </div>
 
         <MobileBottomSheet

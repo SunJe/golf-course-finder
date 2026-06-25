@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import type { BlogPost } from "@/lib/blogPosts";
 import BlogCard from "@/components/BlogCard";
 
 const AUTO_SCROLL_MS = 5000;
 const ITEMS_PER_PAGE = 4;
-const TRANSITION_MS = 600;
+
+const SWIPE_ROW_CLASS =
+  "flex overflow-x-auto overscroll-x-contain snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden";
 
 function chunkPosts(posts: BlogPost[], size: number): BlogPost[][] {
   const pages: BlogPost[][] = [];
@@ -21,11 +23,9 @@ interface HomeBlogCarouselProps {
 }
 
 export default function HomeBlogCarousel({ posts }: HomeBlogCarouselProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
   const pauseRef = useRef(false);
-  const indexRef = useRef(0);
   const pages = useMemo(() => chunkPosts(posts, ITEMS_PER_PAGE), [posts]);
-  const [pageIndex, setPageIndex] = useState(0);
-  const [animate, setAnimate] = useState(true);
 
   useEffect(() => {
     if (pages.length <= 1) return;
@@ -33,18 +33,19 @@ export default function HomeBlogCarousel({ posts }: HomeBlogCarouselProps) {
     const advance = () => {
       if (pauseRef.current) return;
 
-      const next = indexRef.current >= pages.length - 1 ? 0 : indexRef.current + 1;
+      const el = scrollRef.current;
+      if (!el) return;
 
-      if (next === 0 && indexRef.current >= pages.length - 1) {
-        setAnimate(false);
-        indexRef.current = 0;
-        setPageIndex(0);
-        requestAnimationFrame(() => setAnimate(true));
-        return;
-      }
+      const pageWidth = el.clientWidth;
+      if (pageWidth <= 0) return;
 
-      indexRef.current = next;
-      setPageIndex(next);
+      const atLastPage =
+        el.scrollLeft + pageWidth >= el.scrollWidth - pageWidth * 0.5;
+
+      el.scrollTo({
+        left: atLastPage ? 0 : el.scrollLeft + pageWidth,
+        behavior: "smooth",
+      });
     };
 
     const interval = window.setInterval(advance, AUTO_SCROLL_MS);
@@ -53,7 +54,8 @@ export default function HomeBlogCarousel({ posts }: HomeBlogCarouselProps) {
 
   return (
     <div
-      className="overflow-hidden"
+      ref={scrollRef}
+      className={SWIPE_ROW_CLASS}
       onPointerEnter={() => {
         pauseRef.current = true;
       }}
@@ -62,29 +64,15 @@ export default function HomeBlogCarousel({ posts }: HomeBlogCarouselProps) {
       }}
       aria-label="블로그 글 목록"
     >
-      <div
-        className="flex will-change-transform"
-        style={{
-          transform: `translate3d(-${pageIndex * 100}%, 0, 0)`,
-          transition: animate
-            ? `transform ${TRANSITION_MS}ms ease-in-out`
-            : "none",
-        }}
-      >
-        {pages.map((page, pageIdx) => (
-          <div
-            key={pageIdx}
-            className="w-full shrink-0"
-            aria-hidden={pageIdx !== pageIndex}
-          >
-            <div className="grid grid-cols-1 gap-x-12 gap-y-2 md:grid-cols-2 md:gap-y-4">
-              {page.map((post) => (
-                <BlogCard key={post.slug} post={post} size="home" hideCategory />
-              ))}
-            </div>
+      {pages.map((page, pageIdx) => (
+        <div key={pageIdx} className="w-full shrink-0 snap-start">
+          <div className="grid grid-cols-1 gap-x-12 gap-y-2 md:grid-cols-2 md:gap-y-4">
+            {page.map((post) => (
+              <BlogCard key={post.slug} post={post} size="home" hideCategory />
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 }

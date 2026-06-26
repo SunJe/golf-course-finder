@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   createTeescannerBrowser,
-  runTeescannerAccessCheck,
+  prepareTeescannerHomePage,
   sleep,
 } from "./lib/teescanner/access";
 import {
@@ -44,11 +44,39 @@ import {
 } from "./lib/teescanner/io";
 import { buildTeescannerSearchQueries } from "./lib/teescanner/search";
 import { buildAllSummaries, buildManualReviewRows } from "./lib/teescanner/summary";
-import { loadAmbiguousTargetIds, loadTargetRows } from "./lib/teescanner/targets";
+import {
+  buildAmbiguousThenSequentialTargets,
+  loadAmbiguousTargetIds,
+  loadTargetRows,
+} from "./lib/teescanner/targets";
+import {
+  appendPriceCheckpoint,
+  buildCheckpointFromOutcome,
+  DEFAULT_CHECKPOINT_PATH,
+} from "./lib/teescanner/batchCheckpoint";
+import { saveStepScreenshot, makeScreenshotTimestamp } from "./lib/teescanner/debug";
 import { getProjectRoot } from "./lib/sourceRegistry";
 
 const ROOT = getProjectRoot();
 const DEFAULT_WAIT_MS = 7000;
+const BATCH_CONSOLE_LOG_PATH = path.join(
+  ROOT,
+  "data/enrichment/teescanner_price_batch_console.log",
+);
+
+function appendConsoleLog(message: string): void {
+  fs.mkdirSync(path.dirname(BATCH_CONSOLE_LOG_PATH), { recursive: true });
+  fs.appendFileSync(
+    BATCH_CONSOLE_LOG_PATH,
+    `[${new Date().toISOString()}] ${message}\n`,
+    "utf8",
+  );
+}
+
+function logBoth(message: string): void {
+  console.log(message);
+  appendConsoleLog(message);
+}
 
 interface CliOptions {
   startDay: string;
@@ -82,10 +110,15 @@ interface CliOptions {
   screenshotDir: string;
   targetName: string;
   targetId: string;
-  targetMode: "price_missing" | "sequential" | "ambiguous";
+  targetMode: "price_missing" | "sequential" | "ambiguous" | "ambiguous_then_sequential";
   includePriced: boolean;
   forceRecrawl: boolean;
+  skipPriced: boolean;
+  includeAmbiguousFirst: boolean;
   skipRecentTeescannerSuccessDays: number;
+  ignoreRecentBlock: boolean;
+  checkpointPath: string;
+  screenshotsOnBlockOnly: boolean;
 }
 
 function parseBoolean(value: string | undefined, fallback: boolean): boolean {
@@ -132,7 +165,12 @@ function parseArgs(argv: string[]): CliOptions {
     targetMode: "sequential",
     includePriced: false,
     forceRecrawl: false,
+    skipPriced: true,
+    includeAmbiguousFirst: true,
     skipRecentTeescannerSuccessDays: 0,
+    ignoreRecentBlock: false,
+    checkpointPath: DEFAULT_CHECKPOINT_PATH,
+    screenshotsOnBlockOnly: true,
   };
 
   for (let i = 0; i < argv.length; i += 1) {
@@ -181,12 +219,33 @@ function parseArgs(argv: string[]): CliOptions {
     else if (arg === "--target-id") options.targetId = next();
     else if (arg === "--target-mode") {
       const value = next() as CliOptions["targetMode"];
-      if (value !== "price_missing" && value !== "sequential" && value !== "ambiguous") {
-        throw new Error("--target-mode must be price_missing, sequential, or ambiguous.");
+      if (
+        value !== "price_missing" &&
+        value !== "sequential" &&
+        value !== "ambiguous" &&
+        value !== "ambiguous_then_sequential"
+      ) {
+        throw new Error(
+          "--target-mode must be price_missing, sequential, ambiguous, or ambiguous_then_sequential.",
+        );
       }
       options.targetMode = value;
     } else if (arg === "--include-priced") options.includePriced = parseBoolean(next(), true);
     else if (arg === "--force-recrawl") options.forceRecrawl = parseBoolean(next(), true);
+    else if (arg === "--skip-priced") options.skipPriced = parseBoolean(next(), true);
+    else if (arg === "--include-ambiguous-first") {
+      options.includeAmbiguousFirst = parseBoolean(next(), true);
+    }
+    else if (arg === "--ignore-recent-block") {
+      options.ignoreRecentBlock = parseBoolean(next(), true);
+    } else if (arg === "--checkpoint") {
+      const value = next();
+      options.checkpointPath = path.isAbsolute(value)
+        ? value
+        : path.join(ROOT, value);
+    } else if (arg === "--screenshots-on-block-only") {
+      options.screenshotsOnBlockOnly = parseBoolean(next(), true);
+    }
     else if (arg === "--skip-recent-teescanner-success-days") {
       options.skipRecentTeescannerSuccessDays = Number.parseInt(next(), 10);
     }
@@ -218,6 +277,13 @@ function parseArgs(argv: string[]): CliOptions {
     options.forceRecrawl = true;
     options.includePriced = true;
   }
+  if (options.targetMode === "ambiguous_then_sequential") {
+    options.forceRecrawl = false;
+    options.skipPriced = true;
+    options.screenshotsOnBlockOnly = true;
+    if (options.endRow === 0) options.endRow = 300;
+    if (options.limit <= 0) options.limit = 10_000;
+  }
   if (options.concurrency !== 1) {
     throw new Error("--concurrency must be 1 for TeeScanner batch collect.");
   }
@@ -243,6 +309,7 @@ function printBatchOutputPaths(options: CliOptions): void {
   console.log(`daily results : ${options.dailyResultsCsv}`);
   console.log(`course summary: ${options.summaryCsv}`);
   console.log(`batch runlog  : ${options.batchRunlogPath}`);
+  console.log(`checkpoint    : ${options.checkpointPath}`);
   console.log(`screenshots   : ${options.screenshotDir}`);
 }
 
@@ -260,6 +327,7 @@ async function main(): Promise<void> {
   );
 
   console.log("TeeScanner price batch collector");
+  appendConsoleLog("=== TeeScanner price batch collector started ===");
   console.log(`startDay: ${options.startDay}`);
   console.log(`dateMode: ${options.dateMode}`);
   if (options.sampleDays) {
@@ -294,7 +362,7 @@ async function main(): Promise<void> {
   }
 
   const recentBlock = getRecentBlockedState(options.blockedStatePath);
-  if (recentBlock && !options.dryRun) {
+  if (recentBlock && !options.dryRun && !options.ignoreRecentBlock) {
     printRecentBlockWarning(recentBlock);
     process.exitCode = 2;
     return;
@@ -315,19 +383,48 @@ async function main(): Promise<void> {
     console.log(`ambiguous targets in summary: ${ambiguousIds?.size ?? 0}`);
   }
 
-  let targets = loadTargetRows(options.inputCsv, {
-    processedIds: new Set(),
-    limit: effectiveLimit,
-    startRow: options.startRow,
-    endRow: options.endRow,
-    targetName: options.targetName || undefined,
-    targetId: options.targetId || undefined,
-    targetMode: options.targetMode,
-    includePriced: options.includePriced,
-    skipRecentTeescannerSuccessDays: options.skipRecentTeescannerSuccessDays,
-    summaryCsvPath: options.summaryCsv,
-    ambiguousIds,
-  });
+  let targets: Awaited<ReturnType<typeof loadTargetRows>>;
+  let ambiguousTargetIdSet = new Set<string>();
+  let queueStats: ReturnType<typeof buildAmbiguousThenSequentialTargets>["stats"] | null =
+    null;
+
+  if (options.targetMode === "ambiguous_then_sequential") {
+    const built = buildAmbiguousThenSequentialTargets(
+      options.inputCsv,
+      options.summaryCsv,
+      {
+        startRow: options.startRow,
+        endRow: options.endRow,
+        skipPriced: options.skipPriced,
+        includeAmbiguousFirst: options.includeAmbiguousFirst,
+      },
+    );
+    ambiguousTargetIdSet = built.ambiguousIds;
+    queueStats = built.stats;
+    targets = built.targets.slice(0, effectiveLimit);
+    console.log("ambiguous_then_sequential queue:");
+    console.log(`  ambiguous in summary: ${built.stats.ambiguousTotal}`);
+    console.log(`  ambiguous queued    : ${built.stats.ambiguousQueued}`);
+    console.log(
+      `  sequential queued   : ${built.stats.sequentialQueued} (row ${built.stats.startRow}-${built.stats.endRow})`,
+    );
+    console.log(`  priced skipped      : ${built.stats.pricedSkipped}`);
+    console.log(`  total queued        : ${targets.length}`);
+  } else {
+    targets = loadTargetRows(options.inputCsv, {
+      processedIds: new Set(),
+      limit: effectiveLimit,
+      startRow: options.startRow,
+      endRow: options.endRow,
+      targetName: options.targetName || undefined,
+      targetId: options.targetId || undefined,
+      targetMode: options.targetMode,
+      includePriced: options.includePriced,
+      skipRecentTeescannerSuccessDays: options.skipRecentTeescannerSuccessDays,
+      summaryCsvPath: options.summaryCsv,
+      ambiguousIds,
+    });
+  }
 
   if (retryMissingIds && retryMissingIds.size > 0) {
     targets = targets.filter((course) => retryMissingIds.has(course.id));
@@ -399,42 +496,21 @@ async function main(): Promise<void> {
 
   let pairCount = 0;
   let stopped = false;
+  let blocked = false;
+  let successCount = 0;
+  let failCount = 0;
+  let ambiguousProcessed = 0;
+  const startedAt = new Date().toISOString();
+  let lastProcessedIndex = 0;
+  let lastProcessedRowIndex = 0;
+  let lastProcessedName = "";
 
   try {
-    const recentBlockBeforeCollect = getRecentBlockedState(options.blockedStatePath);
+    const recentBlockBeforeCollect =
+      !options.ignoreRecentBlock && getRecentBlockedState(options.blockedStatePath);
     if (recentBlockBeforeCollect) {
       printRecentBlockWarning(recentBlockBeforeCollect);
       process.exitCode = 2;
-      return;
-    }
-
-    console.log("Running TeeScanner access check before batch collect...");
-    const access = await runTeescannerAccessCheck({
-      roundDay: sampledDates[0]?.roundDay ?? options.startDay,
-      headless: !options.headful,
-      waitMs: DEFAULT_WAIT_MS,
-      screenshotDir: options.screenshotDir,
-    });
-
-    appendBatchRunLog(options.batchRunlogPath, {
-      timestamp: new Date().toISOString(),
-      step: "access_check",
-      status: access.status,
-      blockDetected: access.status === "blocked",
-    });
-
-    if (access.status === "blocked") {
-      writeBlockedState(options.blockedStatePath, {
-        reason: access.reason,
-        detectedText: access.matchedText ?? "",
-      });
-      process.exitCode = 2;
-      return;
-    }
-
-    if (access.status === "error") {
-      console.error(`Access check failed: ${access.message ?? access.reason}`);
-      process.exitCode = 1;
       return;
     }
 
@@ -442,16 +518,72 @@ async function main(): Promise<void> {
     const page = await browser.newPage();
 
     try {
+      console.log("Preparing TeeScanner home in a single browser session...");
+      const prepared = await prepareTeescannerHomePage(
+        page,
+        sampledDates[0]?.roundDay ?? options.startDay,
+        DEFAULT_WAIT_MS,
+      );
+
+      appendBatchRunLog(options.batchRunlogPath, {
+        timestamp: new Date().toISOString(),
+        step: "access_check",
+        status: prepared.blocked ? "blocked" : "ok",
+        blockDetected: Boolean(prepared.blocked),
+      });
+
+      if (prepared.blocked) {
+        blocked = true;
+        const screenshotPath = await saveStepScreenshot(
+          page,
+          "access-check",
+          options.screenshotDir,
+          "blocked",
+          makeScreenshotTimestamp(),
+        );
+        writeBlockedState(options.blockedStatePath, {
+          reason: prepared.blocked.reason,
+          detectedText: prepared.blocked.matchedText ?? "",
+          screenshotPath,
+        });
+        console.error("Block detected on home page. Stopping.");
+        process.exitCode = 2;
+        return;
+      }
+
       for (let courseIndex = 0; courseIndex < targets.length; courseIndex += 1) {
         const course = targets[courseIndex];
         const courseName = course.change_name_to || course.name;
+        const rowIndex = course.row_index ?? courseIndex + 1;
+        const isAmbiguous = ambiguousTargetIdSet.has(course.id);
+        lastProcessedIndex = courseIndex + 1;
+        lastProcessedRowIndex = rowIndex;
+        lastProcessedName = courseName;
+        if (isAmbiguous) ambiguousProcessed += 1;
+
         const pendingDates = sortSampledDatesAsc(
           pendingJobs
             .filter((job) => job.course.id === course.id)
             .map((job) => job.sample),
         );
 
-        if (pendingDates.length === 0) continue;
+        if (pendingDates.length === 0) {
+          logBoth(
+            `[${courseIndex + 1}/${targets.length}] skip ${course.id} | row ${rowIndex} | ${courseName} (already collected)`,
+          );
+          appendPriceCheckpoint(
+            options.checkpointPath,
+            buildCheckpointFromOutcome({
+              index: courseIndex + 1,
+              course,
+              ambiguous: isAmbiguous,
+              searchKeyword: course.primary_search_term,
+              skipped: true,
+              skipReason: "already_collected",
+            }),
+          );
+          continue;
+        }
 
         const remainingPairBudget = options.maxCourseDatePairs - pairCount;
         const datesToCollect = pendingDates.slice(0, remainingPairBudget);
@@ -460,8 +592,8 @@ async function main(): Promise<void> {
           break;
         }
 
-        console.log(
-          `[course ${courseIndex + 1}/${targets.length}] ${course.id} | ${courseName} | ${datesToCollect.length} date(s)`,
+        logBoth(
+          `[${courseIndex + 1}/${targets.length}] row ${rowIndex} | ${course.id} | ${courseName} | ambiguous=${isAmbiguous ? "y" : "n"} | search start`,
         );
 
         const clickDelay = rowGapWithJitter(options.clickMinMs, options.clickJitterMs);
@@ -472,15 +604,24 @@ async function main(): Promise<void> {
           course,
           dates: datesToCollect,
           screenshotDir: options.screenshotDir,
+          screenshotsEnabled: !options.screenshotsOnBlockOnly,
         });
 
         printBatchCourseSummary(courseName, batchOutcomes);
+
+        let courseHadSuccess = false;
+        let courseBlocked = false;
+        let lastOutcome: (typeof batchOutcomes)[number]["outcome"] | undefined;
+        let searchKeyword = course.primary_search_term;
 
         for (const item of batchOutcomes) {
           if (pairCount >= options.maxCourseDatePairs) {
             stopped = true;
             break;
           }
+
+          lastOutcome = item.outcome;
+          searchKeyword = item.outcome.result.search_query || searchKeyword;
 
           const dailyRow = toDailyResultRow(item.outcome.result, item.dayType);
           appendDailyResultRow(options.dailyResultsCsv, dailyRow);
@@ -492,26 +633,58 @@ async function main(): Promise<void> {
             golfclubSeq: item.golfclubSeq,
             detailUrlTemplate: item.detailUrlTemplate,
             perDateDetailReload: item.perDateDetailReload,
+            rowIndex,
+            ambiguous: isAmbiguous,
           });
 
           printCollectResult(item.outcome);
           pairCount += 1;
           processedPairs.add(`${course.id}|${item.roundDay}`);
 
+          if (item.outcome.result.status === "success") {
+            courseHadSuccess = true;
+          }
+
           if (item.outcome.blocked) {
+            courseBlocked = true;
+            blocked = true;
             writeBlockedState(options.blockedStatePath, {
               reason: item.outcome.blockReason ?? "blocked",
               detectedText: item.outcome.blockDetectedText ?? "",
               screenshotPath: item.outcome.result.screenshot_path,
             });
+            logBoth(
+              `Block detected at index ${courseIndex + 1}, row ${rowIndex}, ${courseName}. Stopping.`,
+            );
             if (options.stopOnBlock) {
-              console.error("Block detected. Stopping batch.");
               process.exitCode = 2;
               stopped = true;
-              break;
             }
           }
         }
+
+        if (courseHadSuccess) successCount += 1;
+        else if (!courseBlocked) failCount += 1;
+
+        appendPriceCheckpoint(
+          options.checkpointPath,
+          buildCheckpointFromOutcome({
+            index: courseIndex + 1,
+            course,
+            ambiguous: isAmbiguous,
+            searchKeyword,
+            outcome: lastOutcome,
+          }),
+        );
+
+        const allDaily = readDailyResults(options.dailyResultsCsv);
+        const summaries = buildAllSummaries(allDaily);
+        writeSummaryCsv(options.summaryCsv, summaries);
+        writeCourseResultsCsv(DEFAULT_COURSE_RESULTS_CSV, summaries);
+
+        logBoth(
+          `[${courseIndex + 1}/${targets.length}] ${courseName} checkpoint saved | price=${lastOutcome?.result.price_min ?? "-"}~${lastOutcome?.result.price_max ?? ""} | status=${lastOutcome?.result.status ?? "skipped"}`,
+        );
 
         if (stopped) break;
 
@@ -533,6 +706,45 @@ async function main(): Promise<void> {
     writeManualReviewCsv(DEFAULT_MANUAL_REVIEW_CSV, manualReviewRows);
     console.log(`Wrote ${summaries.length} course summary row(s).`);
     console.log(`Wrote ${manualReviewRows.length} manual review row(s).`);
+
+    const summaryLines = [
+      "",
+      "=== Batch collect summary ===",
+      `startedAt           : ${startedAt}`,
+      `endedAt             : ${new Date().toISOString()}`,
+      `targetMode          : ${options.targetMode}`,
+      `startIndex          : 1`,
+      `endIndex            : ${lastProcessedIndex || 0}`,
+      `lastRowIndex        : ${lastProcessedRowIndex || 0}`,
+      `lastCourseName      : ${lastProcessedName || "-"}`,
+      `totalProcessed      : ${lastProcessedIndex}`,
+      `successCourses      : ${successCount}`,
+      `failedCourses       : ${failCount}`,
+      `ambiguousProcessed  : ${ambiguousProcessed}`,
+      `blocked             : ${blocked ? "yes" : "no"}`,
+      `nextResumeIndex     : ${lastProcessedIndex + 1}`,
+      ...(queueStats
+        ? [
+            `ambiguousQueued     : ${queueStats.ambiguousQueued}`,
+            `sequentialQueued    : ${queueStats.sequentialQueued}`,
+          ]
+        : []),
+      `checkpoint          : ${options.checkpointPath}`,
+      `summary             : ${options.summaryCsv}`,
+      `consoleLog          : ${BATCH_CONSOLE_LOG_PATH}`,
+    ];
+    if (blocked) {
+      const blockState = getRecentBlockedState(
+        options.blockedStatePath,
+        365 * 24 * 60 * 60 * 1000,
+      );
+      if (blockState?.screenshotPath) {
+        summaryLines.push(`blockScreenshot     : ${blockState.screenshotPath}`);
+      }
+    }
+    for (const line of summaryLines) {
+      logBoth(line);
+    }
   } finally {
     lock.release();
     printBatchOutputPaths(options);

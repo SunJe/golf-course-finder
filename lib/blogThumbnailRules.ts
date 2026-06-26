@@ -30,11 +30,15 @@ No text, no logo, no watermark.
 export const BLOG_THUMBNAIL_FILE_BY_SLUG: Record<string, string> = {
   "seoul-beginner-golf-best-5": "seoul-beginner-golf.png",
   "seoul-par3-golf-top-5": "seoul-par3-golf.png",
+  "seoul-par3-practice-range-top-10": "seoul-par3-golf.png",
+  "seoul-nine-hole-beginner-golf-top-5": "seoul-par3-golf.png",
   "seoul-budget-golf-best-5": "seoul-budget-golf.png",
   "incheon-golf-top-5": "incheon-golf-top5.png",
   "gapyeong-golf-best-6": "gapyeong-golf.png",
+  "goyang-golf-best-5": "seoul-beginner-golf.png",
   "beginner-golf-ball-top-5": "beginner-golf-ball.png",
-  "value-driver-buying-guide": "value-driver.png",
+  "pro-tour-driver-brands-men": "pro-driver-men.png",
+  "pro-tour-driver-brands-women": "pro-driver-women.png",
   "beginner-iron-top-5": "beginner-iron.png",
   "beginner-golf-essentials-checklist": "golf-essentials.png",
 };
@@ -72,6 +76,14 @@ Several clean golf balls on green grass, golf tee, product-focused composition, 
 Topic: value-for-money golf drivers.
 Close-up of a golf driver head and shaft on a tee area or practice range. The driver must be the main subject. No brand logos.`,
 
+  "pro-driver-men.png": `${BLOG_THUMBNAIL_PROMPT_PREFIX}
+Topic: PGA Tour professional golf drivers for men.
+Several premium golf drivers on a tee box, masculine tour practice range mood, clean fairway background. No brand logos, no text.`,
+
+  "pro-driver-women.png": `${BLOG_THUMBNAIL_PROMPT_PREFIX}
+Topic: LPGA Tour professional golf drivers for women.
+Elegant golf driver and golf bag on a sunny course, women's tour equipment mood, bright and clean. No brand logos, no text.`,
+
   "beginner-iron.png": `${BLOG_THUMBNAIL_PROMPT_PREFIX}
 Topic: beginner golf irons.
 Several iron clubs arranged neatly, or a beginner golfer preparing an iron shot on a practice mat or fairway. Friendly equipment guide mood.`,
@@ -84,11 +96,15 @@ Golf bag, glove, golf balls, tees, rangefinder, cap arranged neatly like a clean
 export const BLOG_THUMBNAIL_ALT_BY_SLUG: Record<string, string> = {
   "seoul-beginner-golf-best-5": "서울 근교 초보자 골프장 추천",
   "seoul-par3-golf-top-5": "서울 근교 파3 골프장 추천",
+  "seoul-par3-practice-range-top-10": "서울 근교 파3 연습장 추천",
+  "seoul-nine-hole-beginner-golf-top-5": "서울 근교 초보자 9홀 골프장 추천",
   "seoul-budget-golf-best-5": "서울 근교 가성비 골프장 추천",
   "incheon-golf-top-5": "인천 골프장 추천",
   "gapyeong-golf-best-6": "가평 골프장 추천",
+  "goyang-golf-best-5": "고양시 골프장 추천",
   "beginner-golf-ball-top-5": "초보자용 골프공 추천",
-  "value-driver-buying-guide": "가성비 드라이버 추천",
+  "pro-tour-driver-brands-men": "프로 드라이버 브랜드 남자편",
+  "pro-tour-driver-brands-women": "프로 드라이버 브랜드 여자편",
   "beginner-iron-top-5": "초보자용 아이언 추천",
   "beginner-golf-essentials-checklist": "초보 골퍼 라운드 준비물",
 };

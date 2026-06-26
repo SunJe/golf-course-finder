@@ -13,7 +13,7 @@ import { buildCourseRecommendationReasons } from "@/lib/blogCourseRecommendation
 import { formatHoleCount } from "@/lib/courseDisplay";
 
 type BlogCourseItem = NonNullable<BlogPostSection["items"]>[number] & {
-  relatedCourseId: string;
+  relatedCourseId?: string;
 };
 
 const IMAGE_HEIGHT_CLASS = "h-[220px] sm:h-[240px] md:h-[260px]";
@@ -51,7 +51,9 @@ export function BlogCourseCard({ item, rank }: BlogCourseCardProps) {
   const hasTwoImages = Boolean(primaryImage && secondaryImage);
   const hasAnyImage = Boolean(primaryImage);
   const regionLabel = item.regionLabel;
-  const golfMapHref = `/courses/${item.relatedCourseId}`;
+  const golfMapHref = item.relatedCourseId
+    ? `/courses/${item.relatedCourseId}`
+    : null;
 
   const homepageLink = resolveBlogCourseHomepageLink(
     item.homepage,
@@ -68,9 +70,10 @@ export function BlogCourseCard({ item, rank }: BlogCourseCardProps) {
   const holeLabel =
     item.holeCount != null ? formatHoleCount(item.holeCount) : undefined;
 
-  const recommendationReasons = buildCourseRecommendationReasons(
-    item.distanceFromSeoulKm,
-  );
+  const recommendationReasons =
+    item.recommendationReasons && item.recommendationReasons.length > 0
+      ? item.recommendationReasons
+      : buildCourseRecommendationReasons(item.distanceFromSeoulKm);
 
   const infoChips = [
     regionLabel ? { label: "지역", value: regionLabel } : null,
@@ -226,10 +229,12 @@ export function BlogCourseCard({ item, rank }: BlogCourseCardProps) {
 
       {/* 8–9. GolfMap primary + 외부 링크 */}
       <div className="space-y-3 border-t border-stone-100 bg-stone-50/60 p-4 sm:p-5">
-        <Link href={golfMapHref} className={PRIMARY_BUTTON_CLASS}>
-          <span aria-hidden>🟢</span>
-          GolfMap에서 보기
-        </Link>
+        {golfMapHref ? (
+          <Link href={golfMapHref} className={PRIMARY_BUTTON_CLASS}>
+            <span aria-hidden>🟢</span>
+            GolfMap에서 보기
+          </Link>
+        ) : null}
 
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-2.5">
           {item.phone && telHref ? (

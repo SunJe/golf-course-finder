@@ -84,6 +84,9 @@
     "check:blog-thumbnails": "tsx scripts/checkBlogThumbnailDimensions.ts",
     "fetch:visit-korea-incheon-golf": "tsx scripts/fetchVisitKoreaIncheonGolf.ts",
     "fetch:visit-korea-gapyeong-golf": "tsx scripts/fetchVisitKoreaGapyeongGolf.ts",
+    "fetch:visit-korea-goyang-golf": "tsx scripts/fetchVisitKoreaGoyangGolf.ts",
+    "fetch:visit-korea-near-seoul-nine-hole-golf": "tsx scripts/fetchVisitKoreaNearSeoulNineHoleGolf.ts",
+    "fetch:visit-korea-near-seoul-par3-practice": "tsx scripts/fetchVisitKoreaNearSeoulPar3Practice.ts",
     "seed:incheon-blog-images": "tsx scripts/seedIncheonBlogImagePlaceholders.ts"
   },
   "dependencies": {

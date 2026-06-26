@@ -29,7 +29,8 @@ const REGION_SLUG_LABELS: Partial<Record<RegionSlug, string>> = {
 };
 
 type VisitKoreaMetaEntry = {
-  courseId: string;
+  key?: string;
+  courseId?: string;
   apiAddr?: string;
   homepage?: string;
   tel?: string;
@@ -39,16 +40,39 @@ type VisitKoreaMetaEntry = {
   overview?: string;
 };
 
-function loadVisitKoreaMetaByCourseId(
-  metaPath: string,
-): Map<string, VisitKoreaMetaEntry> {
+type VisitKoreaMetaIndex = {
+  byCourseId: Map<string, VisitKoreaMetaEntry>;
+  byKey: Map<string, VisitKoreaMetaEntry>;
+};
+
+function loadVisitKoreaMeta(metaPath: string): VisitKoreaMetaIndex {
   if (!fs.existsSync(metaPath)) {
-    return new Map();
+    return { byCourseId: new Map(), byKey: new Map() };
   }
   const raw = JSON.parse(
     fs.readFileSync(metaPath, "utf8"),
   ) as VisitKoreaMetaEntry[];
-  return new Map(raw.map((entry) => [entry.courseId, entry]));
+  const byCourseId = new Map<string, VisitKoreaMetaEntry>();
+  const byKey = new Map<string, VisitKoreaMetaEntry>();
+  for (const entry of raw) {
+    if (entry.courseId) byCourseId.set(entry.courseId, entry);
+    if (entry.key) byKey.set(entry.key, entry);
+  }
+  return { byCourseId, byKey };
+}
+
+function resolveVisitKoreaMeta(
+  item: NonNullable<BlogPostSection["items"]>[number],
+  index: VisitKoreaMetaIndex,
+): VisitKoreaMetaEntry | undefined {
+  if (item.relatedCourseId) {
+    const hit = index.byCourseId.get(item.relatedCourseId);
+    if (hit) return hit;
+  }
+  if (item.visitKoreaKey) {
+    return index.byKey.get(item.visitKoreaKey);
+  }
+  return undefined;
 }
 
 function resolveRegionLabel(
@@ -106,13 +130,23 @@ function enrichCourseItem(
   item: NonNullable<BlogPostSection["items"]>[number],
   post: BlogPost,
   courseById: Map<string, Course>,
-  visitKoreaByCourseId: Map<string, VisitKoreaMetaEntry>,
+  visitKoreaMeta: VisitKoreaMetaIndex,
 ): NonNullable<BlogPostSection["items"]>[number] {
-  if (!item.relatedCourseId) return item;
+  const meta = resolveVisitKoreaMeta(item, visitKoreaMeta);
+  const course = item.relatedCourseId
+    ? courseById.get(item.relatedCourseId)
+    : undefined;
 
-  const course = courseById.get(item.relatedCourseId);
-  const meta = visitKoreaByCourseId.get(item.relatedCourseId);
+  if (!item.relatedCourseId && !meta && !item.address) return item;
   const { primary, secondary } = resolveVisitKoreaImages(meta);
+
+  let description = item.description;
+  if (meta?.overview?.trim() && !primary && !secondary) {
+    const overview = meta.overview.trim();
+    if (!description.includes(overview.slice(0, 48))) {
+      description = `${description} ${overview}`.trim();
+    }
+  }
 
   const address =
     item.address ?? meta?.apiAddr ?? course?.address?.trim() ?? undefined;
@@ -136,6 +170,7 @@ function enrichCourseItem(
 
   return {
     ...item,
+    description,
     image: primary,
     image2: secondary,
     address: address || undefined,
@@ -152,7 +187,14 @@ function enrichCourseItem(
 
 function postHasCourseItems(post: BlogPost): boolean {
   return post.sections.some((section) =>
-    section.items?.some((item) => Boolean(item.relatedCourseId)),
+    section.items?.some(
+      (item) =>
+        Boolean(item.relatedCourseId) ||
+        Boolean(item.visitKoreaKey) ||
+        Boolean(item.address) ||
+        Boolean(item.phone) ||
+        Boolean(item.homepage),
+    ),
   );
 }
 
@@ -162,16 +204,14 @@ export async function enrichBlogPost(post: BlogPost): Promise<BlogPost> {
 
   const [courses] = await Promise.all([getCoursesForStaticPages()]);
   const courseById = new Map(courses.map((course) => [course.id, course]));
-  const visitKoreaByCourseId = loadVisitKoreaMetaByCourseId(
-    resolveVisitKoreaMetaPath(post),
-  );
+  const visitKoreaMeta = loadVisitKoreaMeta(resolveVisitKoreaMetaPath(post));
 
   return {
     ...post,
     sections: post.sections.map((section) => ({
       ...section,
       items: section.items?.map((item) =>
-        enrichCourseItem(item, post, courseById, visitKoreaByCourseId),
+        enrichCourseItem(item, post, courseById, visitKoreaMeta),
       ),
     })),
   };

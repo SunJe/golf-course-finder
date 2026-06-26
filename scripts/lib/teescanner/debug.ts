@@ -64,9 +64,11 @@ export class StepScreenshotTracker {
     private readonly page: Page,
     private readonly courseId: string,
     private readonly screenshotDir: string,
+    private readonly enabled = true,
   ) {}
 
   async capture(step: ScreenshotStep | string): Promise<string> {
+    if (!this.enabled) return "";
     const filePath = await saveStepScreenshot(
       this.page,
       this.courseId,
@@ -75,6 +77,18 @@ export class StepScreenshotTracker {
       this.sessionTimestamp,
     );
     this.steps[step] = filePath;
+    return filePath;
+  }
+
+  async captureBlockOnly(): Promise<string> {
+    const filePath = await saveStepScreenshot(
+      this.page,
+      this.courseId,
+      this.screenshotDir,
+      "blocked",
+      this.sessionTimestamp,
+    );
+    this.steps.blocked = filePath;
     return filePath;
   }
 

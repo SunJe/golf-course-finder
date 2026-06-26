@@ -29,7 +29,105 @@ const METRO_REGIONS = [
   "세종",
 ];
 
-export type TargetMode = "price_missing" | "sequential" | "ambiguous";
+export type TargetMode =
+  | "price_missing"
+  | "sequential"
+  | "ambiguous"
+  | "ambiguous_then_sequential";
+
+export interface AmbiguousSequentialBuildResult {
+  targets: TeescannerInputRow[];
+  ambiguousIds: Set<string>;
+  pricedSkipIds: Set<string>;
+  stats: {
+    ambiguousTotal: number;
+    ambiguousQueued: number;
+    sequentialQueued: number;
+    pricedSkipped: number;
+    startRow: number;
+    endRow: number;
+  };
+}
+
+function loadPricedIdsFromSummary(summaryCsvPath: string): Set<string> {
+  const priced = new Set<string>();
+  if (!fs.existsSync(summaryCsvPath)) return priced;
+  for (const summary of readSummaryRows(summaryCsvPath)) {
+    if (!summary.id) continue;
+    if (hasValidTeescannerPrice(summary)) {
+      priced.add(summary.id);
+    }
+  }
+  return priced;
+}
+
+/** ambiguous 먼저 → CSV row 1..endRow 순서. 이미 유효 가격이 있으면 skip. */
+export function buildAmbiguousThenSequentialTargets(
+  inputCsvPath: string,
+  summaryCsvPath: string,
+  options: {
+    startRow?: number;
+    endRow: number;
+    skipPriced?: boolean;
+    includeAmbiguousFirst?: boolean;
+  },
+): AmbiguousSequentialBuildResult {
+  const allRows = loadAllCourseRowsInCsvOrder(inputCsvPath);
+  const ambiguousIds = loadAmbiguousTargetIds(summaryCsvPath);
+  const pricedSkipIds = loadPricedIdsFromSummary(summaryCsvPath);
+  const skipPriced = options.skipPriced !== false;
+  const startRow = options.startRow && options.startRow > 0 ? options.startRow : 1;
+  const endRow = options.endRow > 0 ? options.endRow : 300;
+  const includeAmbiguousFirst = options.includeAmbiguousFirst !== false;
+
+  const shouldSkip = (id: string) => skipPriced && pricedSkipIds.has(id);
+  const seen = new Set<string>();
+  const targets: TeescannerInputRow[] = [];
+  let ambiguousQueued = 0;
+  let sequentialQueued = 0;
+  let pricedSkipped = 0;
+
+  if (includeAmbiguousFirst) {
+    for (const row of allRows) {
+      if (!ambiguousIds.has(row.id)) continue;
+      if (seen.has(row.id)) continue;
+      if (shouldSkip(row.id)) {
+        pricedSkipped += 1;
+        continue;
+      }
+      seen.add(row.id);
+      targets.push(row);
+      ambiguousQueued += 1;
+    }
+  }
+
+  for (const row of allRows) {
+    const rowIndex = row.row_index ?? 0;
+    if (rowIndex < startRow || rowIndex > endRow) continue;
+    if (seen.has(row.id)) continue;
+    if (shouldSkip(row.id)) {
+      pricedSkipped += 1;
+      continue;
+    }
+    seen.add(row.id);
+    targets.push(row);
+    sequentialQueued += 1;
+  }
+
+  return {
+    targets,
+    ambiguousIds,
+    pricedSkipIds,
+    stats: {
+      ambiguousTotal: ambiguousIds.size,
+      ambiguousQueued,
+      sequentialQueued,
+      pricedSkipped,
+      startRow,
+      endRow,
+    },
+  };
+}
 
 export interface LoadTargetOptions {
   processedIds: Set<string>;

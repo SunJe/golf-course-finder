@@ -23,11 +23,12 @@ export const HOME_RECOMMENDED_THUMBNAILS: Record<string, string> = {
 /** @deprecated BlogPost.thumbnail 필드를 우선 사용하세요 */
 export const HOME_BLOG_THUMBNAILS: Record<string, string> = {
   "seoul-beginner-golf-best-5": `${BLOG_THUMBNAIL_DIR}/seoul-beginner-golf-best-5.png`,
-  "seoul-par3-golf-top-5": `${BLOG_THUMBNAIL_DIR}/seoul-par3-golf-top-5.png`,
+  "seoul-par3-practice-range-top-10": `${BLOG_THUMBNAIL_DIR}/seoul-par3-golf.png`,
   "seoul-budget-golf-best-5": `${BLOG_THUMBNAIL_DIR}/seoul-budget-golf-best-5.png`,
   "incheon-golf-top-5": `${BLOG_THUMBNAIL_DIR}/incheon-golf-top-5.png`,
   "beginner-golf-ball-top-5": `${BLOG_THUMBNAIL_DIR}/beginner-golf-ball-top-5.png`,
-  "value-driver-buying-guide": `${BLOG_THUMBNAIL_DIR}/value-driver-buying-guide.png`,
+  "pro-tour-driver-brands-men": `${BLOG_THUMBNAIL_DIR}/pro-tour-driver-brands-men.png`,
+  "pro-tour-driver-brands-women": `${BLOG_THUMBNAIL_DIR}/pro-tour-driver-brands-women.png`,
   "beginner-iron-top-5": `${BLOG_THUMBNAIL_DIR}/beginner-iron-top-5.png`,
   "beginner-golf-essentials-checklist": `${BLOG_THUMBNAIL_DIR}/beginner-golf-essentials-checklist.png`,
 };

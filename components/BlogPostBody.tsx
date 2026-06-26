@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { BlogPost, BlogPostSection } from "@/lib/blogPosts";
 
 import { BlogCourseCard } from "@/components/BlogCourseCard";
+import { BlogGearCard } from "@/components/BlogGearCard";
 import { BlogRelatedPosts } from "@/components/BlogRelatedPosts";
 
 
@@ -103,11 +104,41 @@ function isCourseItem(
 
 ): item is NonNullable<BlogPostSection["items"]>[number] & {
 
-  relatedCourseId: string;
+  relatedCourseId?: string;
 
 } {
 
-  return Boolean(item.relatedCourseId);
+  return Boolean(
+    item.relatedCourseId || item.address || item.phone || item.homepage,
+  );
+
+}
+
+
+
+function isGearItem(
+
+  item: NonNullable<BlogPostSection["items"]>[number],
+
+): boolean {
+
+  const isCourse = Boolean(
+
+    item.relatedCourseId || item.address || item.phone || item.homepage,
+
+  );
+
+  if (isCourse) return false;
+
+  return Boolean(
+
+    item.image ||
+
+      (item.recommendationReasons && item.recommendationReasons.length > 0) ||
+
+      (item.cons && item.cons.length > 0),
+
+  );
 
 }
 
@@ -160,6 +191,10 @@ export function BlogPostBody({ post }: { post: BlogPost }) {
                   {isCourseItem(item) ? (
 
                     <BlogCourseCard item={item} rank={index + 1} />
+
+                  ) : isGearItem(item) ? (
+
+                    <BlogGearCard item={item} rank={index + 1} />
 
                   ) : (
 

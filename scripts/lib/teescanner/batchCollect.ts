@@ -37,6 +37,21 @@ import {
 
 const PAGE_SETTLE_MS = 5000;
 
+async function withBlockScreenshot(
+  shots: StepScreenshotTracker,
+  outcome: TeescannerScrapeOutcome,
+): Promise<TeescannerScrapeOutcome> {
+  if (!outcome.blocked) return outcome;
+  const screenshot_path = await shots.captureBlockOnly();
+  return {
+    ...outcome,
+    result: {
+      ...outcome.result,
+      screenshot_path,
+    },
+  };
+}
+
 export interface BatchDateOutcome {
   roundDay: string;
   dayType: DayType;
@@ -493,12 +508,19 @@ export async function scrapeTeescannerCourseBatchDates(options: {
   course: TeescannerInputRow;
   dates: Array<{ roundDay: string; dayType: DayType }>;
   screenshotDir: string;
+  screenshotsEnabled?: boolean;
 }): Promise<BatchDateOutcome[]> {
-  const { page, course, dates, screenshotDir } = options;
+  const { page, course, dates, screenshotDir, screenshotsEnabled = false } =
+    options;
   if (dates.length === 0) return [];
 
   const searchRoundDay = dates[0].roundDay;
-  const shots = new StepScreenshotTracker(page, course.id, screenshotDir);
+  const shots = new StepScreenshotTracker(
+    page,
+    course.id,
+    screenshotDir,
+    screenshotsEnabled,
+  );
   const matchResult = await searchMatchCandidate({
     page,
     course,
@@ -507,10 +529,14 @@ export async function scrapeTeescannerCourseBatchDates(options: {
   });
 
   if (!matchResult.ok) {
+    const blockedOutcome = await withBlockScreenshot(
+      shots,
+      matchResult.outcome,
+    );
     return dates.map((sample) => ({
       roundDay: sample.roundDay,
       dayType: sample.dayType,
-      outcome: withBatchMeta(matchResult.outcome, {
+      outcome: withBatchMeta(blockedOutcome, {
         golfclubSeq: "",
         detailUrlTemplate: "",
         perDateDetailReload: true,
@@ -607,7 +633,12 @@ export async function scrapeTeescannerCourseBatchDates(options: {
 
   for (let index = 0; index < dates.length; index += 1) {
     const sample = dates[index];
-    const dateShots = new StepScreenshotTracker(page, course.id, screenshotDir);
+    const dateShots = new StepScreenshotTracker(
+      page,
+      course.id,
+      screenshotDir,
+      screenshotsEnabled,
+    );
     const detailUrl = buildDetailUrl(golfclubSeq, sample.roundDay);
 
     const detailResult = await collectSlotsFromDetailUrl({
@@ -618,7 +649,7 @@ export async function scrapeTeescannerCourseBatchDates(options: {
       shots: dateShots,
     });
 
-    const outcome = buildDetailOutcome({
+    let outcome = buildDetailOutcome({
       course,
       roundDay: sample.roundDay,
       usedQuery,
@@ -634,6 +665,7 @@ export async function scrapeTeescannerCourseBatchDates(options: {
       perDateDetailReload: true,
       baseDiagnostics: diagnostics,
     });
+    outcome = await withBlockScreenshot(dateShots, outcome);
 
     outcomes.push({
       roundDay: sample.roundDay,

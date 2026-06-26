@@ -26,7 +26,7 @@ export const HOME_BLOG_THUMBNAILS: Record<string, string> = {
   "seoul-par3-practice-range-top-10": `${BLOG_THUMBNAIL_DIR}/seoul-par3-golf.png`,
   "seoul-budget-golf-best-5": `${BLOG_THUMBNAIL_DIR}/seoul-budget-golf-best-5.png`,
   "incheon-golf-top-5": `${BLOG_THUMBNAIL_DIR}/incheon-golf-top-5.png`,
-  "beginner-golf-ball-top-5": `${BLOG_THUMBNAIL_DIR}/beginner-golf-ball-top-5.png`,
+  "golf-ball-type-guide": `${BLOG_THUMBNAIL_DIR}/golf-ball-type-guide.png`,
   "pro-tour-driver-brands-men": `${BLOG_THUMBNAIL_DIR}/pro-tour-driver-brands-men.png`,
   "pro-tour-driver-brands-women": `${BLOG_THUMBNAIL_DIR}/pro-tour-driver-brands-women.png`,
   "beginner-iron-top-5": `${BLOG_THUMBNAIL_DIR}/beginner-iron-top-5.png`,

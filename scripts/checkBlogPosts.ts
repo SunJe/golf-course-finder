@@ -18,7 +18,7 @@ const REQUIRED_SLUGS = [
   "goyang-golf-best-5",
   "seoul-nine-hole-beginner-golf-top-5",
   "seoul-par3-practice-range-top-10",
-  "beginner-golf-ball-top-5",
+  "golf-ball-type-guide",
   "pro-tour-driver-brands-men",
   "pro-tour-driver-brands-women",
   "beginner-iron-top-5",
@@ -32,7 +32,7 @@ const CATEGORY_COUNTS: Record<BlogPostCategory, number> = {
 };
 
 const GEAR_SLUGS = new Set([
-  "beginner-golf-ball-top-5",
+  "golf-ball-type-guide",
   "pro-tour-driver-brands-men",
   "pro-tour-driver-brands-women",
   "beginner-iron-top-5",

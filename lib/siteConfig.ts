@@ -11,6 +11,7 @@ export const siteConfig = {
     process.env.NEXT_PUBLIC_SITE_URL?.trim() || DEFAULT_SITE_URL,
   ),
   contactEmail:
+    // TODO: 운영 이메일 확정 시 NEXT_PUBLIC_CONTACT_EMAIL 로 설정
     process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim() || "golfmap.kr@gmail.com",
   defaultTitle: "GolfMap Korea | 전국 골프장 지도",
   defaultDescription:

@@ -20,7 +20,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticEntries: MetadataRoute.Sitemap = [
     "/about",
     "/contact",
-    "/privacy",
+    "/privacy-policy",
     "/disclaimer",
   ].map((path) => ({
     url: absoluteUrl(path),

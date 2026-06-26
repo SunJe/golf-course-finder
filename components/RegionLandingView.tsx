@@ -40,6 +40,8 @@ import {
 import RegionLinks from "@/components/RegionLinks";
 import CollectionLinks from "@/components/CollectionLinks";
 import SeoRepresentativeImage from "@/components/SeoRepresentativeImage";
+import { RelatedGuidesSection } from "@/components/RelatedGuidesSection";
+import { getRelatedBlogGuidesForRegion } from "@/lib/contentGuides";
 import { getRegionSeoImagePath } from "@/lib/seoImages";
 import { formatHoleCount } from "@/lib/courseDisplay";
 
@@ -296,7 +298,7 @@ export default function RegionLandingView({
 
   return (
     <div className="min-h-screen bg-region-cream">
-      <div className="mx-auto max-w-6xl px-4 pb-20 pt-6 sm:px-6 sm:pt-10">
+      <div className="mx-auto max-w-[920px] px-5 pb-20 pt-6 sm:px-6 sm:pt-10">
         <nav className="mb-6 text-sm font-medium text-region-muted">
           <Link href="/map" className={`text-brand-800 transition hover:text-brand-900 ${FOCUS_RING}`}>
             전국 골프장 지도
@@ -541,6 +543,11 @@ export default function RegionLandingView({
             ))}
           </dl>
         </SectionShell>
+
+        <RelatedGuidesSection
+          className="mt-10"
+          links={getRelatedBlogGuidesForRegion(config.slug)}
+        />
 
         <RegionLinks currentSlug={config.slug} className="mt-12" />
         <CollectionLinks className="mt-8" />

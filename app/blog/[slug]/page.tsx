@@ -7,6 +7,8 @@ import BlogPostJsonLd from "@/components/BlogPostJsonLd";
 import { BlogPostBody } from "@/components/BlogPostBody";
 import { buildBlogPostMetadata } from "@/lib/seoMetadata";
 import { enrichBlogPost } from "@/lib/enrichBlogPost";
+import { RelatedGuidesSection } from "@/components/RelatedGuidesSection";
+import { getRelatedBlogGuidesFromSlugs } from "@/lib/contentGuides";
 import {
   BLOG_ARTICLE_CONTAINER_CLASS,
   BLOG_CONTENT_CLASS,
@@ -38,6 +40,10 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
   const post = getBlogPostBySlug(params.slug);
   if (!post) notFound();
   const enrichedPost = await enrichBlogPost(post);
+
+  const relatedGuideLinks = getRelatedBlogGuidesFromSlugs(
+    post.relatedPostSlugs ?? [],
+  );
 
   return (
     <>
@@ -80,6 +86,12 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
           <div className={BLOG_CONTENT_CLASS}>
             <BlogPostBody post={enrichedPost} />
           </div>
+
+          <RelatedGuidesSection
+            title="함께 보면 좋은 글"
+            className={`${BLOG_CONTENT_CLASS} mt-12`}
+            links={relatedGuideLinks}
+          />
 
           <div
             className={`${BLOG_CONTENT_CLASS} mt-12 flex flex-wrap gap-4 border-t border-stone-100 pt-8 text-sm`}

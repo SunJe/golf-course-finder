@@ -3,6 +3,10 @@ import { getNormalizedRegionLabel } from "@/lib/regionUtils";
 import { formatRegionCoursePrice, courseHasPriceInfo } from "@/lib/regionLanding";
 import { formatPriceRange, hasPrice } from "@/lib/priceFormat";
 import {
+  PRICE_FAQ_ANSWER,
+  REPORT_ISSUE_ANSWER,
+} from "@/lib/contentGuides";
+import {
   courseHasValidHomepage,
   courseHasValidPhone,
 } from "@/lib/regionContactValidation";
@@ -96,12 +100,11 @@ function baseFaq(
     },
     {
       question: "요금 정보는 실시간 예약가인가요?",
-      answer: `아닙니다. 표시되는 요금은 참고용이며 실제 예약·내장 가격과 다를 수 있습니다. ${stats.withPrice}곳에서 참고 요금 정보를 제공합니다.`,
+      answer: PRICE_FAQ_ANSWER,
     },
     {
       question: "골프장 정보가 틀린 경우 어떻게 제보하나요?",
-      answer:
-        "각 골프장 상세 페이지 하단의 '정보가 틀렸나요?' 링크를 통해 주소, 전화번호, 홈페이지, 요금 등 수정이 필요한 내용을 제보해 주세요.",
+      answer: REPORT_ISSUE_ANSWER,
     },
   ];
 }
@@ -125,13 +128,11 @@ function nearSeoulComboFaq(
     },
     {
       question: "요금은 실시간 예약가인가요?",
-      answer:
-        "아닙니다. 표시되는 요금은 참고용이며 실제 예약가와 다를 수 있습니다. 정확한 요금은 골프장 공식 홈페이지나 예약 채널에서 확인해야 합니다.",
+      answer: PRICE_FAQ_ANSWER,
     },
     {
       question: "골프장 정보가 틀린 경우 어떻게 제보하나요?",
-      answer:
-        "각 골프장 상세 페이지 하단의 '정보가 틀렸나요?' 링크를 통해 제보해 주세요.",
+      answer: REPORT_ISSUE_ANSWER,
     },
   ];
 }
@@ -142,9 +143,9 @@ export const collectionLandingPages: CollectionConfig[] = [
     title: "서울 근교 골프장 지도 | GolfMap Korea",
     h1: "서울 근교 골프장",
     description:
-      "서울에서 접근하기 좋은 골프장의 위치, 전화번호, 홈페이지, 요금 정보를 확인하세요.",
+      "서울에서 접근하기 좋은 골프장의 위치, 참고 요금, 전화번호, 예약 확인 링크를 한곳에서 비교할 수 있습니다.",
     seoDescription:
-      "서울 근교 골프장의 위치, 전화번호, 홈페이지, 요금 정보를 확인하세요.",
+      "서울 근교 골프장의 위치, 참고 요금, 전화번호, 홈페이지를 비교해 보세요. 이동 거리와 운영 형태를 함께 확인할 수 있습니다.",
     primaryKeyword: "서울 근교 골프장",
     relatedKeywords: ["서울 골프장", "경기 골프장", "인천 골프장"],
     filterSummary:
@@ -152,7 +153,7 @@ export const collectionLandingPages: CollectionConfig[] = [
     mapHref: mapHrefFor("near-seoul"),
     breadcrumbLabel: "서울 근교 골프장",
     seoIntro:
-      "GolfMap Korea의 서울 근교 골프장 페이지는 서울시청 기준 거리와 경기·인천 지역 정보를 활용해 접근성이 좋은 골프장을 모아 둔 참고용 목록입니다. 각 상세 페이지에서 주소, 전화번호, 홈페이지, 참고 요금을 확인할 수 있습니다.",
+      "서울시청 기준 거리와 경기·인천 지역 정보를 바탕으로, 서울에서 당일 왕복이 가능한 골프장을 모아 비교하기 쉽게 정리했습니다. 대중제·회원제, 홀 수, 참고 요금을 상세 페이지에서 함께 확인해 보세요.",
     faq: [
       ...baseFaq(
         "서울 근교",
@@ -183,7 +184,7 @@ export const collectionLandingPages: CollectionConfig[] = [
     description:
       "전국 대중제 골프장의 위치, 전화번호, 홈페이지, 요금 정보를 확인하세요.",
     seoDescription:
-      "전국 대중제 골프장의 위치, 전화번호, 홈페이지, 요금 정보를 확인하세요.",
+      "전국 대중제 골프장의 위치, 참고 요금, 연락처, 홈페이지를 비교해 회원권 없이 이용할 수 있는 코스를 찾아보세요.",
     primaryKeyword: "대중제 골프장",
     relatedKeywords: ["퍼블릭 골프장", "public golf", "대중 골프장"],
     filterSummary:
@@ -297,7 +298,7 @@ export const collectionLandingPages: CollectionConfig[] = [
     description:
       "전국 파3 골프장의 위치, 전화번호, 홈페이지, 요금 정보를 확인하세요.",
     seoDescription:
-      "전국 파3 골프장의 위치, 전화번호, 홈페이지, 요금 정보를 확인하세요.",
+      "전국 파3 골프장의 위치, 참고 요금, 연락처를 비교해 짧은 라운드·연습 코스를 찾아보세요.",
     primaryKeyword: "파3 골프장",
     relatedKeywords: ["PAR3", "Par3", "파 3 골프장"],
     filterSummary:
@@ -523,9 +524,9 @@ export const collectionLandingPages: CollectionConfig[] = [
     title: "서울 근교 저렴한 골프장 | GolfMap Korea",
     h1: "서울 근교 저렴한 골프장",
     description:
-      "서울 근교 골프장을 참고 최저가 기준으로 낮은 가격순으로 확인하세요.",
+      "서울 근교에서 참고 요금이 있는 골프장을 비교하기 쉽게 정리했습니다. 이동 거리, 홀 수, 대중제 여부를 함께 확인해 보세요.",
     seoDescription:
-      "서울 근교 저렴한 골프장을 참고 요금 기준으로 확인하세요.",
+      "서울 근교에서 가성비 좋은 골프장을 찾는 분들을 위해 참고 요금, 위치, 전화번호, 예약 확인 링크를 함께 정리했습니다.",
     primaryKeyword: "서울 근교 저렴한 골프장",
     relatedKeywords: ["서울 싼 골프장", "경기 저렴한 골프장", "서울 골프장 요금"],
     filterSummary:
@@ -533,7 +534,7 @@ export const collectionLandingPages: CollectionConfig[] = [
     mapHref: mapHrefFor("near-seoul-budget"),
     breadcrumbLabel: "서울 근교 저렴한 골프장",
     seoIntro:
-      "서울 근교 골프장 중 참고 최저가 정보가 있는 골프장을 낮은 가격순으로 정렬한 참고용 목록입니다. 요금 정보는 참고용이며 실제 예약가와 다를 수 있습니다.",
+      "서울 근교 저렴한 골프장을 고를 때는 단순 최저가뿐 아니라 이동 거리, 홀 수, 대중제 여부, 예약 가능한 시간대를 함께 보는 것이 좋습니다. 이 페이지는 참고 요금이 있는 골프장을 비교하기 쉽게 정리했으며, 실제 요금은 날짜·시간대·예약 조건에 따라 달라질 수 있습니다.",
     faq: [
       {
         question: "서울 근교 저렴한 골프장은 어떤 기준인가요?",

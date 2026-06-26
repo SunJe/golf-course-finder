@@ -6,12 +6,9 @@ import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
   MapPin,
-  Phone,
-  Globe,
   Flag,
   ExternalLink,
   ChevronRight,
-  Search,
   Copy,
   Check,
   CalendarCheck,
@@ -52,6 +49,7 @@ import {
 import HomeResetLink from "@/components/HomeResetLink";
 import CourseMap from "@/components/maps/CourseMap";
 import CourseDetailHeroImage from "@/components/CourseDetailHeroImage";
+import { CourseInternalLinks } from "@/components/CourseInternalLinks";
 import { getCourseSeoImagePath } from "@/lib/seoImages";
 
 const TYPE_STYLES: Record<string, string> = {
@@ -212,6 +210,9 @@ export default function CourseDetail({
   const actionButtonClass =
     "flex min-h-[48px] items-center justify-center gap-2 rounded-xl border px-3 py-3 text-sm font-semibold transition active:scale-[0.98]";
 
+  const externalButtonClass =
+    "flex min-h-[44px] items-center justify-center gap-2 rounded-xl border px-3 py-2.5 text-sm font-medium transition active:scale-[0.98]";
+
   const handleNearbyMarkerSelect = useCallback(
     (courseId: string) => {
       if (courseId !== course.id) {
@@ -272,62 +273,14 @@ export default function CourseDetail({
           </span>
         </div>
 
-        {/* 핵심 버튼 */}
-        <div className="grid grid-cols-2 gap-2 p-4 sm:grid-cols-3 lg:grid-cols-5 sm:gap-3 sm:p-6">
-          {showPhone ? (
-            <a
-              href={`tel:${course.phone!.replace(/\s/g, "")}`}
-              className={`${actionButtonClass} border-brand-200 bg-brand-600 text-white hover:bg-brand-700`}
-            >
-              <Phone className="h-4 w-4" />
-              전화하기
-            </a>
-          ) : null}
-
-          {showHomepage ? (
-            <a
-              href={course.homepageUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`${actionButtonClass} border-gray-200 bg-white text-gray-800 hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700`}
-              aria-label={`${course.name} 공식 홈페이지 열기`}
-            >
-              <Globe className="h-4 w-4" />
-              공식 홈페이지
-            </a>
-          ) : null}
-
-          <a
-            href={getKakaoMapSearchUrl(course)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${actionButtonClass} border-[#fee500]/60 bg-[#fee500]/10 text-gray-800 hover:bg-[#fee500]/25`}
-            aria-label={`${course.name} 카카오맵에서 보기`}
-          >
-            <ExternalLink className="h-4 w-4" />
-            카카오맵 열기
-          </a>
-          <a
-            href={naverMapUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${actionButtonClass} border-[#03c75a]/30 bg-[#03c75a]/5 text-[#03c75a] hover:bg-[#03c75a]/10`}
-            aria-label={`${course.name} 네이버지도에서 보기`}
-          >
-            <ExternalLink className="h-4 w-4" />
-            네이버지도 열기
-          </a>
-          <a
-            href={naverSearchUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${actionButtonClass} col-span-2 border-gray-200 bg-white text-gray-800 hover:border-[#03c75a]/40 hover:bg-[#03c75a]/5 hover:text-[#03c75a] sm:col-span-1`}
-          >
-            <Search className="h-4 w-4" />
-            네이버 검색
-          </a>
+        <div className="border-b border-gray-100 px-4 py-3 sm:px-6">
+          <p className="text-xs text-stone-500 sm:text-sm">
+            연락처·지도·예약 확인은 아래 보조 링크에서 이용할 수 있습니다.
+          </p>
         </div>
       </header>
+
+      <CourseInternalLinks course={course} />
 
       <p className="mt-4 rounded-xl border border-amber-100 bg-amber-50/80 px-4 py-3 text-sm leading-relaxed text-amber-950 shadow-sm sm:px-5">
         GolfMap Korea에 표시되는 주소, 전화번호, 홈페이지, 참고 요금은 수집·정리
@@ -431,6 +384,78 @@ export default function CourseDetail({
         </div>
       </section>
 
+      {/* 연락·지도·예약 */}
+      <section className="mt-6 rounded-2xl border border-gray-200/80 bg-white p-4 shadow-sm sm:p-6">
+        <SectionTitle>연락·지도·예약 확인</SectionTitle>
+        <p className="mb-4 text-xs leading-relaxed text-stone-500 sm:text-sm">
+          아래 링크는 골프장 공식 채널·지도 서비스로 이동합니다. 예약 가능
+          여부와 최신 요금은 해당 페이지에서 확인해 주세요.
+        </p>
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3">
+          {showPhone ? (
+            <a
+              href={`tel:${course.phone!.replace(/\s/g, "")}`}
+              className={`${externalButtonClass} border-stone-200 bg-stone-50 text-stone-800 hover:border-brand-300 hover:bg-brand-50`}
+            >
+              <span aria-hidden>📞</span>
+              전화 문의
+            </a>
+          ) : null}
+
+          {showHomepage ? (
+            <a
+              href={course.homepageUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${externalButtonClass} border-stone-200 bg-white text-stone-800 hover:border-brand-300 hover:bg-brand-50`}
+              aria-label={`${course.name} 공식 홈페이지 열기`}
+            >
+              <span aria-hidden>🏠</span>
+              공식 홈페이지
+            </a>
+          ) : null}
+
+          <a
+            href={naverMapUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${externalButtonClass} border-emerald-200/80 bg-emerald-50/60 text-emerald-900 hover:bg-emerald-100/80`}
+            aria-label={`${course.name} 네이버지도에서 보기`}
+          >
+            <span aria-hidden>🗺️</span>
+            네이버지도
+          </a>
+          <a
+            href={getKakaoMapSearchUrl(course)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${externalButtonClass} border-amber-200/80 bg-amber-50/70 text-stone-800 hover:bg-amber-100/80`}
+            aria-label={`${course.name} 카카오맵에서 보기`}
+          >
+            <span aria-hidden>💛</span>
+            카카오맵
+          </a>
+          <a
+            href={naverSearchUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${externalButtonClass} border-emerald-200 bg-white text-emerald-800 hover:bg-emerald-50/80 sm:col-span-1`}
+          >
+            <span aria-hidden>🔎</span>
+            네이버 검색
+          </a>
+          <a
+            href={bookingHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${externalButtonClass} col-span-2 border-stone-200 bg-white text-stone-700 hover:border-brand-300 hover:bg-brand-50 sm:col-span-1`}
+          >
+            <CalendarCheck className="h-4 w-4" />
+            예약 정보 확인
+          </a>
+        </div>
+      </section>
+
       {/* 위치 */}
       <section className="mt-6 rounded-2xl border border-gray-200/80 bg-white p-4 shadow-sm sm:p-6">
         <SectionTitle>위치</SectionTitle>
@@ -456,22 +481,22 @@ export default function CourseDetail({
         </p>
         <div className="mt-4 grid grid-cols-2 gap-2 sm:gap-3">
           <a
-            href={getKakaoMapSearchUrl(course)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${actionButtonClass} border-[#fee500]/60 bg-[#fee500]/10 text-gray-800 hover:bg-[#fee500]/25`}
-          >
-            <ExternalLink className="h-4 w-4" />
-            카카오맵 열기
-          </a>
-          <a
             href={naverMapUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className={`${actionButtonClass} border-[#03c75a]/30 bg-[#03c75a]/5 text-[#03c75a] hover:bg-[#03c75a]/10`}
+            className={`${externalButtonClass} border-emerald-200/80 bg-emerald-50/60 text-emerald-900 hover:bg-emerald-100/80`}
           >
-            <ExternalLink className="h-4 w-4" />
-            네이버지도 열기
+            <span aria-hidden>🗺️</span>
+            네이버지도
+          </a>
+          <a
+            href={getKakaoMapSearchUrl(course)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${externalButtonClass} border-amber-200/80 bg-amber-50/70 text-stone-800 hover:bg-amber-100/80`}
+          >
+            <span aria-hidden>💛</span>
+            카카오맵
           </a>
         </div>
       </section>

@@ -72,12 +72,12 @@ const STATIC_PAGES = [
       }),
   },
   {
-    path: "/privacy",
+    path: "/privacy-policy",
     build: () =>
       buildStaticPageMetadata({
         title: "개인정보처리방침",
         description: "GolfMap Korea 개인정보처리방침",
-        path: "/privacy",
+        path: "/privacy-policy",
       }),
   },
   {
@@ -151,7 +151,7 @@ function readThinContentPages(): Map<string, number> {
   const staticPaths = [
     "app/about/page.tsx",
     "app/contact/page.tsx",
-    "app/privacy/page.tsx",
+    "app/privacy-policy/page.tsx",
     "app/disclaimer/page.tsx",
   ];
 

@@ -1,6 +1,7 @@
 import type { Course } from "@/types/course";
 import { formatHoleCount } from "@/lib/courseDisplay";
 import { hasPrice, formatPriceRange, formatPublicPriceDisplay } from "@/lib/priceFormat";
+import { PRICE_FAQ_ANSWER, REPORT_ISSUE_ANSWER } from "@/lib/contentGuides";
 import {
   resolveCourseRegionSlug,
   type RegionSlug,
@@ -30,7 +31,7 @@ export const regionLandingPages: RegionLandingConfig[] = [
     aliases: ["서울", "서울시", "서울특별시"],
     title: "서울 골프장 지도",
     description:
-      "서울 골프장 위치·전화·홈페이지·요금을 GolfMap Korea에서 한눈에 확인하세요.",
+      "서울 골프장의 위치, 참고 요금, 연락처, 지도 링크를 비교해 라운드 계획에 활용할 수 있습니다.",
   },
   {
     slug: "gyeonggi",
@@ -38,7 +39,7 @@ export const regionLandingPages: RegionLandingConfig[] = [
     aliases: ["경기", "경기도"],
     title: "경기 골프장 지도",
     description:
-      "경기 골프장 위치·전화·홈페이지·요금을 GolfMap Korea에서 한눈에 확인하세요.",
+      "경기 골프장의 위치, 참고 요금, 연락처, 지도 링크를 비교해 서울 근교 라운드 후보를 찾아보세요.",
   },
   {
     slug: "incheon",
@@ -46,7 +47,7 @@ export const regionLandingPages: RegionLandingConfig[] = [
     aliases: ["인천", "인천시", "인천광역시"],
     title: "인천 골프장 지도",
     description:
-      "인천 골프장 위치·전화·홈페이지·요금을 GolfMap Korea에서 한눈에 확인하세요.",
+      "인천 골프장을 찾는 분들을 위해 코스 위치, 참고 요금, 연락처, 지도 링크를 함께 정리했습니다.",
   },
   {
     slug: "gangwon",
@@ -54,7 +55,7 @@ export const regionLandingPages: RegionLandingConfig[] = [
     aliases: ["강원", "강원도", "강원특별자치도"],
     title: "강원 골프장 지도",
     description:
-      "강원 골프장 위치·전화·홈페이지·요금을 GolfMap Korea에서 한눈에 확인하세요.",
+      "강원 골프장의 위치, 참고 요금, 연락처를 지역별로 비교해 주말·휴양 라운드 계획에 활용하세요.",
   },
   {
     slug: "chungcheong",
@@ -62,7 +63,7 @@ export const regionLandingPages: RegionLandingConfig[] = [
     aliases: ["충청", "충북", "충남", "충청북도", "충청남도", "세종"],
     title: "충청 골프장 지도",
     description:
-      "충청·세종 골프장 위치·전화·홈페이지·요금을 GolfMap Korea에서 확인하세요.",
+      "충청·세종 골프장의 위치, 참고 요금, 연락처, 홈페이지 링크를 한곳에서 비교할 수 있습니다.",
   },
   {
     slug: "jeolla",
@@ -70,7 +71,7 @@ export const regionLandingPages: RegionLandingConfig[] = [
     aliases: ["전라", "전북", "전남", "전라북도", "전라남도"],
     title: "전라 골프장 지도",
     description:
-      "전라 골프장 위치·전화·홈페이지·요금을 GolfMap Korea에서 한눈에 확인하세요.",
+      "전라 골프장의 위치, 참고 요금, 연락처를 지역별로 확인하고 라운드 계획에 참고하세요.",
   },
   {
     slug: "gyeongsang",
@@ -78,7 +79,7 @@ export const regionLandingPages: RegionLandingConfig[] = [
     aliases: ["경상", "경북", "경남", "경상북도", "경상남도", "울산", "대구"],
     title: "경상 골프장 지도",
     description:
-      "경상·울산·대구 골프장 위치·전화·홈페이지·요금을 GolfMap Korea에서 확인하세요.",
+      "경상·울산·대구 골프장의 위치, 참고 요금, 연락처를 지역별로 비교해 보세요.",
   },
   {
     slug: "jeju",
@@ -86,7 +87,7 @@ export const regionLandingPages: RegionLandingConfig[] = [
     aliases: ["제주", "제주도", "제주특별자치도"],
     title: "제주 골프장 지도",
     description:
-      "제주 골프장 위치·전화·홈페이지·요금을 GolfMap Korea에서 한눈에 확인하세요.",
+      "제주 골프장의 위치, 참고 요금, 연락처, 홈페이지 링크를 비교해 여행·라운드 계획에 활용하세요.",
   },
   {
     slug: "busan",
@@ -94,7 +95,7 @@ export const regionLandingPages: RegionLandingConfig[] = [
     aliases: ["부산", "부산시", "부산광역시"],
     title: "부산 골프장 지도",
     description:
-      "부산 골프장 위치·전화·홈페이지·요금을 GolfMap Korea에서 한눈에 확인하세요.",
+      "부산 골프장의 위치, 참고 요금, 연락처, 지도 링크를 비교해 라운드 후보를 찾아보세요.",
   },
 ];
 
@@ -214,7 +215,7 @@ export function buildRegionSeoParagraph(
     ? `${formatCityNameList(topCities)} 등 ${label} 지역`
     : `${label} 지역`;
 
-  return `GolfMap Korea의 ${label} 골프장 지도는 ${cityPhrase} 골프장을 한곳에 모아 정리한 페이지입니다. 대중제와 회원제 골프장을 구분해서 볼 수 있고, 각 상세페이지에서 주소, 전화번호, 홈페이지, 참고 요금과 주변 골프장 정보를 확인할 수 있습니다.`;
+  return `${label} 지역 골프장을 시·군·구별로 살펴볼 수 있는 페이지입니다. ${cityPhrase} 골프장의 주소, 전화번호, 홈페이지, 참고 요금을 비교하고, 상세 페이지에서 주변 골프장도 함께 확인할 수 있습니다.`;
 }
 
 export interface RegionHeroPill {
@@ -291,12 +292,11 @@ export function buildRegionFaqItems(
     },
     {
       question: "요금 정보는 실제 예약가인가요?",
-      answer: `페이지에 표시되는 요금은 참고 요금이며, 실제 예약·내장 가격과 다를 수 있습니다. 날짜, 시간대, 예약 조건에 따라 달라질 수 있으니 예약 전 골프장 또는 네이버지도에서 직접 확인하세요. ${label} 지역 ${stats.withPrice}곳에서 참고 요금 정보를 제공합니다.`,
+      answer: `${PRICE_FAQ_ANSWER} ${label} 지역 ${stats.withPrice}곳에서 참고 요금 정보를 제공합니다.`,
     },
     {
       question: "골프장 정보가 틀린 경우 어떻게 제보하나요?",
-      answer:
-        "각 골프장 상세 페이지 하단의 '정보가 틀렸나요?' 링크를 통해 주소, 전화번호, 홈페이지, 요금 등 수정이 필요한 내용을 제보해 주세요.",
+      answer: REPORT_ISSUE_ANSWER,
     },
   ];
 }

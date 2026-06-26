@@ -57,10 +57,10 @@ export type MergedEnrichmentRow = CourseEnrichmentEditRow &
 export const PRICE_TYPE_RESERVATION = "reservation_reference";
 
 export const NOTE_ACCEPT =
-  "TeeScanner 예약가 기준으로 보강함. 날짜/시간/예약 채널에 따라 요금이 달라질 수 있음.";
+  "네이버 예약/홈페이지 참고 요금으로 보강함. 날짜/시간/예약 조건에 따라 요금이 달라질 수 있음.";
 
 export const NOTE_REVIEW =
-  "TeeScanner 예약가 기준으로 보강함. 날짜/시간/예약 채널에 따라 요금이 달라질 수 있음. manual_review 또는 partial_day_slots인 경우 검토 필요.";
+  "네이버 예약/홈페이지 참고 요금으로 보강함. 날짜/시간/예약 조건에 따라 요금이 달라질 수 있음. manual_review 또는 partial_day_slots인 경우 검토 필요.";
 
 export interface TeescannerPriceRange {
   min: number | null;
@@ -190,27 +190,27 @@ export function buildTeescannerPriceText(range: TeescannerPriceRange): string {
     : "";
 
   if (hasWeekday && hasWeekend) {
-    return `티스캐너 예약가 기준 ${weekdayText} / ${weekendText}`;
+    return `참고 요금 ${weekdayText} / ${weekendText}`;
   }
   if (hasWeekday) {
-    return `티스캐너 예약가 기준 ${weekdayText}`;
+    return `참고 요금 ${weekdayText}`;
   }
   if (hasWeekend) {
-    return `티스캐너 예약가 기준 ${weekendText}`;
+    return `참고 요금 ${weekendText}`;
   }
 
   const overallText = formatRange(range.min, range.max);
   if (!overallText) return "";
   if (range.min != null && range.max != null && range.min !== range.max) {
-    return `티스캐너 예약가 기준 ${overallText}`;
+    return `참고 요금 ${overallText}`;
   }
   if (range.min != null && range.max == null) {
-    return `티스캐너 예약가 기준 ${formatWon(range.min)}~`;
+    return `참고 요금 ${formatWon(range.min)}~`;
   }
   if (range.max != null && range.min == null) {
-    return `티스캐너 예약가 기준 ~${formatWon(range.max)}`;
+    return `참고 요금 ~${formatWon(range.max)}`;
   }
-  return `티스캐너 예약가 기준 ${overallText}`;
+  return `참고 요금 ${overallText}`;
 }
 
 export function isPartialDaySlots(summary: TeescannerSummaryRow): boolean {

@@ -3,9 +3,9 @@ import SiteContainer from "@/components/layout/SiteContainer";
 import { siteConfig } from "@/lib/siteConfig";
 
 const FOOTER_LINKS = [
-  { label: "서비스 소개", href: "/about" },
-  { label: "개인정보처리방침", href: "/privacy" },
-  { label: "문의", href: "/contact" },
+  { label: "소개", href: "/about" },
+  { label: "문의하기", href: "/contact" },
+  { label: "개인정보처리방침", href: "/privacy-policy" },
   { label: "이용 고지", href: "/disclaimer" },
 ] as const;
 

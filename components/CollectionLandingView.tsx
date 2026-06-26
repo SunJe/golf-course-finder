@@ -39,6 +39,7 @@ import {
 import CollectionLinks from "@/components/CollectionLinks";
 import RegionLinks from "@/components/RegionLinks";
 import SeoRepresentativeImage from "@/components/SeoRepresentativeImage";
+import { CollectionGuideFooter } from "@/components/CollectionGuideFooter";
 import { getCollectionSeoImagePath } from "@/lib/seoImages";
 
 const ALL_COURSES_PREVIEW = 25;
@@ -409,7 +410,7 @@ export default function CollectionLandingView({
 
   return (
     <div className="min-h-screen bg-region-cream">
-      <div className="mx-auto max-w-6xl px-4 pb-20 pt-6 sm:px-6 sm:pt-10">
+      <div className="mx-auto max-w-[920px] px-5 pb-20 pt-6 sm:px-6 sm:pt-10">
         <nav className="mb-6 text-sm font-medium text-region-muted">
           <Link
             href="/map"
@@ -552,6 +553,8 @@ export default function CollectionLandingView({
             </div>
           </SectionShell>
         ) : null}
+
+        <CollectionGuideFooter slug={config.slug} h1={config.h1} />
 
         <SectionShell className="mt-10">
           <SeoRepresentativeImage

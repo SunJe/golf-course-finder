@@ -41,7 +41,12 @@ import {
 } from "@/lib/externalSearchLinks";
 import { formatDistanceKm } from "@/lib/geoUtils";
 import { createCourseReportIssueMailto } from "@/lib/reportIssueLink";
-import { buildCourseSeoIntroParagraph } from "@/lib/courseSeoCopy";
+import { resolveCourseIntroParagraph } from "@/lib/courseSeoCopy";
+import type { CourseContentEnrichment } from "@/lib/enrichment/courseContentEnrichmentTypes";
+import { isDisplayableEnrichment } from "@/lib/enrichment/courseContentEnrichmentTypes";
+import { CourseRecommendationBox } from "@/components/CourseRecommendationBox";
+import { CourseVisitKoreaGallery } from "@/components/CourseVisitKoreaGallery";
+import type { CourseVisitKoreaImageSet } from "@/lib/enrichment/courseVisitKoreaImages";
 import {
   formatAliasesForBodyText,
   resolveCourseSearchAliases,
@@ -177,11 +182,15 @@ function formatRegionLine(course: PublicCourse): string {
 interface CourseDetailProps {
   course: PublicCourse;
   nearbyCourses?: PublicCourse[];
+  enrichment?: CourseContentEnrichment | null;
+  visitKoreaGallery?: CourseVisitKoreaImageSet | null;
 }
 
 export default function CourseDetail({
   course,
   nearbyCourses = [],
+  enrichment = null,
+  visitKoreaGallery = null,
 }: CourseDetailProps) {
   const router = useRouter();
   const [hoveredNearbyId, setHoveredNearbyId] = useState<string | null>(null);
@@ -200,7 +209,13 @@ export default function CourseDetail({
     [course, nearbyCourses],
   );
   const reportIssueMailto = createCourseReportIssueMailto(course);
-  const seoIntro = buildCourseSeoIntroParagraph(course);
+  const seoIntro = resolveCourseIntroParagraph(course, enrichment);
+  const recommendationReasons = isDisplayableEnrichment(enrichment)
+    ? enrichment.recommendationReasons
+    : [];
+  const recommendationConfidence = isDisplayableEnrichment(enrichment)
+    ? enrichment.confidence
+    : undefined;
   const searchAliases = useMemo(
     () => resolveCourseSearchAliases(course),
     [course],
@@ -291,6 +306,19 @@ export default function CourseDetail({
       <p className="mt-3 rounded-xl border border-gray-100 bg-white/90 px-4 py-3 text-sm leading-relaxed text-gray-600 shadow-sm sm:px-5">
         {seoIntro}
       </p>
+
+      <CourseRecommendationBox
+        reasons={recommendationReasons}
+        confidence={recommendationConfidence}
+      />
+
+      {visitKoreaGallery ? (
+        <CourseVisitKoreaGallery
+          courseName={course.name}
+          regionLabel={formatRegionLine(course)}
+          gallery={visitKoreaGallery}
+        />
+      ) : null}
 
       {searchAliases.length > 1 && aliasBodyText ? (
         <p className="mt-3 text-sm text-slate-500">

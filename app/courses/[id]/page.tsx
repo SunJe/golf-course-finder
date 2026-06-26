@@ -9,6 +9,8 @@ import {
 import CourseDetail from "@/components/CourseDetail";
 import { toPublicCourse, toPublicCourses } from "@/lib/publicCourse";
 import CourseJsonLd from "@/components/CourseJsonLd";
+import { getDisplayableCourseContentEnrichment } from "@/lib/enrichment/courseContentEnrichmentStore";
+import { resolveCourseVisitKoreaImages } from "@/lib/enrichment/courseVisitKoreaImages";
 import RegionLinks from "@/components/RegionLinks";
 
 export async function generateStaticParams() {
@@ -37,12 +39,17 @@ export default async function CourseDetailPage({
   const allCourses = await getCourses();
   const nearbyCourses = getNearbyCourses(allCourses, course, 6);
 
+  const enrichment = getDisplayableCourseContentEnrichment(course.id);
+  const visitKoreaGallery = resolveCourseVisitKoreaImages(course.id, enrichment);
+
   return (
     <>
       <CourseJsonLd course={course} />
       <CourseDetail
         course={toPublicCourse(course)}
         nearbyCourses={toPublicCourses(nearbyCourses)}
+        enrichment={enrichment}
+        visitKoreaGallery={visitKoreaGallery}
       />
       <div className="mx-auto max-w-3xl px-4 pb-4 sm:px-6 md:max-w-4xl">
         <RegionLinks />

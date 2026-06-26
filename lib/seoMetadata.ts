@@ -5,6 +5,7 @@ import {
   META_DESCRIPTION_MAX_LENGTH,
   truncateMetaDescription,
 } from "@/lib/courseSeoCopy";
+import { getCourseContentEnrichment } from "@/lib/enrichment/courseContentEnrichmentStore";
 import {
   resolveCourseSearchAliases,
 } from "@/lib/seo/courseNameAliases";
@@ -209,8 +210,9 @@ export function buildCourseDetailTitle(course: Course): string {
 }
 
 export function buildCourseMetadata(course: Course): Metadata {
+  const enrichment = getCourseContentEnrichment(course.id);
   const title = buildCourseDetailTitle(course);
-  const description = buildCourseDetailDescription(course);
+  const description = buildCourseDetailDescription(course, enrichment);
   const url = absoluteUrl(`/courses/${course.id}`);
   const imagePath = getCourseSeoImagePath(course.id);
   const imageAlt = `${course.name} 골프장 정보 | ${siteConfig.siteName}`;

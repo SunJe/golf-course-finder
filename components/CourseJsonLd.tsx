@@ -1,5 +1,6 @@
 import type { Course } from "@/types/course";
 import { buildCourseJsonLdDescription } from "@/lib/courseSeoCopy";
+import { getCourseContentEnrichment } from "@/lib/enrichment/courseContentEnrichmentStore";
 import { getPriceMax, getPriceMin, hasPrice } from "@/lib/priceFormat";
 import { isValidCourseCoordinates } from "@/lib/focusCourse";
 import { resolveCourseSearchAliases } from "@/lib/seo/courseNameAliases";
@@ -32,6 +33,7 @@ function compactJsonLd(value: Record<string, unknown>): Record<string, unknown> 
 
 /** 상세 페이지 GolfCourse JSON-LD */
 export default function CourseJsonLd({ course }: { course: Course }) {
+  const enrichment = getCourseContentEnrichment(course.id);
   const pageUrl = absoluteUrl(`/courses/${course.id}`);
   const homepage = course.homepageUrl?.trim();
   const aliases = resolveCourseSearchAliases(course);
@@ -49,7 +51,7 @@ export default function CourseJsonLd({ course }: { course: Course }) {
     name: course.name.trim(),
     alternateName: alternateName.length > 0 ? alternateName : undefined,
     url: pageUrl,
-    description: buildCourseJsonLdDescription(course),
+    description: buildCourseJsonLdDescription(course, enrichment),
     telephone: course.phone?.trim(),
     sameAs: homepage ? [homepage] : undefined,
     address: course.address?.trim()

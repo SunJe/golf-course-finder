@@ -1,0 +1,3170 @@
+{
+  "generatedAt": "2026-06-26T07:17:26.455Z",
+  "approvedCount": 12,
+  "rejectedCount": 53,
+  "pendingCount": 0,
+  "missingApproved": [],
+  "items": [
+    {
+      "courseId": "gc-7ef835cc44ce",
+      "courseName": "엘리시안제주 (회원제)",
+      "best": {
+        "courseId": "gc-7ef835cc44ce",
+        "courseName": "엘리시안제주 (회원제)",
+        "visitKoreaContentId": "250473",
+        "visitKoreaTitle": "엘리시안 강촌 컨트리클럽",
+        "visitKoreaAddr1": "강원특별자치도 춘천시 남산면 북한강변길 688",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/06/1583506_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/06/1583506_image3_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-a34d1218714a",
+      "courseName": "해비치CC (대중제)",
+      "best": {
+        "courseId": "gc-a34d1218714a",
+        "courseName": "해비치CC (대중제)",
+        "visitKoreaContentId": "2755481",
+        "visitKoreaTitle": "드비치골프클럽",
+        "visitKoreaAddr1": "경상남도 거제시 장목면 거제북로 1573",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/59/2755959_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/60/2755960_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/61/2755961_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/62/2755962_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-ec8024eb7955",
+      "courseName": "웰리힐리퍼블릭",
+      "best": {
+        "courseId": "gc-ec8024eb7955",
+        "courseName": "웰리힐리퍼블릭",
+        "visitKoreaContentId": "2746695",
+        "visitKoreaTitle": "코리아퍼블릭CC",
+        "visitKoreaAddr1": "경기도 용인시 기흥구 기흥단지로 224 (고매동)",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/02/2746602_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/06/2746606_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/07/2746607_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.7,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-b768a2002431",
+      "courseName": "메이플비치골프&리조트",
+      "best": {
+        "courseId": "gc-b768a2002431",
+        "courseName": "메이플비치골프&리조트",
+        "visitKoreaContentId": "2770952",
+        "visitKoreaTitle": "오션비치골프앤리조트",
+        "visitKoreaAddr1": "경상북도 영덕군 강구면 동해대로 4265-43",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/03/2771303_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/03/2771303_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/05/2771305_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/07/2771307_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.7,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-4687a4044d34",
+      "courseName": "지산퍼블릭",
+      "best": {
+        "courseId": "gc-4687a4044d34",
+        "courseName": "지산퍼블릭",
+        "visitKoreaContentId": "752497",
+        "visitKoreaTitle": "제이퍼블릭컨트리클럽",
+        "visitKoreaAddr1": "경기도 파주시 조리읍 장곡로 100",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/44/3533044_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/44/3533044_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/40/3533040_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/41/3533041_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0.25,
+          "cityMatch": false,
+          "regionMatch": true,
+          "fuzzyScore": 0.75,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-4687a4044d34",
+          "courseName": "지산퍼블릭",
+          "visitKoreaContentId": "2746695",
+          "visitKoreaTitle": "코리아퍼블릭CC",
+          "visitKoreaAddr1": "경기도 용인시 기흥구 기흥단지로 224 (고매동)",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/02/2746602_image2_1.jpg",
+            "http://tong.visitkorea.or.kr/cms/resource/06/2746606_image2_1.jpg",
+            "http://tong.visitkorea.or.kr/cms/resource/07/2746607_image2_1.jpg"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0.55,
+            "cityMatch": true,
+            "regionMatch": true,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-51bfec26aa96",
+      "courseName": "자유컨트리클럽",
+      "best": {
+        "courseId": "gc-51bfec26aa96",
+        "courseName": "자유컨트리클럽",
+        "visitKoreaContentId": "2754432",
+        "visitKoreaTitle": "자유로CC",
+        "visitKoreaAddr1": "경기도 연천군 백학면 노아로297번길 179-55",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/64/3549064_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/64/3549064_image3_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/62/3549062_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/63/3549063_image2_1.png"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": true,
+          "aliasMatch": false,
+          "addressMatch": 0.25,
+          "cityMatch": false,
+          "regionMatch": true,
+          "fuzzyScore": 0.6666666666666666,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-61ba4f976442",
+      "courseName": "렉스필드 컨트리클럽(회원)",
+      "best": {
+        "courseId": "gc-61ba4f976442",
+        "courseName": "렉스필드 컨트리클럽(회원)",
+        "visitKoreaContentId": "2770074",
+        "visitKoreaTitle": "젠스필드CC",
+        "visitKoreaAddr1": "충청북도 음성군 삼성면 덕호로 382",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/70/2770370_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/64/2770364_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/65/2770365_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/67/2770367_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.75,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-657d8f5d1426",
+      "courseName": "렉스필드 컨트리클럽(비회원)",
+      "best": {
+        "courseId": "gc-657d8f5d1426",
+        "courseName": "렉스필드 컨트리클럽(비회원)",
+        "visitKoreaContentId": "2770074",
+        "visitKoreaTitle": "젠스필드CC",
+        "visitKoreaAddr1": "충청북도 음성군 삼성면 덕호로 382",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/70/2770370_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/64/2770364_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/65/2770365_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/67/2770367_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.75,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-68d69c3be5e4",
+      "courseName": "에덴밸리컨트리클럽",
+      "best": {
+        "courseId": "gc-68d69c3be5e4",
+        "courseName": "에덴밸리컨트리클럽",
+        "visitKoreaContentId": "2779274",
+        "visitKoreaTitle": "골프존카운티 드래곤",
+        "visitKoreaAddr1": "전북특별자치도 남원시 대산면 대사로 500",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/10/2781310_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/12/2781312_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-68d69c3be5e4",
+          "courseName": "에덴밸리컨트리클럽",
+          "visitKoreaContentId": "2750335",
+          "visitKoreaTitle": "골프존카운티 안성H",
+          "visitKoreaAddr1": "경기도 안성시 보개면 보삼로 302",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/79/2750379_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/82/2750382_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/83/2750383_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/84/2750384_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        },
+        {
+          "courseId": "gc-68d69c3be5e4",
+          "courseName": "에덴밸리컨트리클럽",
+          "visitKoreaContentId": "2750339",
+          "visitKoreaTitle": "골프존카운티 안성W",
+          "visitKoreaAddr1": "경기도 안성시 양성면 교동길 19-70",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image3_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/69/2750369_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/71/2750371_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-eb9124b06908",
+      "courseName": "가든골프클럽",
+      "best": {
+        "courseId": "gc-eb9124b06908",
+        "courseName": "가든골프클럽",
+        "visitKoreaContentId": "2751453",
+        "visitKoreaTitle": "락가든GC",
+        "visitKoreaAddr1": "경기도 포천시 일동면 화동로 738",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/38/2751438_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/38/2751438_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/35/2751435_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/40/2751440_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": true,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666666,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-9407b216837c",
+      "courseName": "더골프골프장",
+      "best": {
+        "courseId": "gc-9407b216837c",
+        "courseName": "더골프골프장",
+        "visitKoreaContentId": "2779274",
+        "visitKoreaTitle": "골프존카운티 드래곤",
+        "visitKoreaAddr1": "전북특별자치도 남원시 대산면 대사로 500",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/10/2781310_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/12/2781312_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-9407b216837c",
+          "courseName": "더골프골프장",
+          "visitKoreaContentId": "2750335",
+          "visitKoreaTitle": "골프존카운티 안성H",
+          "visitKoreaAddr1": "경기도 안성시 보개면 보삼로 302",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/79/2750379_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/82/2750382_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/83/2750383_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/84/2750384_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        },
+        {
+          "courseId": "gc-9407b216837c",
+          "courseName": "더골프골프장",
+          "visitKoreaContentId": "2750339",
+          "visitKoreaTitle": "골프존카운티 안성W",
+          "visitKoreaAddr1": "경기도 안성시 양성면 교동길 19-70",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image3_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/69/2750369_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/71/2750371_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-b21ce78f76ca",
+      "courseName": "골든베이골프&리조트",
+      "best": {
+        "courseId": "gc-b21ce78f76ca",
+        "courseName": "골든베이골프&리조트",
+        "visitKoreaContentId": "2769598",
+        "visitKoreaTitle": "올데이 골프앤리조트",
+        "visitKoreaAddr1": "충청북도 충주시 앙성면 비내길 189",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/44/2771244_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/44/2771244_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/24/2771224_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/26/2771226_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-48b0d3b9c2cb",
+      "courseName": "엘리시안제주 (대중제)",
+      "best": {
+        "courseId": "gc-48b0d3b9c2cb",
+        "courseName": "엘리시안제주 (대중제)",
+        "visitKoreaContentId": "250473",
+        "visitKoreaTitle": "엘리시안 강촌 컨트리클럽",
+        "visitKoreaAddr1": "강원특별자치도 춘천시 남산면 북한강변길 688",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/06/1583506_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/06/1583506_image3_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-e51deb9a5cbf",
+      "courseName": "해비치CC (회원제)",
+      "best": {
+        "courseId": "gc-e51deb9a5cbf",
+        "courseName": "해비치CC (회원제)",
+        "visitKoreaContentId": "2755481",
+        "visitKoreaTitle": "드비치골프클럽",
+        "visitKoreaAddr1": "경상남도 거제시 장목면 거제북로 1573",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/59/2755959_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/60/2755960_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/61/2755961_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/62/2755962_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-9e436bbbf364",
+      "courseName": "파가니카컨트리클럽",
+      "best": {
+        "courseId": "gc-9e436bbbf364",
+        "courseName": "파가니카컨트리클럽",
+        "visitKoreaContentId": "131979",
+        "visitKoreaTitle": "세레니티CC (구, 실크리버 컨트리클럽)",
+        "visitKoreaAddr1": "충청북도 청주시 서원구 남이면 문곡구절골길 235",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/44/1960744_image2_1.JPG",
+          "http://tong.visitkorea.or.kr/cms/resource/44/1960744_image3_1.JPG"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-d7a401a860d3",
+      "courseName": "베어크리크 춘천",
+      "best": {
+        "courseId": "gc-d7a401a860d3",
+        "courseName": "베어크리크 춘천",
+        "visitKoreaContentId": "2752723",
+        "visitKoreaTitle": "베어크리크GC",
+        "visitKoreaAddr1": "경기도 포천시 화현면 달인동로 35",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/95/2752895_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/97/2752897_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/98/2752898_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/00/2752900_image2_1.png"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": true,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.7142857142857143,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-aca146079a3b",
+      "courseName": "오로라 골프 앤 리조트",
+      "best": {
+        "courseId": "gc-aca146079a3b",
+        "courseName": "오로라 골프 앤 리조트",
+        "visitKoreaContentId": "131268",
+        "visitKoreaTitle": "오라컨트리클럽",
+        "visitKoreaAddr1": "제주특별자치도 제주시 오라남로 130-16",
+        "visitKoreaAddr2": "(오라이동)",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/74/2476674_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-aca146079a3b",
+          "courseName": "오로라 골프 앤 리조트",
+          "visitKoreaContentId": "2770952",
+          "visitKoreaTitle": "오션비치골프앤리조트",
+          "visitKoreaAddr1": "경상북도 영덕군 강구면 동해대로 4265-43",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/03/2771303_image2_1.jpg",
+            "http://tong.visitkorea.or.kr/cms/resource/03/2771303_image3_1.jpg",
+            "http://tong.visitkorea.or.kr/cms/resource/05/2771305_image2_1.jpg",
+            "http://tong.visitkorea.or.kr/cms/resource/07/2771307_image2_1.jpg"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-5d96ff075544",
+      "courseName": "파인밸리컨트리클럽",
+      "best": {
+        "courseId": "gc-5d96ff075544",
+        "courseName": "파인밸리컨트리클럽",
+        "visitKoreaContentId": "131367",
+        "visitKoreaTitle": "파크밸리골프클럽",
+        "visitKoreaAddr1": "강원특별자치도 원주시 소초면 바우실길 281",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/07/3588907_image2_1.JPG",
+          "http://tong.visitkorea.or.kr/cms/resource/07/3588907_image3_1.JPG",
+          "http://tong.visitkorea.or.kr/cms/resource/08/3588908_image2_1.JPG",
+          "http://tong.visitkorea.or.kr/cms/resource/09/3588909_image2_1.JPG"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0.25,
+          "cityMatch": false,
+          "regionMatch": true,
+          "fuzzyScore": 0.75,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-690b34d2b582",
+      "courseName": "샤인데일골프&리조트",
+      "best": {
+        "courseId": "gc-690b34d2b582",
+        "courseName": "샤인데일골프&리조트",
+        "visitKoreaContentId": "2769598",
+        "visitKoreaTitle": "올데이 골프앤리조트",
+        "visitKoreaAddr1": "충청북도 충주시 앙성면 비내길 189",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/44/2771244_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/44/2771244_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/24/2771224_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/26/2771226_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-535182f1f0fa",
+      "courseName": "올데이 옥스필드",
+      "best": {
+        "courseId": "gc-535182f1f0fa",
+        "courseName": "올데이 옥스필드",
+        "visitKoreaContentId": "2770074",
+        "visitKoreaTitle": "젠스필드CC",
+        "visitKoreaAddr1": "충청북도 음성군 삼성면 덕호로 382",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/70/2770370_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/64/2770364_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/65/2770365_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/67/2770367_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.75,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-25de9ff08a30",
+      "courseName": "아시아나컨트리클럽",
+      "best": {
+        "courseId": "gc-25de9ff08a30",
+        "courseName": "아시아나컨트리클럽",
+        "visitKoreaContentId": "576732",
+        "visitKoreaTitle": "아시아드 컨트리클럽",
+        "visitKoreaAddr1": "부산광역시 기장군 일광면 차양길 26",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/78/2444978_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/78/2444978_image3_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.75,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-20c1df4aa8fb",
+      "courseName": "지산컨트리클럽",
+      "best": {
+        "courseId": "gc-20c1df4aa8fb",
+        "courseName": "지산컨트리클럽",
+        "visitKoreaContentId": "130980",
+        "visitKoreaTitle": "지산컨트리클럽",
+        "visitKoreaAddr1": "경기도 용인시 처인구 원삼면 죽양대로2000번길 60",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/38/1941238_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/38/1941238_image3_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": true,
+          "normalizedNameMatch": true,
+          "aliasMatch": true,
+          "addressMatch": 1,
+          "cityMatch": true,
+          "regionMatch": true,
+          "fuzzyScore": 1,
+          "imageMatchConfidence": "ambiguous",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-20c1df4aa8fb",
+          "courseName": "지산컨트리클럽",
+          "visitKoreaContentId": "2746451",
+          "visitKoreaTitle": "지산CC",
+          "visitKoreaAddr1": "경기도 용인시 처인구 원삼면 죽양대로2000번길 60",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/95/2746595_image2_1.jpg",
+            "http://tong.visitkorea.or.kr/cms/resource/95/2746595_image3_1.jpg",
+            "http://tong.visitkorea.or.kr/cms/resource/85/2746585_image2_1.jpg",
+            "http://tong.visitkorea.or.kr/cms/resource/86/2746586_image2_1.jpg"
+          ],
+          "scores": {
+            "exactNameMatch": true,
+            "normalizedNameMatch": true,
+            "aliasMatch": true,
+            "addressMatch": 1,
+            "cityMatch": true,
+            "regionMatch": true,
+            "fuzzyScore": 1,
+            "imageMatchConfidence": "exact",
+            "autoApply": true
+          }
+        }
+      ],
+      "manualDecision": "approved"
+    },
+    {
+      "courseId": "gc-3b60b2dadb3f",
+      "courseName": "뉴코리아 컨트리클럽",
+      "best": {
+        "courseId": "gc-3b60b2dadb3f",
+        "courseName": "뉴코리아 컨트리클럽",
+        "visitKoreaContentId": "131657",
+        "visitKoreaTitle": "코리아 컨트리클럽",
+        "visitKoreaAddr1": "경기도 용인시 처인구 기흥단지로 579 코리아CC",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/21/3549221_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/21/3549221_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/19/3549219_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/20/3549220_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": true,
+          "aliasMatch": false,
+          "addressMatch": 0.25,
+          "cityMatch": false,
+          "regionMatch": true,
+          "fuzzyScore": 0.75,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-01a5e4501db9",
+      "courseName": "해비치 컨트리클럽",
+      "best": {
+        "courseId": "gc-01a5e4501db9",
+        "courseName": "해비치 컨트리클럽",
+        "visitKoreaContentId": "2755481",
+        "visitKoreaTitle": "드비치골프클럽",
+        "visitKoreaAddr1": "경상남도 거제시 장목면 거제북로 1573",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/59/2755959_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/60/2755960_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/61/2755961_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/62/2755962_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-29fa36946d15",
+      "courseName": "남양주CC",
+      "best": {
+        "courseId": "gc-29fa36946d15",
+        "courseName": "남양주CC",
+        "visitKoreaContentId": "2764887",
+        "visitKoreaTitle": "남여주GC(남여주골프클럽)",
+        "visitKoreaAddr1": "경기도 여주시 가여로 532 (하거동)",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/51/2764951_image2_1.jpeg",
+          "http://tong.visitkorea.or.kr/cms/resource/52/2764952_image2_1.jpeg",
+          "http://tong.visitkorea.or.kr/cms/resource/54/2764954_image2_1.jpeg",
+          "http://tong.visitkorea.or.kr/cms/resource/56/2764956_image2_1.png"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0.25,
+          "cityMatch": false,
+          "regionMatch": true,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-962dc7cafd46",
+      "courseName": "서서울 컨트리클럽",
+      "best": {
+        "courseId": "gc-962dc7cafd46",
+        "courseName": "서서울 컨트리클럽",
+        "visitKoreaContentId": "130985",
+        "visitKoreaTitle": "남서울컨트리클럽",
+        "visitKoreaAddr1": "경기도 성남시 분당구 판교백현로 161 (백현동)",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/68/3549168_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/68/3549168_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/63/3549163_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/64/3549164_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0.25,
+          "cityMatch": false,
+          "regionMatch": true,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-962dc7cafd46",
+          "courseName": "서서울 컨트리클럽",
+          "visitKoreaContentId": "130984",
+          "visitKoreaTitle": "뉴서울컨트리클럽",
+          "visitKoreaAddr1": "경기도 광주시 삼지곡길 95 (삼동)",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/81/1956881_image2_1.jpg",
+            "http://tong.visitkorea.or.kr/cms/resource/81/1956881_image3_1.jpg"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0.25,
+            "cityMatch": false,
+            "regionMatch": true,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-b37c66474de6",
+      "courseName": "이스트밸리CC",
+      "best": {
+        "courseId": "gc-b37c66474de6",
+        "courseName": "이스트밸리CC",
+        "visitKoreaContentId": "2756065",
+        "visitKoreaTitle": "베스트밸리GC",
+        "visitKoreaAddr1": "경기도 파주시 광탄면 장지산로200번길 32-41",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/03/2756503_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/02/2756502_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/06/2756506_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/08/2756508_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0.25,
+          "cityMatch": false,
+          "regionMatch": true,
+          "fuzzyScore": 0.8,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-3e570fca0614",
+      "courseName": "캐슬렉스골프클럽",
+      "best": {
+        "courseId": "gc-3e570fca0614",
+        "courseName": "캐슬렉스골프클럽",
+        "visitKoreaContentId": "131269",
+        "visitKoreaTitle": "캐슬렉스제주 골프클럽",
+        "visitKoreaAddr1": "제주특별자치도 서귀포시 안덕면 평화로 1241",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/07/3402907_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/07/3402907_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/08/3402908_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/09/3402909_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": true,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666666,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-30fa81244c96",
+      "courseName": "세라지오GC",
+      "best": {
+        "courseId": "gc-30fa81244c96",
+        "courseName": "세라지오GC",
+        "visitKoreaContentId": "2770757",
+        "visitKoreaTitle": "파라지오CC",
+        "visitKoreaAddr1": "경상북도 의성군 봉양면 농공마전길 167",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/18/2770818_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/18/2770818_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/02/2770802_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/05/2770805_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.75,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-b4f940680084",
+      "courseName": "프리스틴밸리 골프클럽",
+      "best": {
+        "courseId": "gc-b4f940680084",
+        "courseName": "프리스틴밸리 골프클럽",
+        "visitKoreaContentId": "578731",
+        "visitKoreaTitle": "크리스탈밸리",
+        "visitKoreaAddr1": "경기도 가평군 상면 대보간선로 602-111",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/66/3548066_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/66/3548066_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/67/3548067_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/68/3548068_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0.55,
+          "cityMatch": true,
+          "regionMatch": true,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-60d067e583df",
+      "courseName": "포웰CC 김해",
+      "best": {
+        "courseId": "gc-60d067e583df",
+        "courseName": "포웰CC 김해",
+        "visitKoreaContentId": "2750354",
+        "visitKoreaTitle": "포웰CC 안성",
+        "visitKoreaAddr1": "경기도 안성시 양성면 약산길 67-6",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/48/2750348_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/43/2750343_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/44/2750344_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/46/2750346_image2_1.png"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-e85969d2e40c",
+      "courseName": "에이원컨트리클럽",
+      "best": {
+        "courseId": "gc-e85969d2e40c",
+        "courseName": "에이원컨트리클럽",
+        "visitKoreaContentId": "131867",
+        "visitKoreaTitle": "하이원 컨트리클럽",
+        "visitKoreaAddr1": "강원특별자치도 정선군 사북읍 하이원길 265",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/93/3582093_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/93/3582093_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/91/3582091_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/92/3582092_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-2070c1511760",
+      "courseName": "아시아드컨트리클럽",
+      "best": {
+        "courseId": "gc-2070c1511760",
+        "courseName": "아시아드컨트리클럽",
+        "visitKoreaContentId": "576732",
+        "visitKoreaTitle": "아시아드 컨트리클럽",
+        "visitKoreaAddr1": "부산광역시 기장군 일광면 차양길 26",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/78/2444978_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/78/2444978_image3_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": true,
+          "normalizedNameMatch": true,
+          "aliasMatch": true,
+          "addressMatch": 0.3,
+          "cityMatch": false,
+          "regionMatch": true,
+          "fuzzyScore": 1,
+          "imageMatchConfidence": "medium",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "approved"
+    },
+    {
+      "courseId": "gc-496303f3c77c",
+      "courseName": "오렌지듄스 영종골프클럽",
+      "best": {
+        "courseId": "gc-496303f3c77c",
+        "courseName": "오렌지듄스 영종골프클럽",
+        "visitKoreaContentId": "2767812",
+        "visitKoreaTitle": "오렌지듄스 GC",
+        "visitKoreaAddr1": "인천광역시 연수구 인천신항대로 1120",
+        "visitKoreaAddr2": "(송도동)",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/79/2790179_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/75/2790175_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/82/2790182_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/86/2790186_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": true,
+          "aliasMatch": false,
+          "addressMatch": 0.3,
+          "cityMatch": false,
+          "regionMatch": true,
+          "fuzzyScore": 0.7142857142857143,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-95d86b96417d",
+      "courseName": "파인힐스CC",
+      "best": {
+        "courseId": "gc-95d86b96417d",
+        "courseName": "파인힐스CC",
+        "visitKoreaContentId": "3064991",
+        "visitKoreaTitle": "신동파인힐스",
+        "visitKoreaAddr1": "경상북도 칠곡군 지천면 송정원곡길 8",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/62/3064962_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/62/3064962_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/63/3064963_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/64/3064964_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": true,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666666,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-5f82bbc964a8",
+      "courseName": "더시에나CC",
+      "best": {
+        "courseId": "gc-5f82bbc964a8",
+        "courseName": "더시에나CC",
+        "visitKoreaContentId": "131262",
+        "visitKoreaTitle": "더 시에나 서울 컨트리클럽",
+        "visitKoreaAddr1": "경기도 광주시 곤지암읍 경충대로 451",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/64/3548964_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/64/3548964_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/65/3548965_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/66/3548966_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": true,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666666,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-c0cdb2271518",
+      "courseName": "아리스타 CC",
+      "best": {
+        "courseId": "gc-c0cdb2271518",
+        "courseName": "아리스타 CC",
+        "visitKoreaContentId": "2770228",
+        "visitKoreaTitle": "아리스타CC",
+        "visitKoreaAddr1": "충청남도 논산시 연무읍 연무로 810",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/17/2772017_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/19/2772019_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/21/2772021_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": true,
+          "normalizedNameMatch": true,
+          "aliasMatch": true,
+          "addressMatch": 0.3,
+          "cityMatch": false,
+          "regionMatch": true,
+          "fuzzyScore": 1,
+          "imageMatchConfidence": "medium",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "approved"
+    },
+    {
+      "courseId": "gc-167a7f95d402",
+      "courseName": "솔라고CC",
+      "best": {
+        "courseId": "gc-167a7f95d402",
+        "courseName": "솔라고CC",
+        "visitKoreaContentId": "2769826",
+        "visitKoreaTitle": "솔라고CC",
+        "visitKoreaAddr1": "충청남도 태안군 태안읍 기업도시9길 176",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/08/2770708_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/09/2770709_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/10/2770710_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/12/2770712_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": true,
+          "normalizedNameMatch": true,
+          "aliasMatch": true,
+          "addressMatch": 0.3,
+          "cityMatch": false,
+          "regionMatch": true,
+          "fuzzyScore": 1,
+          "imageMatchConfidence": "medium",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "approved"
+    },
+    {
+      "courseId": "gc-81f36c789316",
+      "courseName": "그랜드cc",
+      "best": {
+        "courseId": "gc-81f36c789316",
+        "courseName": "그랜드cc",
+        "visitKoreaContentId": "131573",
+        "visitKoreaTitle": "그랜드컨트리클럽",
+        "visitKoreaAddr1": "충청북도 청주시 청원구 오창읍 꽃화산길 51-20",
+        "visitKoreaAddr2": "(오창읍)",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/88/1597088_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/88/1597088_image3_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": true,
+          "normalizedNameMatch": true,
+          "aliasMatch": true,
+          "addressMatch": 0.3,
+          "cityMatch": false,
+          "regionMatch": true,
+          "fuzzyScore": 1,
+          "imageMatchConfidence": "ambiguous",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-81f36c789316",
+          "courseName": "그랜드cc",
+          "visitKoreaContentId": "2769560",
+          "visitKoreaTitle": "그랜드CC",
+          "visitKoreaAddr1": "충청북도 청주시 청원구 오창읍 꽃화산길 51-20",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/28/2769628_image2_1.jpg",
+            "http://tong.visitkorea.or.kr/cms/resource/25/2769625_image2_1.jpg",
+            "http://tong.visitkorea.or.kr/cms/resource/29/2769629_image2_1.jpg",
+            "http://tong.visitkorea.or.kr/cms/resource/30/2769630_image2_1.jpg"
+          ],
+          "scores": {
+            "exactNameMatch": true,
+            "normalizedNameMatch": true,
+            "aliasMatch": true,
+            "addressMatch": 0.3,
+            "cityMatch": false,
+            "regionMatch": true,
+            "fuzzyScore": 1,
+            "imageMatchConfidence": "medium",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "approved"
+    },
+    {
+      "courseId": "gc-760b850e4451",
+      "courseName": "천 룡cc",
+      "best": {
+        "courseId": "gc-760b850e4451",
+        "courseName": "천 룡cc",
+        "visitKoreaContentId": "131391",
+        "visitKoreaTitle": "천룡컨트리클럽",
+        "visitKoreaAddr1": "충청북도 진천군 이월면 진안로 347-123",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/00/1847300_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/00/1847300_image3_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": true,
+          "normalizedNameMatch": true,
+          "aliasMatch": true,
+          "addressMatch": 0.3,
+          "cityMatch": false,
+          "regionMatch": true,
+          "fuzzyScore": 1,
+          "imageMatchConfidence": "medium",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "approved"
+    },
+    {
+      "courseId": "gc-ac8ec878e912",
+      "courseName": "썬밸리cc",
+      "best": {
+        "courseId": "gc-ac8ec878e912",
+        "courseName": "썬밸리cc",
+        "visitKoreaContentId": "231991",
+        "visitKoreaTitle": "썬밸리컨트리클럽",
+        "visitKoreaAddr1": "충청북도 음성군 삼성면 범말길 49",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/42/1847542_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/42/1847542_image3_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": true,
+          "normalizedNameMatch": true,
+          "aliasMatch": true,
+          "addressMatch": 0.3,
+          "cityMatch": false,
+          "regionMatch": true,
+          "fuzzyScore": 1,
+          "imageMatchConfidence": "medium",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-ac8ec878e912",
+          "courseName": "썬밸리cc",
+          "visitKoreaContentId": "2753740",
+          "visitKoreaTitle": "참밸리컨트리클럽",
+          "visitKoreaAddr1": "경기도 포천시 삼육사로 1982 (설운동)",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/29/2932329_image2_1.jpg",
+            "http://tong.visitkorea.or.kr/cms/resource/29/2932329_image3_1.jpg",
+            "http://tong.visitkorea.or.kr/cms/resource/27/2932327_image2_1.jpg",
+            "http://tong.visitkorea.or.kr/cms/resource/28/2932328_image2_1.jpg"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "approved"
+    },
+    {
+      "courseId": "gc-e14661a32922",
+      "courseName": "일레븐cc",
+      "best": {
+        "courseId": "gc-e14661a32922",
+        "courseName": "일레븐cc",
+        "visitKoreaContentId": "2769602",
+        "visitKoreaTitle": "일레븐CC",
+        "visitKoreaAddr1": "충청북도 충주시 앙성면 본평리",
+        "visitKoreaAddr2": "산43-7",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/52/2771252_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/48/2771248_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/49/2771249_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/50/2771250_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": true,
+          "normalizedNameMatch": true,
+          "aliasMatch": true,
+          "addressMatch": 0.3,
+          "cityMatch": false,
+          "regionMatch": true,
+          "fuzzyScore": 1,
+          "imageMatchConfidence": "medium",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "approved"
+    },
+    {
+      "courseId": "gc-8d9ee33d1f22",
+      "courseName": "킹스데일cc",
+      "best": {
+        "courseId": "gc-8d9ee33d1f22",
+        "courseName": "킹스데일cc",
+        "visitKoreaContentId": "2769626",
+        "visitKoreaTitle": "킹스데일골프클럽",
+        "visitKoreaAddr1": "충청북도 충주시 주덕읍 기업도시3로 2",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/93/2771293_image2_1.JPG",
+          "http://tong.visitkorea.or.kr/cms/resource/96/2771296_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/99/2771299_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/01/2771301_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": true,
+          "normalizedNameMatch": true,
+          "aliasMatch": true,
+          "addressMatch": 0.3,
+          "cityMatch": false,
+          "regionMatch": true,
+          "fuzzyScore": 1,
+          "imageMatchConfidence": "medium",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "approved"
+    },
+    {
+      "courseId": "gc-736ecb0e589a",
+      "courseName": "세레니티cc",
+      "best": {
+        "courseId": "gc-736ecb0e589a",
+        "courseName": "세레니티cc",
+        "visitKoreaContentId": "131979",
+        "visitKoreaTitle": "세레니티CC (구, 실크리버 컨트리클럽)",
+        "visitKoreaAddr1": "충청북도 청주시 서원구 남이면 문곡구절골길 235",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/44/1960744_image2_1.JPG",
+          "http://tong.visitkorea.or.kr/cms/resource/44/1960744_image3_1.JPG"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": true,
+          "aliasMatch": false,
+          "addressMatch": 0.3,
+          "cityMatch": false,
+          "regionMatch": true,
+          "fuzzyScore": 0.6666666666666666,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "approved"
+    },
+    {
+      "courseId": "gc-945ef0204a99",
+      "courseName": "골프존카운티 사천",
+      "best": {
+        "courseId": "gc-945ef0204a99",
+        "courseName": "골프존카운티 사천",
+        "visitKoreaContentId": "2779274",
+        "visitKoreaTitle": "골프존카운티 드래곤",
+        "visitKoreaAddr1": "전북특별자치도 남원시 대산면 대사로 500",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/10/2781310_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/12/2781312_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-945ef0204a99",
+          "courseName": "골프존카운티 사천",
+          "visitKoreaContentId": "2750335",
+          "visitKoreaTitle": "골프존카운티 안성H",
+          "visitKoreaAddr1": "경기도 안성시 보개면 보삼로 302",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/79/2750379_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/82/2750382_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/83/2750383_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/84/2750384_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        },
+        {
+          "courseId": "gc-945ef0204a99",
+          "courseName": "골프존카운티 사천",
+          "visitKoreaContentId": "2750339",
+          "visitKoreaTitle": "골프존카운티 안성W",
+          "visitKoreaAddr1": "경기도 안성시 양성면 교동길 19-70",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image3_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/69/2750369_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/71/2750371_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-09693194d3fb",
+      "courseName": "골프존카운티 경남",
+      "best": {
+        "courseId": "gc-09693194d3fb",
+        "courseName": "골프존카운티 경남",
+        "visitKoreaContentId": "2779274",
+        "visitKoreaTitle": "골프존카운티 드래곤",
+        "visitKoreaAddr1": "전북특별자치도 남원시 대산면 대사로 500",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/10/2781310_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/12/2781312_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-09693194d3fb",
+          "courseName": "골프존카운티 경남",
+          "visitKoreaContentId": "2750335",
+          "visitKoreaTitle": "골프존카운티 안성H",
+          "visitKoreaAddr1": "경기도 안성시 보개면 보삼로 302",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/79/2750379_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/82/2750382_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/83/2750383_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/84/2750384_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        },
+        {
+          "courseId": "gc-09693194d3fb",
+          "courseName": "골프존카운티 경남",
+          "visitKoreaContentId": "2750339",
+          "visitKoreaTitle": "골프존카운티 안성W",
+          "visitKoreaAddr1": "경기도 안성시 양성면 교동길 19-70",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image3_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/69/2750369_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/71/2750371_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-96bed6159452",
+      "courseName": "골프존카운티 감포",
+      "best": {
+        "courseId": "gc-96bed6159452",
+        "courseName": "골프존카운티 감포",
+        "visitKoreaContentId": "2779274",
+        "visitKoreaTitle": "골프존카운티 드래곤",
+        "visitKoreaAddr1": "전북특별자치도 남원시 대산면 대사로 500",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/10/2781310_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/12/2781312_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-96bed6159452",
+          "courseName": "골프존카운티 감포",
+          "visitKoreaContentId": "2750335",
+          "visitKoreaTitle": "골프존카운티 안성H",
+          "visitKoreaAddr1": "경기도 안성시 보개면 보삼로 302",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/79/2750379_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/82/2750382_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/83/2750383_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/84/2750384_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        },
+        {
+          "courseId": "gc-96bed6159452",
+          "courseName": "골프존카운티 감포",
+          "visitKoreaContentId": "2750339",
+          "visitKoreaTitle": "골프존카운티 안성W",
+          "visitKoreaAddr1": "경기도 안성시 양성면 교동길 19-70",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image3_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/69/2750369_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/71/2750371_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-6a587177a23c",
+      "courseName": "골프존카운티 선산",
+      "best": {
+        "courseId": "gc-6a587177a23c",
+        "courseName": "골프존카운티 선산",
+        "visitKoreaContentId": "2779274",
+        "visitKoreaTitle": "골프존카운티 드래곤",
+        "visitKoreaAddr1": "전북특별자치도 남원시 대산면 대사로 500",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/10/2781310_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/12/2781312_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-6a587177a23c",
+          "courseName": "골프존카운티 선산",
+          "visitKoreaContentId": "2750335",
+          "visitKoreaTitle": "골프존카운티 안성H",
+          "visitKoreaAddr1": "경기도 안성시 보개면 보삼로 302",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/79/2750379_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/82/2750382_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/83/2750383_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/84/2750384_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        },
+        {
+          "courseId": "gc-6a587177a23c",
+          "courseName": "골프존카운티 선산",
+          "visitKoreaContentId": "2750339",
+          "visitKoreaTitle": "골프존카운티 안성W",
+          "visitKoreaAddr1": "경기도 안성시 양성면 교동길 19-70",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image3_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/69/2750369_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/71/2750371_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-a944350f5db1",
+      "courseName": "골프존카운티 구미",
+      "best": {
+        "courseId": "gc-a944350f5db1",
+        "courseName": "골프존카운티 구미",
+        "visitKoreaContentId": "2779274",
+        "visitKoreaTitle": "골프존카운티 드래곤",
+        "visitKoreaAddr1": "전북특별자치도 남원시 대산면 대사로 500",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/10/2781310_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/12/2781312_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-a944350f5db1",
+          "courseName": "골프존카운티 구미",
+          "visitKoreaContentId": "2750335",
+          "visitKoreaTitle": "골프존카운티 안성H",
+          "visitKoreaAddr1": "경기도 안성시 보개면 보삼로 302",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/79/2750379_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/82/2750382_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/83/2750383_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/84/2750384_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        },
+        {
+          "courseId": "gc-a944350f5db1",
+          "courseName": "골프존카운티 구미",
+          "visitKoreaContentId": "2750339",
+          "visitKoreaTitle": "골프존카운티 안성W",
+          "visitKoreaAddr1": "경기도 안성시 양성면 교동길 19-70",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image3_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/69/2750369_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/71/2750371_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-01d6a94bf335",
+      "courseName": "골프존카운티 청통",
+      "best": {
+        "courseId": "gc-01d6a94bf335",
+        "courseName": "골프존카운티 청통",
+        "visitKoreaContentId": "2779274",
+        "visitKoreaTitle": "골프존카운티 드래곤",
+        "visitKoreaAddr1": "전북특별자치도 남원시 대산면 대사로 500",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/10/2781310_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/12/2781312_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-01d6a94bf335",
+          "courseName": "골프존카운티 청통",
+          "visitKoreaContentId": "2750335",
+          "visitKoreaTitle": "골프존카운티 안성H",
+          "visitKoreaAddr1": "경기도 안성시 보개면 보삼로 302",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/79/2750379_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/82/2750382_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/83/2750383_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/84/2750384_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        },
+        {
+          "courseId": "gc-01d6a94bf335",
+          "courseName": "골프존카운티 청통",
+          "visitKoreaContentId": "2750339",
+          "visitKoreaTitle": "골프존카운티 안성W",
+          "visitKoreaAddr1": "경기도 안성시 양성면 교동길 19-70",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image3_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/69/2750369_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/71/2750371_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-3f766167d45e",
+      "courseName": "잭 니클라우스 골프클럽 코리아",
+      "best": {
+        "courseId": "gc-3f766167d45e",
+        "courseName": "잭 니클라우스 골프클럽 코리아",
+        "visitKoreaContentId": "2778089",
+        "visitKoreaTitle": "잭니클라우스GC코리아",
+        "visitKoreaAddr1": "인천광역시 연수구 아카데미로 209",
+        "visitKoreaAddr2": "(송도동)",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/98/2790598_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/99/2790599_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/00/2790600_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/01/2790601_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 1,
+          "cityMatch": true,
+          "regionMatch": true,
+          "fuzzyScore": 0.6923076923076923,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "approved"
+    },
+    {
+      "courseId": "gc-4005648f63d2",
+      "courseName": "골프존카운티 송도 골프장",
+      "best": {
+        "courseId": "gc-4005648f63d2",
+        "courseName": "골프존카운티 송도 골프장",
+        "visitKoreaContentId": "2750335",
+        "visitKoreaTitle": "골프존카운티 안성H",
+        "visitKoreaAddr1": "경기도 안성시 보개면 보삼로 302",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/79/2750379_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/82/2750382_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/83/2750383_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/84/2750384_image2_1.png"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0.25,
+          "cityMatch": false,
+          "regionMatch": true,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-4005648f63d2",
+          "courseName": "골프존카운티 송도 골프장",
+          "visitKoreaContentId": "2750339",
+          "visitKoreaTitle": "골프존카운티 안성W",
+          "visitKoreaAddr1": "경기도 안성시 양성면 교동길 19-70",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image3_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/69/2750369_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/71/2750371_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0.25,
+            "cityMatch": false,
+            "regionMatch": true,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        },
+        {
+          "courseId": "gc-4005648f63d2",
+          "courseName": "골프존카운티 송도 골프장",
+          "visitKoreaContentId": "2779274",
+          "visitKoreaTitle": "골프존카운티 드래곤",
+          "visitKoreaAddr1": "전북특별자치도 남원시 대산면 대사로 500",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image2_1.jpg",
+            "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image3_1.jpg",
+            "http://tong.visitkorea.or.kr/cms/resource/10/2781310_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/12/2781312_image2_1.jpg"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-3269edc70897",
+      "courseName": "골프존카운티",
+      "best": {
+        "courseId": "gc-3269edc70897",
+        "courseName": "골프존카운티",
+        "visitKoreaContentId": "2779274",
+        "visitKoreaTitle": "골프존카운티 드래곤",
+        "visitKoreaAddr1": "전북특별자치도 남원시 대산면 대사로 500",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/10/2781310_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/12/2781312_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": true,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-3269edc70897",
+          "courseName": "골프존카운티",
+          "visitKoreaContentId": "2750335",
+          "visitKoreaTitle": "골프존카운티 안성H",
+          "visitKoreaAddr1": "경기도 안성시 보개면 보삼로 302",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/79/2750379_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/82/2750382_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/83/2750383_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/84/2750384_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": true,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        },
+        {
+          "courseId": "gc-3269edc70897",
+          "courseName": "골프존카운티",
+          "visitKoreaContentId": "2750339",
+          "visitKoreaTitle": "골프존카운티 안성W",
+          "visitKoreaAddr1": "경기도 안성시 양성면 교동길 19-70",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image3_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/69/2750369_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/71/2750371_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": true,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-982325a51789",
+      "courseName": "골프존카운티 영암",
+      "best": {
+        "courseId": "gc-982325a51789",
+        "courseName": "골프존카운티 영암",
+        "visitKoreaContentId": "2779274",
+        "visitKoreaTitle": "골프존카운티 드래곤",
+        "visitKoreaAddr1": "전북특별자치도 남원시 대산면 대사로 500",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/10/2781310_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/12/2781312_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-982325a51789",
+          "courseName": "골프존카운티 영암",
+          "visitKoreaContentId": "2750335",
+          "visitKoreaTitle": "골프존카운티 안성H",
+          "visitKoreaAddr1": "경기도 안성시 보개면 보삼로 302",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/79/2750379_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/82/2750382_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/83/2750383_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/84/2750384_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        },
+        {
+          "courseId": "gc-982325a51789",
+          "courseName": "골프존카운티 영암",
+          "visitKoreaContentId": "2750339",
+          "visitKoreaTitle": "골프존카운티 안성W",
+          "visitKoreaAddr1": "경기도 안성시 양성면 교동길 19-70",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image3_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/69/2750369_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/71/2750371_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-2a867c283a2c",
+      "courseName": "골프존카운티무주",
+      "best": {
+        "courseId": "gc-2a867c283a2c",
+        "courseName": "골프존카운티무주",
+        "visitKoreaContentId": "2779274",
+        "visitKoreaTitle": "골프존카운티 드래곤",
+        "visitKoreaAddr1": "전북특별자치도 남원시 대산면 대사로 500",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/10/2781310_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/12/2781312_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0.3,
+          "cityMatch": false,
+          "regionMatch": true,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-2a867c283a2c",
+          "courseName": "골프존카운티무주",
+          "visitKoreaContentId": "2750335",
+          "visitKoreaTitle": "골프존카운티 안성H",
+          "visitKoreaAddr1": "경기도 안성시 보개면 보삼로 302",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/79/2750379_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/82/2750382_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/83/2750383_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/84/2750384_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        },
+        {
+          "courseId": "gc-2a867c283a2c",
+          "courseName": "골프존카운티무주",
+          "visitKoreaContentId": "2750339",
+          "visitKoreaTitle": "골프존카운티 안성W",
+          "visitKoreaAddr1": "경기도 안성시 양성면 교동길 19-70",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image3_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/69/2750369_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/71/2750371_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-1f1578e897f2",
+      "courseName": "골프존카운티선운",
+      "best": {
+        "courseId": "gc-1f1578e897f2",
+        "courseName": "골프존카운티선운",
+        "visitKoreaContentId": "2779274",
+        "visitKoreaTitle": "골프존카운티 드래곤",
+        "visitKoreaAddr1": "전북특별자치도 남원시 대산면 대사로 500",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/10/2781310_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/12/2781312_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0.3,
+          "cityMatch": false,
+          "regionMatch": true,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-1f1578e897f2",
+          "courseName": "골프존카운티선운",
+          "visitKoreaContentId": "2750335",
+          "visitKoreaTitle": "골프존카운티 안성H",
+          "visitKoreaAddr1": "경기도 안성시 보개면 보삼로 302",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/79/2750379_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/82/2750382_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/83/2750383_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/84/2750384_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        },
+        {
+          "courseId": "gc-1f1578e897f2",
+          "courseName": "골프존카운티선운",
+          "visitKoreaContentId": "2750339",
+          "visitKoreaTitle": "골프존카운티 안성W",
+          "visitKoreaAddr1": "경기도 안성시 양성면 교동길 19-70",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image3_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/69/2750369_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/71/2750371_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-adeec421c374",
+      "courseName": "골프존카운티 천안",
+      "best": {
+        "courseId": "gc-adeec421c374",
+        "courseName": "골프존카운티 천안",
+        "visitKoreaContentId": "2779274",
+        "visitKoreaTitle": "골프존카운티 드래곤",
+        "visitKoreaAddr1": "전북특별자치도 남원시 대산면 대사로 500",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/10/2781310_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/12/2781312_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-adeec421c374",
+          "courseName": "골프존카운티 천안",
+          "visitKoreaContentId": "2750335",
+          "visitKoreaTitle": "골프존카운티 안성H",
+          "visitKoreaAddr1": "경기도 안성시 보개면 보삼로 302",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/79/2750379_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/82/2750382_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/83/2750383_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/84/2750384_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        },
+        {
+          "courseId": "gc-adeec421c374",
+          "courseName": "골프존카운티 천안",
+          "visitKoreaContentId": "2750339",
+          "visitKoreaTitle": "골프존카운티 안성W",
+          "visitKoreaAddr1": "경기도 안성시 양성면 교동길 19-70",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image3_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/69/2750369_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/71/2750371_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-226b2263c6f6",
+      "courseName": "골프존카운티 진천cc",
+      "best": {
+        "courseId": "gc-226b2263c6f6",
+        "courseName": "골프존카운티 진천cc",
+        "visitKoreaContentId": "2779274",
+        "visitKoreaTitle": "골프존카운티 드래곤",
+        "visitKoreaAddr1": "전북특별자치도 남원시 대산면 대사로 500",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/10/2781310_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/12/2781312_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-226b2263c6f6",
+          "courseName": "골프존카운티 진천cc",
+          "visitKoreaContentId": "2750335",
+          "visitKoreaTitle": "골프존카운티 안성H",
+          "visitKoreaAddr1": "경기도 안성시 보개면 보삼로 302",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/79/2750379_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/82/2750382_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/83/2750383_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/84/2750384_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        },
+        {
+          "courseId": "gc-226b2263c6f6",
+          "courseName": "골프존카운티 진천cc",
+          "visitKoreaContentId": "2750339",
+          "visitKoreaTitle": "골프존카운티 안성W",
+          "visitKoreaAddr1": "경기도 안성시 양성면 교동길 19-70",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image3_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/69/2750369_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/71/2750371_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-ab22b2f16924",
+      "courseName": "골프존카운티 화랑cc",
+      "best": {
+        "courseId": "gc-ab22b2f16924",
+        "courseName": "골프존카운티 화랑cc",
+        "visitKoreaContentId": "2779274",
+        "visitKoreaTitle": "골프존카운티 드래곤",
+        "visitKoreaAddr1": "전북특별자치도 남원시 대산면 대사로 500",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/10/2781310_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/12/2781312_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-ab22b2f16924",
+          "courseName": "골프존카운티 화랑cc",
+          "visitKoreaContentId": "2750335",
+          "visitKoreaTitle": "골프존카운티 안성H",
+          "visitKoreaAddr1": "경기도 안성시 보개면 보삼로 302",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/79/2750379_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/82/2750382_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/83/2750383_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/84/2750384_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        },
+        {
+          "courseId": "gc-ab22b2f16924",
+          "courseName": "골프존카운티 화랑cc",
+          "visitKoreaContentId": "2750339",
+          "visitKoreaTitle": "골프존카운티 안성W",
+          "visitKoreaAddr1": "경기도 안성시 양성면 교동길 19-70",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image3_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/69/2750369_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/71/2750371_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-01762fe809b0",
+      "courseName": "골프존 카운티 드래곤",
+      "best": {
+        "courseId": "gc-01762fe809b0",
+        "courseName": "골프존 카운티 드래곤",
+        "visitKoreaContentId": "2779274",
+        "visitKoreaTitle": "골프존카운티 드래곤",
+        "visitKoreaAddr1": "전북특별자치도 남원시 대산면 대사로 500",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/10/2781310_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/12/2781312_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": true,
+          "normalizedNameMatch": true,
+          "aliasMatch": true,
+          "addressMatch": 0.3,
+          "cityMatch": false,
+          "regionMatch": true,
+          "fuzzyScore": 1,
+          "imageMatchConfidence": "medium",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-01762fe809b0",
+          "courseName": "골프존 카운티 드래곤",
+          "visitKoreaContentId": "2750335",
+          "visitKoreaTitle": "골프존카운티 안성H",
+          "visitKoreaAddr1": "경기도 안성시 보개면 보삼로 302",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/79/2750379_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/82/2750382_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/83/2750383_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/84/2750384_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        },
+        {
+          "courseId": "gc-01762fe809b0",
+          "courseName": "골프존 카운티 드래곤",
+          "visitKoreaContentId": "2750339",
+          "visitKoreaTitle": "골프존카운티 안성W",
+          "visitKoreaAddr1": "경기도 안성시 양성면 교동길 19-70",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image3_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/69/2750369_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/71/2750371_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "approved"
+    },
+    {
+      "courseId": "gc-d780ed19a4d0",
+      "courseName": "골프존카운티오라 (회원제)",
+      "best": {
+        "courseId": "gc-d780ed19a4d0",
+        "courseName": "골프존카운티오라 (회원제)",
+        "visitKoreaContentId": "2779274",
+        "visitKoreaTitle": "골프존카운티 드래곤",
+        "visitKoreaAddr1": "전북특별자치도 남원시 대산면 대사로 500",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/10/2781310_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/12/2781312_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-d780ed19a4d0",
+          "courseName": "골프존카운티오라 (회원제)",
+          "visitKoreaContentId": "2750335",
+          "visitKoreaTitle": "골프존카운티 안성H",
+          "visitKoreaAddr1": "경기도 안성시 보개면 보삼로 302",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/79/2750379_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/82/2750382_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/83/2750383_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/84/2750384_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        },
+        {
+          "courseId": "gc-d780ed19a4d0",
+          "courseName": "골프존카운티오라 (회원제)",
+          "visitKoreaContentId": "2750339",
+          "visitKoreaTitle": "골프존카운티 안성W",
+          "visitKoreaAddr1": "경기도 안성시 양성면 교동길 19-70",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image3_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/69/2750369_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/71/2750371_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-4949c11c28bf",
+      "courseName": "골프존카운티오라 (대중제)",
+      "best": {
+        "courseId": "gc-4949c11c28bf",
+        "courseName": "골프존카운티오라 (대중제)",
+        "visitKoreaContentId": "2779274",
+        "visitKoreaTitle": "골프존카운티 드래곤",
+        "visitKoreaAddr1": "전북특별자치도 남원시 대산면 대사로 500",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/10/2781310_image2_1.png",
+          "http://tong.visitkorea.or.kr/cms/resource/12/2781312_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-4949c11c28bf",
+          "courseName": "골프존카운티오라 (대중제)",
+          "visitKoreaContentId": "2750335",
+          "visitKoreaTitle": "골프존카운티 안성H",
+          "visitKoreaAddr1": "경기도 안성시 보개면 보삼로 302",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/79/2750379_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/82/2750382_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/83/2750383_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/84/2750384_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        },
+        {
+          "courseId": "gc-4949c11c28bf",
+          "courseName": "골프존카운티오라 (대중제)",
+          "visitKoreaContentId": "2750339",
+          "visitKoreaTitle": "골프존카운티 안성W",
+          "visitKoreaAddr1": "경기도 안성시 양성면 교동길 19-70",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image3_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/69/2750369_image2_1.png",
+            "http://tong.visitkorea.or.kr/cms/resource/71/2750371_image2_1.png"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-3eb069c5fb2a",
+      "courseName": "동서울레스피아",
+      "best": {
+        "courseId": "gc-3eb069c5fb2a",
+        "courseName": "동서울레스피아",
+        "visitKoreaContentId": "130985",
+        "visitKoreaTitle": "남서울컨트리클럽",
+        "visitKoreaAddr1": "경기도 성남시 분당구 판교백현로 161 (백현동)",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/68/3549168_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/68/3549168_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/63/3549163_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/64/3549164_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.6666666666666667,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-3eb069c5fb2a",
+          "courseName": "동서울레스피아",
+          "visitKoreaContentId": "130984",
+          "visitKoreaTitle": "뉴서울컨트리클럽",
+          "visitKoreaAddr1": "경기도 광주시 삼지곡길 95 (삼동)",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/81/1956881_image2_1.jpg",
+            "http://tong.visitkorea.or.kr/cms/resource/81/1956881_image3_1.jpg"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0,
+            "cityMatch": false,
+            "regionMatch": false,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-2c90528d411e",
+      "courseName": "신안 퍼블릭 CC",
+      "best": {
+        "courseId": "gc-2c90528d411e",
+        "courseName": "신안 퍼블릭 CC",
+        "visitKoreaContentId": "752497",
+        "visitKoreaTitle": "제이퍼블릭컨트리클럽",
+        "visitKoreaAddr1": "경기도 파주시 조리읍 장곡로 100",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/44/3533044_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/44/3533044_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/40/3533040_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/41/3533041_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0.25,
+          "cityMatch": false,
+          "regionMatch": true,
+          "fuzzyScore": 0.75,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [
+        {
+          "courseId": "gc-2c90528d411e",
+          "courseName": "신안 퍼블릭 CC",
+          "visitKoreaContentId": "2746695",
+          "visitKoreaTitle": "코리아퍼블릭CC",
+          "visitKoreaAddr1": "경기도 용인시 기흥구 기흥단지로 224 (고매동)",
+          "visitKoreaAddr2": "",
+          "images": [
+            "http://tong.visitkorea.or.kr/cms/resource/02/2746602_image2_1.jpg",
+            "http://tong.visitkorea.or.kr/cms/resource/06/2746606_image2_1.jpg",
+            "http://tong.visitkorea.or.kr/cms/resource/07/2746607_image2_1.jpg"
+          ],
+          "scores": {
+            "exactNameMatch": false,
+            "normalizedNameMatch": false,
+            "aliasMatch": false,
+            "addressMatch": 0.25,
+            "cityMatch": false,
+            "regionMatch": true,
+            "fuzzyScore": 0.6666666666666667,
+            "imageMatchConfidence": "low",
+            "autoApply": false
+          }
+        }
+      ],
+      "manualDecision": "rejected"
+    },
+    {
+      "courseId": "gc-a9d6992e56d4",
+      "courseName": "해운대비치골프앤리조트",
+      "best": {
+        "courseId": "gc-a9d6992e56d4",
+        "courseName": "해운대비치골프앤리조트",
+        "visitKoreaContentId": "2770952",
+        "visitKoreaTitle": "오션비치골프앤리조트",
+        "visitKoreaAddr1": "경상북도 영덕군 강구면 동해대로 4265-43",
+        "visitKoreaAddr2": "",
+        "images": [
+          "http://tong.visitkorea.or.kr/cms/resource/03/2771303_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/03/2771303_image3_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/05/2771305_image2_1.jpg",
+          "http://tong.visitkorea.or.kr/cms/resource/07/2771307_image2_1.jpg"
+        ],
+        "scores": {
+          "exactNameMatch": false,
+          "normalizedNameMatch": false,
+          "aliasMatch": false,
+          "addressMatch": 0,
+          "cityMatch": false,
+          "regionMatch": false,
+          "fuzzyScore": 0.7,
+          "imageMatchConfidence": "low",
+          "autoApply": false
+        }
+      },
+      "alternatives": [],
+      "manualDecision": "rejected"
+    }
+  ]
+}

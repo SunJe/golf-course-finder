@@ -88,7 +88,12 @@
     "fetch:visit-korea-near-seoul-nine-hole-golf": "tsx scripts/fetchVisitKoreaNearSeoulNineHoleGolf.ts",
     "fetch:visit-korea-near-seoul-par3-practice": "tsx scripts/fetchVisitKoreaNearSeoulPar3Practice.ts",
     "seed:incheon-blog-images": "tsx scripts/seedIncheonBlogImagePlaceholders.ts",
-    "enrich:courses": "tsx scripts/enrichCourseContent.ts"
+    "enrich:courses": "tsx scripts/enrichCourseContent.ts",
+    "fetch:visit-korea-golf-catalog": "tsx scripts/fetchVisitKoreaGolfCatalog.ts",
+    "audit:visit-korea-image-match": "tsx scripts/auditVisitKoreaImageMatch.ts",
+    "apply:visit-korea-images": "tsx scripts/applyVisitKoreaImagesToEnrichment.ts",
+    "apply:visit-korea-review-decisions": "tsx scripts/applyVisitKoreaReviewDecisions.ts",
+    "build:visit-korea-review-page": "tsx scripts/buildVisitKoreaReviewPage.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",

@@ -1,0 +1,3914 @@
+{
+  "generatedAt": "2026-06-26T07:17:26.454Z",
+  "appliedCount": 158,
+  "manualApprovedCount": 12,
+  "manualRejectedCount": 53,
+  "items": [
+    {
+      "courseId": "gc-0086afc84101",
+      "courseName": "코리아컨트리클럽",
+      "visitKoreaContentId": "131657",
+      "visitKoreaTitle": "코리아 컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/21/3549221_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/21/3549221_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/19/3549219_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/20/3549220_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.55,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-0151ec2b5b3a",
+      "courseName": "마에스트로 CC",
+      "visitKoreaContentId": "2750418",
+      "visitKoreaTitle": "마에스트로CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/85/2750385_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/85/2750385_image3_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/88/2750388_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/90/2750390_image2_1.png"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-01762fe809b0",
+      "courseName": "골프존 카운티 드래곤",
+      "visitKoreaContentId": "2779274",
+      "visitKoreaTitle": "골프존카운티 드래곤",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/11/2781311_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/10/2781310_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/12/2781312_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "medium",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.3,
+        "cityMatch": false,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "medium",
+        "autoApply": false
+      },
+      "appliedAt": "2026-06-26T07:17:26.448Z",
+      "manualDecision": "approved"
+    },
+    {
+      "courseId": "gc-0654fd7fa764",
+      "courseName": "캐슬렉스제주 (회원제)",
+      "visitKoreaContentId": "131269",
+      "visitKoreaTitle": "캐슬렉스제주 골프클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/07/3402907_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/07/3402907_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/08/3402908_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/09/3402909_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-068617149ff3",
+      "courseName": "베뉴지CC",
+      "visitKoreaContentId": "2763737",
+      "visitKoreaTitle": "베뉴지CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/69/2763969_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/71/2763971_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/72/2763972_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/74/2763974_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-06bb9165507c",
+      "courseName": "사우스스프링스C.C",
+      "visitKoreaContentId": "2763814",
+      "visitKoreaTitle": "사우스스프링스CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/82/2763882_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/82/2763882_image3_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/83/2763883_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/84/2763884_image2_1.png"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-0a89c1c9b286",
+      "courseName": "세 일cc",
+      "visitKoreaContentId": "2761694",
+      "visitKoreaTitle": "세일 컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/82/2761682_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/82/2761682_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/79/2761679_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/80/2761680_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-0ab02fc6c813",
+      "courseName": "서원밸리 골프장",
+      "visitKoreaContentId": "131666",
+      "visitKoreaTitle": "서원밸리 컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/27/3549027_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/27/3549027_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/26/3549026_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/28/3549028_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-0f218a599984",
+      "courseName": "국가보훈부 88골프장",
+      "visitKoreaContentId": "130983",
+      "visitKoreaTitle": "88컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/57/3565457_image2_1.JPG",
+        "http://tong.visitkorea.or.kr/cms/resource/57/3565457_image3_1.JPG",
+        "http://tong.visitkorea.or.kr/cms/resource/53/3565453_image2_1.JPG",
+        "http://tong.visitkorea.or.kr/cms/resource/55/3565455_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "high",
+      "scores": {
+        "exactNameMatch": false,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "high",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-120c785ee7a3",
+      "courseName": "은화삼컨트리클럽",
+      "visitKoreaContentId": "131660",
+      "visitKoreaTitle": "은화삼컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/17/1941217_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/17/1941217_image3_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-13ed08c1c42b",
+      "courseName": "360도 컨트리클럽",
+      "visitKoreaContentId": "2781685",
+      "visitKoreaTitle": "360도 컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/28/2781828_image2_1.jpeg",
+        "http://tong.visitkorea.or.kr/cms/resource/25/2781825_image2_1.jpeg",
+        "http://tong.visitkorea.or.kr/cms/resource/26/2781826_image2_1.jpeg",
+        "http://tong.visitkorea.or.kr/cms/resource/29/2781829_image2_1.jpeg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.55,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-1475a1d902d7",
+      "courseName": "남부컨트리클럽",
+      "visitKoreaContentId": "2742125",
+      "visitKoreaTitle": "남부CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/30/2750730_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/32/2750732_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/35/2750735_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/37/2750737_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-14a40331e62c",
+      "courseName": "마이다스밸리 청평 골프클럽",
+      "visitKoreaContentId": "577738",
+      "visitKoreaTitle": "마이다스밸리 청평 골프클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/59/3548059_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/59/3548059_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/56/3548056_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/57/3548057_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-14e8979016a9",
+      "courseName": "곤지암GC",
+      "visitKoreaContentId": "130991",
+      "visitKoreaTitle": "곤지암 골프클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/70/1956870_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/70/1956870_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/67/1956867_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/68/1956868_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-152613ee89f3",
+      "courseName": "골프클럽Q",
+      "visitKoreaContentId": "2750337",
+      "visitKoreaTitle": "골프클럽 Q",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/62/2750362_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/49/2750349_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/51/2750351_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/52/2750352_image2_1.png"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-15dd2e00d6c7",
+      "courseName": "오펠골프클럽",
+      "visitKoreaContentId": "2770774",
+      "visitKoreaTitle": "군위오펠GC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/01/2771501_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/01/2771501_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/03/2771503_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/05/2771505_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "high",
+      "scores": {
+        "exactNameMatch": false,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "high",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-1635f231cd12",
+      "courseName": "자유로컨트리클럽",
+      "visitKoreaContentId": "2754432",
+      "visitKoreaTitle": "자유로CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/64/3549064_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/64/3549064_image3_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/62/3549062_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/63/3549063_image2_1.png"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-167a7f95d402",
+      "courseName": "솔라고CC",
+      "visitKoreaContentId": "2769826",
+      "visitKoreaTitle": "솔라고CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/08/2770708_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/09/2770709_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/10/2770710_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/12/2770712_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "medium",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.3,
+        "cityMatch": false,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "medium",
+        "autoApply": false
+      },
+      "appliedAt": "2026-06-26T07:17:26.448Z",
+      "manualDecision": "approved"
+    },
+    {
+      "courseId": "gc-16c25d6f3f20",
+      "courseName": "마우나오션블루",
+      "visitKoreaContentId": "131760",
+      "visitKoreaTitle": "마우나오션 컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/18/3592018_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/18/3592018_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/12/3592012_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/13/3592013_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "high",
+      "scores": {
+        "exactNameMatch": false,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "high",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-16fca0551d98",
+      "courseName": "한림안성",
+      "visitKoreaContentId": "2750428",
+      "visitKoreaTitle": "한림안성CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/55/2750355_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/55/2750355_image3_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/57/2750357_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/77/2750377_image2_1.png"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-19f328d2bc87",
+      "courseName": "백제컨트리클럽",
+      "visitKoreaContentId": "2769576",
+      "visitKoreaTitle": "백제CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/25/2770425_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/26/2770426_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/27/2770427_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/28/2770428_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-1ce1b36ed2da",
+      "courseName": "시그너스cc",
+      "visitKoreaContentId": "2769583",
+      "visitKoreaTitle": "시그너스CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/96/2771196_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/86/2771186_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/88/2771188_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/90/2771190_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-1cfb7d6583c7",
+      "courseName": "대영힐스cc",
+      "visitKoreaContentId": "2769551",
+      "visitKoreaTitle": "대영힐스CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/86/2771086_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/88/2771088_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/89/2771089_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/93/2771093_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-1e3e002ab2ce",
+      "courseName": "포도C.C",
+      "visitKoreaContentId": "2758271",
+      "visitKoreaTitle": "김천포도CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/29/2772629_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/33/2772633_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/34/2772634_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/36/2772636_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "high",
+      "scores": {
+        "exactNameMatch": false,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "high",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-1faa083d0616",
+      "courseName": "한양파인컨트리클럽",
+      "visitKoreaContentId": "2782100",
+      "visitKoreaTitle": "한양파인CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/98/2782298_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/99/2782299_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/04/2782304_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/06/2782306_image2_1.png"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-2070c1511760",
+      "courseName": "아시아드컨트리클럽",
+      "visitKoreaContentId": "576732",
+      "visitKoreaTitle": "아시아드 컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/78/2444978_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/78/2444978_image3_1.jpg"
+      ],
+      "imageMatchConfidence": "medium",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.3,
+        "cityMatch": false,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "medium",
+        "autoApply": false
+      },
+      "appliedAt": "2026-06-26T07:17:26.448Z",
+      "manualDecision": "approved"
+    },
+    {
+      "courseId": "gc-20c1df4aa8fb",
+      "courseName": "지산컨트리클럽",
+      "visitKoreaContentId": "130980",
+      "visitKoreaTitle": "지산컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/38/1941238_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/38/1941238_image3_1.jpg"
+      ],
+      "imageMatchConfidence": "ambiguous",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "ambiguous",
+        "autoApply": false
+      },
+      "appliedAt": "2026-06-26T07:17:26.447Z",
+      "manualDecision": "approved"
+    },
+    {
+      "courseId": "gc-210de13c89f8",
+      "courseName": "남서울컨트리클럽",
+      "visitKoreaContentId": "130985",
+      "visitKoreaTitle": "남서울컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/68/3549168_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/68/3549168_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/63/3549163_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/64/3549164_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-254a1c054bbe",
+      "courseName": "골드컨트리클럽",
+      "visitKoreaContentId": "131761",
+      "visitKoreaTitle": "골드컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/12/1939912_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/12/1939912_image3_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-28ff72e3fac8",
+      "courseName": "서라벌G.C",
+      "visitKoreaContentId": "2771006",
+      "visitKoreaTitle": "서라벌CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/56/2771256_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/62/2771262_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/64/2771264_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/66/2771266_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-2bace244ca44",
+      "courseName": "동 촌cc",
+      "visitKoreaContentId": "2769559",
+      "visitKoreaTitle": "동촌GC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/11/2771111_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/11/2771111_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/05/2771105_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/06/2771106_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-2cf253808f7a",
+      "courseName": "캐슬파인골프클럽",
+      "visitKoreaContentId": "578603",
+      "visitKoreaTitle": "캐슬파인 골프클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/27/3549427_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/27/3549427_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/28/3549428_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/29/3549429_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-34f4d067cfc2",
+      "courseName": "파주컨트리클럽",
+      "visitKoreaContentId": "2757466",
+      "visitKoreaTitle": "파주CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/03/2757503_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/03/2757503_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/04/2757504_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/05/2757505_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-385ee578118d",
+      "courseName": "다산 샤인힐CC",
+      "visitKoreaContentId": "2772297",
+      "visitKoreaTitle": "고령오펠GC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/44/2772544_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/21/2772521_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/24/2772524_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/25/2772525_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "high",
+      "scores": {
+        "exactNameMatch": false,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "high",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-38b838344176",
+      "courseName": "수원컨트리클럽",
+      "visitKoreaContentId": "131662",
+      "visitKoreaTitle": "수원컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/92/1939992_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/92/1939992_image3_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-3c54aee76615",
+      "courseName": "뉴서울컨트리클럽",
+      "visitKoreaContentId": "130984",
+      "visitKoreaTitle": "뉴서울컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/81/1956881_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/81/1956881_image3_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-3d63d3179c0f",
+      "courseName": "태광컨트리클럽(대중제)",
+      "visitKoreaContentId": "577206",
+      "visitKoreaTitle": "태광 컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/46/3549246_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/46/3549246_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/44/3549244_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/45/3549245_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-3f766167d45e",
+      "courseName": "잭 니클라우스 골프클럽 코리아",
+      "visitKoreaContentId": "2778089",
+      "visitKoreaTitle": "잭니클라우스GC코리아",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/98/2790598_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/99/2790599_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/00/2790600_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/01/2790601_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "low",
+      "scores": {
+        "exactNameMatch": false,
+        "normalizedNameMatch": false,
+        "aliasMatch": false,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 0.6923076923076923,
+        "imageMatchConfidence": "low",
+        "autoApply": false
+      },
+      "appliedAt": "2026-06-26T07:17:26.448Z",
+      "manualDecision": "approved"
+    },
+    {
+      "courseId": "gc-403c1dbe574a",
+      "courseName": "이천실크밸리골프클럽",
+      "visitKoreaContentId": "2764316",
+      "visitKoreaTitle": "이천실크밸리GC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/65/2764365_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/65/2764365_image3_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/66/2764366_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/67/2764367_image2_1.png"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-411771a420e7",
+      "courseName": "골프존카운티 안성W",
+      "visitKoreaContentId": "2750339",
+      "visitKoreaTitle": "골프존카운티 안성W",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/73/2750373_image3_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/69/2750369_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/71/2750371_image2_1.png"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-417ae947fa4c",
+      "courseName": "여주썬밸리 컨트리클럽",
+      "visitKoreaContentId": "2766465",
+      "visitKoreaTitle": "여주썬밸리CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/52/2765652_image2_1.jpeg",
+        "http://tong.visitkorea.or.kr/cms/resource/40/2765640_image2_1.jpeg",
+        "http://tong.visitkorea.or.kr/cms/resource/43/2765643_image2_1.jpeg",
+        "http://tong.visitkorea.or.kr/cms/resource/47/2765647_image2_1.jpeg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-41b5c15f44da",
+      "courseName": "일산스프링힐스 컨트리클럽",
+      "visitKoreaContentId": "2736385",
+      "visitKoreaTitle": "스프링힐스CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/01/2736501_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/01/2736501_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/99/2736499_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/03/2736503_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "high",
+      "scores": {
+        "exactNameMatch": false,
+        "normalizedNameMatch": true,
+        "aliasMatch": false,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 0.7142857142857143,
+        "imageMatchConfidence": "high",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-4487ee52808c",
+      "courseName": "코리아대중CC",
+      "visitKoreaContentId": "2746695",
+      "visitKoreaTitle": "코리아퍼블릭CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/02/2746602_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/06/2746606_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/07/2746607_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "high",
+      "scores": {
+        "exactNameMatch": false,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "high",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-4731f8c98a6d",
+      "courseName": "리베라컨트리클럽",
+      "visitKoreaContentId": "131415",
+      "visitKoreaTitle": "리베라컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/67/1939967_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/67/1939967_image3_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-4826ba3e38b9",
+      "courseName": "마우나오션C.C",
+      "visitKoreaContentId": "131760",
+      "visitKoreaTitle": "마우나오션 컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/18/3592018_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/18/3592018_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/12/3592012_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/13/3592013_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-4905c6ca9b75",
+      "courseName": "화성 상록G.C",
+      "visitKoreaContentId": "2747222",
+      "visitKoreaTitle": "화성상록GC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/68/2747268_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/68/2747268_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/64/2747264_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/66/2747266_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-4b9a9d1f37d8",
+      "courseName": "보문G.C",
+      "visitKoreaContentId": "131131",
+      "visitKoreaTitle": "보문골프클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/33/3565533_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/33/3565533_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/06/3565506_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/08/3565508_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-4cbc2f4feecc",
+      "courseName": "로제비앙GC",
+      "visitKoreaContentId": "2750959",
+      "visitKoreaTitle": "로제비앙CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/46/2750946_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/46/2750946_image3_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/47/2750947_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/48/2750948_image2_1.png"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.55,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-5062dbcbfa1c",
+      "courseName": "포웰CC 안성",
+      "visitKoreaContentId": "2750354",
+      "visitKoreaTitle": "포웰CC 안성",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/48/2750348_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/43/2750343_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/44/2750344_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/46/2750346_image2_1.png"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-5164e33152d9",
+      "courseName": "구니컨트리클럽",
+      "visitKoreaContentId": "2770827",
+      "visitKoreaTitle": "구니CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/94/2771494_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/94/2771494_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/96/2771496_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/98/2771498_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-52110494ceac",
+      "courseName": "파크밸리골프클럽",
+      "visitKoreaContentId": "131367",
+      "visitKoreaTitle": "파크밸리골프클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/07/3588907_image2_1.JPG",
+        "http://tong.visitkorea.or.kr/cms/resource/07/3588907_image3_1.JPG",
+        "http://tong.visitkorea.or.kr/cms/resource/08/3588908_image2_1.JPG",
+        "http://tong.visitkorea.or.kr/cms/resource/09/3588909_image2_1.JPG"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-5495f8d48bf7",
+      "courseName": "에덴블루 컨트리클럽",
+      "visitKoreaContentId": "2750365",
+      "visitKoreaTitle": "에덴블루CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/56/2750356_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/56/2750356_image3_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/58/2750358_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/59/2750359_image2_1.png"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-54e8d6f41d3b",
+      "courseName": "중 원cc",
+      "visitKoreaContentId": "2769616",
+      "visitKoreaTitle": "중원GC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/82/2771282_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/79/2771279_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/85/2771285_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/87/2771287_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-5607a255716b",
+      "courseName": "파라지오C.C",
+      "visitKoreaContentId": "2770757",
+      "visitKoreaTitle": "파라지오CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/18/2770818_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/18/2770818_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/02/2770802_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/05/2770805_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-564e2ae6067a",
+      "courseName": "포천힐스 컨트리클럽",
+      "visitKoreaContentId": "1030591",
+      "visitKoreaTitle": "포천힐스컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/07/3565707_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/07/3565707_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/06/3565706_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/08/3565708_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-59ee5f28d2c8",
+      "courseName": "남여주대중골프장",
+      "visitKoreaContentId": "2764887",
+      "visitKoreaTitle": "남여주GC(남여주골프클럽)",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/51/2764951_image2_1.jpeg",
+        "http://tong.visitkorea.or.kr/cms/resource/52/2764952_image2_1.jpeg",
+        "http://tong.visitkorea.or.kr/cms/resource/54/2764954_image2_1.jpeg",
+        "http://tong.visitkorea.or.kr/cms/resource/56/2764956_image2_1.png"
+      ],
+      "imageMatchConfidence": "high",
+      "scores": {
+        "exactNameMatch": false,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "high",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-5ca66aa29c0b",
+      "courseName": "양평TPC GC",
+      "visitKoreaContentId": "2755450",
+      "visitKoreaTitle": "양평TPCGC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/88/2755888_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/88/2755888_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/82/2755882_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/84/2755884_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-5e74f5c1f4b5",
+      "courseName": "제일컨트리클럽",
+      "visitKoreaContentId": "131658",
+      "visitKoreaTitle": "제일컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/60/1589660_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/60/1589660_image3_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-5ec5b76d3c22",
+      "courseName": "화성골프클럽",
+      "visitKoreaContentId": "2747215",
+      "visitKoreaTitle": "화성GC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/60/2747260_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/53/2747253_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/55/2747255_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/58/2747258_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-60319bf1693c",
+      "courseName": "인천그랜드컨트리클럽",
+      "visitKoreaContentId": "2781611",
+      "visitKoreaTitle": "인천그랜드CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/70/2790470_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/66/2790466_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/68/2790468_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/72/2790472_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-60336c4fc30b",
+      "courseName": "고성노벨컨트리클럽",
+      "visitKoreaContentId": "2755374",
+      "visitKoreaTitle": "노벨CC(고성노벨컨트리클럽)",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/65/2755365_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/66/2755366_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/67/2755367_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/68/2755368_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "high",
+      "scores": {
+        "exactNameMatch": false,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "high",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-606fb4b33249",
+      "courseName": "떼제베운영",
+      "visitKoreaContentId": "131890",
+      "visitKoreaTitle": "올데이청주떼제베",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/08/1847508_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/08/1847508_image3_1.jpg"
+      ],
+      "imageMatchConfidence": "high",
+      "scores": {
+        "exactNameMatch": false,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "high",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-63e74643a178",
+      "courseName": "더헤븐 컨트리클럽",
+      "visitKoreaContentId": "2773729",
+      "visitKoreaTitle": "더헤븐cc",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/19/2773919_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/23/2773923_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/26/2773926_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/30/2773930_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-658a43bb77b8",
+      "courseName": "하이원컨트리클럽",
+      "visitKoreaContentId": "131867",
+      "visitKoreaTitle": "하이원 컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/93/3582093_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/93/3582093_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/91/3582091_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/92/3582092_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.55,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-669d8ad13333",
+      "courseName": "엘리시안 강촌컨트리클럽",
+      "visitKoreaContentId": "250473",
+      "visitKoreaTitle": "엘리시안 강촌 컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/06/1583506_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/06/1583506_image3_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-68bd427a4957",
+      "courseName": "송도골프클럽",
+      "visitKoreaContentId": "2767803",
+      "visitKoreaTitle": "송도골프클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/89/2781389_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/89/2781389_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/88/2781388_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/90/2781390_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-699579941cf6",
+      "courseName": "파인스톤 컨트리클럽",
+      "visitKoreaContentId": "2770222",
+      "visitKoreaTitle": "파인스톤CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/69/2772069_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/69/2772069_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/66/2772066_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/71/2772071_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-6bee4df56cf5",
+      "courseName": "대영베이스cc",
+      "visitKoreaContentId": "2769524",
+      "visitKoreaTitle": "대영베이스CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/84/2771084_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/71/2771071_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/76/2771076_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/78/2771078_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-6ea98adb1954",
+      "courseName": "아난티 중앙골프클럽",
+      "visitKoreaContentId": "131392",
+      "visitKoreaTitle": "아난티 중앙 골프클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/66/1596966_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/66/1596966_image3_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-716535d8799a",
+      "courseName": "설악프라자컨트리클럽",
+      "visitKoreaContentId": "131264",
+      "visitKoreaTitle": "설악프라자컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/08/1947408_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/08/1947408_image3_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.65,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-717efe03426f",
+      "courseName": "킹즈락cc",
+      "visitKoreaContentId": "2769839",
+      "visitKoreaTitle": "킹즈락CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/70/2769970_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/70/2769970_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/57/2769957_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/60/2769960_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "high",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.4,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "high",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-736ecb0e589a",
+      "courseName": "세레니티cc",
+      "visitKoreaContentId": "131979",
+      "visitKoreaTitle": "세레니티CC (구, 실크리버 컨트리클럽)",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/44/1960744_image2_1.JPG",
+        "http://tong.visitkorea.or.kr/cms/resource/44/1960744_image3_1.JPG"
+      ],
+      "imageMatchConfidence": "low",
+      "scores": {
+        "exactNameMatch": false,
+        "normalizedNameMatch": true,
+        "aliasMatch": false,
+        "addressMatch": 0.3,
+        "cityMatch": false,
+        "regionMatch": true,
+        "fuzzyScore": 0.6666666666666666,
+        "imageMatchConfidence": "low",
+        "autoApply": false
+      },
+      "appliedAt": "2026-06-26T07:17:26.448Z",
+      "manualDecision": "approved"
+    },
+    {
+      "courseId": "gc-746ebce39dd0",
+      "courseName": "클럽디보은",
+      "visitKoreaContentId": "2770322",
+      "visitKoreaTitle": "클럽디 보은",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/58/2772158_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/58/2772158_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/47/2772147_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/50/2772150_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-75ecca302d46",
+      "courseName": "이포골프장",
+      "visitKoreaContentId": "2765434",
+      "visitKoreaTitle": "이포 컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/15/2767015_image2_1.jpeg",
+        "http://tong.visitkorea.or.kr/cms/resource/12/2767012_image2_1.jpeg",
+        "http://tong.visitkorea.or.kr/cms/resource/19/2767019_image2_1.jpeg",
+        "http://tong.visitkorea.or.kr/cms/resource/24/2767024_image2_1.jpeg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-760b850e4451",
+      "courseName": "천 룡cc",
+      "visitKoreaContentId": "131391",
+      "visitKoreaTitle": "천룡컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/00/1847300_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/00/1847300_image3_1.jpg"
+      ],
+      "imageMatchConfidence": "medium",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.3,
+        "cityMatch": false,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "medium",
+        "autoApply": false
+      },
+      "appliedAt": "2026-06-26T07:17:26.448Z",
+      "manualDecision": "approved"
+    },
+    {
+      "courseId": "gc-7681bcbcf45d",
+      "courseName": "천안상록 골프장",
+      "visitKoreaContentId": "2758445",
+      "visitKoreaTitle": "천안 상록골프장",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/64/2758664_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/64/2758664_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/53/2758653_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/56/2758656_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-7701abd77260",
+      "courseName": "기흥컨트리클럽",
+      "visitKoreaContentId": "131416",
+      "visitKoreaTitle": "기흥컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/19/1939919_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/19/1939919_image3_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.65,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-77f7a5893fb0",
+      "courseName": "문경레저타운골프장",
+      "visitKoreaContentId": "2770832",
+      "visitKoreaTitle": "문경GC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/10/2771510_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/11/2771511_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/12/2771512_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/13/2771513_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "high",
+      "scores": {
+        "exactNameMatch": false,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "high",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-788ff880fb4f",
+      "courseName": "블랙밸리컨트리클럽",
+      "visitKoreaContentId": "776427",
+      "visitKoreaTitle": "블랙밸리 컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/57/3569657_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/57/3569657_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/58/3569658_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/59/3569659_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-7c044b23d1a4",
+      "courseName": "에스지아름다운골프&리조트",
+      "visitKoreaContentId": "2769741",
+      "visitKoreaTitle": "SG아름다운골프앤리조트",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/76/2770476_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/81/2770481_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/82/2770482_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/86/2770486_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "high",
+      "scores": {
+        "exactNameMatch": false,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "high",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-7c76a7546834",
+      "courseName": "샴발라 컨트리클럽",
+      "visitKoreaContentId": "2753729",
+      "visitKoreaTitle": "샴발라CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/12/2753712_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/16/2753716_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/17/2753717_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/19/2753719_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-7e1dadf46eaa",
+      "courseName": "소피아그린",
+      "visitKoreaContentId": "2766469",
+      "visitKoreaTitle": "소피아그린 컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/62/2765762_image2_1.jpeg",
+        "http://tong.visitkorea.or.kr/cms/resource/51/2765751_image2_1.jpeg",
+        "http://tong.visitkorea.or.kr/cms/resource/54/2765754_image2_1.jpeg",
+        "http://tong.visitkorea.or.kr/cms/resource/56/2765756_image2_1.jpeg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-81becbdb274e",
+      "courseName": "파주 J-Public 골프장",
+      "visitKoreaContentId": "752497",
+      "visitKoreaTitle": "제이퍼블릭컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/44/3533044_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/44/3533044_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/40/3533040_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/41/3533041_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "high",
+      "scores": {
+        "exactNameMatch": false,
+        "normalizedNameMatch": true,
+        "aliasMatch": false,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 0.7777777777777778,
+        "imageMatchConfidence": "high",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-81ecacc0ae41",
+      "courseName": "라싸 골프클럽",
+      "visitKoreaContentId": "2751297",
+      "visitKoreaTitle": "라싸CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/89/2751289_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/89/2751289_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/86/2751286_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/87/2751287_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-81f36c789316",
+      "courseName": "그랜드cc",
+      "visitKoreaContentId": "131573",
+      "visitKoreaTitle": "그랜드컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/88/1597088_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/88/1597088_image3_1.jpg"
+      ],
+      "imageMatchConfidence": "ambiguous",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.3,
+        "cityMatch": false,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "ambiguous",
+        "autoApply": false
+      },
+      "appliedAt": "2026-06-26T07:17:26.448Z",
+      "manualDecision": "approved"
+    },
+    {
+      "courseId": "gc-825e9c261de2",
+      "courseName": "참밸리 컨트리클럽",
+      "visitKoreaContentId": "2753740",
+      "visitKoreaTitle": "참밸리컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/29/2932329_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/29/2932329_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/27/2932327_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/28/2932328_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-84bb21f2b77e",
+      "courseName": "크라운CC",
+      "visitKoreaContentId": "131649",
+      "visitKoreaTitle": "크라운컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/90/3577190_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/90/3577190_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/91/3577191_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/92/3577192_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-8503021b2f0d",
+      "courseName": "리앤리C.C",
+      "visitKoreaContentId": "2759826",
+      "visitKoreaTitle": "리앤리CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/27/2932227_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/27/2932227_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/26/2932226_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/28/2932228_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-8809b27cc2be",
+      "courseName": "마스터피스CC",
+      "visitKoreaContentId": "2772300",
+      "visitKoreaTitle": "마스터피스CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/72/2772572_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/72/2772572_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/55/2772555_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/61/2772561_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-897c73dbf41b",
+      "courseName": "양지파인골프클럽",
+      "visitKoreaContentId": "131563",
+      "visitKoreaTitle": "양지 파인골프클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/00/1941200_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/00/1941200_image3_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.55,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-8b59a320f132",
+      "courseName": "한림용인CC",
+      "visitKoreaContentId": "131568",
+      "visitKoreaTitle": "한림용인 컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/78/3565878_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/78/3565878_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/75/3565875_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/76/3565876_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-8c893fc692ea",
+      "courseName": "캐슬렉스제주 (대중제)",
+      "visitKoreaContentId": "131269",
+      "visitKoreaTitle": "캐슬렉스제주 골프클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/07/3402907_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/07/3402907_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/08/3402908_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/09/3402909_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-8ccf3d19f9bb",
+      "courseName": "세레니티cc",
+      "visitKoreaContentId": "131979",
+      "visitKoreaTitle": "세레니티CC (구, 실크리버 컨트리클럽)",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/44/1960744_image2_1.JPG",
+        "http://tong.visitkorea.or.kr/cms/resource/44/1960744_image3_1.JPG"
+      ],
+      "imageMatchConfidence": "high",
+      "scores": {
+        "exactNameMatch": false,
+        "normalizedNameMatch": true,
+        "aliasMatch": false,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 0.6666666666666666,
+        "imageMatchConfidence": "high",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-8d9ee33d1f22",
+      "courseName": "킹스데일cc",
+      "visitKoreaContentId": "2769626",
+      "visitKoreaTitle": "킹스데일골프클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/93/2771293_image2_1.JPG",
+        "http://tong.visitkorea.or.kr/cms/resource/96/2771296_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/99/2771299_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/01/2771301_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "medium",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.3,
+        "cityMatch": false,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "medium",
+        "autoApply": false
+      },
+      "appliedAt": "2026-06-26T07:17:26.448Z",
+      "manualDecision": "approved"
+    },
+    {
+      "courseId": "gc-8ded1998e36a",
+      "courseName": "히든밸리cc",
+      "visitKoreaContentId": "2769737",
+      "visitKoreaTitle": "히든밸리GC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/28/2769828_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/28/2769828_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/29/2769829_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/31/2769831_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-8f5c8d0f5d46",
+      "courseName": "석정힐CC",
+      "visitKoreaContentId": "2778925",
+      "visitKoreaTitle": "석정힐 CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/15/2781515_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/15/2781515_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/07/2781507_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/10/2781510_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-8fbc2ee961a0",
+      "courseName": "고양컨트리클럽",
+      "visitKoreaContentId": "2736399",
+      "visitKoreaTitle": "고양CC(고양 컨트리클럽)",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/07/2736607_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/07/2736607_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/03/2736603_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/05/2736605_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-911caf331754",
+      "courseName": "그레이스C.C",
+      "visitKoreaContentId": "2770759",
+      "visitKoreaTitle": "그레이스CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/28/2770828_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/28/2770828_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/22/2770822_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/24/2770824_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-914eaef995a0",
+      "courseName": "클럽디속리산",
+      "visitKoreaContentId": "2769692",
+      "visitKoreaTitle": "클럽디속리산",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/24/2770924_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/24/2770924_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/28/2770928_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/31/2770931_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-91f353d46004",
+      "courseName": "블루원상주골프리조트",
+      "visitKoreaContentId": "2756614",
+      "visitKoreaTitle": "블루원상주골프리조트",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/60/2756760_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/56/2756756_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/57/2756757_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/63/2756763_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-9655898af6a6",
+      "courseName": "프린세스 골프클럽",
+      "visitKoreaContentId": "2770232",
+      "visitKoreaTitle": "프린세스GC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/88/2771988_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/91/2771991_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/93/2771993_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/95/2771995_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-9a7cb8103191",
+      "courseName": "오크밸리회원제골프장",
+      "visitKoreaContentId": "131726",
+      "visitKoreaTitle": "오크밸리CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/12/1947712_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/12/1947712_image3_1.jpg"
+      ],
+      "imageMatchConfidence": "high",
+      "scores": {
+        "exactNameMatch": false,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.55,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "high",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-9bb0cbe01084",
+      "courseName": "송추 컨트리클럽",
+      "visitKoreaContentId": "2748835",
+      "visitKoreaTitle": "송추CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/17/2748917_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/11/2748911_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/13/2748913_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/15/2748915_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-9c36390d43ba",
+      "courseName": "이븐데일cc",
+      "visitKoreaContentId": "1030782",
+      "visitKoreaTitle": "이븐데일 컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/66/1847566_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/66/1847566_image3_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-9c3aa425a935",
+      "courseName": "포항C.C",
+      "visitKoreaContentId": "2770242",
+      "visitKoreaTitle": "포항CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/64/2771664_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/66/2771666_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/69/2771669_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/73/2771673_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "high",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.4,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "high",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-9da6f2a0f2d9",
+      "courseName": "태광컨트리클럽(회원제)",
+      "visitKoreaContentId": "577206",
+      "visitKoreaTitle": "태광 컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/46/3549246_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/46/3549246_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/44/3549244_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/45/3549245_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-9eb46dae9c9d",
+      "courseName": "타이거CC 골프장",
+      "visitKoreaContentId": "2756513",
+      "visitKoreaTitle": "타이거CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/41/2756441_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/30/2756430_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/36/2756436_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/38/2756438_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "high",
+      "scores": {
+        "exactNameMatch": false,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "high",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-a68be6870289",
+      "courseName": "김포SEASIDE 컨트리클럽",
+      "visitKoreaContentId": "131336",
+      "visitKoreaTitle": "김포 SEASIDE 컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/35/1939935_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/35/1939935_image3_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.65,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-a81df4ea7927",
+      "courseName": "천 룡cc",
+      "visitKoreaContentId": "131391",
+      "visitKoreaTitle": "천룡컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/00/1847300_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/00/1847300_image3_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-a862e6d054f2",
+      "courseName": "빅토리아일반대중골프장",
+      "visitKoreaContentId": "2760195",
+      "visitKoreaTitle": "빅토리아 골프클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/64/2760164_image2_1.jpeg",
+        "http://tong.visitkorea.or.kr/cms/resource/64/2760164_image3_1.jpeg",
+        "http://tong.visitkorea.or.kr/cms/resource/61/2760161_image2_1.jpeg",
+        "http://tong.visitkorea.or.kr/cms/resource/66/2760166_image2_1.jpeg"
+      ],
+      "imageMatchConfidence": "high",
+      "scores": {
+        "exactNameMatch": false,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "high",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.281Z"
+    },
+    {
+      "courseId": "gc-ab63350a5577",
+      "courseName": "화산컨트리클럽",
+      "visitKoreaContentId": "131575",
+      "visitKoreaTitle": "화산컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/73/1941273_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/73/1941273_image3_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-ac8ec878e912",
+      "courseName": "썬밸리cc",
+      "visitKoreaContentId": "231991",
+      "visitKoreaTitle": "썬밸리컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/42/1847542_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/42/1847542_image3_1.jpg"
+      ],
+      "imageMatchConfidence": "medium",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.3,
+        "cityMatch": false,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "medium",
+        "autoApply": false
+      },
+      "appliedAt": "2026-06-26T07:17:26.448Z",
+      "manualDecision": "approved"
+    },
+    {
+      "courseId": "gc-af63c289d999",
+      "courseName": "세현CC",
+      "visitKoreaContentId": "2742113",
+      "visitKoreaTitle": "세현CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/68/2786968_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/68/2786968_image3_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/70/2786970_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/71/2786971_image2_1.png"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-b046571c4182",
+      "courseName": "더반 골프클럽",
+      "visitKoreaContentId": "2763728",
+      "visitKoreaTitle": "더반GC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/34/2763934_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/30/2763930_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/32/2763932_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/36/2763936_image2_1.png"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-b48ba0827aa2",
+      "courseName": "에딘버러 컨트리클럽",
+      "visitKoreaContentId": "131514",
+      "visitKoreaTitle": "에딘버러컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/85/1963285_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/85/1963285_image3_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-b7fd5ee009ca",
+      "courseName": "포레스트힐 컨트리클럽",
+      "visitKoreaContentId": "2753756",
+      "visitKoreaTitle": "포레스트힐CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/86/2753686_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/87/2753687_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/88/2753688_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/89/2753689_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-ba3362c686e4",
+      "courseName": "골프존카운티 안성H",
+      "visitKoreaContentId": "2750335",
+      "visitKoreaTitle": "골프존카운티 안성H",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/79/2750379_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/82/2750382_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/83/2750383_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/84/2750384_image2_1.png"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-bd3f6011928e",
+      "courseName": "페럼클럽",
+      "visitKoreaContentId": "2768116",
+      "visitKoreaTitle": "페럼클럽CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/27/2768327_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/26/2768326_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/28/2768328_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/30/2768330_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "high",
+      "scores": {
+        "exactNameMatch": false,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "high",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-bed5fc0dc1f2",
+      "courseName": "그린힐 컨트리클럽",
+      "visitKoreaContentId": "577646",
+      "visitKoreaTitle": "그린힐 컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/74/1956874_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/74/1956874_image3_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-bf183cd699c7",
+      "courseName": "로얄링스 CC",
+      "visitKoreaContentId": "2769845",
+      "visitKoreaTitle": "로얄링스CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/49/2770749_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/46/2770746_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/47/2770747_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/51/2770751_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-c0cdb2271518",
+      "courseName": "아리스타 CC",
+      "visitKoreaContentId": "2770228",
+      "visitKoreaTitle": "아리스타CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/17/2772017_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/19/2772019_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/21/2772021_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "medium",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.3,
+        "cityMatch": false,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "medium",
+        "autoApply": false
+      },
+      "appliedAt": "2026-06-26T07:17:26.448Z",
+      "manualDecision": "approved"
+    },
+    {
+      "courseId": "gc-c0e3c44b953c",
+      "courseName": "아리지 골프장",
+      "visitKoreaContentId": "2766482",
+      "visitKoreaTitle": "아리지CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/29/2765729_image2_1.jpeg",
+        "http://tong.visitkorea.or.kr/cms/resource/25/2765725_image2_1.jpeg",
+        "http://tong.visitkorea.or.kr/cms/resource/38/2765738_image2_1.jpeg",
+        "http://tong.visitkorea.or.kr/cms/resource/42/2765742_image2_1.jpeg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-c2ad879f8193",
+      "courseName": "한성컨트리클럽",
+      "visitKoreaContentId": "131576",
+      "visitKoreaTitle": "한성컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/57/1941257_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/57/1941257_image3_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-c45d3f5d316d",
+      "courseName": "써닝포인트 컨트리클럽",
+      "visitKoreaContentId": "2742078",
+      "visitKoreaTitle": "써닝포인트CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/71/2750771_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/71/2750771_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/72/2750772_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/73/2750773_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-c5f55ef01f20",
+      "courseName": "로얄포레cc",
+      "visitKoreaContentId": "2769561",
+      "visitKoreaTitle": "로얄포레CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/22/2771122_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/22/2771122_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/17/2771117_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/19/2771119_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-c6db7aa6cbe6",
+      "courseName": "해슬리나인브릿지 컨트리클럽",
+      "visitKoreaContentId": "2774310",
+      "visitKoreaTitle": "해슬리나인브릿지CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/38/2774338_image2_1.jpeg",
+        "http://tong.visitkorea.or.kr/cms/resource/36/2774336_image2_1.jpeg",
+        "http://tong.visitkorea.or.kr/cms/resource/37/2774337_image2_1.jpeg",
+        "http://tong.visitkorea.or.kr/cms/resource/39/2774339_image2_1.jpeg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-c781c317ede3",
+      "courseName": "오션비치C.C",
+      "visitKoreaContentId": "2770952",
+      "visitKoreaTitle": "오션비치골프앤리조트",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/03/2771303_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/03/2771303_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/05/2771305_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/07/2771307_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "high",
+      "scores": {
+        "exactNameMatch": false,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "high",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-c9dda49e7539",
+      "courseName": "서산수 골프앤리조트",
+      "visitKoreaContentId": "2769608",
+      "visitKoreaTitle": "서산수골프앤리조트",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/48/2770448_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/49/2770449_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/51/2770451_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/53/2770453_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "high",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.4,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "high",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-ca6baf196057",
+      "courseName": "올데이 골프앤리조트",
+      "visitKoreaContentId": "2769598",
+      "visitKoreaTitle": "올데이 골프앤리조트",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/44/2771244_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/44/2771244_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/24/2771224_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/26/2771226_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-cd449267e87f",
+      "courseName": "파인크리크C.C",
+      "visitKoreaContentId": "131667",
+      "visitKoreaTitle": "파인크리크 컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/88/3549088_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/88/3549088_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/89/3549089_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/90/3549090_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-ce7b0e81cf22",
+      "courseName": "스 타cc",
+      "visitKoreaContentId": "2769569",
+      "visitKoreaTitle": "스타CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/66/2771166_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/66/2771166_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/48/2771148_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/50/2771150_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-d0e431ff250c",
+      "courseName": "스마트KU 골프 파빌리온",
+      "visitKoreaContentId": "2756056",
+      "visitKoreaTitle": "스마트KU골프파빌리온",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/42/2756042_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/42/2756042_image3_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/44/2756044_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/47/2756047_image2_1.png"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-d14f87b6bb30",
+      "courseName": "썬힐G.C",
+      "visitKoreaContentId": "577443",
+      "visitKoreaTitle": "썬힐 골프클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/54/3548054_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/54/3548054_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/47/3548047_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/48/3548048_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-d5cd483c8c94",
+      "courseName": "노스팜 컨트리클럽",
+      "visitKoreaContentId": "2756052",
+      "visitKoreaTitle": "노스팜CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/86/2756486_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/86/2756486_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/85/2756485_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/89/2756489_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-d76bd69feda5",
+      "courseName": "더크로스비골프클럽",
+      "visitKoreaContentId": "2763719",
+      "visitKoreaTitle": "더크로스비GC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/26/2763926_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/26/2763926_image3_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/16/2763916_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/18/2763918_image2_1.png"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-dac303292dae",
+      "courseName": "오펠G.C",
+      "visitKoreaContentId": "2772310",
+      "visitKoreaTitle": "영천오펠GC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/74/2772674_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/74/2772674_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/64/2772664_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/67/2772667_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "high",
+      "scores": {
+        "exactNameMatch": false,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "high",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-db9ee81a1a70",
+      "courseName": "내장산골프&리조트",
+      "visitKoreaContentId": "2778936",
+      "visitKoreaTitle": "내장산골프앤리조트",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/22/2779622_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/20/2779620_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/25/2779625_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/28/2779628_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-dc3aed15fe4c",
+      "courseName": "건설공제조합세종필드골프클럽",
+      "visitKoreaContentId": "2758508",
+      "visitKoreaTitle": "세종필드 골프클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/83/2758483_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/79/2758479_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/85/2758485_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/88/2758488_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "high",
+      "scores": {
+        "exactNameMatch": false,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "high",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-dd6fca373d1b",
+      "courseName": "인서울27골프클럽",
+      "visitKoreaContentId": "2757125",
+      "visitKoreaTitle": "인서울27 골프클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/15/2787315_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/16/2787316_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/18/2787318_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/20/2787320_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.55,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-ddc7e02567ba",
+      "courseName": "구미C.C",
+      "visitKoreaContentId": "2772306",
+      "visitKoreaTitle": "구미CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/83/2772583_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/86/2772586_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/90/2772590_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/93/2772593_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-df2b984b36c9",
+      "courseName": "솔트베이 골프클럽",
+      "visitKoreaContentId": "2773721",
+      "visitKoreaTitle": "솔트베이GC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/73/2773873_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/74/2773874_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/76/2773876_image2_1.jpeg",
+        "http://tong.visitkorea.or.kr/cms/resource/77/2773877_image2_1.jpeg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-e02aaeea09ed",
+      "courseName": "코스카cc",
+      "visitKoreaContentId": "2770065",
+      "visitKoreaTitle": "코스카CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/71/2770371_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/71/2770371_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/73/2770373_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/74/2770374_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-e04bb1d7bba9",
+      "courseName": "남촌컨트리클럽",
+      "visitKoreaContentId": "2750699",
+      "visitKoreaTitle": "남촌CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/99/2750899_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/93/2750893_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/95/2750895_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/96/2750896_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-e14661a32922",
+      "courseName": "일레븐cc",
+      "visitKoreaContentId": "2769602",
+      "visitKoreaTitle": "일레븐CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/52/2771252_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/48/2771248_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/49/2771249_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/50/2771250_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "medium",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.3,
+        "cityMatch": false,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "medium",
+        "autoApply": false
+      },
+      "appliedAt": "2026-06-26T07:17:26.448Z",
+      "manualDecision": "approved"
+    },
+    {
+      "courseId": "gc-e2e76f635c4a",
+      "courseName": "세븐밸리C.C",
+      "visitKoreaContentId": "1031073",
+      "visitKoreaTitle": "세븐밸리 컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/93/2775893_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/81/2775881_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/90/2775890_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/92/2775892_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-e401cda7a8ad",
+      "courseName": "우정힐스 컨트리클럽",
+      "visitKoreaContentId": "2769786",
+      "visitKoreaTitle": "우정힐스CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/80/2770680_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/80/2770680_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/81/2770681_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/83/2770683_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-e91593f65b4b",
+      "courseName": "도고컨트리 구락부",
+      "visitKoreaContentId": "2769768",
+      "visitKoreaTitle": "도고CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/19/2770519_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/21/2770521_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/23/2770523_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/25/2770525_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "high",
+      "scores": {
+        "exactNameMatch": false,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "high",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-ee03e5ddbe9f",
+      "courseName": "라비돌컨트리클럽",
+      "visitKoreaContentId": "131417",
+      "visitKoreaTitle": "라비돌컨트리클럽",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/22/3567522_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/22/3567522_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/17/3567517_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/18/3567518_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-eec2e96ca1a7",
+      "courseName": "젠스필드cc",
+      "visitKoreaContentId": "2770074",
+      "visitKoreaTitle": "젠스필드CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/70/2770370_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/64/2770364_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/65/2770365_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/67/2770367_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-f0e079a5a368",
+      "courseName": "크리스탈밸리C.C",
+      "visitKoreaContentId": "578731",
+      "visitKoreaTitle": "크리스탈밸리",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/66/3548066_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/66/3548066_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/67/3548067_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/68/3548068_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-f2158c0fa417",
+      "courseName": "푸른솔 골프클럽 포천",
+      "visitKoreaContentId": "1030151",
+      "visitKoreaTitle": "푸른솔 골프클럽 포천",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/09/3549009_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/09/3549009_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/01/3549001_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/02/3549002_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-f261ddd7cd1a",
+      "courseName": "대호단양cc",
+      "visitKoreaContentId": "2769886",
+      "visitKoreaTitle": "대호단양CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/31/2770831_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/31/2770831_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/11/2770811_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/12/2770812_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-f4bb9638f567",
+      "courseName": "해솔리아 컨트리클럽",
+      "visitKoreaContentId": "2746691",
+      "visitKoreaTitle": "해솔리아CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/98/2746598_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/98/2746598_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/96/2746596_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/97/2746597_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.55,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-fa55dbc73e9b",
+      "courseName": "베어즈베스트청라골프클럽",
+      "visitKoreaContentId": "2781467",
+      "visitKoreaTitle": "베어즈베스트청라GC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/09/2781709_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/09/2781709_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/10/2781710_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/12/2781712_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-facbcadf0522",
+      "courseName": "오창 에딘버러",
+      "visitKoreaContentId": "2769513",
+      "visitKoreaTitle": "오창 에딘버러CC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/70/2770970_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/70/2770970_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/65/2770965_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/68/2770968_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 0.85,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-fb0d61e3914d",
+      "courseName": "베어크리크골프클럽",
+      "visitKoreaContentId": "2752723",
+      "visitKoreaTitle": "베어크리크GC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/95/2752895_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/97/2752897_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/98/2752898_image2_1.png",
+        "http://tong.visitkorea.or.kr/cms/resource/00/2752900_image2_1.png"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-fb2e8a3b34d8",
+      "courseName": "베스트밸리 골프클럽",
+      "visitKoreaContentId": "2756065",
+      "visitKoreaTitle": "베스트밸리GC",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/03/2756503_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/02/2756502_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/06/2756506_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/08/2756508_image2_1.jpg"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    },
+    {
+      "courseId": "gc-fde386e28664",
+      "courseName": "마이다스레이크 이천 골프&리조트",
+      "visitKoreaContentId": "2764370",
+      "visitKoreaTitle": "마이다스레이크 이천 골프앤리조트",
+      "images": [
+        "http://tong.visitkorea.or.kr/cms/resource/75/3549275_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/75/3549275_image3_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/70/3549270_image2_1.jpg",
+        "http://tong.visitkorea.or.kr/cms/resource/71/3549271_image2_1.png"
+      ],
+      "imageMatchConfidence": "exact",
+      "scores": {
+        "exactNameMatch": true,
+        "normalizedNameMatch": true,
+        "aliasMatch": true,
+        "addressMatch": 1,
+        "cityMatch": true,
+        "regionMatch": true,
+        "fuzzyScore": 1,
+        "imageMatchConfidence": "exact",
+        "autoApply": true
+      },
+      "appliedAt": "2026-06-26T06:59:53.282Z"
+    }
+  ]
+}

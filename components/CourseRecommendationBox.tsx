@@ -7,9 +7,10 @@ interface CourseRecommendationBoxProps {
 
 function resolveRecommendationTitle(
   confidence: CourseContentConfidence | undefined,
+  reasonCount: number,
 ): string {
   if (confidence === "high") return "이 골프장을 추천하는 이유";
-  if (confidence === "low") return "기본 정보 요약";
+  if (confidence === "low" && reasonCount <= 2) return "기본 정보 요약";
   return "라운드 전 참고할 점";
 }
 
@@ -22,7 +23,7 @@ export function CourseRecommendationBox({
   return (
     <section className="mt-4 rounded-2xl border border-emerald-100 bg-emerald-50 p-5 sm:p-6">
       <h2 className="text-base font-bold text-emerald-900 sm:text-lg">
-        {resolveRecommendationTitle(confidence)}
+        {resolveRecommendationTitle(confidence, reasons.length)}
       </h2>
       <ul className="mt-4 space-y-2.5">
         {reasons.map((reason) => (

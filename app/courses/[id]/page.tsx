@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCourseById, getAllCourseIds, getCourses } from "@/lib/courseRepository";
@@ -12,6 +13,8 @@ import CourseJsonLd from "@/components/CourseJsonLd";
 import { getDisplayableCourseContentEnrichment } from "@/lib/enrichment/courseContentEnrichmentStore";
 import { resolveCourseVisitKoreaImages } from "@/lib/enrichment/courseVisitKoreaImages";
 import RegionLinks from "@/components/RegionLinks";
+import HomeBlogCarousel from "@/components/portal/HomeBlogCarousel";
+import { getAllBlogPosts } from "@/lib/blogPosts";
 
 export async function generateStaticParams() {
   const ids = await getAllCourseIds();
@@ -41,6 +44,24 @@ export default async function CourseDetailPage({
 
   const enrichment = getDisplayableCourseContentEnrichment(course.id);
   const visitKoreaGallery = resolveCourseVisitKoreaImages(course.id, enrichment);
+  const blogPosts = getAllBlogPosts();
+
+  const blogSlot = (
+    <section className="mt-6 rounded-2xl border border-gray-200/80 bg-white p-4 shadow-sm sm:p-6">
+      <div className="mb-4 flex items-end justify-between gap-4">
+        <h2 className="text-lg font-bold tracking-tight text-gray-900 sm:text-xl">
+          블로그
+        </h2>
+        <Link
+          href="/blog"
+          className="shrink-0 text-sm font-medium text-stone-400 transition hover:text-brand-800"
+        >
+          전체보기 →
+        </Link>
+      </div>
+      <HomeBlogCarousel posts={blogPosts} />
+    </section>
+  );
 
   return (
     <>
@@ -50,10 +71,9 @@ export default async function CourseDetailPage({
         nearbyCourses={toPublicCourses(nearbyCourses)}
         enrichment={enrichment}
         visitKoreaGallery={visitKoreaGallery}
+        blogSlot={blogSlot}
+        regionSlot={<RegionLinks variant="card" className="mt-6" />}
       />
-      <div className="mx-auto max-w-3xl px-4 pb-4 sm:px-6 md:max-w-4xl">
-        <RegionLinks />
-      </div>
     </>
   );
 }

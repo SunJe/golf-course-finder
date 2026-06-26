@@ -33,6 +33,7 @@ export interface CourseContentEnrichment {
   visitKoreaContentId?: string;
   imageSource?: "visitKorea";
   imageAttribution?: "ⓒ한국관광콘텐츠랩";
+  imageMatchConfidence?: "exact" | "high" | "medium" | "low" | "ambiguous";
   confidence: CourseContentConfidence;
   updatedAt: string;
   notes?: string;

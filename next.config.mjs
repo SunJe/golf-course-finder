@@ -6,6 +6,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      {
+        protocol: "http",
+        hostname: "tong.visitkorea.or.kr",
+      },
+      {
+        protocol: "https",
+        hostname: "tong.visitkorea.or.kr",
+      },
     ],
   },
   experimental: {

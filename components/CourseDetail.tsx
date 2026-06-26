@@ -54,7 +54,6 @@ import {
 import HomeResetLink from "@/components/HomeResetLink";
 import CourseMap from "@/components/maps/CourseMap";
 import CourseDetailHeroImage from "@/components/CourseDetailHeroImage";
-import { CourseInternalLinks } from "@/components/CourseInternalLinks";
 import { getCourseSeoImagePath } from "@/lib/seoImages";
 
 const TYPE_STYLES: Record<string, string> = {
@@ -184,6 +183,8 @@ interface CourseDetailProps {
   nearbyCourses?: PublicCourse[];
   enrichment?: CourseContentEnrichment | null;
   visitKoreaGallery?: CourseVisitKoreaImageSet | null;
+  blogSlot?: React.ReactNode;
+  regionSlot?: React.ReactNode;
 }
 
 export default function CourseDetail({
@@ -191,6 +192,8 @@ export default function CourseDetail({
   nearbyCourses = [],
   enrichment = null,
   visitKoreaGallery = null,
+  blogSlot = null,
+  regionSlot = null,
 }: CourseDetailProps) {
   const router = useRouter();
   const [hoveredNearbyId, setHoveredNearbyId] = useState<string | null>(null);
@@ -295,15 +298,7 @@ export default function CourseDetail({
         </div>
       </header>
 
-      <CourseInternalLinks course={course} />
-
-      <p className="mt-4 rounded-xl border border-amber-100 bg-amber-50/80 px-4 py-3 text-sm leading-relaxed text-amber-950 shadow-sm sm:px-5">
-        GolfMap Korea에 표시되는 주소, 전화번호, 홈페이지, 참고 요금은 수집·정리
-        기준이며 실제와 다를 수 있습니다. 예약·내장 전에는 골프장 공식 채널에서
-        최신 정보를 확인해 주세요.
-      </p>
-
-      <p className="mt-3 rounded-xl border border-gray-100 bg-white/90 px-4 py-3 text-sm leading-relaxed text-gray-600 shadow-sm sm:px-5">
+      <p className="mt-4 rounded-xl border border-gray-100 bg-white/90 px-4 py-3 text-sm leading-relaxed text-gray-600 shadow-sm sm:px-5">
         {seoIntro}
       </p>
 
@@ -618,6 +613,16 @@ export default function CourseDetail({
           전국 골프장 지도로 돌아가기
         </HomeResetLink>
       </div>
+
+      {blogSlot}
+
+      <p className="mt-6 rounded-xl border border-amber-100 bg-amber-50/80 px-4 py-3 text-sm leading-relaxed text-amber-950 shadow-sm sm:px-5">
+        GolfMap Korea에 표시되는 주소, 전화번호, 홈페이지, 참고 요금은 수집·정리
+        기준이며 실제와 다를 수 있습니다. 예약·내장 전에는 골프장 공식 채널에서
+        최신 정보를 확인해 주세요.
+      </p>
+
+      {regionSlot}
     </div>
   );
 }

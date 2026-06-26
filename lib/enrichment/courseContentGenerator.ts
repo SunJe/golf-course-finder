@@ -179,18 +179,20 @@ function buildFallbackFeatureSummary(course: Course): string {
 
 function buildFallbackRecommendationReasons(course: Course): string[] {
   const regionLabel = formatRegionLabel(course) || "해당 지역";
-  const reasons = [`${regionLabel}에서 확인할 수 있는 골프장`];
+  const reasons = [`${regionLabel}에서 라운드 후보를 비교할 때 참고할 수 있는 골프장`];
 
-  if (course.holeCount) {
-    reasons.push(`${course.holeCount}홀 규모 확인 가능`);
+  if (course.holeCount === 9) {
+    reasons.push("9홀 규모의 코스로 짧은 라운드를 계획하는 분들이 참고할 수 있습니다");
+  } else if (course.holeCount) {
+    reasons.push(`${course.holeCount}홀 규모 정보를 확인할 수 있습니다`);
   }
 
   if (course.courseType?.trim()) {
-    reasons.push(`${course.courseType} 운영 형태 확인 가능`);
+    reasons.push(`${course.courseType} 운영 형태로 등록된 골프장입니다`);
   }
 
-  reasons.push("주소와 연락처를 확인한 뒤 방문 계획 수립 가능");
-  reasons.push("주변 골프장과 홀수·운영 형태 비교 가능");
+  reasons.push("방문 전 운영 시간과 예약 가능 여부를 공식 채널에서 확인하는 것이 좋습니다");
+  reasons.push("주변 골프장과 함께 비교보면 선택이 쉬워집니다");
 
   return uniqueStrings(reasons).slice(0, 4);
 }
@@ -215,6 +217,36 @@ function adjustReasonsForConfidence(
   if (confidence === "high") return sanitized.slice(0, 4);
   if (confidence === "medium") return sanitized.slice(0, 3);
   return sanitized.slice(0, 2);
+}
+
+export function refreshConservativeEnrichmentCopy(
+  course: Course,
+  item: CourseContentEnrichment,
+): CourseContentEnrichment {
+  const cleaned = cleanupCourseContentEnrichment(item);
+  const blogSourced = cleaned.sourceTypes.includes("blog");
+
+  if (!blogSourced && cleaned.confidence === "low") {
+    return {
+      ...cleaned,
+      recommendationReasons: adjustReasonsForConfidence(
+        buildFallbackRecommendationReasons(course),
+        "low",
+      ),
+    };
+  }
+
+  if (!blogSourced && cleaned.confidence === "medium") {
+    return {
+      ...cleaned,
+      recommendationReasons: adjustReasonsForConfidence(
+        buildFallbackRecommendationReasons(course),
+        "medium",
+      ),
+    };
+  }
+
+  return cleaned;
 }
 
 export function cleanupCourseContentEnrichment(

@@ -42,6 +42,7 @@ import {
   writeSummaryCsv,
 } from "./lib/teescanner/batchIo";
 import { buildAllSummaries, buildManualReviewRows } from "./lib/teescanner/summary";
+import { getDefaultTeescannerCrawlDates } from "./lib/teescanner/dateSampling";
 import { rowsToCsv } from "./lib/csvUtils";
 import { getProjectRoot } from "./lib/sourceRegistry";
 
@@ -236,7 +237,8 @@ function buildManualDailyRow(
   priceMax: string,
   manual: ManualPriceInput,
 ): DailyResultRow {
-  const roundDay = dayType === "weekday" ? "2026-06-29" : "2026-06-27";
+  const crawlDates = getDefaultTeescannerCrawlDates();
+  const roundDay = dayType === "weekday" ? crawlDates.weekdayDay : crawlDates.weekendDay;
   const row = emptyDailyRow(courseId, courseName);
   row.id = courseId;
   row.name = courseName;

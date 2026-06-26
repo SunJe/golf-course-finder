@@ -25,7 +25,7 @@ import {
   writeManualReviewCsv,
   writeSummaryCsv,
 } from "./lib/teescanner/batchIo";
-import { buildSampledDates, sortSampledDatesAsc } from "./lib/teescanner/dateSampling";
+import { buildSampledDates, getDefaultTeescannerCrawlDates, sortSampledDatesAsc } from "./lib/teescanner/dateSampling";
 import {
   printCollectResult,
   printWindowsRunHints,
@@ -130,10 +130,11 @@ function parseBoolean(value: string | undefined, fallback: boolean): boolean {
 }
 
 function parseArgs(argv: string[]): CliOptions {
+  const defaultDates = getDefaultTeescannerCrawlDates();
   const options: CliOptions = {
-    startDay: "2026-06-29",
-    weekdayDay: "2026-06-29",
-    weekendDay: "2026-06-27",
+    startDay: defaultDates.startDay,
+    weekdayDay: defaultDates.weekdayDay,
+    weekendDay: defaultDates.weekendDay,
     sampleDays: "",
     dateMode: "representative",
     weekdayCount: 1,
@@ -329,6 +330,8 @@ async function main(): Promise<void> {
   console.log("TeeScanner price batch collector");
   appendConsoleLog("=== TeeScanner price batch collector started ===");
   console.log(`startDay: ${options.startDay}`);
+  console.log(`weekdayDay: ${options.weekdayDay}`);
+  console.log(`weekendDay: ${options.weekendDay}`);
   console.log(`dateMode: ${options.dateMode}`);
   if (options.sampleDays) {
     console.log(`sampleDays: ${options.sampleDays}`);

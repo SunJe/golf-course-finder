@@ -40,6 +40,8 @@ export const BLOG_THUMBNAIL_FILE_BY_SLUG: Record<string, string> = {
   "pro-tour-driver-brands-men": "pro-driver-men.png",
   "pro-tour-driver-brands-women": "pro-driver-women.png",
   "beginner-iron-top-5": "beginner-iron.png",
+  "beginner-iron-men": "beginner-iron-men.png",
+  "beginner-iron-women": "beginner-iron-women.png",
   "beginner-golf-essentials-checklist": "golf-essentials.png",
 };
 
@@ -110,6 +112,8 @@ export const BLOG_THUMBNAIL_ALT_BY_SLUG: Record<string, string> = {
   "pro-tour-driver-brands-men": "프로 드라이버 브랜드 남자편",
   "pro-tour-driver-brands-women": "프로 드라이버 브랜드 여자편",
   "beginner-iron-top-5": "초보자용 아이언 추천",
+  "beginner-iron-men": "남자 입문용 아이언 추천 골프채",
+  "beginner-iron-women": "여자 입문용 아이언 추천 여성 골프채",
   "beginner-golf-essentials-checklist": "초보 골퍼 라운드 준비물",
 };
 

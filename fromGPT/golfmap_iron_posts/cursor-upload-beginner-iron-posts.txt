@@ -1,0 +1,88 @@
+Cursor 작업 지시문: GolfMap 블로그 글 2개 추가
+
+목표:
+GolfMap Korea 블로그에 입문용 아이언 추천 글 2개를 추가한다.
+
+추가할 글:
+1. 입문용 아이언 추천 남자편: 국민 골프채 V300부터 일본 아이언까지
+2. 입문용 아이언 추천 여자편: 젝시오, 핑 G Le, 온오프 중 무엇을 고를까
+
+중요:
+- Cursor는 판단하지 말고 아래 원고를 그대로 반영한다.
+- 문장 임의 축약 금지.
+- 제품을 실제 판매 링크로 연결하지 않는다.
+- 특정 쇼핑몰 광고처럼 보이게 하지 않는다.
+- “최고”, “무조건”, “가장 좋다” 같은 과장 표현을 추가하지 않는다.
+- 본문 이미지는 생성 이미지 파일만 사용하고, 실제 브랜드 로고 이미지는 사용하지 않는다.
+- 이미지에 로고/텍스트가 없으므로 저작권 리스크 낮은 블로그용 대표 이미지로 사용한다.
+
+파일 저장 위치:
+public/promo-assets/blog/source/
+
+이미지 파일명 매핑:
+- beginner-iron-men.png
+- beginner-iron-men-fitting.png
+- beginner-iron-women.png
+- beginner-iron-women-flatlay.png
+
+이미지 원본 경로:
+- /mnt/data/ghostwriter_images/generated/wide_outdoor_golf_driving_range_scene_in_bright_da_1_batch_1.png → beginner-iron-men.png
+- /mnt/data/ghostwriter_images/generated/a_clean_well_lit_indoor_indoor_like_golf_fitting_2_batch_2.png → beginner-iron-men-fitting.png
+- /mnt/data/ghostwriter_images/generated/bright_outdoor_golf_practice_scene_at_a_driving_ra_3_batch_3.png → beginner-iron-women.png
+- /mnt/data/ghostwriter_images/generated/a_clean_softly_lit_product_still_life_scene_on_a_4_batch_4.png → beginner-iron-women-flatlay.png
+
+작업 순서:
+1. public/promo-assets/blog/source 폴더에 위 이미지 4개를 복사한다.
+2. 필요한 경우 1:1 이미지는 1024x1024, 4:3 이미지는 적절한 웹 크기로 최적화한다.
+3. lib/blogPosts.ts 또는 현재 블로그 데이터 파일에 글 2개를 추가한다.
+4. slug는 아래로 한다.
+   - beginner-iron-men
+   - beginner-iron-women
+5. 카테고리는 골프용품 또는 장비 가이드로 지정한다.
+6. 날짜는 현재 프로젝트 기준 날짜 형식에 맞춘다.
+7. excerpt/meta description은 원고 상단의 권장 문구를 사용한다.
+8. 본문 heading 구조를 지킨다.
+   - h1은 페이지 제목 하나
+   - 본문 주요 섹션은 h2
+   - 각 제품명은 h3
+9. 이미지 삽입 위치:
+   남자편:
+   - 대표 이미지: hero/thumbnail/ogImage에 /promo-assets/blog/source/beginner-iron-men.png
+   - 본문 이미지: “새 제품 vs 중고, 입문자는 무엇이 나을까?” 섹션 직전에 /promo-assets/blog/source/beginner-iron-men-fitting.png
+   여자편:
+   - 대표 이미지: hero/thumbnail/ogImage에 /promo-assets/blog/source/beginner-iron-women.png
+   - 본문 이미지: “여성 입문자는 예쁜 채보다 나에게 맞는 무게가 먼저” 섹션 직전에 /promo-assets/blog/source/beginner-iron-women-flatlay.png
+10. alt 텍스트:
+   - 남자 대표: 남자 입문용 아이언 추천 골프채
+   - 남자 본문: 남자 입문용 아이언 비교와 중고 골프채 선택
+   - 여자 대표: 여자 입문용 아이언 추천 여성 골프채
+   - 여자 본문: 여성 입문용 아이언과 골프 용품 비교
+11. 글 하단에 관련 글 섹션을 넣는다.
+   실제 존재하는 slug만 연결한다.
+   후보:
+   - beginner-golf-ball
+   - value-driver
+   - golf-essentials
+   - seoul-beginner-golf
+12. SEO metadata:
+   남자편 title:
+   입문용 아이언 추천 남자편: 국민 골프채 V300부터 일본 아이언까지
+   남자편 description:
+   골프 입문 남성을 위한 아이언 추천 가이드입니다. 브리지스톤 V300, 미즈노 JPX, 야마하 인프레스 UD+2의 장단점과 중고 구매 팁을 정리했습니다.
+
+   여자편 title:
+   입문용 아이언 추천 여자편: 젝시오, 핑 G Le, 온오프 중 무엇을 고를까
+   여자편 description:
+   여성 골프 입문자를 위한 아이언 추천 가이드입니다. 젝시오 레이디스, 핑 G Le, 온오프 레이디 아이언의 장단점과 중고 구매 팁을 정리했습니다.
+13. sitemap에 자동 포함되는지 확인한다.
+14. npm run build 실행.
+15. build 에러가 있으면 수정한다.
+16. 마지막에 수정 파일 목록, 추가된 글 URL, 이미지 적용 여부를 보고한다.
+
+검수 포인트:
+- 브랜드 로고 이미지 사용 없음
+- 제품 판매 링크 없음
+- 쇼핑몰 광고처럼 보이지 않음
+- 남자편/여자편이 서로 중복되지 않음
+- 본문 내 “중고 구매 팁”이 포함됨
+- SEO title/description이 자연스러움

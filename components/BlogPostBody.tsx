@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import type { BlogPost, BlogPostSection } from "@/lib/blogPosts";
@@ -153,6 +154,18 @@ export function BlogPostBody({ post }: { post: BlogPost }) {
       {post.sections.map((section) => (
 
         <section key={section.heading} className="mt-10 first:mt-0">
+
+          {section.image ? (
+            <div className="relative mb-6 aspect-[4/3] overflow-hidden rounded-2xl border border-stone-200/80 bg-stone-100">
+              <Image
+                src={section.image}
+                alt={section.imageAlt ?? ""}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 900px"
+              />
+            </div>
+          ) : null}
 
           <h2 className="text-xl font-bold text-stone-900">{section.heading}</h2>
 

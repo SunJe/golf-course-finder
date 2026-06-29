@@ -28,10 +28,10 @@ No text, no logo, no watermark.
 `;
 
 export const BLOG_THUMBNAIL_FILE_BY_SLUG: Record<string, string> = {
-  "seoul-beginner-golf-best-5": "seoul-beginner-golf.png",
+  "seoul-beginner-golf-best-5": "seoul-beginner-golf-alt.png",
   "seoul-par3-golf-top-5": "seoul-par3-golf.png",
-  "seoul-par3-practice-range-top-10": "seoul-par3-golf.png",
-  "seoul-nine-hole-beginner-golf-top-5": "seoul-par3-golf.png",
+  "seoul-par3-practice-range-top-10": "seoul-par3-alt.png",
+  "seoul-nine-hole-beginner-golf-top-5": "seoul-9hole-alt.png",
   "seoul-budget-golf-best-5": "seoul-budget-golf.png",
   "incheon-golf-top-5": "incheon-golf-top5.png",
   "gapyeong-golf-best-6": "gapyeong-golf.png",
@@ -46,6 +46,8 @@ export const BLOG_THUMBNAIL_FILE_BY_SLUG: Record<string, string> = {
   "first-golf-round-checklist": "first-golf-round-checklist.png",
   "beginner-driver-men": "beginner-driver-men.png",
   "beginner-driver-women": "beginner-driver-women.png",
+  "driver-loft-shaft-guide-men": "driver-loft-men-alt.png",
+  "driver-loft-shaft-guide-women": "driver-loft-women-alt.png",
 };
 
 export const CANONICAL_BLOG_THUMBNAIL_FILES = Object.values(
@@ -121,6 +123,8 @@ export const BLOG_THUMBNAIL_ALT_BY_SLUG: Record<string, string> = {
   "first-golf-round-checklist": "첫 골프장 준비물 체크리스트",
   "beginner-driver-men": "남자 입문용 드라이버 추천",
   "beginner-driver-women": "여자 입문용 드라이버 추천",
+  "driver-loft-shaft-guide-men": "남자 드라이버 로프트 샤프트 선택 가이드",
+  "driver-loft-shaft-guide-women": "여자 드라이버 로프트 샤프트 선택 가이드",
 };
 
 export function blogThumbnailPath(slug: string): string {

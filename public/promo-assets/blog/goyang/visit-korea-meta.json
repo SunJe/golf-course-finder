@@ -15,6 +15,13 @@
     "overview": "80타석의 골프레인지에서 쾌적하고 편안하게 연습할 수 있도록 잘 정비된 시설을 갖추고 있다. 자연 환경과 정교한 조화를 이루며 섬세한 기량이 요구되는 코스와 스케일이 크고 도전 의욕을 일으키는 홀로 설계되어 있다. 또한 품격과 세련된 분위기를 느낄 수 있는 레스토랑이 있으며, 지하 500m에서 끌어올린 청정 천연암반수를 사용하는 사우나도 갖추고 있다. 사우나에선 식용수 수질검사 기준을 통과한 지하수를 사용한다.",
     "homepage": "https://www.goyangcc.com/",
     "tel": "",
+    "imagePaths": [
+      "/promo-assets/blog/goyang/goyang-cc.jpg",
+      "/promo-assets/blog/goyang/goyang-cc-2.jpg",
+      "/promo-assets/blog/goyang/goyang-cc-3.jpg",
+      "/promo-assets/blog/goyang/goyang-cc-4.jpg",
+      "/promo-assets/blog/goyang/goyang-cc-5.jpg"
+    ],
     "imagePath": "/promo-assets/blog/goyang/goyang-cc.jpg",
     "imagePath2": "/promo-assets/blog/goyang/goyang-cc-2.jpg",
     "imageCredit": "출처 : ⓒ한국관광콘텐츠랩",
@@ -35,6 +42,13 @@
     "overview": "한양파인컨트리클럽은 서울컨트리클럽의 회원들이 건설한 퍼블릭 골프장으로 경기도 고양시에 위치한 9홀 퍼블릭 골프장이다. 전장길이가 3,129yd인 코스는 병풍처럼 펼쳐진 북한산을 전경으로 원앙이 알을 품고 있는 지형지세이며, 전체적으로 부드러우면서 회원제 골프장보다 흥미롭고 신선하며 아기자기하고 전략적 묘미를 가미하여 다양한 플레이를 즐길 수 있도록 조성되었다.",
     "homepage": "https://www.hypine.co.kr/index.asp",
     "tel": "",
+    "imagePaths": [
+      "/promo-assets/blog/goyang/hanyang-pine.jpg",
+      "/promo-assets/blog/goyang/hanyang-pine-2.jpg",
+      "/promo-assets/blog/goyang/hanyang-pine-3.jpg",
+      "/promo-assets/blog/goyang/hanyang-pine-4.jpg",
+      "/promo-assets/blog/goyang/hanyang-pine-5.jpg"
+    ],
     "imagePath": "/promo-assets/blog/goyang/hanyang-pine.jpg",
     "imagePath2": "/promo-assets/blog/goyang/hanyang-pine-2.jpg",
     "imageCredit": "출처 : ⓒ한국관광콘텐츠랩",
@@ -56,6 +70,13 @@
     "overview": "스프링힐스는 풍부한 자연 속에서의 새로운 만남, 즐거운 발견 그리고 창조적 휴식의 기쁨을 나눌 수 있는 곳이다. 수도권과 인접한 숲 속에서 편안하고 활력이 넘치는 골프를 즐길 수 있다. 112타석의 최장 300m의 최첨단 시설을 갖춘 국내 최대 규모의 넓고 쾌적한 골프레인지가 있다. 노블레스 디자인으로 건축된 클럽하우스는 격조 높은 휴식과 사교의 장이 된다.",
     "homepage": "http://www.springhills.co.kr",
     "tel": "",
+    "imagePaths": [
+      "/promo-assets/blog/goyang/spring-hills.jpg",
+      "/promo-assets/blog/goyang/spring-hills-2.jpg",
+      "/promo-assets/blog/goyang/spring-hills-3.jpg",
+      "/promo-assets/blog/goyang/spring-hills-4.jpg",
+      "/promo-assets/blog/goyang/spring-hills-5.jpg"
+    ],
     "imagePath": "/promo-assets/blog/goyang/spring-hills.jpg",
     "imagePath2": "/promo-assets/blog/goyang/spring-hills-2.jpg",
     "imageCredit": "출처 : ⓒ한국관광콘텐츠랩",
@@ -77,6 +98,7 @@
     "overview": "123골프클럽은 한국 최초의 퍼블릭 골프장으로 반세기의 역사와 전통을 자랑하는 6홀 골프장이다. 나지막한 응봉산 양지바른 자락에 아담하게 위치하여 들어오는 입구에서부터 봄이면 개나리, 진달래, 벚꽃이, 여름이면 아카시아 향기, 가을이면 온통 불을 놓은 듯한 단풍이, 겨울이면 하얀 눈꽃이 절경을 이루어 뚜렷한 사계절을 느낄 수 있는 아름다운 경관을 자랑한다.",
     "homepage": "http://www.123golfclub.co.kr",
     "tel": "",
+    "imagePaths": [],
     "imageCount": 0
   },
   {
@@ -95,6 +117,7 @@
     "overview": "경기도 고양시 벽제의 수려한 자연경관 속에 위치한 올림픽 C.C는 강북권에서 15~30분 이내 접근이 가능하고 일산권에서도 20분 이내에 도착하는 도심 근거리 골프장이며 전 홀에 라이트 시설을 완비해 출/퇴근 골프를 가능하게 한 선진형 골프장이다. 국제적 규모에 맞게 설계된 코스를 보유한 올림픽 C.C는 국내 최고의 퍼블릭 골프장을 지향하고 있다.",
     "homepage": "http://www.olympicgolf.co.kr",
     "tel": "",
+    "imagePaths": [],
     "imageCount": 0
   }
 ]

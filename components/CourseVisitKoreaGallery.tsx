@@ -28,7 +28,7 @@ export function CourseVisitKoreaGallery({
   regionLabel,
   gallery,
 }: CourseVisitKoreaGalleryProps) {
-  const images = gallery.images.slice(0, 4);
+  const images = gallery.images;
   const scrollRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const pauseRef = useRef(false);

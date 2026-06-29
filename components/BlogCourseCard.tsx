@@ -1,8 +1,7 @@
 import Link from "next/link";
-import Image from "next/image";
 import { MapPin, Phone } from "lucide-react";
 import type { BlogPostSection } from "@/lib/blogPosts";
-import { VISIT_KOREA_IMAGE_CREDIT } from "@/lib/visitKoreaAttribution";
+import { BlogCourseImageGallery } from "@/components/BlogCourseImageGallery";
 import {
   getBlogCourseKakaoMapUrl,
   getBlogCourseNaverMapUrl,
@@ -15,8 +14,6 @@ import { formatHoleCount } from "@/lib/courseDisplay";
 type BlogCourseItem = NonNullable<BlogPostSection["items"]>[number] & {
   relatedCourseId?: string;
 };
-
-const IMAGE_HEIGHT_CLASS = "h-[220px] sm:h-[240px] md:h-[260px]";
 
 const PRIMARY_BUTTON_CLASS =
   "inline-flex min-h-[44px] w-full items-center justify-center gap-1.5 rounded-lg bg-emerald-700 px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-emerald-800";
@@ -34,22 +31,17 @@ const KAKAO_MAP_BUTTON_CLASS = `${BUTTON_BASE} border-[#FEE500] bg-[#FEE500] tex
 
 const NAVER_SEARCH_BUTTON_CLASS = `${BUTTON_BASE} border-emerald-200 bg-emerald-50 text-emerald-800 hover:border-emerald-300 hover:bg-emerald-100`;
 
-function buildImageAlt(courseName: string, regionLabel?: string): string {
-  const region = regionLabel?.trim();
-  if (region) return `${courseName} ${region} 골프장 사진`;
-  return `${courseName} 골프장 사진`;
-}
-
 interface BlogCourseCardProps {
   item: BlogCourseItem;
   rank: number;
 }
 
 export function BlogCourseCard({ item, rank }: BlogCourseCardProps) {
-  const primaryImage = item.image;
-  const secondaryImage = item.image2;
-  const hasTwoImages = Boolean(primaryImage && secondaryImage);
-  const hasAnyImage = Boolean(primaryImage);
+  const galleryImages =
+    item.images && item.images.length > 0
+      ? item.images
+      : [item.image, item.image2].filter((src): src is string => Boolean(src));
+  const hasAnyImage = galleryImages.length > 0;
   const regionLabel = item.regionLabel;
   const golfMapHref = item.relatedCourseId
     ? `/courses/${item.relatedCourseId}`
@@ -138,54 +130,15 @@ export function BlogCourseCard({ item, rank }: BlogCourseCardProps) {
         )}
       </div>
 
-      {/* 4. API 이미지 */}
+      {/* 4. API 이미지 (가로 스크롤) */}
       {hasAnyImage ? (
-        <>
-          <div
-            className={
-              hasTwoImages
-                ? "grid grid-cols-1 gap-1 border-y border-stone-100 bg-stone-100 sm:grid-cols-2"
-                : "border-y border-stone-100 bg-stone-100"
-            }
-          >
-            <div
-              className={`relative overflow-hidden bg-stone-100 ${IMAGE_HEIGHT_CLASS}`}
-            >
-              <Image
-                src={primaryImage!}
-                alt={buildImageAlt(item.title, regionLabel)}
-                fill
-                className="object-cover"
-                sizes={
-                  hasTwoImages
-                    ? "(max-width: 640px) 100vw, 450px"
-                    : "(max-width: 768px) 100vw, 900px"
-                }
-              />
-            </div>
-            {hasTwoImages && secondaryImage ? (
-              <div
-                className={`relative overflow-hidden bg-stone-100 ${IMAGE_HEIGHT_CLASS}`}
-              >
-                <Image
-                  src={secondaryImage}
-                  alt={buildImageAlt(item.title, regionLabel)}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 640px) 100vw, 450px"
-                />
-              </div>
-            ) : null}
-          </div>
-          <p className="border-b border-stone-100 px-4 py-2 text-xs text-stone-500 sm:px-5">
-            {item.imageCredit ?? VISIT_KOREA_IMAGE_CREDIT}
-          </p>
-        </>
-      ) : (
-        <p className="border-y border-stone-100 bg-stone-50 px-4 py-6 text-center text-sm text-stone-500 sm:px-5">
-          등록된 사진이 없습니다
-        </p>
-      )}
+        <BlogCourseImageGallery
+          images={galleryImages}
+          courseName={item.title}
+          regionLabel={regionLabel}
+          imageCredit={item.imageCredit}
+        />
+      ) : null}
 
       {/* 5–6. 설명 + 추천 이유 */}
       <div className="px-4 py-4 sm:px-5 sm:py-5">

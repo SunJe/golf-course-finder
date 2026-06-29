@@ -14,6 +14,8 @@ function itemHref(item: NonNullable<BlogPostSection["items"]>[number]): string |
 
   if (item.relatedCourseId) return `/courses/${item.relatedCourseId}`;
 
+  if (item.relatedPostSlug) return `/blog/${item.relatedPostSlug}`;
+
   if (item.relatedCollectionSlug) return `/collections/${item.relatedCollectionSlug}`;
 
   if (item.relatedRegionSlug) return `/regions/${item.relatedRegionSlug}`;

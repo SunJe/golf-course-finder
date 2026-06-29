@@ -5,6 +5,10 @@
 import fs from "node:fs";
 import path from "node:path";
 import { getProjectRoot } from "./lib/sourceRegistry";
+import {
+  collectDetailImageUrls,
+  saveCourseImageSet,
+} from "./lib/visitKoreaBlogImageDownload";
 
 const ROOT = getProjectRoot();
 const OUT_DIR = path.join(ROOT, "public/promo-assets/blog/goyang");
@@ -61,7 +65,6 @@ const GOYANG_GOLF_TARGETS: Target[] = [
     searchKeywords: ["123골프클럽", "123골프", "1·2·3"],
     addressHints: ["고양", "덕양", "통일로"],
     titleMustMatch: /123|1·2·3/i,
-    skipImageDownload: true,
   },
   {
     key: "olympic",
@@ -71,7 +74,6 @@ const GOYANG_GOLF_TARGETS: Target[] = [
     searchKeywords: ["올림픽컨트리클럽", "올림픽 골프장", "올림픽CC"],
     addressHints: ["고양", "덕양", "벽제", "혜음"],
     titleMustMatch: /올림픽/i,
-    skipImageDownload: true,
   },
 ];
 
@@ -274,6 +276,7 @@ async function fetchDetail(contentId: string, contentTypeId: string) {
     tel?: string;
     addr1?: string;
     firstimage?: string;
+    firstimage2?: string;
   } | undefined;
 
   const imageItems = asArray(
@@ -281,30 +284,16 @@ async function fetchDetail(contentId: string, contentTypeId: string) {
       .response?.body?.items?.item,
   ) as Array<{ originimgurl?: string; smallimageurl?: string }>;
 
-  const imageUrls: string[] = [];
-  for (const img of imageItems) {
-    const url = img.originimgurl ?? img.smallimageurl;
-    if (url && !imageUrls.includes(url)) imageUrls.push(url);
-  }
-  if (commonItem?.firstimage && !imageUrls.includes(commonItem.firstimage)) {
-    imageUrls.unshift(commonItem.firstimage);
-  }
+  const imageUrls = collectDetailImageUrls(commonItem, imageItems);
 
   return {
     overview: stripHtml(commonItem?.overview),
     homepage: stripHtml(commonItem?.homepage),
     tel: commonItem?.tel,
     addr1: commonItem?.addr1,
-    imageUrls: imageUrls.slice(0, 2),
+    imageUrls,
     imageCount: imageItems.length,
   };
-}
-
-async function downloadImage(url: string, filePath: string): Promise<void> {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`Image download failed ${res.status}`);
-  const buf = Buffer.from(await res.arrayBuffer());
-  fs.writeFileSync(filePath, buf);
 }
 
 async function main(): Promise<void> {
@@ -329,28 +318,26 @@ async function main(): Promise<void> {
     console.log(`  contentId ${found.contentid} — ${found.title}`);
 
     const detail = await fetchDetail(found.contentid, found.contenttypeid);
-    const imagePath = `/promo-assets/blog/goyang/${target.key}.jpg`;
-    const imagePath2 = `/promo-assets/blog/goyang/${target.key}-2.jpg`;
-    const localPath = path.join(OUT_DIR, `${target.key}.jpg`);
-    const localPath2 = path.join(OUT_DIR, `${target.key}-2.jpg`);
+    const publicBase = "/promo-assets/blog/goyang";
 
-    let savedImagePath: string | undefined;
-    let savedImagePath2: string | undefined;
+    let savedImages: Awaited<ReturnType<typeof saveCourseImageSet>> = {
+      imagePaths: [],
+    };
 
     if (!target.skipImageDownload) {
-      if (detail.imageUrls[0]) {
-        await downloadImage(detail.imageUrls[0], localPath);
-        savedImagePath = imagePath;
-        console.log(`  image 1 → ${path.relative(ROOT, localPath)}`);
+      if (detail.imageUrls.length > 0) {
+        savedImages = await saveCourseImageSet(
+          target.key,
+          OUT_DIR,
+          publicBase,
+          detail.imageUrls,
+        );
+        for (const [index, imagePath] of savedImages.imagePaths.entries()) {
+          console.log(`  image ${index + 1} → ${imagePath}`);
+        }
       } else {
         console.log(`  WARN no image`);
         failed += 1;
-      }
-
-      if (detail.imageUrls[1]) {
-        await downloadImage(detail.imageUrls[1], localPath2);
-        savedImagePath2 = imagePath2;
-        console.log(`  image 2 → ${path.relative(ROOT, localPath2)}`);
       }
     } else {
       console.log(`  skip image download (overview only)`);
@@ -368,9 +355,10 @@ async function main(): Promise<void> {
       overview: detail.overview,
       homepage: detail.homepage,
       tel: detail.tel,
-      imagePath: savedImagePath,
-      imagePath2: savedImagePath2,
-      imageCredit: savedImagePath ? "출처 : ⓒ한국관광콘텐츠랩" : undefined,
+      imagePaths: savedImages.imagePaths,
+      imagePath: savedImages.imagePath,
+      imagePath2: savedImages.imagePath2,
+      imageCredit: savedImages.imagePath ? "출처 : ⓒ한국관광콘텐츠랩" : undefined,
       imageCount: detail.imageCount,
     });
 

@@ -15,6 +15,11 @@
     "overview": "코리아퍼블릭CC는 경기도 용인시 고매동에 위치한 간편한 옷차림으로 즐길 수 있는 수도권 9홀 파36 코스의 골프장이다. 하루의 지친 일과를 푸른 잔디 위 골프라운드로 힐링을 느낄 수 있는 아름다운 골프장이다. 야간 노캐디 라운드가 가능하다. 숙박시설로 100실 규모의 기흥골드훼미리콘도가 있어서 이용에 편리하다.",
     "homepage": "https://www.gakorea.com",
     "tel": "",
+    "imagePaths": [
+      "/promo-assets/blog/near-seoul-nine-hole/korea-public.jpg",
+      "/promo-assets/blog/near-seoul-nine-hole/korea-public-2.jpg",
+      "/promo-assets/blog/near-seoul-nine-hole/korea-public-3.jpg"
+    ],
     "imagePath": "/promo-assets/blog/near-seoul-nine-hole/korea-public.jpg",
     "imagePath2": "/promo-assets/blog/near-seoul-nine-hole/korea-public-2.jpg",
     "imageCredit": "출처 : ⓒ한국관광콘텐츠랩",
@@ -36,6 +41,7 @@
     "overview": "경기도 고양시 벽제의 수려한 자연경관 속에 위치한 올림픽 C.C는 강북권에서 15~30분 이내 접근이 가능하고 일산권에서도 20분 이내에 도착하는 도심 근거리 골프장이며 전 홀에 라이트 시설을 완비해 출/퇴근 골프를 가능하게 한 선진형 골프장이다. 국제적 규모에 맞게 설계된 코스를 보유한 올림픽 C.C는 국내 최고의 퍼블릭 골프장을 지향하고 있다.",
     "homepage": "http://www.olympicgolf.co.kr",
     "tel": "",
+    "imagePaths": [],
     "imageCount": 0
   },
   {
@@ -54,6 +60,12 @@
     "overview": "서울에서 가까운 화성 시청 인근에 자리 잡은 골프 클럽이다. 아담한 9홀 규모에 상대적으로 저렴한 퍼블릭 골프장으로 9홀을 2바퀴 플레이한다. 양쪽으로 나무가 잘 심어져 있어 조경이 아름답고 코스는 각 홀마다 특색 있게 구성되어 있다. 주차장은 여유 있을 만큼 넓고 75타석 규모의 드라이빙 레인지에는 국내 최고 프로들이 참여하는 골프 아카데미가 있다. 도심 속 스트레스를 가까운 곳에서 산림욕 하듯 라운딩 할 수 있어 많은 골퍼들이 찾는 곳이다.",
     "homepage": "http://www.hwaseonggc.com/",
     "tel": "",
+    "imagePaths": [
+      "/promo-assets/blog/near-seoul-nine-hole/hwaseong.jpg",
+      "/promo-assets/blog/near-seoul-nine-hole/hwaseong-2.jpg",
+      "/promo-assets/blog/near-seoul-nine-hole/hwaseong-3.jpg",
+      "/promo-assets/blog/near-seoul-nine-hole/hwaseong-4.jpg"
+    ],
     "imagePath": "/promo-assets/blog/near-seoul-nine-hole/hwaseong.jpg",
     "imagePath2": "/promo-assets/blog/near-seoul-nine-hole/hwaseong-2.jpg",
     "imageCredit": "출처 : ⓒ한국관광콘텐츠랩",
@@ -75,6 +87,7 @@
     "overview": "남양주 오남리에 조용하고 아늑한 자리에 위치한 남양주컨트리클럽은 국내 어느 골프장과도 어깨를 나란히 할 아름다운 코스, 그리고 적정한 난이도와 각 홀의 재미있는 구성, 계절별 꽃나무와 사시사철 푸른 소나무의 기상이 서려 있는 골프장이다. 수려한 천마산 주변에 설립하여 수도권과 접근성이 매우 좋은 근거리에 위치하고 있다.",
     "homepage": "https://www.namyangjucc.co.kr/",
     "tel": "",
+    "imagePaths": [],
     "imageCount": 0
   }
 ]

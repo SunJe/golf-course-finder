@@ -27,7 +27,7 @@ export default function PortalSection({
     <section
       id={id}
       aria-labelledby={id ? `${id}-heading` : undefined}
-      className={`py-12 sm:py-14 ${className}`}
+      className={`py-12 sm:py-14 ${id ? "scroll-mt-20 sm:scroll-mt-24" : ""} ${className}`}
     >
       <SiteContainer variant={containerVariant}>
         <div className="flex items-end justify-between gap-4">

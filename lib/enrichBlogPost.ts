@@ -7,6 +7,7 @@ import { formatPriceRange, hasPrice } from "@/lib/priceFormat";
 import { getNormalizedRegionLabel } from "@/lib/regionUtils";
 import type { Course } from "@/types/course";
 import type { RegionSlug } from "@/lib/regionNormalize";
+import { collectVisitKoreaMetaImagePaths } from "@/lib/visitKoreaMetaImages";
 
 function resolveVisitKoreaMetaPath(post: BlogPost): string {
   const dir = post.visitKoreaMetaDir ?? "incheon";
@@ -34,6 +35,7 @@ type VisitKoreaMetaEntry = {
   apiAddr?: string;
   homepage?: string;
   tel?: string;
+  imagePaths?: string[];
   imagePath?: string;
   imagePath2?: string;
   imageCount?: number;
@@ -116,14 +118,8 @@ function formatOperatingInfo(course: Course): string | undefined {
 }
 
 /** Visit Korea API에서 저장한 이미지만 사용 (local thumbnail·SEO 이미지 금지) */
-function resolveVisitKoreaImages(
-  meta: VisitKoreaMetaEntry | undefined,
-): { primary?: string; secondary?: string } {
-  if (!meta) return {};
-  return {
-    primary: meta.imagePath,
-    secondary: meta.imagePath2,
-  };
+function resolveVisitKoreaImages(meta: VisitKoreaMetaEntry | undefined): string[] {
+  return collectVisitKoreaMetaImagePaths(meta);
 }
 
 function enrichCourseItem(
@@ -138,10 +134,10 @@ function enrichCourseItem(
     : undefined;
 
   if (!item.relatedCourseId && !meta && !item.address) return item;
-  const { primary, secondary } = resolveVisitKoreaImages(meta);
+  const images = resolveVisitKoreaImages(meta);
 
   let description = item.description;
-  if (meta?.overview?.trim() && !primary && !secondary) {
+  if (meta?.overview?.trim() && images.length === 0) {
     const overview = meta.overview.trim();
     if (!description.includes(overview.slice(0, 48))) {
       description = `${description} ${overview}`.trim();
@@ -171,8 +167,9 @@ function enrichCourseItem(
   return {
     ...item,
     description,
-    image: primary,
-    image2: secondary,
+    images: images.length > 0 ? images : undefined,
+    image: images[0],
+    image2: images[1],
     address: address || undefined,
     phone: phone || undefined,
     homepage: homepage || undefined,

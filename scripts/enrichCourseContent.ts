@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { collectVisitKoreaMetaImagePaths } from "../lib/visitKoreaMetaImages";
 import type { Course, CourseType } from "@/types/course";
 import {
   COURSE_CONTENT_ENRICHMENT_CHECKPOINT_PATH,
@@ -164,6 +165,8 @@ type VisitKoreaMetaEntry = {
   homepage?: string;
   apiAddr?: string;
   imagePath?: string;
+  imagePaths?: string[];
+  imagePath?: string;
   imagePath2?: string;
   imageCredit?: string;
 };
@@ -194,10 +197,7 @@ function loadVisitKoreaCourseMeta(): Map<string, VisitKoreaCourseMeta> {
 
     for (const entry of entries) {
       if (!entry.courseId) continue;
-      const images = [entry.imagePath, entry.imagePath2]
-        .filter((image): image is string => Boolean(image?.trim()))
-        .filter((image) => !image.includes("/promo-assets/blog/source/"))
-        .slice(0, 4);
+      const images = collectVisitKoreaMetaImagePaths(entry);
 
       if (images.length === 0 && !entry.contentId) continue;
 

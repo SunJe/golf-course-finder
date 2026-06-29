@@ -61,6 +61,8 @@
     "merge:teescanner-prices": "tsx scripts/mergeTeescannerPricesIntoCourseEnrichment.ts",
     "report:teescanner-price-status": "tsx scripts/reportTeescannerPriceStatus.ts",
     "build:teescanner-price-review-page": "tsx scripts/buildTeescannerPriceReviewPage.ts",
+    "build:teescanner-price-review-page-from-301": "tsx scripts/buildTeescannerPriceReviewPage.ts --min-row 301",
+    "build:teescanner-price-review-page-remaining": "tsx scripts/buildTeescannerPriceReviewPage.ts --min-row 301 --exclude-decided",
     "apply:teescanner-review-decisions": "tsx scripts/applyTeescannerReviewDecisions.ts",
     "apply:course-enrichment-supabase": "tsx scripts/applyCourseEnrichmentToSupabase.ts",
     "analyze:difficulty": "tsx scripts/analyzeDifficultyValues.ts",

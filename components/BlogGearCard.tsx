@@ -53,13 +53,13 @@ export function BlogGearCard({ item, rank }: BlogGearCardProps) {
         </p>
 
         {pros.length > 0 ? (
-          <div className="mt-5 rounded-xl border border-emerald-100 bg-emerald-50 p-4">
+          <div className="mt-5 rounded-xl border border-emerald-100 bg-emerald-50/70 p-4">
             <h4 className="text-sm font-bold text-emerald-800">장점</h4>
             <ul className="mt-3 space-y-2 text-sm text-stone-700">
               {pros.map((reason) => (
                 <li key={reason} className="flex gap-2">
-                  <span className="shrink-0 text-emerald-600" aria-hidden>
-                    +
+                  <span className="mt-0.5 shrink-0 text-xs leading-5" aria-hidden>
+                    ✅
                   </span>
                   <span>{reason}</span>
                 </li>
@@ -69,13 +69,13 @@ export function BlogGearCard({ item, rank }: BlogGearCardProps) {
         ) : null}
 
         {cons.length > 0 ? (
-          <div className="mt-4 rounded-xl border border-amber-100 bg-amber-50/80 p-4">
-            <h4 className="text-sm font-bold text-amber-900">단점·주의점</h4>
+          <div className="mt-4 rounded-xl border border-amber-100 bg-amber-50/70 p-4">
+            <h4 className="text-sm font-bold text-amber-900">주의할 점</h4>
             <ul className="mt-3 space-y-2 text-sm text-stone-700">
               {cons.map((point) => (
                 <li key={point} className="flex gap-2">
-                  <span className="shrink-0 text-amber-700" aria-hidden>
-                    −
+                  <span className="mt-0.5 shrink-0 text-xs leading-5" aria-hidden>
+                    ⚠️
                   </span>
                   <span>{point}</span>
                 </li>

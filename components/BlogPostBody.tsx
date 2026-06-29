@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -151,9 +152,11 @@ export function BlogPostBody({ post }: { post: BlogPost }) {
 
     <div className="w-full max-w-none">
 
-      {post.sections.map((section) => (
+      {post.sections.map((section, sectionIndex) => (
 
-        <section key={section.heading} className="mt-10 first:mt-0">
+        <Fragment key={section.heading}>
+
+        <section className="mt-10 first:mt-0">
 
           {section.image ? (
             <div className="relative mb-6 aspect-[4/3] overflow-hidden rounded-2xl border border-stone-200/80 bg-stone-100">
@@ -193,6 +196,50 @@ export function BlogPostBody({ post }: { post: BlogPost }) {
 
           )}
 
+          {section.table && (
+            <div className="mt-5 overflow-x-auto">
+              <table className="w-full min-w-[560px] border-collapse text-sm">
+                {section.table.caption ? (
+                  <caption className="sr-only">{section.table.caption}</caption>
+                ) : null}
+                <thead>
+                  <tr className="border-b-2 border-stone-200 bg-stone-50 text-left">
+                    {section.table.columns.map((col) => (
+                      <th
+                        key={col}
+                        scope="col"
+                        className="px-3 py-2.5 font-bold text-stone-800"
+                      >
+                        {col}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {section.table.rows.map((row) => (
+                    <tr
+                      key={row[0]}
+                      className="border-b border-stone-100 align-top"
+                    >
+                      {row.map((cell, cellIndex) => (
+                        <td
+                          key={`${row[0]}-${cellIndex}`}
+                          className={
+                            cellIndex === 0
+                              ? "px-3 py-2.5 font-semibold text-stone-900"
+                              : "px-3 py-2.5 text-stone-700"
+                          }
+                        >
+                          {cell}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
           {section.items && section.items.length > 0 && (
 
             <ol className="mt-4 list-none space-y-4 p-0">
@@ -224,6 +271,44 @@ export function BlogPostBody({ post }: { post: BlogPost }) {
           )}
 
         </section>
+
+        {sectionIndex === 0 && post.quickConclusion ? (
+          <aside className="mt-8 rounded-2xl border border-brand-100 bg-brand-50/60 p-5 sm:p-6">
+            <h2 className="text-base font-bold text-brand-900 sm:text-lg">
+              {post.quickConclusion.title}
+            </h2>
+            <ul className="mt-3 space-y-2">
+              {post.quickConclusion.items.map((entry) => {
+                const separatorIndex = entry.indexOf(": ");
+                const hasLabel = separatorIndex > -1;
+                const label = hasLabel
+                  ? entry.slice(0, separatorIndex)
+                  : entry;
+                const value = hasLabel ? entry.slice(separatorIndex + 2) : "";
+                return (
+                  <li
+                    key={entry}
+                    className="flex gap-2 text-sm leading-relaxed text-stone-700"
+                  >
+                    <span
+                      className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500"
+                      aria-hidden
+                    />
+                    <span>
+                      <span className="font-semibold text-stone-900">
+                        {label}
+                        {hasLabel ? ":" : ""}
+                      </span>
+                      {value ? ` ${value}` : ""}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          </aside>
+        ) : null}
+
+        </Fragment>
 
       ))}
 

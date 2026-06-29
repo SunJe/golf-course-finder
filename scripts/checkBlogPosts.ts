@@ -25,6 +25,9 @@ const REQUIRED_SLUGS = [
   "beginner-iron-men",
   "beginner-iron-women",
   "beginner-golf-essentials-checklist",
+  "first-golf-round-checklist",
+  "beginner-driver-men",
+  "beginner-driver-women",
 ] as const;
 
 const CATEGORY_COUNTS: Record<BlogPostCategory, number> = {
@@ -75,8 +78,8 @@ function checkThumbnailExists(thumbnail: string): void {
 function main(): void {
   console.log("[check:blog-posts] Validating blog posts…");
 
-  if (BLOG_POSTS.length !== 14) {
-    fail(`Expected 14 posts, got ${BLOG_POSTS.length}`);
+  if (BLOG_POSTS.length !== 17) {
+    fail(`Expected 17 posts, got ${BLOG_POSTS.length}`);
   }
 
   const slugs = new Set(BLOG_POSTS.map((p) => p.slug));
@@ -112,12 +115,12 @@ function main(): void {
   if (CATEGORY_COUNTS["course-guide"] !== 7) {
     fail(`Expected 7 course-guide posts, got ${CATEGORY_COUNTS["course-guide"]}`);
   }
-  if (CATEGORY_COUNTS["gear-guide"] !== 6) {
-    fail(`Expected 6 gear-guide posts, got ${CATEGORY_COUNTS["gear-guide"]}`);
+  if (CATEGORY_COUNTS["gear-guide"] !== 8) {
+    fail(`Expected 8 gear-guide posts, got ${CATEGORY_COUNTS["gear-guide"]}`);
   }
-  if (CATEGORY_COUNTS["beginner-guide"] !== 1) {
+  if (CATEGORY_COUNTS["beginner-guide"] !== 2) {
     fail(
-      `Expected 1 beginner-guide post, got ${CATEGORY_COUNTS["beginner-guide"]}`,
+      `Expected 2 beginner-guide posts, got ${CATEGORY_COUNTS["beginner-guide"]}`,
     );
   }
 
@@ -125,7 +128,7 @@ function main(): void {
     if (!slugs.has(slug)) fail(`Home blog slug missing from posts: ${slug}`);
   }
 
-  console.log("[check:blog-posts] OK — 14 posts, categories, thumbnails, content length");
+  console.log("[check:blog-posts] OK — 17 posts, categories, thumbnails, content length");
   for (const post of BLOG_POSTS) {
     console.log(`  · ${post.slug} (${postCharCount(post)} chars, ${post.category})`);
   }

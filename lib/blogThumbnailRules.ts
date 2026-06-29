@@ -43,6 +43,9 @@ export const BLOG_THUMBNAIL_FILE_BY_SLUG: Record<string, string> = {
   "beginner-iron-men": "beginner-iron-men.png",
   "beginner-iron-women": "beginner-iron-women.png",
   "beginner-golf-essentials-checklist": "golf-essentials.png",
+  "first-golf-round-checklist": "first-golf-round-checklist.png",
+  "beginner-driver-men": "beginner-driver-men.png",
+  "beginner-driver-women": "beginner-driver-women.png",
 };
 
 export const CANONICAL_BLOG_THUMBNAIL_FILES = Object.values(
@@ -115,6 +118,9 @@ export const BLOG_THUMBNAIL_ALT_BY_SLUG: Record<string, string> = {
   "beginner-iron-men": "남자 입문용 아이언 추천 골프채",
   "beginner-iron-women": "여자 입문용 아이언 추천 여성 골프채",
   "beginner-golf-essentials-checklist": "초보 골퍼 라운드 준비물",
+  "first-golf-round-checklist": "첫 골프장 준비물 체크리스트",
+  "beginner-driver-men": "남자 입문용 드라이버 추천",
+  "beginner-driver-women": "여자 입문용 드라이버 추천",
 };
 
 export function blogThumbnailPath(slug: string): string {

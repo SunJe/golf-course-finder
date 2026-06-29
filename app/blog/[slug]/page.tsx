@@ -87,11 +87,13 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
             <BlogPostBody post={enrichedPost} />
           </div>
 
-          <RelatedGuidesSection
-            title="함께 보면 좋은 글"
-            className={`${BLOG_CONTENT_CLASS} mt-12`}
-            links={relatedGuideLinks}
-          />
+          {!(post.relatedPostSlugs && post.relatedPostSlugs.length > 0) && (
+            <RelatedGuidesSection
+              title="함께 보면 좋은 글"
+              className={`${BLOG_CONTENT_CLASS} mt-12`}
+              links={relatedGuideLinks}
+            />
+          )}
 
           <div
             className={`${BLOG_CONTENT_CLASS} mt-12 flex flex-wrap gap-4 border-t border-stone-100 pt-8 text-sm`}

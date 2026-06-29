@@ -1,0 +1,136 @@
+Cursor 작업 지시문: GolfMap 블로그 글 3개 추가
+
+목표:
+GolfMap Korea 블로그에 아래 3개 글을 추가한다.
+
+추가할 글
+1. 첫 골프장, 머리올릴 때 필요한 준비물 체크리스트: 처음 필드 나가기 전 꼭 챙길 것
+2. 남자 입문용 드라이버 추천: 핑 G425 MAX, 테일러메이드 SIM2 MAX, 야마하 인프레스 UD+2 비교
+3. 여자 입문용 드라이버 추천: 젝시오 레이디스, 핑 G Le, 온오프 레이디 비교
+
+중요 원칙
+- Cursor는 판단하지 말고 아래 원고를 그대로 반영한다.
+- 문장을 임의로 요약하거나 삭제하지 않는다.
+- 제품 판매 링크를 넣지 않는다.
+- 광고성 쇼핑 콘텐츠처럼 보이게 하지 않는다.
+- 본문과 관련 글은 실제 존재하는 slug만 연결한다.
+- 이미지에는 텍스트, 로고, 워터마크가 없으므로 블로그 대표/본문 이미지로 사용한다.
+- 기존 블로그 스타일과 메타데이터 형식에 맞춰 적용하되, 핵심 원고 문구는 바꾸지 않는다.
+
+파일 저장 위치
+public/promo-assets/blog/source/
+
+이미지 파일명 매핑
+- first-golf-round-checklist.png
+- first-golf-round-prep.png
+- beginner-driver-men.png
+- beginner-driver-men-fitting.png
+- beginner-driver-women.png
+- beginner-driver-women-flatlay.png
+
+패키지 안 이미지 폴더 경로
+images/
+
+복사 매핑
+- images/first-golf-round-checklist.png → public/promo-assets/blog/source/first-golf-round-checklist.png
+- images/first-golf-round-prep.png → public/promo-assets/blog/source/first-golf-round-prep.png
+- images/beginner-driver-men.png → public/promo-assets/blog/source/beginner-driver-men.png
+- images/beginner-driver-men-fitting.png → public/promo-assets/blog/source/beginner-driver-men-fitting.png
+- images/beginner-driver-women.png → public/promo-assets/blog/source/beginner-driver-women.png
+- images/beginner-driver-women-flatlay.png → public/promo-assets/blog/source/beginner-driver-women-flatlay.png
+
+원고 파일
+- first-golf-round-checklist.txt
+- beginner-driver-men.txt
+- beginner-driver-women.txt
+
+권장 slug
+- first-golf-round-checklist
+- beginner-driver-men
+- beginner-driver-women
+
+작업 순서
+1. 현재 workspace가 golf-course-finder인지 먼저 확인한다.
+2. git status 로 기존 변경사항을 확인한다.
+3. 위 이미지 6개를 public/promo-assets/blog/source/ 에 복사한다.
+4. 현재 블로그 데이터 소스(lib/blogPosts.ts 또는 사용 중인 블로그 콘텐츠 파일)에 글 3개를 추가한다.
+5. 각 글의 title, slug, excerpt, category, tags, coverImage/thumbnail/ogImage, 본문 내용을 원고에 맞춰 반영한다.
+6. 이미지 삽입 위치는 각 원고의 “이미지 삽입 위치”를 그대로 따른다.
+7. h1은 페이지 제목 하나만 사용하고, 주요 소제목은 h2, 모델별 소제목은 h3로 구조화한다.
+8. 표가 있는 글은 마크다운 테이블 또는 기존 컴포넌트에 맞는 비교 표 UI로 추가한다.
+9. “빠른 결론”은 상단 요약 박스 형태로 잘 보이게 넣되, 기존 사이트 톤에 맞춘다.
+10. 관련 글 섹션은 실제 존재하는 slug만 연결한다.
+
+관련 글 후보
+공통 후보:
+- beginner-iron-men
+- beginner-iron-women
+- beginner-golf-ball
+- value-driver
+- golf-essentials
+- seoul-beginner-golf
+
+권장 연결
+A. first-golf-round-checklist
+- golf-essentials
+- beginner-golf-ball
+- seoul-beginner-golf
+- beginner-driver-men
+
+B. beginner-driver-men
+- beginner-iron-men
+- beginner-golf-ball
+- value-driver
+- golf-essentials
+
+C. beginner-driver-women
+- beginner-iron-women
+- beginner-golf-ball
+- golf-essentials
+- seoul-beginner-golf
+
+SEO 메타데이터
+1) first-golf-round-checklist
+title:
+첫 골프장, 머리올릴 때 필요한 준비물 체크리스트: 처음 필드 나가기 전 꼭 챙길 것
+description:
+첫 골프장, 머리올릴 때 꼭 챙겨야 할 준비물을 정리했습니다. 골프공, 장갑, 모자, 선크림부터 캐디백·파우치 체크리스트와 초보자 첫 라운드 팁까지 한 번에 확인하세요.
+
+2) beginner-driver-men
+title:
+남자 입문용 드라이버 추천: 핑 G425 MAX, 테일러메이드 SIM2 MAX, 야마하 인프레스 UD+2 비교
+description:
+골프 입문 남성을 위한 드라이버 추천 가이드입니다. 핑 G425 MAX, 테일러메이드 SIM2 MAX, 야마하 인프레스 UD+2의 장단점과 중고 구매 팁을 정리했습니다.
+
+3) beginner-driver-women
+title:
+여자 입문용 드라이버 추천: 젝시오 레이디스, 핑 G Le, 온오프 레이디 비교
+description:
+여성 골프 입문자를 위한 드라이버 추천 가이드입니다. 젝시오 레이디스, 핑 G Le, 온오프 레이디 드라이버의 장단점과 중고 구매 팁을 정리했습니다.
+
+alt 텍스트
+- first-golf-round-checklist.png: 첫 골프장 준비물 체크리스트
+- first-golf-round-prep.png: 첫 라운드 전 장비를 점검하는 초보 골퍼
+- beginner-driver-men.png: 남자 입문용 드라이버 추천
+- beginner-driver-men-fitting.png: 남자 드라이버 비교와 피팅 이미지
+- beginner-driver-women.png: 여자 입문용 드라이버 추천
+- beginner-driver-women-flatlay.png: 여성 드라이버와 골프 액세서리 이미지
+
+검수 포인트
+- 광고성 문구 추가 금지
+- 판매 링크 추가 금지
+- 브랜드 로고 이미지 사용 금지
+- 관련 글 섹션이 중복되지 않게 할 것
+- “빠른 결론” 박스가 각 글에 잘 보이게 들어갈 것
+- 표가 깨지지 않도록 반응형 확인
+- 모바일에서 본문 폭과 이미지 비율 확인
+- sitemap 자동 반영 여부 확인
+
+마지막 실행
+- npm run build
+- 에러가 있으면 수정
+- 수정한 파일 목록
+- 추가된 글 URL
+- 이미지 적용 여부
+- build 성공 여부
+를 보고한다.

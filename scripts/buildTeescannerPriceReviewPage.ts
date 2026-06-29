@@ -10,6 +10,10 @@ import {
   readDailyResults,
 } from "./lib/teescanner/batchIo";
 import { buildAllSummaries } from "./lib/teescanner/summary";
+import {
+  DEFAULT_CHECKPOINT_PATH,
+  type PriceCheckpointEntry,
+} from "./lib/teescanner/batchCheckpoint";
 import { getProjectRoot } from "./lib/sourceRegistry";
 
 const ROOT = getProjectRoot();
@@ -19,6 +23,63 @@ const DECISIONS_PATH = path.join(
   ROOT,
   "data/enrichment/teescanner_price_review_decisions.json",
 );
+
+function parseRowRangeArgs(argv: string[]): {
+  minRow: number;
+  maxRow: number;
+  excludeDecided: boolean;
+} {
+  let minRow = 0;
+  let maxRow = Number.POSITIVE_INFINITY;
+  let excludeDecided = false;
+  for (let i = 0; i < argv.length; i += 1) {
+    if (argv[i] === "--min-row") minRow = Number.parseInt(argv[++i] ?? "", 10) || 0;
+    else if (argv[i] === "--max-row")
+      maxRow = Number.parseInt(argv[++i] ?? "", 10) || Number.POSITIVE_INFINITY;
+    else if (argv[i] === "--exclude-decided") excludeDecided = true;
+  }
+  return { minRow, maxRow, excludeDecided };
+}
+
+/** 이미 승인/거부된 courseId 집합 (resolved 파일 기준) */
+function loadDecidedCourseIds(): Set<string> {
+  const resolvedPath = path.join(
+    ROOT,
+    "data/enrichment/teescanner_price_review_resolved.json",
+  );
+  const decided = new Set<string>();
+  if (!fs.existsSync(resolvedPath)) return decided;
+  try {
+    const resolved = JSON.parse(fs.readFileSync(resolvedPath, "utf8")) as {
+      approved?: string[];
+      rejected?: string[];
+    };
+    for (const id of resolved.approved ?? []) decided.add(id);
+    for (const id of resolved.rejected ?? []) decided.add(id);
+  } catch {
+    // ignore malformed
+  }
+  return decided;
+}
+
+/** 체크포인트에서 courseId → 최신 rowIndex 매핑 */
+function loadCourseRowIndex(): Map<string, number> {
+  const map = new Map<string, number>();
+  if (!fs.existsSync(DEFAULT_CHECKPOINT_PATH)) return map;
+  const lines = fs
+    .readFileSync(DEFAULT_CHECKPOINT_PATH, "utf8")
+    .split("\n")
+    .filter((line) => line.trim());
+  for (const line of lines) {
+    try {
+      const entry = JSON.parse(line) as PriceCheckpointEntry;
+      if (entry.golfCourseId) map.set(entry.golfCourseId, entry.rowIndex);
+    } catch {
+      // skip malformed line
+    }
+  }
+  return map;
+}
 
 type ReviewCategory = "priced_manual" | "ambiguous" | "no_match" | "failed";
 
@@ -171,8 +232,25 @@ function renderSection(title: string, items: ReviewItem[]): string {
 }
 
 function main(): void {
-  readDailyResults(DEFAULT_DAILY_RESULTS_CSV);
-  const summaries = buildAllSummaries(readDailyResults(DEFAULT_DAILY_RESULTS_CSV));
+  const { minRow, maxRow, excludeDecided } = parseRowRangeArgs(process.argv.slice(2));
+  const rowFilterActive = minRow > 0 || Number.isFinite(maxRow);
+  const courseRowIndex = rowFilterActive ? loadCourseRowIndex() : new Map();
+  const decidedIds = excludeDecided ? loadDecidedCourseIds() : new Set<string>();
+
+  const inRowRange = (courseId: string): boolean => {
+    if (!rowFilterActive) return true;
+    const rowIndex = courseRowIndex.get(courseId);
+    if (rowIndex == null) return false;
+    return rowIndex >= minRow && rowIndex <= maxRow;
+  };
+
+  let summaries = buildAllSummaries(readDailyResults(DEFAULT_DAILY_RESULTS_CSV));
+  if (rowFilterActive) {
+    summaries = summaries.filter((row) => inRowRange(row.id));
+  }
+  if (excludeDecided) {
+    summaries = summaries.filter((row) => !decidedIds.has(row.id));
+  }
 
   const manualItems = summaries
     .filter((row) => row.review_action === "manual_review")
@@ -188,8 +266,13 @@ function main(): void {
     .map(buildItem)
     .slice(0, 30);
 
+  const rowRangeLabel = rowFilterActive
+    ? `행 범위: ${minRow > 0 ? minRow : 1} ~ ${Number.isFinite(maxRow) ? maxRow : "끝"}`
+    : "행 범위: 전체";
+
   const reviewPayload = {
     generatedAt: new Date().toISOString(),
+    rowRange: { minRow: minRow > 0 ? minRow : 1, maxRow: Number.isFinite(maxRow) ? maxRow : null },
     stats: {
       manualTotal: manualItems.length,
       pricedManual: pricedManual.length,
@@ -273,7 +356,7 @@ function main(): void {
 </head>
 <body>
 <header>
-  <h1>티스캐너 가격 검수</h1>
+  <h1>티스캐너 가격 검수 <span style="font-size:12px;font-weight:600;opacity:.85;">(${escapeHtml(rowRangeLabel)})</span></h1>
   <p>GolfMap 골프장명과 티스캐너 매칭·가격을 비교해 승인/거부하세요. 가격이 없거나 틀리면 <strong>직접 입력</strong>란에 숫자(원)를 넣고 승인하세요. 하단 결과를 복사해 채팅에 붙여넣으면 됩니다.</p>
 </header>
 <div class="wrap">
@@ -397,6 +480,7 @@ function main(): void {
 
   console.log(`saved: ${OUT_HTML}`);
   console.log(`saved: ${OUT_JSON}`);
+  console.log(rowRangeLabel);
   console.log(
     `pricedManual=${pricedManual.length} ambiguous=${ambiguous.length} noMatch=${noMatch.length} accept=${reviewPayload.stats.acceptPrice}`,
   );

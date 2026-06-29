@@ -1,0 +1,25 @@
+{
+  "posts": [
+    {
+      "file": "first-golf-round-checklist.txt",
+      "slug": "first-golf-round-checklist"
+    },
+    {
+      "file": "beginner-driver-men.txt",
+      "slug": "beginner-driver-men"
+    },
+    {
+      "file": "beginner-driver-women.txt",
+      "slug": "beginner-driver-women"
+    }
+  ],
+  "images": [
+    "first-golf-round-checklist.png",
+    "first-golf-round-prep.png",
+    "beginner-driver-men.png",
+    "beginner-driver-men-fitting.png",
+    "beginner-driver-women.png",
+    "beginner-driver-women-flatlay.png"
+  ],
+  "cursor_instruction": "cursor-upload-driver-and-first-round-posts.txt"
+}

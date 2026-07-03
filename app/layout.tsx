@@ -5,10 +5,11 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { HomeResetProvider } from "@/contexts/HomeResetContext";
-import { buildNaverSiteVerificationMetadata } from "@/lib/seoMetadata";
-import { getSiteUrl, siteConfig } from "@/lib/siteConfig";
+import { getSiteUrl, siteConfig, getNaverSiteVerification } from "@/lib/siteConfig";
 
-const naverVerification = buildNaverSiteVerificationMetadata();
+const ADSENSE_PUBLISHER_ID = "ca-pub-7574651628318443";
+
+const naverSiteVerification = getNaverSiteVerification();
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
@@ -18,7 +19,12 @@ export const metadata: Metadata = {
   },
   description: siteConfig.defaultDescription,
   applicationName: siteConfig.siteName,
-  ...(naverVerification ?? {}),
+  other: {
+    ...(naverSiteVerification
+      ? { "naver-site-verification": naverSiteVerification }
+      : {}),
+    "google-adsense-account": ADSENSE_PUBLISHER_ID,
+  },
 };
 
 export default function RootLayout({
@@ -29,6 +35,11 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
+        <script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_PUBLISHER_ID}`}
+          crossOrigin="anonymous"
+        />
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"

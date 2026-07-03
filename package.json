@@ -101,6 +101,7 @@
     "build:visit-korea-review-page": "tsx scripts/buildVisitKoreaReviewPage.ts"
   },
   "dependencies": {
+    "@next/third-parties": "^16.2.10",
     "@supabase/supabase-js": "^2.45.4",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",

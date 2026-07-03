@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
@@ -53,6 +54,7 @@ export default function RootLayout({
         </HomeResetProvider>
         <Analytics />
         <SpeedInsights />
+        <GoogleAnalytics gaId="G-FMY10PMHEB" />
       </body>
     </html>
   );

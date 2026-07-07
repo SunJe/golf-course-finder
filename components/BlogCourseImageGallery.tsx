@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import TourismAwareImage from "@/components/TourismAwareImage";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { VISIT_KOREA_IMAGE_CREDIT } from "@/lib/visitKoreaAttribution";
 
@@ -136,13 +136,13 @@ export function BlogCourseImageGallery({
       >
         {images.map((src, index) => (
           <button
-            key={`${src}-${index}`}
+            key={src}
             type="button"
             onClick={() => setLightboxIndex(index)}
             aria-label={`${alt} ${index + 1} 확대 보기`}
             className={`group relative shrink-0 cursor-zoom-in snap-start overflow-hidden rounded-lg bg-stone-100 ${IMAGE_WIDTH_CLASS} ${IMAGE_HEIGHT_CLASS}`}
           >
-            <Image
+            <TourismAwareImage
               src={src}
               alt={images.length > 1 ? `${alt} ${index + 1}` : alt}
               fill
@@ -250,7 +250,7 @@ export function BlogCourseImageGallery({
             onClick={(event) => event.stopPropagation()}
           >
             <div className="relative h-[70vh] w-full">
-              <Image
+              <TourismAwareImage
                 src={images[lightboxIndex]}
                 alt={`${alt} ${lightboxIndex + 1}`}
                 fill

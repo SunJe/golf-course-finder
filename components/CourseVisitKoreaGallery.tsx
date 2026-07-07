@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import TourismAwareImage from "@/components/TourismAwareImage";
 import type { CourseVisitKoreaImageSet } from "@/lib/enrichment/courseVisitKoreaImages";
 
 interface CourseVisitKoreaGalleryProps {
@@ -198,17 +198,20 @@ export function CourseVisitKoreaGallery({
         onTouchStart={pauseAutoScroll}
       >
         {renderImages.map((src, index) => {
-          const realIndex = index % images.length;
           const isClone = index >= images.length;
           return (
             <div
-              key={`${realIndex}-${isClone ? "clone" : "orig"}`}
+              key={`${src}-${isClone ? "clone" : "orig"}`}
               aria-hidden={isClone}
               className={`relative shrink-0 overflow-hidden rounded-lg bg-stone-100 ${IMAGE_WIDTH_CLASS} ${IMAGE_HEIGHT_CLASS}`}
             >
-              <Image
+              <TourismAwareImage
                 src={src}
-                alt={images.length > 1 ? `${alt} ${realIndex + 1}` : alt}
+                alt={
+                  images.length > 1
+                    ? `${alt} ${(index % images.length) + 1}`
+                    : alt
+                }
                 fill
                 className="object-cover"
                 sizes="(max-width: 640px) 300px, 360px"

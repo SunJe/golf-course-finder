@@ -69,6 +69,7 @@
     "analyze:collections": "tsx scripts/analyzeCollectionCounts.ts",
     "analyze:regions": "tsx scripts/analyzeRegionCounts.ts",
     "audit:structured-data": "tsx scripts/auditStructuredData.ts",
+    "audit:content": "tsx scripts/auditContentQuality.ts",
     "audit:adsense-readiness": "tsx scripts/auditAdSenseReadiness.ts",
     "generate:difficulty-sql": "tsx scripts/generateDifficultyUpdateSql.ts",
     "generate:og-image": "tsx scripts/generateOgImage.ts",

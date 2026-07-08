@@ -14,7 +14,7 @@ import { getDisplayableCourseContentEnrichment } from "@/lib/enrichment/courseCo
 import { resolveCourseVisitKoreaImages } from "@/lib/enrichment/courseVisitKoreaImages";
 import RegionLinks from "@/components/RegionLinks";
 import HomeBlogCarousel from "@/components/portal/HomeBlogCarousel";
-import { getAllBlogPosts } from "@/lib/blogPosts";
+import { getRelatedBlogPostsForCourse } from "@/lib/relatedBlogPosts";
 
 export async function generateStaticParams() {
   const ids = await getAllCourseIds();
@@ -44,13 +44,13 @@ export default async function CourseDetailPage({
 
   const enrichment = getDisplayableCourseContentEnrichment(course.id);
   const visitKoreaGallery = resolveCourseVisitKoreaImages(course.id, enrichment);
-  const blogPosts = getAllBlogPosts();
+  const blogPosts = getRelatedBlogPostsForCourse(course, 4);
 
   const blogSlot = (
     <section className="mt-6 rounded-2xl border border-gray-200/80 bg-white p-4 shadow-sm sm:p-6">
       <div className="mb-4 flex items-end justify-between gap-4">
         <h2 className="text-lg font-bold tracking-tight text-gray-900 sm:text-xl">
-          블로그
+          관련 블로그
         </h2>
         <Link
           href="/blog"

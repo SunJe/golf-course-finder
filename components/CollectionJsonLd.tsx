@@ -46,7 +46,10 @@ export default function CollectionJsonLd({
     "@type": "CollectionPage",
     "@id": `${pageUrl}#webpage`,
     name: config.h1,
-    description: config.seoDescription,
+    description: config.seoDescription.replace(
+      /가성비 좋은/g,
+      "참고 요금이 등록된",
+    ),
     url: pageUrl,
     isPartOf: {
       "@type": "WebSite",

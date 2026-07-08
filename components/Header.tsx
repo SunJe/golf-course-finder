@@ -29,10 +29,7 @@ export default function Header() {
           </span>
           <span className="truncate text-sm font-bold tracking-tight text-stone-900 md:text-[17px]">
             GolfMap{" "}
-            <span className="text-brand-800">
-              <span className="md:hidden">KR</span>
-              <span className="hidden md:inline">Korea</span>
-            </span>
+            <span className="text-brand-800">KR</span>
           </span>
         </Link>
 

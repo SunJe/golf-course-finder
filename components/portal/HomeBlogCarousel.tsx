@@ -1,39 +1,21 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import type { BlogPost } from "@/lib/blogPosts";
 import BlogCard from "@/components/BlogCard";
-
-const VISIBLE_COUNT = 4;
-
-function pickRandomPosts(posts: BlogPost[], count: number): BlogPost[] {
-  const shuffled = [...posts];
-  for (let i = shuffled.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled.slice(0, count);
-}
 
 interface HomeBlogCarouselProps {
   posts: BlogPost[];
 }
 
+/**
+ * 서버에서 이미 정렬·선정된 관련 글을 표시한다.
+ * 클라이언트 랜덤 재배치를 하지 않아 hydration·지역 불일치를 막는다.
+ */
 export default function HomeBlogCarousel({ posts }: HomeBlogCarouselProps) {
-  const [visiblePosts, setVisiblePosts] = useState<BlogPost[]>(() =>
-    posts.slice(0, VISIBLE_COUNT),
-  );
-
-  useEffect(() => {
-    setVisiblePosts(pickRandomPosts(posts, VISIBLE_COUNT));
-  }, [posts]);
-
   return (
     <div
       className="grid grid-cols-1 gap-x-12 gap-y-2 md:grid-cols-2 md:gap-y-4"
       aria-label="블로그 글 목록"
     >
-      {visiblePosts.map((post) => (
+      {posts.map((post) => (
         <BlogCard key={post.slug} post={post} size="home" hideCategory />
       ))}
     </div>

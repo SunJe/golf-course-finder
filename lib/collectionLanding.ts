@@ -526,7 +526,7 @@ export const collectionLandingPages: CollectionConfig[] = [
     description:
       "서울 근교에서 참고 요금이 있는 골프장을 비교하기 쉽게 정리했습니다. 이동 거리, 홀 수, 대중제 여부를 함께 확인해 보세요.",
     seoDescription:
-      "서울 근교에서 가성비 좋은 골프장을 찾는 분들을 위해 참고 요금, 위치, 전화번호, 예약 확인 링크를 함께 정리했습니다.",
+      "서울 근교에서 참고 요금이 등록된 골프장을 위치·홀 수·연락처와 함께 비교할 수 있도록 정리했습니다.",
     primaryKeyword: "서울 근교 저렴한 골프장",
     relatedKeywords: ["서울 싼 골프장", "경기 저렴한 골프장", "서울 골프장 요금"],
     filterSummary:

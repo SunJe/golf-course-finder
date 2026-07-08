@@ -8,7 +8,10 @@ import type {
   CourseContentEnrichmentStatus,
   CourseContentSourceType,
 } from "@/lib/enrichment/courseContentEnrichmentTypes";
-import { formatRegionLabel } from "@/lib/courseSeoCopy";
+import {
+  buildCourseSeoIntroParagraph,
+  formatRegionLabel,
+} from "@/lib/courseSeoCopy";
 
 export interface BlogContentHint {
   description: string;
@@ -155,44 +158,32 @@ function buildFeatureSummaryFromBlog(
 }
 
 function buildFallbackFeatureSummary(course: Course): string {
-  const name = course.name.trim() || "골프장";
-  const regionLabel = formatRegionLabel(course);
-  const courseType = course.courseType?.trim() || "골프장";
-  const holeLabel = course.holeCount
-    ? `${formatHoleCount(course.holeCount)} `
-    : "";
-
-  const locationPhrase = regionLabel
-    ? `${regionLabel}에 위치한 `
-    : "";
-
-  let summary = `${name}은(는) ${locationPhrase}${holeLabel}${courseType} 골프장입니다.`;
-
-  if (hasPrice(course)) {
-    summary += ` 참고 요금은 ${formatPriceRange(course)}이며, 실제 요금은 날짜와 시간대에 따라 달라질 수 있습니다.`;
-  } else {
-    summary += " 요금과 운영 정보는 방문 전 공식 홈페이지나 지도 서비스에서 확인하는 것이 좋습니다.";
-  }
-
-  return summary;
+  return buildCourseSeoIntroParagraph(course);
 }
 
 function buildFallbackRecommendationReasons(course: Course): string[] {
-  const regionLabel = formatRegionLabel(course) || "해당 지역";
-  const reasons = [`${regionLabel}에서 라운드 후보를 비교할 때 참고할 수 있는 골프장`];
+  const regionLabel = formatRegionLabel(course);
+  const reasons: string[] = [];
+
+  if (regionLabel) {
+    reasons.push(`${regionLabel} 라운드 후보를 주소·요금·연락처 기준으로 비교할 때 참고할 수 있습니다`);
+  }
 
   if (course.holeCount === 9) {
-    reasons.push("9홀 규모의 코스로 짧은 라운드를 계획하는 분들이 참고할 수 있습니다");
+    reasons.push("등록 홀 수가 9홀로, 짧은 라운드 일정을 계획할 때 후보가 됩니다");
   } else if (course.holeCount) {
-    reasons.push(`${course.holeCount}홀 규모 정보를 확인할 수 있습니다`);
+    reasons.push(`등록 홀 수는 ${formatHoleCount(course.holeCount)}입니다`);
   }
 
-  if (course.courseType?.trim()) {
-    reasons.push(`${course.courseType} 운영 형태로 등록된 골프장입니다`);
+  if (course.courseType?.trim() && course.courseType.trim() !== "골프장") {
+    reasons.push(`${course.courseType.trim()}로 등록되어 있습니다`);
   }
 
-  reasons.push("방문 전 운영 시간과 예약 가능 여부를 공식 채널에서 확인하는 것이 좋습니다");
-  reasons.push("주변 골프장과 함께 비교보면 선택이 쉬워집니다");
+  if (hasPrice(course)) {
+    reasons.push(`등록된 참고 요금은 ${formatPriceRange(course)}입니다`);
+  }
+
+  reasons.push("방문 전 운영 시간과 예약 가능 여부는 공식 채널에서 확인해 주세요");
 
   return uniqueStrings(reasons).slice(0, 4);
 }

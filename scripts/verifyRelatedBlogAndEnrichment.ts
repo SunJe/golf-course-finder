@@ -10,9 +10,15 @@ import {
   sanitizeVisitKoreaOverview,
 } from "@/lib/enrichBlogPost";
 import {
+  BLOG_CONTENT_PURPOSE_BY_SLUG,
+  BLOG_GEOGRAPHIC_SCOPE_BY_SLUG,
+  getBlogContentPurpose,
   getRelatedBlogPostsForCourse,
+  isCourseVisitGuidePost,
+  isEquipmentOrTourPost,
   isForeignRegionalPost,
   scorePostForCourse,
+  type BlogContentPurpose,
 } from "@/lib/relatedBlogPosts";
 import type { Course } from "@/types/course";
 
@@ -82,6 +88,23 @@ const nearSeoulStub = stubCourse({
   longitude: 126.78,
 });
 
+const sparseRegionStub = stubCourse({
+  id: "gc-sparse-sample",
+  name: "데이터부족샘플CC",
+  region: "",
+  city: "",
+  latitude: 0,
+  longitude: 0,
+});
+
+const EQUIPMENT_SLUG_PREFIXES = [
+  "driver-loft",
+  "beginner-driver",
+  "beginner-iron",
+  "golf-ball",
+  "pro-tour-driver",
+] as const;
+
 function assert(cond: unknown, message: string) {
   if (!cond) throw new Error(message);
 }
@@ -90,8 +113,56 @@ function titles(course: Course): string[] {
   return getRelatedBlogPostsForCourse(course, 4, BLOG_POSTS).map((p) => p.slug);
 }
 
+function assertNoEquipmentPadding(slugs: string[], label: string) {
+  for (const slug of slugs) {
+    const post = BLOG_POSTS.find((p) => p.slug === slug)!;
+    assert(
+      !isEquipmentOrTourPost(post),
+      `${label} must not pad with equipment/tour post: ${slug}`,
+    );
+    for (const prefix of EQUIPMENT_SLUG_PREFIXES) {
+      assert(!slug.startsWith(prefix), `${label} must not include ${slug}`);
+    }
+  }
+}
+
 function main() {
   console.log("[verify] related blogs + overview merge");
+
+  // 0) content purpose mapping coverage
+  for (const post of BLOG_POSTS) {
+    assert(
+      BLOG_CONTENT_PURPOSE_BY_SLUG[post.slug],
+      `missing content purpose mapping: ${post.slug}`,
+    );
+    const purpose = getBlogContentPurpose(post);
+    if (post.category === "gear-guide") {
+      assert(
+        purpose === "equipment-guide" || purpose === "tour-equipment",
+        `gear-guide must be equipment*: ${post.slug}`,
+      );
+      assert(
+        !isCourseVisitGuidePost(post),
+        `equipment must not be course-visit fallback: ${post.slug}`,
+      );
+    }
+    if (post.category === "course-guide") {
+      assert(
+        purpose === "regional-course-guide",
+        `course-guide purpose mismatch: ${post.slug}`,
+      );
+      assert(
+        BLOG_GEOGRAPHIC_SCOPE_BY_SLUG[post.slug]?.type === "regional",
+        `course-guide needs regional geo scope: ${post.slug}`,
+      );
+    }
+    if (purpose === "course-visit-guide") {
+      assert(
+        post.category === "beginner-guide",
+        `visit guide should be beginner-guide: ${post.slug}`,
+      );
+    }
+  }
 
   // 1) overview merge policy
   const promo =
@@ -129,6 +200,8 @@ function main() {
   const meta = JSON.parse(fs.readFileSync(metaPath, "utf8")) as Array<{
     courseId?: string;
     overview?: string;
+    apiAddr?: string;
+    homepage?: string;
   }>;
   const entry = meta.find((e) => e.courseId === item123!.relatedCourseId);
   const finalDesc = resolveBlogItemDescription(
@@ -139,11 +212,26 @@ function main() {
   assert(!/반세기|개나리|아카시아|눈꽃/.test(finalDesc), "123 no tourist promo");
   assert(entry?.apiAddr, "123 meta address retained in meta");
   assert(entry?.homepage, "123 meta homepage retained in meta");
-  // images empty for this entry is OK; enrichment still keeps address/homepage from meta
 
-  // 3) related blogs — 대영베이스
+  // 3) related blogs — 대영베이스 (visit guides only, no equipment pad)
   const relatedDaeyoung = titles(daeyoung);
   console.log("대영베이스CC related:", relatedDaeyoung.join(", ") || "(none)");
+  assert(
+    relatedDaeyoung.every((slug) => {
+      const post = BLOG_POSTS.find((p) => p.slug === slug)!;
+      return isCourseVisitGuidePost(post);
+    }),
+    "대영베이스 related must be visit guides only (or empty)",
+  );
+  assertNoEquipmentPadding(relatedDaeyoung, "대영베이스");
+  assert(
+    !relatedDaeyoung.some((s) => s.startsWith("driver-loft")),
+    "대영베이스 must not include driver-loft",
+  );
+  assert(
+    !relatedDaeyoung.some((s) => s.startsWith("beginner-driver")),
+    "대영베이스 must not include beginner-driver",
+  );
   for (const slug of relatedDaeyoung) {
     assert(
       !["goyang-golf-best-5", "incheon-golf-top-5", "gapyeong-golf-best-6"].includes(
@@ -152,21 +240,21 @@ function main() {
       `대영베이스 must not get foreign regional ${slug}`,
     );
     assert(
-      !slug.startsWith("seoul-") ||
-        BLOG_POSTS.find((p) => p.slug === slug)?.category !== "course-guide" ||
-        false,
-      // seoul course-guides should be foreign for chungju
+      !(slug.startsWith("seoul-") && BLOG_POSTS.find((p) => p.slug === slug)?.category === "course-guide"),
       `unexpected seoul course-guide for 대영베이스: ${slug}`,
     );
   }
-  for (const slug of relatedDaeyoung) {
-    if (slug.startsWith("seoul-") || slug.includes("goyang") || slug.includes("incheon") || slug.includes("gapyeong")) {
-      const post = BLOG_POSTS.find((p) => p.slug === slug)!;
-      assert(post.category !== "course-guide", `foreign regional slipped: ${slug}`);
-    }
-  }
+  assert(
+    relatedDaeyoung.length <= 4,
+    "대영베이스 may have fewer than limit",
+  );
+  assert(
+    relatedDaeyoung.includes("first-golf-round-checklist") ||
+      relatedDaeyoung.includes("beginner-golf-essentials-checklist") ||
+      relatedDaeyoung.length === 0,
+    "대영베이스 should allow visit checklists when present",
+  );
 
-  // foreign flags
   const goyangPostRef = BLOG_POSTS.find((p) => p.slug === "goyang-golf-best-5")!;
   assert(
     isForeignRegionalPost(goyangPostRef, daeyoung),
@@ -176,6 +264,13 @@ function main() {
     scorePostForCourse(goyangPostRef, daeyoung).score === 0,
     "goyang score 0 for 충주",
   );
+  assert(
+    scorePostForCourse(
+      BLOG_POSTS.find((p) => p.slug === "driver-loft-shaft-guide-men")!,
+      daeyoung,
+    ).score === 0,
+    "driver loft score 0 for 충주",
+  );
 
   // 4) regional preference
   const relatedGoyang = titles(goyangStub);
@@ -184,6 +279,7 @@ function main() {
     relatedGoyang.includes("goyang-golf-best-5"),
     "goyang course should prefer goyang post",
   );
+  assertNoEquipmentPadding(relatedGoyang, "고양");
 
   const relatedGapyeong = titles(gapyeongStub);
   console.log("가평샘플 related:", relatedGapyeong.join(", "));
@@ -191,6 +287,7 @@ function main() {
     relatedGapyeong.includes("gapyeong-golf-best-6"),
     "gapyeong course should prefer gapyeong post",
   );
+  assertNoEquipmentPadding(relatedGapyeong, "가평");
 
   const relatedIncheon = titles(incheonStub);
   console.log("인천샘플 related:", relatedIncheon.join(", "));
@@ -205,6 +302,17 @@ function main() {
   assert(
     !relatedIncheon.includes("goyang-golf-best-5"),
     "incheon must not get goyang-only post",
+  );
+  assertNoEquipmentPadding(relatedIncheon, "인천");
+  assert(
+    relatedIncheon.every((slug) => {
+      const post = BLOG_POSTS.find((p) => p.slug === slug)!;
+      return (
+        post.slug === "incheon-golf-top-5" ||
+        isCourseVisitGuidePost(post)
+      );
+    }),
+    "인천 related = incheon guide + visit guides only",
   );
 
   const relatedNearSeoul = titles(nearSeoulStub);
@@ -225,18 +333,44 @@ function main() {
     !relatedNearSeoul.includes("gapyeong-golf-best-6"),
     "파주 must not get gapyeong-only post",
   );
+  assertNoEquipmentPadding(relatedNearSeoul, "파주");
 
-  // 5) deterministic
+  const relatedSparse = titles(sparseRegionStub);
+  console.log("데이터부족샘플 related:", relatedSparse.join(", ") || "(none)");
+  assertNoEquipmentPadding(relatedSparse, "sparse");
+  assert(
+    relatedSparse.every((slug) =>
+      isCourseVisitGuidePost(BLOG_POSTS.find((p) => p.slug === slug)!),
+    ),
+    "sparse course may only get visit guides",
+  );
+
+  // 5) deterministic + uniqueness + undersized ok
   assert(
     titles(daeyoung).join() === titles(daeyoung).join(),
     "related blogs must be deterministic",
   );
-
-  // 6) do not pad with zero-score
+  const unique = new Set(relatedDaeyoung);
+  assert(unique.size === relatedDaeyoung.length, "no duplicate slugs");
   assert(
     getRelatedBlogPostsForCourse(daeyoung, 4, BLOG_POSTS).length <= 4,
     "limit respected",
   );
+  assert(
+    relatedDaeyoung.length < 4 || relatedDaeyoung.length === 4,
+    "결과 개수는 limit 이하 (undersize allowed)",
+  );
+
+  // purpose enum sanity
+  const allowed: BlogContentPurpose[] = [
+    "regional-course-guide",
+    "course-visit-guide",
+    "equipment-guide",
+    "tour-equipment",
+  ];
+  for (const purpose of Object.values(BLOG_CONTENT_PURPOSE_BY_SLUG)) {
+    assert(allowed.includes(purpose), `unknown purpose ${purpose}`);
+  }
 
   console.log("[verify] OK");
 }

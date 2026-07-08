@@ -10,25 +10,22 @@ import {
   SEOUL_CITY_HALL,
 } from "@/lib/collectionFilters";
 
-const GUIDE_KEYWORDS = [
-  "준비",
-  "체크리스트",
-  "에티켓",
-  "복장",
-  "예약",
-  "장비",
-  "드라이버",
-  "아이언",
-  "골프공",
-  "로프트",
-] as const;
-
 const NEAR_SEOUL_KM = 80;
 
 /** 지역 종속 course-guide 글의 geographic scope (구조화 metadata 보완용 중앙 mapping) */
 export type BlogGeographicScope =
   | { type: "national" }
   | { type: "regional"; regions: string[]; cities?: string[] };
+
+/**
+ * 콘텐츠 목적. geographic scope와 분리한다.
+ * course-detail related blogs의 national fallback에는 course-visit-guide만 허용.
+ */
+export type BlogContentPurpose =
+  | "regional-course-guide"
+  | "course-visit-guide"
+  | "equipment-guide"
+  | "tour-equipment";
 
 /**
  * 19개 글 규모에서 관리 가능한 slug 기반 geographicScope.
@@ -72,6 +69,51 @@ export const BLOG_GEOGRAPHIC_SCOPE_BY_SLUG: Record<string, BlogGeographicScope> 
     cities: ["서울"],
   },
 };
+
+/**
+ * 골프장 상세 관련 글용 content purpose mapping.
+ * 장비·투어 장비 글은 전국 fallback으로 쓰지 않는다.
+ */
+export const BLOG_CONTENT_PURPOSE_BY_SLUG: Record<string, BlogContentPurpose> = {
+  "seoul-beginner-golf-best-5": "regional-course-guide",
+  "seoul-budget-golf-best-5": "regional-course-guide",
+  "incheon-golf-top-5": "regional-course-guide",
+  "gapyeong-golf-best-6": "regional-course-guide",
+  "goyang-golf-best-5": "regional-course-guide",
+  "seoul-nine-hole-beginner-golf-top-5": "regional-course-guide",
+  "seoul-par3-practice-range-top-10": "regional-course-guide",
+  "beginner-golf-essentials-checklist": "course-visit-guide",
+  "first-golf-round-checklist": "course-visit-guide",
+  "golf-ball-type-guide": "equipment-guide",
+  "beginner-iron-top-5": "equipment-guide",
+  "beginner-iron-men": "equipment-guide",
+  "beginner-iron-women": "equipment-guide",
+  "beginner-driver-men": "equipment-guide",
+  "beginner-driver-women": "equipment-guide",
+  "driver-loft-shaft-guide-men": "equipment-guide",
+  "driver-loft-shaft-guide-women": "equipment-guide",
+  "pro-tour-driver-brands-men": "tour-equipment",
+  "pro-tour-driver-brands-women": "tour-equipment",
+};
+
+export function getBlogContentPurpose(post: BlogPost): BlogContentPurpose {
+  const mapped = BLOG_CONTENT_PURPOSE_BY_SLUG[post.slug];
+  if (mapped) return mapped;
+  if (post.category === "gear-guide") return "equipment-guide";
+  if (post.category === "beginner-guide") return "course-visit-guide";
+  if (post.category === "course-guide") return "regional-course-guide";
+  return "equipment-guide";
+}
+
+/** 골프장 상세 national fallback 허용: 방문·라운드 준비 가이드만 */
+export function isCourseVisitGuidePost(post: BlogPost): boolean {
+  return getBlogContentPurpose(post) === "course-visit-guide";
+}
+
+export function isEquipmentOrTourPost(post: BlogPost): boolean {
+  const purpose = getBlogContentPurpose(post);
+  return purpose === "equipment-guide" || purpose === "tour-equipment";
+}
 
 function normalize(text: string): string {
   return text.trim().toLowerCase().replace(/\s+/g, "");
@@ -287,15 +329,13 @@ export function postMatchesCourseTraits(post: BlogPost, course: Course): boolean
   return false;
 }
 
+/**
+ * 골프장 상세용 전국 fallback 후보.
+ * 방문·라운드 준비 가이드만 허용하고 장비/투어 장비 글은 제외한다.
+ */
 export function isNationalGuidePost(post: BlogPost): boolean {
-  const scope = getBlogGeographicScope(post);
-  if (scope.type === "national") return true;
-  if (post.category === "beginner-guide" || post.category === "gear-guide") {
-    return true;
-  }
-  if (post.category === "course-guide") return false;
-  const haystack = `${post.title} ${post.description}`;
-  return GUIDE_KEYWORDS.some((keyword) => haystack.includes(keyword));
+  if (isEquipmentOrTourPost(post)) return false;
+  return isCourseVisitGuidePost(post);
 }
 
 /**
@@ -349,10 +389,16 @@ export function scorePostForCourse(
 ): RelatedBlogRank {
   const reasons: string[] = [];
   let score = 0;
+  const mentionsCourse = postMentionsCourse(post, course);
 
-  if (postMentionsCourse(post, course)) {
+  if (mentionsCourse) {
     score += 100;
     reasons.push("mentions-course");
+  }
+
+  // 장비·투어 글은 코스를 직접 언급할 때만 허용 (전국 fallback/padding 금지)
+  if (isEquipmentOrTourPost(post) && !mentionsCourse) {
+    return { post, score: 0, reasons: ["equipment-excluded"] };
   }
 
   if (isForeignRegionalPost(post, course)) {
@@ -394,7 +440,7 @@ export function scorePostForCourse(
   }
   if (isNationalGuidePost(post)) {
     score += 12;
-    reasons.push("national-guide");
+    reasons.push("course-visit-guide");
   }
   if (score > 0 && post.date) {
     score += Math.min(5, Number(post.date.slice(0, 4)) - 2020);

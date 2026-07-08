@@ -122,6 +122,49 @@ function resolveVisitKoreaImages(meta: VisitKoreaMetaEntry | undefined): string[
   return collectVisitKoreaMetaImagePaths(meta);
 }
 
+/**
+ * Visit Korea overview는 홍보·관광 문장이 많아 수동 설명에 append하지 않는다.
+ * 수동 description이 비어 있을 때만 짧게 정리한 fallback으로 쓴다.
+ */
+export function sanitizeVisitKoreaOverview(
+  overview: string | undefined,
+): string | undefined {
+  if (!overview) return undefined;
+  let text = overview.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  if (!text) return undefined;
+
+  // 문장 단위로 자르고, 뚜렷한 홍보·경관 수사 문장은 제외
+  const promoSnippet =
+    /자랑하|절경|아름다운 경관|사계절|향기|눈꽃|단풍이|반세기|전통을|새로운 만남|창조적 휴식|개나리|진달래|벚꽃/;
+  const sentences = text
+    .split(/(?<=[.。!?]|다\.)\s+/)
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .filter((s) => !promoSnippet.test(s));
+
+  // 전부 홍보 문장으로 걸러지면 fallback 설명을 쓰지 않음 (수동 공백일 때 원문 재노출 방지)
+  if (sentences.length === 0) return undefined;
+
+  text = sentences.join(" ").trim();
+  // fallback도 과도한 길이로 붙이지 않음
+  const MAX_LEN = 220;
+  if (text.length > MAX_LEN) {
+    const cut = text.slice(0, MAX_LEN);
+    const lastStop = Math.max(cut.lastIndexOf("."), cut.lastIndexOf("다."));
+    text = (lastStop > 80 ? cut.slice(0, lastStop + 1) : `${cut.trim()}…`).trim();
+  }
+  return text || undefined;
+}
+
+export function resolveBlogItemDescription(
+  manualDescription: string | undefined,
+  overview: string | undefined,
+): string {
+  const manual = manualDescription?.trim();
+  if (manual) return manual;
+  return sanitizeVisitKoreaOverview(overview) ?? "";
+}
+
 function enrichCourseItem(
   item: NonNullable<BlogPostSection["items"]>[number],
   post: BlogPost,
@@ -136,13 +179,11 @@ function enrichCourseItem(
   if (!item.relatedCourseId && !meta && !item.address) return item;
   const images = resolveVisitKoreaImages(meta);
 
-  let description = item.description;
-  if (meta?.overview?.trim() && images.length === 0) {
-    const overview = meta.overview.trim();
-    if (!description.includes(overview.slice(0, 48))) {
-      description = `${description} ${overview}`.trim();
-    }
-  }
+  // 수동 description 우선. overview는 비어 있을 때만 fallback (이미지 유무와 무관하게 append 금지)
+  const description = resolveBlogItemDescription(
+    item.description,
+    meta?.overview,
+  );
 
   const address =
     item.address ?? meta?.apiAddr ?? course?.address?.trim() ?? undefined;

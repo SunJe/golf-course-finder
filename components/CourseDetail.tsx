@@ -42,6 +42,7 @@ import {
 import { formatDistanceKm } from "@/lib/geoUtils";
 import { createCourseReportIssueMailto } from "@/lib/reportIssueLink";
 import { resolveCourseIntroParagraph } from "@/lib/courseSeoCopy";
+import { looksLikeSoftParticleTemplate } from "@/lib/koreanParticles";
 import type { CourseContentEnrichment } from "@/lib/enrichment/courseContentEnrichmentTypes";
 import { isDisplayableEnrichment } from "@/lib/enrichment/courseContentEnrichmentTypes";
 import { CourseRecommendationBox } from "@/components/CourseRecommendationBox";
@@ -214,7 +215,13 @@ export default function CourseDetail({
   const reportIssueMailto = createCourseReportIssueMailto(course);
   const seoIntro = resolveCourseIntroParagraph(course, enrichment);
   const recommendationReasons = isDisplayableEnrichment(enrichment)
-    ? enrichment.recommendationReasons
+    ? enrichment.recommendationReasons.filter(
+        (reason) =>
+          !looksLikeSoftParticleTemplate(reason) &&
+          !/라운드 후보를 비교할 때 참고할 수 있는 골프장|규모 정보를 확인할 수 있습니다/.test(
+            reason,
+          ),
+      )
     : [];
   const recommendationConfidence = isDisplayableEnrichment(enrichment)
     ? enrichment.confidence

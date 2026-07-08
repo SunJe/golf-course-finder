@@ -314,6 +314,43 @@ export function BlogPostBody({ post }: { post: BlogPost }) {
 
       ))}
 
+      {post.dataCheckedAt || (post.references && post.references.length > 0) ? (
+        <aside className="mt-10 rounded-2xl border border-stone-200 bg-stone-50/80 p-5 sm:p-6">
+          <h2 className="text-base font-bold text-stone-900 sm:text-lg">
+            자료 확인 및 참고
+          </h2>
+          {post.dataCheckedAt ? (
+            <p className="mt-2 text-sm text-stone-600">
+              자료 확인 기준일: {post.dataCheckedAt}
+            </p>
+          ) : null}
+          {post.references && post.references.length > 0 ? (
+            <ul className="mt-3 space-y-2 text-sm text-stone-700">
+              {post.references.map((ref) => (
+                <li key={`${ref.title}-${ref.checkedAt ?? ""}`}>
+                  <span className="font-semibold text-stone-900">{ref.title}</span>
+                  {ref.publisher ? ` · ${ref.publisher}` : ""}
+                  {ref.checkedAt ? ` · 확인일 ${ref.checkedAt}` : ""}
+                  {ref.note ? (
+                    <span className="mt-1 block text-stone-500">{ref.note}</span>
+                  ) : null}
+                  {ref.url ? (
+                    <a
+                      href={ref.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-1 inline-block text-brand-800 underline-offset-2 hover:underline"
+                    >
+                      원문 보기
+                    </a>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </aside>
+      ) : null}
+
       {post.relatedPostSlugs && post.relatedPostSlugs.length > 0 && (
         <BlogRelatedPosts slugs={post.relatedPostSlugs} />
       )}

@@ -49,6 +49,7 @@ export async function generateMetadata({
 
   return buildCollectionMetadata(config, {
     noindex: collectionCourses.length === 0,
+    courseCount: collectionCourses.length,
   });
 }
 

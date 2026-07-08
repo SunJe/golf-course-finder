@@ -1,9 +1,9 @@
-import { getAllBlogPosts } from "@/lib/blogPosts";
+import { getHomeBlogPosts } from "@/lib/blogPosts";
 import PortalSection from "@/components/portal/PortalSection";
 import HomeBlogCarousel from "@/components/portal/HomeBlogCarousel";
 
 export default function HomeBlogSection() {
-  const posts = getAllBlogPosts();
+  const posts = getHomeBlogPosts();
 
   return (
     <PortalSection

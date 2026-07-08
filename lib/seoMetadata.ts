@@ -3,6 +3,7 @@ import type { Course } from "@/types/course";
 import {
   buildCourseDetailDescription,
   META_DESCRIPTION_MAX_LENGTH,
+  META_DESCRIPTION_TARGET_MAX,
   truncateMetaDescription,
 } from "@/lib/courseSeoCopy";
 import { getCourseContentEnrichment } from "@/lib/enrichment/courseContentEnrichmentStore";
@@ -285,19 +286,27 @@ export function buildCollectionMetadata(
     title: string;
     seoDescription: string;
     slug: string;
+    h1?: string;
   },
-  options?: { noindex?: boolean },
+  options?: { noindex?: boolean; courseCount?: number },
 ): Metadata {
+  const count = options?.courseCount;
+  const countPhrase =
+    typeof count === "number" && count > 0
+      ? `현재 ${count.toLocaleString("ko-KR")}곳.`
+      : "";
   const title = config.title.includes(siteConfig.siteName)
     ? config.title
     : `${config.title} | ${siteConfig.siteName}`;
   const description = truncateMetaDescription(
-    config.seoDescription,
-    META_DESCRIPTION_MAX_LENGTH,
+    [config.seoDescription.replace(/가성비 좋은/g, "참고 요금이 등록된"), countPhrase]
+      .filter(Boolean)
+      .join(" "),
+    META_DESCRIPTION_TARGET_MAX,
   );
   const url = absoluteUrl(`/collections/${config.slug}`);
   const imagePath = getCollectionSeoImagePath(config.slug);
-  const imageAlt = config.title;
+  const imageAlt = config.h1 ?? config.title;
 
   return {
     title,

@@ -16,6 +16,7 @@ const REQUIRED_SLUGS = [
   "incheon-golf-top-5",
   "gapyeong-golf-best-6",
   "goyang-golf-best-5",
+  "pocheon-golf-best-7",
   "seoul-nine-hole-beginner-golf-top-5",
   "seoul-par3-practice-range-top-10",
   "golf-ball-type-guide",
@@ -80,8 +81,8 @@ function checkThumbnailExists(thumbnail: string): void {
 function main(): void {
   console.log("[check:blog-posts] Validating blog posts…");
 
-  if (BLOG_POSTS.length !== 19) {
-    fail(`Expected 19 posts, got ${BLOG_POSTS.length}`);
+  if (BLOG_POSTS.length !== 20) {
+    fail(`Expected 20 posts, got ${BLOG_POSTS.length}`);
   }
 
   const slugs = new Set(BLOG_POSTS.map((p) => p.slug));
@@ -114,8 +115,8 @@ function main(): void {
     }
   }
 
-  if (CATEGORY_COUNTS["course-guide"] !== 7) {
-    fail(`Expected 7 course-guide posts, got ${CATEGORY_COUNTS["course-guide"]}`);
+  if (CATEGORY_COUNTS["course-guide"] !== 8) {
+    fail(`Expected 8 course-guide posts, got ${CATEGORY_COUNTS["course-guide"]}`);
   }
   if (CATEGORY_COUNTS["gear-guide"] !== 10) {
     fail(`Expected 10 gear-guide posts, got ${CATEGORY_COUNTS["gear-guide"]}`);
@@ -130,7 +131,7 @@ function main(): void {
     if (!slugs.has(slug)) fail(`Home blog slug missing from posts: ${slug}`);
   }
 
-  console.log("[check:blog-posts] OK — 19 posts, categories, thumbnails, content length");
+  console.log("[check:blog-posts] OK — 20 posts, categories, thumbnails, content length");
   for (const post of BLOG_POSTS) {
     console.log(`  · ${post.slug} (${postCharCount(post)} chars, ${post.category})`);
   }

@@ -36,6 +36,7 @@ export const BLOG_THUMBNAIL_FILE_BY_SLUG: Record<string, string> = {
   "incheon-golf-top-5": "incheon-golf-top5.png",
   "gapyeong-golf-best-6": "gapyeong-golf.png",
   "goyang-golf-best-5": "seoul-beginner-golf.png",
+  "pocheon-golf-best-7": "pocheon-golf-best-7.png",
   "golf-ball-type-guide": "golf-ball-type-guide.png",
   "pro-tour-driver-brands-men": "pro-driver-men.png",
   "pro-tour-driver-brands-women": "pro-driver-women.png",
@@ -75,6 +76,10 @@ Open golf course with wide sky, breezy west-coast feeling, bright fairway, clean
 Topic: best golf courses in Gapyeong near Seoul.
 Mountain valley golf course, river and forest scenery, bright fairway, Seoul day-trip golf mood.`,
 
+  "pocheon-golf-best-7.png": `${BLOG_THUMBNAIL_PROMPT_PREFIX}
+Topic: Pocheon regional golf course comparison guide.
+Mountain lake and forest edge in northern Gyeonggi, calm public golf fairway, gentle hills, cool morning atmosphere, golf flag and cart path, not a real course, no identifiable clubhouse branding.`,
+
   "golf-ball-type-guide.png": `${BLOG_THUMBNAIL_PROMPT_PREFIX}
 Topic: golf balls by type.
 Several clean white golf balls on bright green grass with a tee, blurred golf green background. Golf balls are the clear main subject. No driver, no club, no text, no logos.`,
@@ -113,6 +118,7 @@ export const BLOG_THUMBNAIL_ALT_BY_SLUG: Record<string, string> = {
   "incheon-golf-top-5": "인천 골프장 추천",
   "gapyeong-golf-best-6": "가평 골프장 추천",
   "goyang-golf-best-5": "고양시 골프장 추천",
+  "pocheon-golf-best-7": "포천 골프장 7곳 비교 대표 이미지",
   "golf-ball-type-guide": "골프공 종류별 추천 가이드",
   "pro-tour-driver-brands-men": "프로 드라이버 브랜드 남자편",
   "pro-tour-driver-brands-women": "프로 드라이버 브랜드 여자편",

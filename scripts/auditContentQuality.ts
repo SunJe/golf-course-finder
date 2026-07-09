@@ -2,8 +2,11 @@
  * GolfMap content quality audit (read-only).
  * Usage: npm run audit:content
  */
+import fs from "node:fs";
+import path from "node:path";
 import { BLOG_POSTS } from "@/lib/blogPosts";
 import { COLLECTION_SLUGS, getCollectionBySlug } from "@/lib/collectionLanding";
+import { resolveBlogItemDescription } from "@/lib/enrichBlogPost";
 import { looksLikeSoftParticleTemplate } from "@/lib/koreanParticles";
 import enrichmentFile from "@/data/course-content-enrichment.json";
 import type { CourseContentEnrichmentFile } from "@/lib/enrichment/courseContentEnrichmentTypes";
@@ -100,6 +103,23 @@ function auditBlogs() {
             post.slug,
           );
         }
+        // Visit Korea overview append 회귀 방지: 수동 description이 있으면
+        // enrichment는 overview를 붙이지 않아야 한다 (런타임 정책과 동일 가정).
+        const manual = item.description?.trim();
+        if (
+          manual &&
+          /한국 최초의 퍼블릭|반세기의 역사|개나리|아카시아 향기|하얀 눈꽃/.test(
+            manual,
+          )
+        ) {
+          add(
+            "warning",
+            "manual_description_has_tourist_overview",
+            "blogPosts",
+            `item '${item.title}' 수동 description에 Visit Korea 홍보 overview 의심 문구`,
+            post.slug,
+          );
+        }
       }
     }
   }
@@ -172,9 +192,74 @@ function auditCollections() {
   }
 }
 
+function auditVisitKoreaOverviewMerge() {
+  let manualWithOverview = 0;
+  for (const post of BLOG_POSTS) {
+    if (!post.visitKoreaMetaDir) continue;
+    const metaPath = path.join(
+      process.cwd(),
+      `public/promo-assets/blog/${post.visitKoreaMetaDir}/visit-korea-meta.json`,
+    );
+    if (!fs.existsSync(metaPath)) continue;
+    const entries = JSON.parse(fs.readFileSync(metaPath, "utf8")) as Array<{
+      courseId?: string;
+      key?: string;
+      overview?: string;
+    }>;
+    const byCourseId = new Map(
+      entries.filter((e) => e.courseId).map((e) => [e.courseId!, e]),
+    );
+    const byKey = new Map(
+      entries.filter((e) => e.key).map((e) => [e.key!, e]),
+    );
+
+    for (const section of post.sections) {
+      for (const item of section.items ?? []) {
+        const meta =
+          (item.relatedCourseId
+            ? byCourseId.get(item.relatedCourseId)
+            : undefined) ??
+          (item.visitKoreaKey ? byKey.get(item.visitKoreaKey) : undefined);
+        const overview = meta?.overview?.trim();
+        const manual = item.description?.trim();
+        if (!overview || !manual) continue;
+        manualWithOverview += 1;
+        const merged = resolveBlogItemDescription(manual, overview);
+        if (merged !== manual) {
+          add(
+            "error",
+            "overview_appended_despite_manual",
+            "enrichBlogPost",
+            `item '${item.title}' — 수동 description이 있어도 overview가 병합됨`,
+            post.slug,
+          );
+        }
+        if (merged.includes(overview.slice(0, 48)) && !manual.includes(overview.slice(0, 48))) {
+          add(
+            "error",
+            "duplicate_overview_in_final",
+            "enrichBlogPost",
+            `item '${item.title}' — 최종 본문에 external overview 중복`,
+            post.slug,
+          );
+        }
+      }
+    }
+  }
+  if (manualWithOverview > 0) {
+    add(
+      "warning",
+      "manual_and_overview_pairs",
+      "visit-korea-meta",
+      `수동 description + overview 동시 존재 ${manualWithOverview}건 (append 금지 정책으로 병합하지 않음)`,
+    );
+  }
+}
+
 function main() {
   console.log("[audit:content] GolfMap content quality audit");
   auditBlogs();
+  auditVisitKoreaOverviewMerge();
   auditEnrichment();
   auditCollections();
 

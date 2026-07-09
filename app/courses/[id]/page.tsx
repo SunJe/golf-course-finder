@@ -46,22 +46,23 @@ export default async function CourseDetailPage({
   const visitKoreaGallery = resolveCourseVisitKoreaImages(course.id, enrichment);
   const blogPosts = getRelatedBlogPostsForCourse(course, 4);
 
-  const blogSlot = (
-    <section className="mt-6 rounded-2xl border border-gray-200/80 bg-white p-4 shadow-sm sm:p-6">
-      <div className="mb-4 flex items-end justify-between gap-4">
-        <h2 className="text-lg font-bold tracking-tight text-gray-900 sm:text-xl">
-          관련 블로그
-        </h2>
-        <Link
-          href="/blog"
-          className="shrink-0 text-sm font-medium text-stone-400 transition hover:text-brand-800"
-        >
-          전체보기 →
-        </Link>
-      </div>
-      <HomeBlogCarousel posts={blogPosts} />
-    </section>
-  );
+  const blogSlot =
+    blogPosts.length > 0 ? (
+      <section className="mt-6 rounded-2xl border border-gray-200/80 bg-white p-4 shadow-sm sm:p-6">
+        <div className="mb-4 flex items-end justify-between gap-4">
+          <h2 className="text-lg font-bold tracking-tight text-gray-900 sm:text-xl">
+            관련 블로그
+          </h2>
+          <Link
+            href="/blog"
+            className="shrink-0 text-sm font-medium text-stone-400 transition hover:text-brand-800"
+          >
+            전체보기 →
+          </Link>
+        </div>
+        <HomeBlogCarousel posts={blogPosts} />
+      </section>
+    ) : null;
 
   return (
     <>

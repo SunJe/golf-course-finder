@@ -155,4 +155,9 @@ export function blogThumbnailSourcePath(fileName: string): string {
   return `${BLOG_THUMBNAIL_SOURCE_DIR}/${fileName}`;
 }
 
+/** Next Image Optimization 우회 — Production에서 /_next/image 402 방지 */
+export function isBlogSourceThumbnailPath(src: string): boolean {
+  return src.startsWith(`${BLOG_THUMBNAIL_SOURCE_DIR}/`);
+}
+
 export const BLOG_THUMBNAIL_DEFAULT = `${BLOG_THUMBNAIL_DIR}/default.png`;

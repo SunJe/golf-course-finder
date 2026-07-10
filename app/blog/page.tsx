@@ -4,6 +4,7 @@ import { getAllBlogPosts, type BlogPost } from "@/lib/blogPosts";
 import PortalSection from "@/components/portal/PortalSection";
 import BlogCard from "@/components/BlogCard";
 import { buildBlogMetadata } from "@/lib/seoMetadata";
+import { isBlogSourceThumbnailPath } from "@/lib/blogThumbnailRules";
 
 export const metadata = buildBlogMetadata();
 
@@ -175,6 +176,7 @@ function FeaturedCourseCard({ post }: { post: BlogPost }) {
           sizes="(min-width: 1024px) 50vw, 100vw"
           className="object-cover object-center transition duration-300 group-hover:scale-[1.02]"
           priority
+          unoptimized={isBlogSourceThumbnailPath(post.thumbnail)}
         />
         <span className="absolute left-4 top-4 inline-flex items-center rounded-full bg-white/95 px-3 py-1 text-xs font-bold text-brand-800 shadow-sm">
           대표 글
@@ -228,6 +230,7 @@ function CompactCard({
           fill
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="object-cover object-center transition duration-300 group-hover:scale-[1.03]"
+          unoptimized={isBlogSourceThumbnailPath(post.thumbnail)}
         />
       </div>
       <div className="flex flex-1 flex-col p-4">

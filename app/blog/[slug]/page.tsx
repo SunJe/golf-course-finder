@@ -13,6 +13,7 @@ import {
   BLOG_ARTICLE_CONTAINER_CLASS,
   BLOG_CONTENT_CLASS,
 } from "@/lib/siteLayout";
+import { isBlogSourceThumbnailPath } from "@/lib/blogThumbnailRules";
 
 export const revalidate = 86400;
 
@@ -76,6 +77,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
                   sizes="168px"
                   className="object-cover object-center"
                   priority
+                  unoptimized={isBlogSourceThumbnailPath(post.thumbnail)}
                 />
               </div>
             </div>

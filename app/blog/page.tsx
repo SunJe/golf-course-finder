@@ -42,6 +42,9 @@ const STARTER_SLUGS = [
 /** 코스 가이드 노출 우선순위 (첫 글이 featured) */
 const COURSE_ORDER = [
   "seoul-beginner-golf-best-5",
+  "hwaseong-golf-best-7",
+  "yongin-golf-best-10",
+  "pocheon-golf-best-7",
   "goyang-golf-best-5",
   "gapyeong-golf-best-6",
   "incheon-golf-top-5",
@@ -53,6 +56,9 @@ const COURSE_ORDER = [
 /** 코스 카드 메타(지역·유형) */
 const COURSE_META: Record<string, string> = {
   "seoul-beginner-golf-best-5": "서울 근교 · 초보자",
+  "hwaseong-golf-best-7": "화성 · 27홀·9홀",
+  "yongin-golf-best-10": "용인 · 코스 비교",
+  "pocheon-golf-best-7": "포천 · 코스 비교",
   "goyang-golf-best-5": "고양 · 9홀·6홀",
   "gapyeong-golf-best-6": "가평 · 코스 추천",
   "incheon-golf-top-5": "인천 · 코스 추천",

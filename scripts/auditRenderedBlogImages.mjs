@@ -33,6 +33,9 @@ function walk(dir, filter, out = []) {
 function collectFromSourceFiles() {
   const files = [
     ...walk(path.join(root, "lib"), (f) => f.endsWith("blogPosts.ts")),
+    ...walk(path.join(root, "data"), (f) =>
+      f.endsWith("tourapi-course-images.json"),
+    ),
     ...walk(path.join(root, "public", "promo-assets", "blog"), (f) =>
       f.endsWith("visit-korea-meta.json"),
     ),

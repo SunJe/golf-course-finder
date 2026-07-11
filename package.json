@@ -71,6 +71,8 @@
     "audit:structured-data": "tsx scripts/auditStructuredData.ts",
     "audit:content": "tsx scripts/auditContentQuality.ts",
     "audit:blog-images": "node scripts/auditRenderedBlogImages.mjs",
+    "audit:tourapi-course-images": "tsx scripts/auditTourApiCourseImages.ts",
+    "sync:tourapi-course-images": "tsx scripts/auditTourApiCourseImages.ts --download",
     "verify:related-blogs": "tsx scripts/verifyRelatedBlogAndEnrichment.ts",
     "audit:adsense-readiness": "tsx scripts/auditAdSenseReadiness.ts",
     "generate:difficulty-sql": "tsx scripts/generateDifficultyUpdateSql.ts",

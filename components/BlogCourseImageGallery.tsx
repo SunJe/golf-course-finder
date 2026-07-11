@@ -10,6 +10,8 @@ interface BlogCourseImageGalleryProps {
   courseName: string;
   regionLabel?: string;
   imageCredit?: string;
+  imageSourcePage?: string;
+  imageAlt?: string;
 }
 
 const IMAGE_HEIGHT_CLASS = "h-[220px] sm:h-[240px] md:h-[260px]";
@@ -42,6 +44,8 @@ export function BlogCourseImageGallery({
   courseName,
   regionLabel,
   imageCredit,
+  imageSourcePage,
+  imageAlt,
 }: BlogCourseImageGalleryProps) {
   const initial = useMemo(() => normalizeSrcList(images), [images]);
   const [failed, setFailed] = useState<Set<string>>(() => new Set());
@@ -161,7 +165,7 @@ export function BlogCourseImageGallery({
 
   if (visible.length === 0) return null;
 
-  const alt = buildImageAlt(courseName, regionLabel);
+  const alt = imageAlt?.trim() || buildImageAlt(courseName, regionLabel);
   const credit = imageCredit ?? VISIT_KOREA_IMAGE_CREDIT;
   const single = visible.length === 1;
 
@@ -184,23 +188,32 @@ export function BlogCourseImageGallery({
             aria-label={`${alt} ${index + 1} 확대 보기`}
             className={
               single
-                ? `group relative w-full cursor-zoom-in overflow-hidden rounded-lg bg-stone-100 ${IMAGE_HEIGHT_CLASS}`
+                ? `group relative w-full cursor-zoom-in overflow-hidden rounded-lg bg-stone-100`
                 : `group relative shrink-0 cursor-zoom-in snap-start overflow-hidden rounded-lg bg-stone-100 ${IMAGE_WIDTH_CLASS} ${IMAGE_HEIGHT_CLASS}`
             }
           >
-            <SafeContentImage
-              src={src}
-              alt={visible.length > 1 ? `${alt} ${index + 1}` : alt}
-              fill
-              className="object-cover transition-transform duration-300 group-hover:scale-105"
-              sizes={
-                single
-                  ? "(max-width: 768px) 100vw, 900px"
-                  : "(max-width: 640px) 300px, 360px"
-              }
-              draggable={false}
-              onImageError={markFailed}
-            />
+            {single ? (
+              <SafeContentImage
+                src={src}
+                alt={alt}
+                width={1200}
+                height={800}
+                className="h-auto max-h-[320px] w-full object-contain"
+                sizes="(max-width: 768px) 100vw, 900px"
+                draggable={false}
+                onImageError={markFailed}
+              />
+            ) : (
+              <SafeContentImage
+                src={src}
+                alt={`${alt} ${index + 1}`}
+                fill
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                sizes="(max-width: 640px) 300px, 360px"
+                draggable={false}
+                onImageError={markFailed}
+              />
+            )}
           </button>
         ))}
       </div>
@@ -259,8 +272,21 @@ export function BlogCourseImageGallery({
         </div>
       ) : null}
 
-      <p className="border-b border-stone-100 bg-stone-100 px-4 py-2 text-xs text-stone-500 sm:px-5">
+      <p className="border-b border-stone-100 bg-stone-50 px-4 py-2 text-xs text-stone-500 sm:px-5">
         {credit}
+        {imageSourcePage ? (
+          <>
+            {" · "}
+            <a
+              href={imageSourcePage}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-stone-700"
+            >
+              원문 보기
+            </a>
+          </>
+        ) : null}
       </p>
 
       {lightboxIndex !== null && visible[lightboxIndex] ? (

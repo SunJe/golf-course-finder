@@ -34,6 +34,8 @@ export type BlogPostSection = {
     images?: string[];
     /** 예: 출처 : ⓒ한국관광콘텐츠랩 */
     imageCredit?: string;
+    /** TourAPI linkedview 등 출처 페이지 */
+    imageSourcePage?: string;
     /** Visit Korea 메타 key (courseId 없을 때 이미지 매칭) */
     visitKoreaKey?: string;
     relatedCourseId?: string;

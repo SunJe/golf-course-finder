@@ -130,21 +130,24 @@ export function BlogCourseCard({ item, rank }: BlogCourseCardProps) {
         )}
       </div>
 
-      {/* 4. API 이미지 (가로 스크롤) */}
-      {hasAnyImage ? (
-        <BlogCourseImageGallery
-          images={galleryImages}
-          courseName={item.title}
-          regionLabel={regionLabel}
-          imageCredit={item.imageCredit}
-        />
-      ) : null}
-
-      {/* 5–6. 설명 + 추천 이유 */}
+      {/* 5–6. 설명 → 사진(있을 때만) → 추천 이유 */}
       <div className="px-4 py-4 sm:px-5 sm:py-5">
         <p className="text-sm leading-relaxed text-stone-700 sm:text-base">
           {item.description}
         </p>
+
+        {hasAnyImage ? (
+          <div className="mt-4 -mx-4 sm:-mx-5">
+            <BlogCourseImageGallery
+              images={galleryImages}
+              courseName={item.title}
+              regionLabel={regionLabel}
+              imageCredit={item.imageCredit}
+              imageSourcePage={item.imageSourcePage}
+              imageAlt={item.imageAlt}
+            />
+          </div>
+        ) : null}
 
         <div className="mt-5 rounded-xl border border-emerald-100 bg-emerald-50 p-4">
           <h4 className="text-sm font-bold text-emerald-800">

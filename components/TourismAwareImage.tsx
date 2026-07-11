@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import Image, { type ImageProps } from "next/image";
-import { shouldBypassVercelImageOptimization } from "@/lib/externalTourismImage";
 
 type TourismAwareImageProps = ImageProps & {
+  /** @deprecated Gray fallback removed — failed images unmount instead. */
   fallbackClassName?: string;
+  onImageError?: (src: string) => void;
 };
 
 function resolveImageSrc(src: ImageProps["src"]): string {
@@ -16,26 +17,25 @@ function resolveImageSrc(src: ImageProps["src"]): string {
   return "";
 }
 
+/**
+ * Visit Korea / tourism content images: always skip Vercel Image Optimization
+ * and unmount on failure (no gray empty placeholder).
+ */
 export default function TourismAwareImage({
   src,
   alt,
   className = "",
-  fallbackClassName = "",
+  fallbackClassName: _fallbackClassName,
   onError,
+  onImageError,
+  unoptimized: _unoptimized,
   ...props
 }: TourismAwareImageProps) {
   const [failed, setFailed] = useState(false);
   const srcString = resolveImageSrc(src);
-  const unoptimized = shouldBypassVercelImageOptimization(srcString);
 
-  if (failed) {
-    return (
-      <div
-        className={`bg-stone-200 ${props.fill ? "absolute inset-0 " : ""}${fallbackClassName || className}`}
-        role="img"
-        aria-label={typeof alt === "string" ? alt : "이미지를 불러올 수 없습니다"}
-      />
-    );
+  if (!srcString.trim() || failed) {
+    return null;
   }
 
   return (
@@ -44,9 +44,10 @@ export default function TourismAwareImage({
       src={src}
       alt={alt}
       className={className}
-      unoptimized={unoptimized}
+      unoptimized
       onError={(event) => {
         setFailed(true);
+        onImageError?.(srcString);
         onError?.(event);
       }}
     />

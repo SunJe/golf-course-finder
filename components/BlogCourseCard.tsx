@@ -144,7 +144,9 @@ export function BlogCourseCard({ item, rank }: BlogCourseCardProps) {
               regionLabel={regionLabel}
               imageCredit={item.imageCredit}
               imageSourcePage={item.imageSourcePage}
+              imageSourcePages={item.imageSourcePages}
               imageAlt={item.imageAlt}
+              imageAlts={item.imageAlts}
             />
           </div>
         ) : null}

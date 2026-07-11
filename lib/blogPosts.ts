@@ -36,6 +36,10 @@ export type BlogPostSection = {
     imageCredit?: string;
     /** TourAPI linkedview 등 출처 페이지 */
     imageSourcePage?: string;
+    /** 이미지별 출처 페이지 (다를 때) */
+    imageSourcePages?: string[];
+    /** 이미지별 alt */
+    imageAlts?: string[];
     /** Visit Korea 메타 key (courseId 없을 때 이미지 매칭) */
     visitKoreaKey?: string;
     relatedCourseId?: string;

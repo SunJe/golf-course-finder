@@ -700,16 +700,27 @@ async function main() {
     await sleep(250);
     const images = await detailImages(contentId);
     const contentCopyright = best.item.cpyrhtDivCd?.trim() || null;
-    const urlPool: Array<{ url: string; code?: string; name?: string }> = [];
-    const pushUrl = (url?: string, code?: string, name?: string) => {
+    const urlPool: Array<{
+      url: string;
+      code?: string;
+      name?: string;
+      serialnum?: string;
+    }> = [];
+    const pushUrl = (
+      url?: string,
+      code?: string,
+      name?: string,
+      serialnum?: string,
+    ) => {
       if (!url) return;
       const existing = urlPool.find((u) => u.url === url);
       if (existing) {
         if (!existing.code && code) existing.code = code;
         if (!existing.name && name) existing.name = name;
+        if (!existing.serialnum && serialnum) existing.serialnum = serialnum;
         return;
       }
-      urlPool.push({ url, code, name });
+      urlPool.push({ url, code, name, serialnum });
     };
     // 대표 이미지: detailCommon/list의 cpyrhtDivCd가 공식 저작권
     pushUrl(best.item.firstimage, contentCopyright ?? undefined);
@@ -719,6 +730,7 @@ async function main() {
         img.originimgurl ?? img.smallimageurl,
         img.cpyrhtDivCd?.trim() || contentCopyright || undefined,
         img.imgname,
+        img.serialnum,
       );
     }
 
@@ -735,12 +747,17 @@ async function main() {
       code: string | null;
       license: string;
       buf: Buffer;
+      md5: string;
       width?: number;
       height?: number;
       contentType: string;
       name?: string;
+      serialnum?: string;
+      scenicScore: number;
     };
     const usable: CandidateImg[] = [];
+    const seenMd5 = new Set<string>();
+    const seenSerial = new Set<string>();
     for (const entry of urlPool) {
       await sleep(100);
       const probed = await probeImage(entry.url);
@@ -750,20 +767,39 @@ async function main() {
       if (!license) {
         continue;
       }
+      const md5 = crypto.createHash("md5").update(probed.buf).digest("hex");
+      if (seenMd5.has(md5)) continue;
+      if (entry.serialnum && seenSerial.has(entry.serialnum)) continue;
+      seenMd5.add(md5);
+      if (entry.serialnum) seenSerial.add(entry.serialnum);
+
+      const nameLower = (entry.name ?? "").toLowerCase();
+      let scenicScore = 0;
+      if (/전경|그린|페어웨이|클럽하우스|코스|홀|티잉/.test(entry.name ?? "")) {
+        scenicScore += 30;
+      }
+      if (/로고|logo|ci\b|텍스트|간판|지도/.test(nameLower)) {
+        scenicScore -= 40;
+      }
+
       usable.push({
         url: entry.url,
         code,
         license,
         buf: probed.buf,
+        md5,
         width: probed.width,
         height: probed.height,
         contentType: probed.contentType ?? "image/jpeg",
         name: entry.name,
+        serialnum: entry.serialnum,
+        scenicScore,
       });
     }
 
-    // Prefer landscape + width>=800
+    // Prefer scenic + landscape + width>=800
     usable.sort((a, b) => {
+      if (b.scenicScore !== a.scenicScore) return b.scenicScore - a.scenicScore;
       const aLand = (a.width ?? 0) >= (a.height ?? 0) ? 1 : 0;
       const bLand = (b.width ?? 0) >= (b.height ?? 0) ? 1 : 0;
       if (bLand !== aLand) return bLand - aLand;
@@ -773,57 +809,84 @@ async function main() {
       return (b.width ?? 0) * (b.height ?? 0) - (a.width ?? 0) * (a.height ?? 0);
     });
 
-    const chosen = usable[0];
-    if (!chosen) {
+    const chosenList = usable.slice(0, 3);
+    if (chosenList.length === 0) {
       baseRow.matchStatus = "no_images";
       baseRow.notes = "라이선스 확인 가능 이미지 없음(cpyrhtDivCd 비어 있음 포함)";
       rows.push(baseRow);
       continue;
     }
 
+    const primary = chosenList[0];
     baseRow.matchStatus = "accepted";
-    baseRow.selectedImage = chosen.url;
-    baseRow.copyrightCodeRaw = chosen.code;
-    baseRow.licenseLabel = chosen.license;
+    baseRow.selectedImage = primary.url;
+    baseRow.copyrightCodeRaw = primary.code;
+    baseRow.licenseLabel = primary.license;
     baseRow.matchScore = best.score;
     baseRow.matchReasons = best.reasons;
-    baseRow.width = chosen.width;
-    baseRow.height = chosen.height;
-    baseRow.originalUrl = chosen.url;
-    baseRow.md5 = crypto.createHash("md5").update(chosen.buf).digest("hex");
+    baseRow.width = primary.width;
+    baseRow.height = primary.height;
+    baseRow.originalUrl = primary.url;
+    baseRow.md5 = primary.md5;
+    baseRow.notes = `사진 ${chosenList.length}장 선택`;
 
-    const ext = extFromContentType(chosen.contentType, chosen.url);
-    const relPath = `/promo-assets/blog/tourapi-courses/${course.courseId}/${contentId}-01.${ext}`;
-    const absPath = path.join(ROOT, "public", relPath.replace(/^\//, ""));
-    baseRow.localPath = relPath;
+    const credit =
+      primary.license === "공공누리 제3유형"
+        ? "사진: 한국관광공사 TourAPI · 공공누리 제3유형(변경금지)"
+        : "사진: 한국관광공사 TourAPI · 공공누리 제1유형";
 
-    if (download) {
-      fs.mkdirSync(path.dirname(absPath), { recursive: true });
-      fs.writeFileSync(absPath, chosen.buf);
-      console.log(`  saved ${relPath} (${chosen.license})`);
-    }
+    const savedPaths: string[] = [];
+    for (let i = 0; i < chosenList.length; i += 1) {
+      const chosen = chosenList[i];
+      const ext = extFromContentType(chosen.contentType, chosen.url);
+      const indexLabel = String(i + 1).padStart(2, "0");
+      const relPath = `/promo-assets/blog/tourapi-courses/${course.courseId}/${contentId}-${indexLabel}.${ext}`;
+      const absPath = path.join(ROOT, "public", relPath.replace(/^\//, ""));
+      if (i === 0) baseRow.localPath = relPath;
 
-    manifestItems.push({
-      courseId: course.courseId,
-      blogSlug: course.blogSlug,
-      courseName: course.courseName,
-      contentId,
-      path: relPath,
-      originalUrl: chosen.url,
-      md5: baseRow.md5,
-      width: chosen.width ?? null,
-      height: chosen.height ?? null,
-      copyrightCodeRaw: chosen.code,
-      licenseLabel: chosen.license,
-      sourcePage: baseRow.sourcePage,
-      alt:
+      if (download) {
+        fs.mkdirSync(path.dirname(absPath), { recursive: true });
+        let shouldWrite = true;
+        if (fs.existsSync(absPath)) {
+          const existing = fs.readFileSync(absPath);
+          const existingMd5 = crypto
+            .createHash("md5")
+            .update(existing)
+            .digest("hex");
+          if (existingMd5 === chosen.md5) {
+            shouldWrite = false;
+            console.log(`  keep ${relPath} (md5 match)`);
+          }
+        }
+        if (shouldWrite) {
+          fs.writeFileSync(absPath, chosen.buf);
+          console.log(`  saved ${relPath} (${chosen.license})`);
+        }
+      }
+
+      savedPaths.push(relPath);
+      const title =
         chosen.name?.trim() ||
-        `${course.courseName} 사진 - 한국관광공사 TourAPI`,
-      credit:
-        chosen.license === "공공누리 제3유형"
-          ? "사진: 한국관광공사 TourAPI · 공공누리 제3유형(변경금지)"
-          : "사진: 한국관광공사 TourAPI · 공공누리 제1유형",
-    });
+        `${course.courseName} 사진 - 한국관광공사 TourAPI`;
+      manifestItems.push({
+        courseId: course.courseId,
+        blogSlug: course.blogSlug,
+        courseName: course.courseName,
+        contentId,
+        path: relPath,
+        originalUrl: chosen.url,
+        md5: chosen.md5,
+        width: chosen.width ?? null,
+        height: chosen.height ?? null,
+        copyrightCodeRaw: chosen.code,
+        licenseLabel: chosen.license,
+        sourcePage: baseRow.sourcePage,
+        imageTitle: chosen.name?.trim() || undefined,
+        serialnum: chosen.serialnum || undefined,
+        alt: title,
+        credit,
+      });
+    }
 
     rows.push(baseRow);
   }
@@ -850,7 +913,10 @@ async function main() {
     });
     s.total += 1;
     s[row.matchStatus] += 1;
-    if (row.matchStatus === "accepted") s.photos += 1;
+    if (row.matchStatus === "accepted") {
+      const m = row.notes.match(/사진 (\d+)장/);
+      s.photos += m ? Number(m[1]) : 1;
+    }
   }
 
   const report = {

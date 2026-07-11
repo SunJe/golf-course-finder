@@ -1,5 +1,4 @@
 import { Fragment } from "react";
-import Image from "next/image";
 import Link from "next/link";
 
 import type { BlogPost, BlogPostSection } from "@/lib/blogPosts";
@@ -7,6 +6,7 @@ import type { BlogPost, BlogPostSection } from "@/lib/blogPosts";
 import { BlogCourseCard } from "@/components/BlogCourseCard";
 import { BlogGearCard } from "@/components/BlogGearCard";
 import { BlogRelatedPosts } from "@/components/BlogRelatedPosts";
+import { BlogSectionHeroImage } from "@/components/BlogSectionHeroImage";
 
 
 
@@ -161,15 +161,10 @@ export function BlogPostBody({ post }: { post: BlogPost }) {
         <section className="mt-10 first:mt-0">
 
           {section.image ? (
-            <div className="relative mb-6 aspect-[4/3] overflow-hidden rounded-2xl border border-stone-200/80 bg-stone-100">
-              <Image
-                src={section.image}
-                alt={section.imageAlt ?? ""}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 900px"
-              />
-            </div>
+            <BlogSectionHeroImage
+              src={section.image}
+              alt={section.imageAlt ?? ""}
+            />
           ) : null}
 
           <h2 className="text-xl font-bold text-stone-900">{section.heading}</h2>

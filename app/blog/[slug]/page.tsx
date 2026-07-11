@@ -1,10 +1,10 @@
 import Link from "next/link";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { BLOG_POSTS, getBlogPostBySlug } from "@/lib/blogPosts";
 import BlogPostJsonLd from "@/components/BlogPostJsonLd";
 import { BlogPostBody } from "@/components/BlogPostBody";
+import SafeContentImage from "@/components/content/SafeContentImage";
 import { buildBlogPostMetadata } from "@/lib/seoMetadata";
 import { enrichBlogPost } from "@/lib/enrichBlogPost";
 import { RelatedGuidesSection } from "@/components/RelatedGuidesSection";
@@ -13,7 +13,6 @@ import {
   BLOG_ARTICLE_CONTAINER_CLASS,
   BLOG_CONTENT_CLASS,
 } from "@/lib/siteLayout";
-import { isBlogSourceThumbnailPath } from "@/lib/blogThumbnailRules";
 
 export const revalidate = 86400;
 
@@ -70,14 +69,13 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
             </div>
             <div className="hidden justify-end lg:flex">
               <div className="relative aspect-square w-[168px] shrink-0 overflow-hidden rounded-2xl border border-stone-200/80 bg-stone-100 shadow-sm">
-                <Image
+                <SafeContentImage
                   src={post.thumbnail}
                   alt={post.thumbnailAlt}
                   fill
                   sizes="168px"
                   className="object-cover object-center"
                   priority
-                  unoptimized={isBlogSourceThumbnailPath(post.thumbnail)}
                 />
               </div>
             </div>

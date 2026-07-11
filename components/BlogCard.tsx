@@ -1,7 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { BlogPost } from "@/lib/blogPosts";
-import { isBlogSourceThumbnailPath } from "@/lib/blogThumbnailRules";
+import SafeContentImage from "@/components/content/SafeContentImage";
 
 const FOCUS_RING =
   "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-700";
@@ -62,13 +61,12 @@ export default function BlogCard({
       <div
         className={`relative ${thumbClass} shrink-0 self-start overflow-hidden rounded-xl bg-emerald-50`}
       >
-        <Image
+        <SafeContentImage
           src={post.thumbnail}
           alt={post.thumbnailAlt}
           fill
           sizes={size === "home" ? "96px" : "128px"}
           className="object-cover object-center transition duration-300 group-hover:scale-[1.02]"
-          unoptimized={isBlogSourceThumbnailPath(post.thumbnail)}
         />
       </div>
       <div className="flex min-w-0 flex-1 flex-col">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import TourismAwareImage from "@/components/TourismAwareImage";
 import type { CourseVisitKoreaImageSet } from "@/lib/enrichment/courseVisitKoreaImages";
 
@@ -28,7 +28,27 @@ export function CourseVisitKoreaGallery({
   regionLabel,
   gallery,
 }: CourseVisitKoreaGalleryProps) {
-  const images = gallery.images;
+  const initialImages = useMemo(
+    () =>
+      gallery.images.filter((src) => {
+        const trimmed = src?.trim() ?? "";
+        return trimmed && trimmed !== "undefined" && trimmed !== "null";
+      }),
+    [gallery.images],
+  );
+  const [failed, setFailed] = useState<Set<string>>(() => new Set());
+  const images = useMemo(
+    () => initialImages.filter((src) => !failed.has(src)),
+    [initialImages, failed],
+  );
+  const markFailed = useCallback((src: string) => {
+    setFailed((prev) => {
+      if (prev.has(src)) return prev;
+      const next = new Set(prev);
+      next.add(src);
+      return next;
+    });
+  }, []);
   const scrollRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const pauseRef = useRef(false);
@@ -216,6 +236,7 @@ export function CourseVisitKoreaGallery({
                 className="object-cover"
                 sizes="(max-width: 640px) 300px, 360px"
                 draggable={false}
+                onImageError={markFailed}
               />
             </div>
           );

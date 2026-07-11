@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import TourismAwareImage from "@/components/TourismAwareImage";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import SafeContentImage from "@/components/content/SafeContentImage";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { VISIT_KOREA_IMAGE_CREDIT } from "@/lib/visitKoreaAttribution";
 
@@ -24,12 +24,32 @@ function buildImageAlt(courseName: string, regionLabel?: string): string {
   return `${courseName} 골프장 사진`;
 }
 
+function normalizeSrcList(images: string[]): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const raw of images) {
+    const src = raw?.trim() ?? "";
+    if (!src || src === "undefined" || src === "null") continue;
+    if (seen.has(src)) continue;
+    seen.add(src);
+    out.push(src);
+  }
+  return out;
+}
+
 export function BlogCourseImageGallery({
   images,
   courseName,
   regionLabel,
   imageCredit,
 }: BlogCourseImageGalleryProps) {
+  const initial = useMemo(() => normalizeSrcList(images), [images]);
+  const [failed, setFailed] = useState<Set<string>>(() => new Set());
+  const visible = useMemo(
+    () => initial.filter((src) => !failed.has(src)),
+    [initial, failed],
+  );
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef<{ startX: number; startScrollLeft: number } | null>(
@@ -38,6 +58,21 @@ export function BlogCourseImageGallery({
   const [thumb, setThumb] = useState({ left: 0, width: 100 });
   const [scrollable, setScrollable] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  const markFailed = useCallback((src: string) => {
+    setFailed((prev) => {
+      if (prev.has(src)) return prev;
+      const next = new Set(prev);
+      next.add(src);
+      return next;
+    });
+    setLightboxIndex((current) => {
+      if (current === null) return current;
+      const nextVisible = initial.filter((s) => s !== src && !failed.has(s));
+      if (nextVisible.length === 0) return null;
+      return Math.min(current, nextVisible.length - 1);
+    });
+  }, [failed, initial]);
 
   const syncThumb = useCallback(() => {
     const el = scrollRef.current;
@@ -72,7 +107,7 @@ export function BlogCourseImageGallery({
       el.removeEventListener("scroll", syncThumb);
       resizeObserver.disconnect();
     };
-  }, [syncThumb]);
+  }, [syncThumb, visible.length]);
 
   useEffect(() => {
     const endDrag = () => {
@@ -95,15 +130,17 @@ export function BlogCourseImageGallery({
 
   const showPrev = useCallback(() => {
     setLightboxIndex((current) =>
-      current === null ? current : (current - 1 + images.length) % images.length,
+      current === null
+        ? current
+        : (current - 1 + visible.length) % visible.length,
     );
-  }, [images.length]);
+  }, [visible.length]);
 
   const showNext = useCallback(() => {
     setLightboxIndex((current) =>
-      current === null ? current : (current + 1) % images.length,
+      current === null ? current : (current + 1) % visible.length,
     );
-  }, [images.length]);
+  }, [visible.length]);
 
   useEffect(() => {
     if (lightboxIndex === null) return;
@@ -122,40 +159,53 @@ export function BlogCourseImageGallery({
     };
   }, [lightboxIndex, showPrev, showNext]);
 
-  if (images.length === 0) return null;
+  if (visible.length === 0) return null;
 
   const alt = buildImageAlt(courseName, regionLabel);
   const credit = imageCredit ?? VISIT_KOREA_IMAGE_CREDIT;
+  const single = visible.length === 1;
 
   return (
     <>
       <div
         ref={scrollRef}
-        className={SCROLL_ROW_CLASS}
+        className={
+          single
+            ? `border-t border-stone-100 bg-stone-100 p-2`
+            : SCROLL_ROW_CLASS
+        }
         aria-label={`${courseName} 사진 목록`}
       >
-        {images.map((src, index) => (
+        {visible.map((src, index) => (
           <button
             key={src}
             type="button"
             onClick={() => setLightboxIndex(index)}
             aria-label={`${alt} ${index + 1} 확대 보기`}
-            className={`group relative shrink-0 cursor-zoom-in snap-start overflow-hidden rounded-lg bg-stone-100 ${IMAGE_WIDTH_CLASS} ${IMAGE_HEIGHT_CLASS}`}
+            className={
+              single
+                ? `group relative w-full cursor-zoom-in overflow-hidden rounded-lg bg-stone-100 ${IMAGE_HEIGHT_CLASS}`
+                : `group relative shrink-0 cursor-zoom-in snap-start overflow-hidden rounded-lg bg-stone-100 ${IMAGE_WIDTH_CLASS} ${IMAGE_HEIGHT_CLASS}`
+            }
           >
-            <TourismAwareImage
+            <SafeContentImage
               src={src}
-              alt={images.length > 1 ? `${alt} ${index + 1}` : alt}
+              alt={visible.length > 1 ? `${alt} ${index + 1}` : alt}
               fill
               className="object-cover transition-transform duration-300 group-hover:scale-105"
-              sizes="(max-width: 640px) 300px, 360px"
+              sizes={
+                single
+                  ? "(max-width: 768px) 100vw, 900px"
+                  : "(max-width: 640px) 300px, 360px"
+              }
               draggable={false}
+              onImageError={markFailed}
             />
           </button>
         ))}
       </div>
 
-      {/* 가로 스크롤바 */}
-      {scrollable ? (
+      {scrollable && !single ? (
         <div className="bg-stone-100 px-2 pb-2">
           <div
             ref={trackRef}
@@ -213,8 +263,7 @@ export function BlogCourseImageGallery({
         {credit}
       </p>
 
-      {/* 라이트박스 */}
-      {lightboxIndex !== null ? (
+      {lightboxIndex !== null && visible[lightboxIndex] ? (
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 p-4"
           role="dialog"
@@ -231,7 +280,7 @@ export function BlogCourseImageGallery({
             <X className="h-6 w-6" aria-hidden />
           </button>
 
-          {images.length > 1 ? (
+          {visible.length > 1 ? (
             <button
               type="button"
               onClick={(event) => {
@@ -250,24 +299,25 @@ export function BlogCourseImageGallery({
             onClick={(event) => event.stopPropagation()}
           >
             <div className="relative h-[70vh] w-full">
-              <TourismAwareImage
-                src={images[lightboxIndex]}
+              <SafeContentImage
+                src={visible[lightboxIndex]}
                 alt={`${alt} ${lightboxIndex + 1}`}
                 fill
                 className="object-contain"
                 sizes="100vw"
                 priority
+                onImageError={markFailed}
               />
             </div>
             <figcaption className="mt-3 text-center text-xs text-white/70">
               {credit}
-              {images.length > 1
-                ? ` · ${lightboxIndex + 1} / ${images.length}`
+              {visible.length > 1
+                ? ` · ${lightboxIndex + 1} / ${visible.length}`
                 : ""}
             </figcaption>
           </figure>
 
-          {images.length > 1 ? (
+          {visible.length > 1 ? (
             <button
               type="button"
               onClick={(event) => {

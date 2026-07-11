@@ -1,5 +1,8 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
 import type { BlogPostSection } from "@/lib/blogPosts";
+import SafeContentImage from "@/components/content/SafeContentImage";
 
 type BlogGearItem = NonNullable<BlogPostSection["items"]>[number];
 
@@ -14,6 +17,8 @@ export function BlogGearCard({ item, rank }: BlogGearCardProps) {
   const pros = item.recommendationReasons ?? [];
   const cons = item.cons ?? [];
   const imageAlt = item.imageAlt ?? `${item.title} 드라이버`;
+  const [imageFailed, setImageFailed] = useState(false);
+  const showImage = Boolean(item.image?.trim()) && !imageFailed;
 
   return (
     <article className="w-full overflow-hidden rounded-2xl border border-stone-200/90 bg-white shadow-sm">
@@ -26,17 +31,18 @@ export function BlogGearCard({ item, rank }: BlogGearCardProps) {
         </h3>
       </div>
 
-      {item.image ? (
+      {showImage && item.image ? (
         <div className="border-y border-stone-100 bg-stone-100">
           <div
             className={`relative overflow-hidden bg-stone-100 ${IMAGE_HEIGHT_CLASS}`}
           >
-            <Image
+            <SafeContentImage
               src={item.image}
               alt={imageAlt}
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 900px"
+              onImageError={() => setImageFailed(true)}
             />
           </div>
           {item.imageCredit ? (

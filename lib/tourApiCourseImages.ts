@@ -15,16 +15,19 @@ export type TourApiCourseImageEntry = {
   licenseLabel?: string | null;
   sourcePage?: string | null;
   alt?: string;
+  imageTitle?: string;
+  serialnum?: string;
   credit?: string;
 };
 
 type TourApiCourseImageManifest = {
   version?: number;
   updatedAt?: string;
+  source?: string;
   items?: TourApiCourseImageEntry[];
 };
 
-let cached: Map<string, TourApiCourseImageEntry> | null = null;
+let cached: Map<string, TourApiCourseImageEntry[]> | null = null;
 
 function manifestPath(): string {
   return path.join(process.cwd(), "data/tourapi-course-images.json");
@@ -32,11 +35,11 @@ function manifestPath(): string {
 
 export function loadTourApiCourseImageIndex(): Map<
   string,
-  TourApiCourseImageEntry
+  TourApiCourseImageEntry[]
 > {
   if (cached) return cached;
   const file = manifestPath();
-  const map = new Map<string, TourApiCourseImageEntry>();
+  const map = new Map<string, TourApiCourseImageEntry[]>();
   if (!fs.existsSync(file)) {
     cached = map;
     return map;
@@ -47,7 +50,9 @@ export function loadTourApiCourseImageIndex(): Map<
     ) as TourApiCourseImageManifest;
     for (const item of raw.items ?? []) {
       if (!item.courseId || !item.path) continue;
-      map.set(item.courseId, item);
+      const list = map.get(item.courseId) ?? [];
+      list.push(item);
+      map.set(item.courseId, list);
     }
   } catch {
     // manifest 손상 시 이미지 미사용
@@ -61,16 +66,24 @@ export function clearTourApiCourseImageCache(): void {
   cached = null;
 }
 
+export function resolveTourApiCourseImages(
+  courseId: string | undefined,
+): TourApiCourseImageEntry[] {
+  if (!courseId) return [];
+  return loadTourApiCourseImageIndex().get(courseId) ?? [];
+}
+
+/** @deprecated use resolveTourApiCourseImages */
 export function resolveTourApiCourseImage(
   courseId: string | undefined,
 ): TourApiCourseImageEntry | undefined {
-  if (!courseId) return undefined;
-  return loadTourApiCourseImageIndex().get(courseId);
+  return resolveTourApiCourseImages(courseId)[0];
 }
 
 export function formatTourApiImageCredit(
-  entry: TourApiCourseImageEntry,
+  entry: TourApiCourseImageEntry | undefined,
 ): string {
+  if (!entry) return "사진: 한국관광공사 TourAPI";
   if (entry.credit?.trim()) return entry.credit.trim();
   if (entry.licenseLabel === "공공누리 제3유형") {
     return "사진: 한국관광공사 TourAPI · 공공누리 제3유형(변경금지)";

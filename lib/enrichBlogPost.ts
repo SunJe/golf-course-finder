@@ -10,7 +10,7 @@ import type { RegionSlug } from "@/lib/regionNormalize";
 import { collectVisitKoreaMetaImagePaths } from "@/lib/visitKoreaMetaImages";
 import {
   formatTourApiImageCredit,
-  resolveTourApiCourseImage,
+  resolveTourApiCourseImages,
 } from "@/lib/tourApiCourseImages";
 
 function resolveVisitKoreaMetaPath(post: BlogPost): string | null {
@@ -182,14 +182,14 @@ function enrichCourseItem(
 
   if (!item.relatedCourseId && !meta && !item.address) return item;
   const visitKoreaImages = resolveVisitKoreaImages(meta);
-  const tourApiImage = resolveTourApiCourseImage(item.relatedCourseId);
+  const tourApiImages = resolveTourApiCourseImages(item.relatedCourseId);
 
-  // Visit Korea 메타 우선, 없으면 TourAPI 지역형 1장, 없으면 수동 item 이미지
+  // Visit Korea 메타 우선, 없으면 TourAPI 지역형(최대 3장), 없으면 수동 item 이미지
   const images =
     visitKoreaImages.length > 0
       ? visitKoreaImages
-      : tourApiImage?.path
-        ? [tourApiImage.path]
+      : tourApiImages.length > 0
+        ? tourApiImages.map((entry) => entry.path)
         : item.images && item.images.length > 0
           ? item.images
           : [item.image, item.image2].filter((src): src is string =>
@@ -198,15 +198,29 @@ function enrichCourseItem(
 
   const imageCredit =
     item.imageCredit ??
-    (visitKoreaImages.length === 0 && tourApiImage
-      ? formatTourApiImageCredit(tourApiImage)
+    (visitKoreaImages.length === 0 && tourApiImages[0]
+      ? formatTourApiImageCredit(tourApiImages[0])
+      : undefined);
+  const imageSourcePages =
+    item.imageSourcePages ??
+    (visitKoreaImages.length === 0
+      ? tourApiImages
+          .map((entry) => entry.sourcePage)
+          .filter((url): url is string => Boolean(url))
       : undefined);
   const imageSourcePage =
-    item.imageSourcePage ??
-    (visitKoreaImages.length === 0 ? tourApiImage?.sourcePage ?? undefined : undefined);
-  const imageAlt =
-    item.imageAlt ??
-    (visitKoreaImages.length === 0 ? tourApiImage?.alt ?? undefined : undefined);
+    item.imageSourcePage ?? imageSourcePages?.[0] ?? undefined;
+  const imageAlts =
+    item.imageAlts ??
+    (visitKoreaImages.length === 0
+      ? tourApiImages.map(
+          (entry) =>
+            entry.alt ||
+            entry.imageTitle ||
+            `${item.title} 사진 - 한국관광공사 TourAPI`,
+        )
+      : undefined);
+  const imageAlt = item.imageAlt ?? imageAlts?.[0];
 
   // 수동 description 우선. overview는 비어 있을 때만 fallback (이미지 유무와 무관하게 append 금지)
   const description = resolveBlogItemDescription(
@@ -242,7 +256,12 @@ function enrichCourseItem(
     image2: images[1],
     imageCredit,
     imageSourcePage,
+    imageSourcePages:
+      imageSourcePages && imageSourcePages.length > 0
+        ? imageSourcePages
+        : undefined,
     imageAlt,
+    imageAlts: imageAlts && imageAlts.length > 0 ? imageAlts : undefined,
     address: address || undefined,
     phone: phone || undefined,
     homepage: homepage || undefined,

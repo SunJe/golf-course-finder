@@ -2,8 +2,10 @@ import { Fragment } from "react";
 import Link from "next/link";
 
 import type { BlogPost, BlogPostSection } from "@/lib/blogPosts";
+import { isBlogFaqSection, parseBlogFaqItems } from "@/lib/blogFaq";
 
 import { BlogCourseCard } from "@/components/BlogCourseCard";
+import { BlogFaqAccordion } from "@/components/BlogFaqAccordion";
 import { BlogGearCard } from "@/components/BlogGearCard";
 import { BlogRelatedPosts } from "@/components/BlogRelatedPosts";
 import { BlogSectionHeroImage } from "@/components/BlogSectionHeroImage";
@@ -154,8 +156,21 @@ export function BlogPostBody({ post }: { post: BlogPost }) {
 
     <div className="w-full max-w-none">
 
-      {post.sections.map((section, sectionIndex) => (
+      {post.sections.map((section, sectionIndex) => {
+        const faqItems = isBlogFaqSection(section.heading)
+          ? parseBlogFaqItems(section.body)
+          : [];
+        const renderAsFaq = faqItems.length > 0;
 
+        if (renderAsFaq) {
+          return (
+            <Fragment key={section.heading}>
+              <BlogFaqAccordion heading={section.heading} items={faqItems} />
+            </Fragment>
+          );
+        }
+
+        return (
         <Fragment key={section.heading}>
 
         <section className="mt-10 first:mt-0">
@@ -306,8 +321,8 @@ export function BlogPostBody({ post }: { post: BlogPost }) {
         ) : null}
 
         </Fragment>
-
-      ))}
+        );
+      })}
 
       {post.dataCheckedAt || (post.references && post.references.length > 0) ? (
         <aside className="mt-10 rounded-2xl border border-stone-200 bg-stone-50/80 p-5 sm:p-6">

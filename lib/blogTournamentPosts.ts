@@ -6,8 +6,6 @@ const TOURNAMENT_LABEL = "대회 가이드";
 const CHECKED_AT = "2026-07-18";
 const PUBLISH_DATE = "2026-07-18";
 
-const CONTENT_DIR = "/promo-assets/blog/content/tournaments";
-
 const SHARED_REFS: NonNullable<BlogPost["references"]> = [
   {
     title: "PGA TOUR 2026 Schedule",
@@ -186,6 +184,7 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
     dataCheckedAt: CHECKED_AT,
     thumbnail: blogThumbnailPath("2026-august-golf-tournament-schedule"),
     thumbnailAlt: blogThumbnailAlt("2026-august-golf-tournament-schedule"),
+    tournamentCalendarMonth: "2026-08",
     relatedPostSlugs: [
       "2026-golf-tournament-schedule-august-october",
       "2026-september-golf-tournament-schedule",
@@ -213,8 +212,6 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
       },
       {
         heading: "8월 일정 빠른 요약",
-        image: `${CONTENT_DIR}/2026-august-golf-calendar.png`,
-        imageAlt: "2026년 8월 골프대회 일정 달력 인포그래픽",
         body: [
           "KLPGA: 제주삼다수 마스터스, 메디힐·한국일보 챔피언십 등",
           "KPGA: 동아회원권그룹 오픈",
@@ -250,7 +247,7 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
               "최종 공지 재확인",
             ],
             [
-              "8월 28~30일",
+              "8월 27~30일",
               "제15회 KG 레이디스 오픈",
               "써닝포인트CC",
               "최종 공지 재확인",
@@ -280,6 +277,17 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
             description:
               "대회 개최 예정 코스입니다. 일반 라운드 예약은 골프장 공식 안내를 별도로 확인하세요.",
             relatedCourseId: "gc-9d709ff43c33",
+            courseCardVariant: "tournament",
+            tournamentEventName: "메디힐·한국일보 챔피언십",
+            tournamentEventDates: "2026-08-13 ~ 2026-08-16",
+            tournamentOfficialUrl:
+              "https://klpga.co.kr/web/tourInfo/tourInfo?gameCode=2026080003",
+            recommendationReasons: [
+              "2026 메디힐·한국일보 챔피언십 개최 예정 코스",
+              "명성산 OUT·IN 사용 예정",
+              "대회 기간 일반 예약 여부 별도 확인",
+              "티켓·셔틀은 KLPGA 공식 공지 우선",
+            ],
           },
         ],
       },
@@ -380,12 +388,30 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
             description:
               "KLPGA 챔피언십 개최 예정지로 안내된 코스입니다. 최종 운영·갤러리 안내는 공식 공지를 확인하세요.",
             relatedCourseId: "gc-564e2ae6067a",
+            courseCardVariant: "tournament",
+            tournamentEventName: "BC카드·한경 제48회 KLPGA 챔피언십",
+            tournamentEventDates: "2026-08-20 ~ 2026-08-23",
+            recommendationReasons: [
+              "2026 KLPGA 챔피언십 개최 예정지로 안내",
+              "대회 기간 일반 예약·출입은 별도 확인",
+              "갤러리 주차·셔틀은 대회 공식 공지 우선",
+              "최종 공지 재확인 필요",
+            ],
           },
           {
             title: "써닝포인트 컨트리클럽",
             description:
               "KG 레이디스 오픈 개최 예정지로 안내된 코스입니다. 최종 공지를 다시 확인하세요.",
             relatedCourseId: "gc-c45d3f5d316d",
+            courseCardVariant: "tournament",
+            tournamentEventName: "제15회 KG 레이디스 오픈",
+            tournamentEventDates: "2026-08-27 ~ 2026-08-30",
+            recommendationReasons: [
+              "2026 KG 레이디스 오픈 개최 예정지로 안내",
+              "대회 기간 일반 예약·출입은 별도 확인",
+              "갤러리 주차·셔틀은 대회 공식 공지 우선",
+              "최종 공지 재확인 필요",
+            ],
           },
         ],
       },
@@ -416,6 +442,7 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
     dataCheckedAt: CHECKED_AT,
     thumbnail: blogThumbnailPath("2026-september-golf-tournament-schedule"),
     thumbnailAlt: blogThumbnailAlt("2026-september-golf-tournament-schedule"),
+    tournamentCalendarMonth: "2026-09",
     relatedPostSlugs: [
       "2026-golf-tournament-schedule-august-october",
       "2026-august-golf-tournament-schedule",
@@ -433,8 +460,6 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
       },
       {
         heading: "KLPGA 9월 일정",
-        image: `${CONTENT_DIR}/2026-september-golf-calendar.png`,
-        imageAlt: "2026년 9월 골프대회 일정 달력 인포그래픽",
         body: [
           "OK저축은행 읏맨 오픈이 포천 아도니스에서 확정될 경우 기존 포천 비교 글과 연결할 수 있습니다.",
           "하나금융그룹 챔피언십의 장소처럼 최종 공지가 필요한 항목은 배포 직전 KLPGA 공식 일정에서 다시 확인합니다.",
@@ -450,7 +475,7 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
               "최종 공지 재확인",
             ],
             [
-              "9월 11~13일",
+              "9월 4~6일",
               "OK저축은행 읏맨 오픈",
               "포천 아도니스",
               "최종 공지 재확인",
@@ -481,6 +506,15 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
             description:
               "OK저축은행 읏맨 오픈 개최지로 안내된 코스입니다. 최종 공지 후 연결을 유지합니다.",
             relatedCourseId: "gc-e2614722e86e",
+            courseCardVariant: "tournament",
+            tournamentEventName: "OK저축은행 읏맨 오픈",
+            tournamentEventDates: "2026-09-04 ~ 2026-09-06",
+            recommendationReasons: [
+              "2026 OK저축은행 읏맨 오픈 개최지로 안내",
+              "대회 기간 일반 예약·출입은 별도 확인",
+              "갤러리 주차·셔틀은 대회 공식 공지 우선",
+              "최종 공지 재확인 필요",
+            ],
           },
         ],
       },
@@ -604,6 +638,7 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
     dataCheckedAt: CHECKED_AT,
     thumbnail: blogThumbnailPath("2026-october-golf-tournament-schedule"),
     thumbnailAlt: blogThumbnailAlt("2026-october-golf-tournament-schedule"),
+    tournamentCalendarMonth: "2026-10",
     relatedPostSlugs: [
       "2026-golf-tournament-schedule-august-october",
       "2026-august-golf-tournament-schedule",
@@ -629,8 +664,6 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
       },
       {
         heading: "KLPGA 10월 일정",
-        image: `${CONTENT_DIR}/2026-october-golf-calendar.png`,
-        imageAlt: "2026년 10월 골프대회 일정 달력 인포그래픽",
         body: [
           "10월 15~18일 일정은 대회명과 장소가 확정되지 않은 상태이므로 임의의 스폰서명이나 골프장을 넣지 않습니다.",
         ],
@@ -768,6 +801,17 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
             description:
               "대회 개최 예정 코스입니다. 갤러리 동선은 공식 교통 공지를 우선 확인하세요.",
             relatedCourseId: "gc-437ea8156737",
+            courseCardVariant: "tournament",
+            tournamentEventName: "BMW Ladies Championship",
+            tournamentEventDates: "2026-10-22 ~ 2026-10-25",
+            tournamentOfficialUrl:
+              "https://www.lpga.com/tournaments/bmw-lpga-championship/overview",
+            recommendationReasons: [
+              "2026 BMW Ladies Championship 개최 예정 코스",
+              "전남 해남 파인비치 골프링크스",
+              "장거리 관람 계획 시 숙박·셔틀 함께 확인",
+              "클럽하우스 일반 방문 동선과 갤러리 동선을 동일하게 보지 않음",
+            ],
           },
         ],
       },
@@ -883,14 +927,20 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
             ["지역", "경기도 포천시"],
           ],
         },
+        officialPhotoEventSlug: "2026-mediheal-hankook-ilbo-montvert-guide",
+        officialPhotoIds: ["mediheal-2025-02"],
+        officialPhotoCredit:
+          "사진: KLPGA 공식 사진 · 2025 메디힐·한국일보 챔피언십",
       },
       {
         heading: "대회 주간 일정",
-        image: `${CONTENT_DIR}/mediheal-montvert-course-scene.png`,
-        imageAlt: "몽베르 산악 지형과 갤러리 관람 분위기를 보여주는 이미지",
         body: [
           "KLPGA 공식 페이지에는 8월 10일과 11일 프로암, 12일 공식 연습일, 13일부터 16일까지 본 대회 일정이 표시돼 있습니다. 일반 갤러리가 참여할 수 있는 범위와 입장 시간은 티켓·셔틀 공지를 따릅니다.",
         ],
+        officialPhotoEventSlug: "2026-mediheal-hankook-ilbo-montvert-guide",
+        officialPhotoIds: ["mediheal-2025-03", "mediheal-2025-04"],
+        officialPhotoCredit:
+          "사진: KLPGA 공식 사진 · 2025 메디힐·한국일보 챔피언십",
       },
       {
         heading: "몽베르와 포천 골프장 함께 보기",
@@ -909,6 +959,17 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
             description:
               "대회 개최 예정 코스입니다. 이름·주소를 GolfMap 데이터와 대조해 연결했습니다.",
             relatedCourseId: "gc-9d709ff43c33",
+            courseCardVariant: "tournament",
+            tournamentEventName: "메디힐·한국일보 챔피언십",
+            tournamentEventDates: "2026-08-13 ~ 2026-08-16",
+            tournamentOfficialUrl:
+              "https://klpga.co.kr/web/tourInfo/tourInfo?gameCode=2026080003",
+            recommendationReasons: [
+              "2026 메디힐·한국일보 챔피언십 개최 예정",
+              "명성산 OUT·IN 사용 예정",
+              "대회 기간 일반 예약 여부 별도 확인",
+              "티켓·셔틀 공식 공지 우선",
+            ],
           },
         ],
       },
@@ -931,8 +992,6 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
       },
       {
         heading: "관람 전 확인할 것",
-        image: `${CONTENT_DIR}/mediheal-gallery-entry-shuttle.png`,
-        imageAlt: "대회장 입구와 갤러리 주차 및 셔틀 안내 분위기 이미지",
         body: [
           "우산보다 관람 동선을 방해하지 않는 우비 준비",
           "편한 신발과 자외선 차단용품",
@@ -941,6 +1000,16 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
           "입장 가능 가방과 음식물 규정 확인",
           "기상으로 인한 출발 시간 변경 확인",
         ],
+      },
+      {
+        heading: "2025 우승·시상 공식 사진",
+        body: [
+          "아래 사진은 2025 메디힐·한국일보 챔피언십 공식 갤러리입니다. 2026 대회 현장과 다를 수 있습니다.",
+        ],
+        officialPhotoEventSlug: "2026-mediheal-hankook-ilbo-montvert-guide",
+        officialPhotoIds: ["mediheal-2025-01"],
+        officialPhotoCredit:
+          "사진: KLPGA 공식 사진 · 2025 메디힐·한국일보 챔피언십",
       },
       {
         heading: "자주 묻는 질문",
@@ -1005,20 +1074,37 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
             ["총상금", "235만 달러"],
           ],
         },
+        officialPhotoEventSlug: "2026-bmw-ladies-championship-guide",
+        officialPhotoIds: ["bmw-ladies-2025-02"],
+        officialPhotoCredit:
+          "사진: BMW Group PressClub · BMW Ladies Championship 2025",
       },
       {
         heading: "왜 별도 관전 가이드가 필요한가요?",
-        image: `${CONTENT_DIR}/bmw-haenam-coast-course-scene.png`,
-        imageAlt: "해남 해안 코스와 갤러리 관람 분위기를 보여주는 이미지",
         body: [
           "한국에서 열리는 LPGA 대회이고, 수도권에서 이동할 경우 숙박과 장거리 교통을 함께 계획해야 하기 때문입니다. 단순 일정표보다 티켓, 셔틀, 숙박권역과 기상 확인 정보가 필요합니다.",
         ],
+        officialPhotoEventSlug: "2026-bmw-ladies-championship-guide",
+        officialPhotoIds: ["bmw-ladies-2025-03"],
+        officialPhotoCredit:
+          "사진: BMW Group PressClub · BMW Ladies Championship 2025",
         items: [
           {
             title: "파인비치골프링크스",
             description:
               "대회 개최 예정 코스입니다. 이름·주소를 GolfMap 데이터와 대조해 연결했습니다.",
             relatedCourseId: "gc-437ea8156737",
+            courseCardVariant: "tournament",
+            tournamentEventName: "BMW Ladies Championship",
+            tournamentEventDates: "2026-10-22 ~ 2026-10-25",
+            tournamentOfficialUrl:
+              "https://www.lpga.com/tournaments/bmw-lpga-championship/overview",
+            recommendationReasons: [
+              "2026 BMW Ladies Championship 개최 예정",
+              "전남 해남 파인비치 골프링크스",
+              "장거리 관람 계획 시 숙박·셔틀 함께 확인",
+              "클럽하우스 일반 방문 동선과 갤러리 동선을 동일하게 보지 않음",
+            ],
           },
         ],
       },
@@ -1043,6 +1129,10 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
         body: [
           "LPGA 공식 Entries 페이지가 갱신되기 전에는 특정 선수가 반드시 출전한다고 표현하지 않습니다. 출전 명단과 1·2라운드 조 편성은 대회 직전에 다시 확인합니다.",
         ],
+        officialPhotoEventSlug: "2026-bmw-ladies-championship-guide",
+        officialPhotoIds: ["bmw-ladies-2025-04"],
+        officialPhotoCredit:
+          "사진: BMW Group PressClub · BMW Ladies Championship 2025",
       },
       {
         heading: "관람 준비물",
@@ -1054,6 +1144,16 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
           "망원경",
           "공식 반입 규정에 맞는 작은 가방",
         ],
+      },
+      {
+        heading: "2025 우승·시상 공식 사진",
+        body: [
+          "아래 사진은 BMW Group PressClub의 2025 BMW Ladies Championship 공식 사진입니다. 2026 대회 현장과 다를 수 있습니다.",
+        ],
+        officialPhotoEventSlug: "2026-bmw-ladies-championship-guide",
+        officialPhotoIds: ["bmw-ladies-2025-01"],
+        officialPhotoCredit:
+          "사진: BMW Group PressClub · BMW Ladies Championship 2025",
       },
       {
         heading: "함께 볼 글",

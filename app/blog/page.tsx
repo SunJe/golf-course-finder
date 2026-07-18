@@ -321,11 +321,11 @@ export default function BlogPage() {
       <section className="border-b border-stone-200/80 bg-gradient-to-b from-brand-50/60 to-white">
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
           <h1 className="text-2xl font-extrabold tracking-tight text-stone-900 sm:text-3xl">
-            골프장·장비 가이드 블로그
+            골프장·장비·대회 가이드 블로그
           </h1>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-stone-600 sm:text-base">
-            서울 근교 코스 추천, 저렴한 골프장, Par 3, 입문 장비까지 골프를
-            시작하고 코스를 고를 때 참고할 가이드를 정리했습니다.
+            서울 근교와 지역별 골프장 비교, 초보 골퍼를 위한 장비·피팅 정보,
+            PGA TOUR·LPGA·KPGA·KLPGA 일정과 국내 대회 관전 가이드를 정리했습니다.
           </p>
 
           {/* 카테고리 바로가기 */}
@@ -358,7 +358,7 @@ export default function BlogPage() {
               href="#tournament-guide"
               className="inline-flex items-center rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-sm font-semibold text-stone-700 transition hover:bg-stone-50"
             >
-              대회 가이드
+              대회·일정
             </a>
           </nav>
         </div>
@@ -455,7 +455,7 @@ export default function BlogPage() {
       {tournamentPosts.length > 0 ? (
         <PortalSection
           id="tournament-guide"
-          title="대회 가이드"
+          title="대회·일정"
           description="2026년 8~10월 PGA·LPGA·KPGA·KLPGA 일정과 국내 관전 가이드를 모았습니다."
         >
           <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

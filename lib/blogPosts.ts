@@ -61,7 +61,16 @@ export type BlogPostSection = {
     courseType?: string;
     /** 서울시청 기준 직선 거리(km) */
     distanceFromSeoulKm?: number;
+    /** 대회 글 전용 코스 카드 */
+    courseCardVariant?: "default" | "tournament";
+    tournamentEventName?: string;
+    tournamentEventDates?: string;
+    tournamentOfficialUrl?: string;
   }[];
+  /** 섹션 아래 공식 대회 사진 갤러리 */
+  officialPhotoEventSlug?: string;
+  officialPhotoIds?: string[];
+  officialPhotoCredit?: string;
 };
 
 export type BlogPostReference = {
@@ -99,6 +108,8 @@ export type BlogPost = {
   dataCheckedAt?: string;
   /** 참고 자료 (가짜 URL 금지 — 확인된 항목만) */
   references?: BlogPostReference[];
+  /** 월별 일정 글: 데이터 기반 HTML 달력 표시 */
+  tournamentCalendarMonth?: "2026-08" | "2026-09" | "2026-10";
   sections: BlogPostSection[];
 };
 

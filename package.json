@@ -71,6 +71,8 @@
     "audit:structured-data": "tsx scripts/auditStructuredData.ts",
     "audit:content": "tsx scripts/auditContentQuality.ts",
     "audit:blog-images": "node scripts/auditRenderedBlogImages.mjs",
+    "audit:tournament-schedule": "tsx scripts/auditTournamentSchedule.ts",
+    "audit:tournament-photos": "tsx scripts/auditTournamentPhotos.ts",
     "audit:tourapi-course-images": "tsx scripts/auditTourApiCourseImages.ts",
     "sync:tourapi-course-images": "tsx scripts/auditTourApiCourseImages.ts --download",
     "verify:related-blogs": "tsx scripts/verifyRelatedBlogAndEnrichment.ts",

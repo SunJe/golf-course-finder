@@ -9,6 +9,8 @@ import { BlogFaqAccordion } from "@/components/BlogFaqAccordion";
 import { BlogGearCard } from "@/components/BlogGearCard";
 import { BlogRelatedPosts } from "@/components/BlogRelatedPosts";
 import { BlogSectionHeroImage } from "@/components/BlogSectionHeroImage";
+import { TournamentMonthCalendar } from "@/components/tournament/TournamentMonthCalendar";
+import { TournamentOfficialGallery } from "@/components/tournament/TournamentOfficialGallery";
 
 
 
@@ -262,7 +264,27 @@ export function BlogPostBody({ post }: { post: BlogPost }) {
 
                   {isCourseItem(item) ? (
 
-                    <BlogCourseCard item={item} rank={index + 1} />
+                    <BlogCourseCard
+                      item={item}
+                      rank={index + 1}
+                      variant={
+                        item.courseCardVariant === "tournament" ||
+                        post.category === "tournament-guide"
+                          ? "tournament"
+                          : "default"
+                      }
+                      tournamentContext={
+                        item.courseCardVariant === "tournament" ||
+                        post.category === "tournament-guide"
+                          ? {
+                              eventName: item.tournamentEventName,
+                              eventDates: item.tournamentEventDates,
+                              officialEventUrl: item.tournamentOfficialUrl,
+                              checkPoints: item.recommendationReasons,
+                            }
+                          : undefined
+                      }
+                    />
 
                   ) : isGearItem(item) ? (
 
@@ -282,7 +304,22 @@ export function BlogPostBody({ post }: { post: BlogPost }) {
 
           )}
 
+          {section.officialPhotoEventSlug ? (
+            <TournamentOfficialGallery
+              eventSlug={section.officialPhotoEventSlug}
+              photoIds={section.officialPhotoIds}
+              creditLine={
+                section.officialPhotoCredit ??
+                "사진: 공식 대회 갤러리 · 원문 보기"
+              }
+            />
+          ) : null}
+
         </section>
+
+        {sectionIndex === 0 && post.tournamentCalendarMonth ? (
+          <TournamentMonthCalendar monthKey={post.tournamentCalendarMonth} />
+        ) : null}
 
         {sectionIndex === 0 && post.quickConclusion ? (
           <aside className="mt-8 rounded-2xl border border-brand-100 bg-brand-50/60 p-5 sm:p-6">

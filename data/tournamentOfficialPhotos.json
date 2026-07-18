@@ -1,0 +1,121 @@
+{
+    "rightsBasis":  "User-confirmed permission for GolfMap editorial use",
+    "tournaments":  {
+                        "mediheal-2025":  {
+                                              "name":  "Mediheal / Hankook Ilbo Championship 2025",
+                                              "sourcePage":  "https://klpga.co.kr/web/tourInfo/feedPhoto?gameCode=2025080001",
+                                              "photos":  [
+                                                             {
+                                                                 "localPath":  "public/promo-assets/blog/tournaments/official/mediheal-2025/mediheal-2025-01.jpg",
+                                                                 "sourcePage":  "https://klpga.co.kr/web/tourInfo/feedPhoto?gameCode=2025080001",
+                                                                 "downloadUrl":  "https://cdn.klpga.co.kr/DATA/2025/08/25medifra%2033.jpg",
+                                                                 "officialTitle":  "Mediheal / Hankook Ilbo Championship 2025 official gallery",
+                                                                 "caption":  "Official KLPGA tournament-gallery image.",
+                                                                 "credit":  "KLPGA",
+                                                                 "rightsBasis":  "User-confirmed permission",
+                                                                 "downloadedAt":  "2026-07-18T09:59:40.1164947Z",
+                                                                 "md5":  "e34ac84c06532949f415ce6969269fe6",
+                                                                 "width":  6000,
+                                                                 "height":  4000
+                                                             },
+                                                             {
+                                                                 "localPath":  "public/promo-assets/blog/tournaments/official/mediheal-2025/mediheal-2025-02.jpg",
+                                                                 "sourcePage":  "https://klpga.co.kr/web/tourInfo/feedPhoto?gameCode=2025080001",
+                                                                 "downloadUrl":  "https://cdn.klpga.co.kr/DATA/2025/08/25medifrm%2050.jpg",
+                                                                 "officialTitle":  "Mediheal / Hankook Ilbo Championship 2025 official gallery",
+                                                                 "caption":  "Official KLPGA tournament-gallery image.",
+                                                                 "credit":  "KLPGA",
+                                                                 "rightsBasis":  "User-confirmed permission",
+                                                                 "downloadedAt":  "2026-07-18T09:59:40.1164947Z",
+                                                                 "md5":  "82314b35d41a38a038c98a74361aaf6a",
+                                                                 "width":  4873,
+                                                                 "height":  3283
+                                                             },
+                                                             {
+                                                                 "localPath":  "public/promo-assets/blog/tournaments/official/mediheal-2025/mediheal-2025-03.jpg",
+                                                                 "sourcePage":  "https://klpga.co.kr/web/tourInfo/feedPhoto?gameCode=2025080001",
+                                                                 "downloadUrl":  "https://cdn.klpga.co.kr/DATA/2025/08/25medi3r%2060.jpg",
+                                                                 "officialTitle":  "Mediheal / Hankook Ilbo Championship 2025 official gallery",
+                                                                 "caption":  "Official KLPGA tournament-gallery image.",
+                                                                 "credit":  "KLPGA",
+                                                                 "rightsBasis":  "User-confirmed permission",
+                                                                 "downloadedAt":  "2026-07-18T09:59:40.1164947Z",
+                                                                 "md5":  "3f90575f503fee70e7e621410cabfccc",
+                                                                 "width":  4063,
+                                                                 "height":  2840
+                                                             },
+                                                             {
+                                                                 "localPath":  "public/promo-assets/blog/tournaments/official/mediheal-2025/mediheal-2025-04.jpg",
+                                                                 "sourcePage":  "https://klpga.co.kr/web/tourInfo/feedPhoto?gameCode=2025080001",
+                                                                 "downloadUrl":  "https://cdn.klpga.co.kr/DATA/2025/08/25medifrm%2049.jpg",
+                                                                 "officialTitle":  "Mediheal / Hankook Ilbo Championship 2025 official gallery",
+                                                                 "caption":  "Official KLPGA tournament-gallery image.",
+                                                                 "credit":  "KLPGA",
+                                                                 "rightsBasis":  "User-confirmed permission",
+                                                                 "downloadedAt":  "2026-07-18T09:59:40.1164947Z",
+                                                                 "md5":  "49e9a31bf09f4e83b0e61ead9485dcdd",
+                                                                 "width":  2799,
+                                                                 "height":  1952
+                                                             }
+                                                         ]
+                                          },
+                        "bmw-ladies-2025":  {
+                                                "name":  "BMW Ladies Championship 2025",
+                                                "sourcePage":  "https://www.press.bmwgroup.com/korea/photo/list/10837?type=photo",
+                                                "photos":  [
+                                                               {
+                                                                   "localPath":  "public/promo-assets/blog/tournaments/official/bmw-ladies-2025/bmw-ladies-2025-01.jpg",
+                                                                   "sourcePage":  "https://www.press.bmwgroup.com/korea/photo/list/10837?type=photo",
+                                                                   "downloadUrl":  "https://mediapool.bmwgroup.com/download/edown/pressclub/publicq?dokNo=P90622947\u0026attachment=1\u0026actEvent=image",
+                                                                   "officialTitle":  "BMW Ladies Championship 2025: The BMW Ladies Championship concluded successfully, attracting over 60,000 fans from the Honam region (10/2025)",
+                                                                   "caption":  "BMW Ladies Championship 2025: The BMW Ladies Championship concluded successfully, attracting over 60,000 fans from the Honam region (10/2025)",
+                                                                   "credit":  "BMW Group Korea",
+                                                                   "rightsBasis":  "User-confirmed permission",
+                                                                   "downloadedAt":  "2026-07-18T09:59:40.1164947Z",
+                                                                   "md5":  "0a2532fea2dcaf209d7e7b1fd233764a",
+                                                                   "width":  1500,
+                                                                   "height":  1000
+                                                               },
+                                                               {
+                                                                   "localPath":  "public/promo-assets/blog/tournaments/official/bmw-ladies-2025/bmw-ladies-2025-02.jpg",
+                                                                   "sourcePage":  "https://www.press.bmwgroup.com/korea/photo/list/10837?type=photo",
+                                                                   "downloadUrl":  "https://mediapool.bmwgroup.com/download/edown/pressclub/publicq?dokNo=P90622945\u0026attachment=1\u0026actEvent=image",
+                                                                   "officialTitle":  "BMW Ladies Championship 2025: The BMW Ladies Championship concluded successfully, attracting over 60,000 fans from the Honam region (10/2025)",
+                                                                   "caption":  "BMW Ladies Championship 2025: The BMW Ladies Championship concluded successfully, attracting over 60,000 fans from the Honam region (10/2025)",
+                                                                   "credit":  "BMW Group Korea",
+                                                                   "rightsBasis":  "User-confirmed permission",
+                                                                   "downloadedAt":  "2026-07-18T09:59:40.1164947Z",
+                                                                   "md5":  "da1f93790faf15c0828deea9e62be6a4",
+                                                                   "width":  1500,
+                                                                   "height":  1000
+                                                               },
+                                                               {
+                                                                   "localPath":  "public/promo-assets/blog/tournaments/official/bmw-ladies-2025/bmw-ladies-2025-03.jpg",
+                                                                   "sourcePage":  "https://www.press.bmwgroup.com/korea/photo/list/10837?type=photo",
+                                                                   "downloadUrl":  "https://mediapool.bmwgroup.com/download/edown/pressclub/publicq?dokNo=P90622944\u0026attachment=1\u0026actEvent=image",
+                                                                   "officialTitle":  "BMW Ladies Championship 2025: The BMW Ladies Championship concluded successfully, attracting over 60,000 fans from the Honam region (10/2025)",
+                                                                   "caption":  "BMW Ladies Championship 2025: The BMW Ladies Championship concluded successfully, attracting over 60,000 fans from the Honam region (10/2025)",
+                                                                   "credit":  "BMW Group Korea",
+                                                                   "rightsBasis":  "User-confirmed permission",
+                                                                   "downloadedAt":  "2026-07-18T09:59:40.1164947Z",
+                                                                   "md5":  "939311bd8e00ed22bf2df8ac685d30d0",
+                                                                   "width":  1500,
+                                                                   "height":  1000
+                                                               },
+                                                               {
+                                                                   "localPath":  "public/promo-assets/blog/tournaments/official/bmw-ladies-2025/bmw-ladies-2025-04.jpg",
+                                                                   "sourcePage":  "https://www.press.bmwgroup.com/korea/photo/list/10837?type=photo",
+                                                                   "downloadUrl":  "https://mediapool.bmwgroup.com/download/edown/pressclub/publicq?dokNo=P90622943\u0026attachment=1\u0026actEvent=image",
+                                                                   "officialTitle":  "BMW Ladies Championship 2025: The BMW Ladies Championship concluded successfully, attracting over 60,000 fans from the Honam region (10/2025)",
+                                                                   "caption":  "BMW Ladies Championship 2025: The BMW Ladies Championship concluded successfully, attracting over 60,000 fans from the Honam region (10/2025)",
+                                                                   "credit":  "BMW Group Korea",
+                                                                   "rightsBasis":  "User-confirmed permission",
+                                                                   "downloadedAt":  "2026-07-18T09:59:40.1164947Z",
+                                                                   "md5":  "bb7b2abfbe8922c0cbed413c3448bd58",
+                                                                   "width":  1500,
+                                                                   "height":  1000
+                                                               }
+                                                           ]
+                                            }
+                    }
+}

@@ -34,9 +34,22 @@ const NAVER_SEARCH_BUTTON_CLASS = `${BUTTON_BASE} border-emerald-200 bg-emerald-
 interface BlogCourseCardProps {
   item: BlogCourseItem;
   rank: number;
+  variant?: "default" | "tournament";
+  tournamentContext?: {
+    eventName?: string;
+    eventDates?: string;
+    officialEventUrl?: string;
+    checkPoints?: string[];
+  };
 }
 
-export function BlogCourseCard({ item, rank }: BlogCourseCardProps) {
+export function BlogCourseCard({
+  item,
+  rank,
+  variant = "default",
+  tournamentContext,
+}: BlogCourseCardProps) {
+  const isTournament = variant === "tournament";
   const galleryImages =
     item.images && item.images.length > 0
       ? item.images
@@ -62,8 +75,24 @@ export function BlogCourseCard({ item, rank }: BlogCourseCardProps) {
   const holeLabel =
     item.holeCount != null ? formatHoleCount(item.holeCount) : undefined;
 
-  const recommendationReasons =
-    item.recommendationReasons && item.recommendationReasons.length > 0
+  const tournamentCheckPoints =
+    tournamentContext?.checkPoints &&
+    tournamentContext.checkPoints.length > 0
+      ? tournamentContext.checkPoints
+      : item.recommendationReasons && item.recommendationReasons.length > 0
+        ? item.recommendationReasons
+        : [
+            tournamentContext?.eventName
+              ? `${tournamentContext.eventName} 개최 예정 코스`
+              : "대회 개최 예정 코스",
+            "대회 기간 일반 예약·출입은 별도 확인",
+            "갤러리 주차·셔틀은 대회 공식 공지 우선",
+            "대회용 코스 세팅은 평상시 운영과 다를 수 있음",
+          ];
+
+  const recommendationReasons = isTournament
+    ? tournamentCheckPoints
+    : item.recommendationReasons && item.recommendationReasons.length > 0
       ? item.recommendationReasons
       : buildCourseRecommendationReasons(item.distanceFromSeoulKm);
 
@@ -151,20 +180,57 @@ export function BlogCourseCard({ item, rank }: BlogCourseCardProps) {
           </div>
         ) : null}
 
-        <div className="mt-5 rounded-xl border border-emerald-100 bg-emerald-50 p-4">
-          <h4 className="text-sm font-bold text-emerald-800">
-            이 코스를 추천하는 이유
+        <div
+          className={
+            isTournament
+              ? "mt-5 rounded-xl border border-stone-200 bg-stone-50 p-4"
+              : "mt-5 rounded-xl border border-emerald-100 bg-emerald-50 p-4"
+          }
+        >
+          <h4
+            className={
+              isTournament
+                ? "text-sm font-bold text-stone-800"
+                : "text-sm font-bold text-emerald-800"
+            }
+          >
+            {isTournament ? "대회 코스 확인 포인트" : "이 코스를 추천하는 이유"}
           </h4>
+          {isTournament &&
+          (tournamentContext?.eventName || tournamentContext?.eventDates) ? (
+            <p className="mt-2 text-xs text-stone-500">
+              {[tournamentContext.eventName, tournamentContext.eventDates]
+                .filter(Boolean)
+                .join(" · ")}
+            </p>
+          ) : null}
           <ul className="mt-3 space-y-2 text-sm text-stone-700">
             {recommendationReasons.map((reason) => (
               <li key={reason} className="flex gap-2">
-                <span className="shrink-0 text-emerald-600" aria-hidden>
-                  ✅
+                <span
+                  className={
+                    isTournament
+                      ? "shrink-0 text-stone-500"
+                      : "shrink-0 text-emerald-600"
+                  }
+                  aria-hidden
+                >
+                  {isTournament ? "•" : "✅"}
                 </span>
                 <span>{reason}</span>
               </li>
             ))}
           </ul>
+          {isTournament && tournamentContext?.officialEventUrl ? (
+            <a
+              href={tournamentContext.officialEventUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-flex text-xs font-semibold text-brand-800 underline-offset-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
+            >
+              공식 대회 페이지
+            </a>
+          ) : null}
         </div>
 
         {/* 7. 홀 수 / 참고 요금 / 운영 정보 */}

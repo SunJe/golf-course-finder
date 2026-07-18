@@ -143,9 +143,9 @@ export function buildRecommendedMetadata(): Metadata {
 
 export function buildBlogMetadata(): Metadata {
   return buildStaticPageMetadata({
-    title: "골프장 추천 블로그 | GolfMap Korea",
+    title: "골프장·장비·대회 가이드 블로그 | GolfMap Korea",
     description:
-      "서울 근교, 저렴한 골프장, Par 3, 지역별 골프장 가이드를 정리한 GolfMap Korea 블로그입니다.",
+      "한국 골프장 비교와 지도, 초보 골프 장비·피팅, 2026 PGA TOUR·LPGA·KPGA·KLPGA 일정 및 국내 대회 관전 가이드를 확인하세요.",
     path: "/blog",
   });
 }

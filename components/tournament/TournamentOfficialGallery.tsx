@@ -7,7 +7,8 @@ import { getOfficialPhotosForEvent } from "@/lib/tournamentOfficialPhotos";
 type TournamentOfficialGalleryProps = {
   eventSlug: string;
   photoIds?: string[];
-  creditLine: string;
+  /** Optional override; defaults to each photo's caption + source link */
+  creditLine?: string;
   className?: string;
 };
 
@@ -25,6 +26,15 @@ export function TournamentOfficialGallery({
   const sourcePages = Array.from(
     new Set(visible.map((photo) => photo.sourcePage).filter(Boolean)),
   );
+
+  const captionText =
+    creditLine ??
+    (visible.length === 1
+      ? visible[0]!.caption
+      : visible
+          .map((photo) => photo.caption)
+          .filter((value, index, arr) => arr.indexOf(value) === index)
+          .join(" · "));
 
   return (
     <figure className={`mt-5 ${className}`}>
@@ -47,7 +57,7 @@ export function TournamentOfficialGallery({
           >
             <SafeContentImage
               src={photo.localPath}
-              alt={photo.officialTitle || photo.caption || "공식 대회 사진"}
+              alt={photo.alt}
               width={photo.width || 1200}
               height={photo.height || 800}
               className="h-auto max-h-[420px] w-full object-contain"
@@ -65,7 +75,7 @@ export function TournamentOfficialGallery({
         ))}
       </div>
       <figcaption className="mt-2 text-xs leading-relaxed text-stone-500">
-        {creditLine}
+        {captionText}
         {sourcePages.length === 1 ? (
           <>
             {" · "}

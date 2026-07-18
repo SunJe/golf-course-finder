@@ -51,6 +51,18 @@ export const BLOG_THUMBNAIL_FILE_BY_SLUG: Record<string, string> = {
   "beginner-driver-women": "beginner-driver-women.png",
   "driver-loft-shaft-guide-men": "driver-loft-men-alt.png",
   "driver-loft-shaft-guide-women": "driver-loft-women-alt.png",
+  "2026-golf-tournament-schedule-august-october":
+    "2026-golf-tournament-schedule-august-october.png",
+  "2026-august-golf-tournament-schedule":
+    "2026-august-golf-tournament-schedule.png",
+  "2026-september-golf-tournament-schedule":
+    "2026-september-golf-tournament-schedule.png",
+  "2026-october-golf-tournament-schedule":
+    "2026-october-golf-tournament-schedule.png",
+  "2026-mediheal-hankook-ilbo-montvert-guide":
+    "2026-mediheal-hankook-ilbo-montvert-guide.png",
+  "2026-bmw-ladies-championship-guide":
+    "2026-bmw-ladies-championship-guide.png",
 };
 
 export const CANONICAL_BLOG_THUMBNAIL_FILES = Object.values(
@@ -135,6 +147,18 @@ export const BLOG_THUMBNAIL_ALT_BY_SLUG: Record<string, string> = {
   "beginner-driver-women": "여자 입문용 드라이버 추천",
   "driver-loft-shaft-guide-men": "남자 드라이버 로프트 샤프트 선택 가이드",
   "driver-loft-shaft-guide-women": "여자 드라이버 로프트 샤프트 선택 가이드",
+  "2026-golf-tournament-schedule-august-october":
+    "2026년 8월부터 10월까지 PGA TOUR, LPGA, KPGA, KLPGA 일정을 정리한 GolfMap 대표 이미지",
+  "2026-august-golf-tournament-schedule":
+    "2026년 8월 골프대회 일정 대표 이미지",
+  "2026-september-golf-tournament-schedule":
+    "2026년 9월 골프대회 일정 대표 이미지",
+  "2026-october-golf-tournament-schedule":
+    "2026년 10월 골프대회 일정 대표 이미지",
+  "2026-mediheal-hankook-ilbo-montvert-guide":
+    "메디힐·한국일보 챔피언십 몽베르 관전 가이드 대표 이미지",
+  "2026-bmw-ladies-championship-guide":
+    "BMW 레이디스 챔피언십 해남 파인비치 관전 가이드 대표 이미지",
 };
 
 export function blogThumbnailPath(slug: string): string {

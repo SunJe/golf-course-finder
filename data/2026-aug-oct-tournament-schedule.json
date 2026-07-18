@@ -1,0 +1,78 @@
+{
+  "checkedAt": "2026-07-18",
+  "months": {
+    "2026-08": {
+      "KLPGA": [
+        "8/6-9 제주삼다수 마스터스",
+        "8/13-16 메디힐·한국일보 챔피언십",
+        "8/20-23 KLPGA 챔피언십",
+        "8/28-30 KG 레이디스 오픈"
+      ],
+      "KPGA": [
+        "8/20-23 동아회원권그룹 오픈"
+      ],
+      "LPGA": [
+        "7/30-8/2 AIG Women’s Open",
+        "8/13-16 Portland Classic",
+        "8/20-23 CPKC Women’s Open",
+        "8/27-30 FM Championship"
+      ],
+      "PGA TOUR": [
+        "8/6-9 Wyndham Championship",
+        "8/13-16 FedEx St. Jude Championship",
+        "8/20-23 BMW Championship",
+        "8/27-30 TOUR Championship"
+      ]
+    },
+    "2026-09": {
+      "KLPGA": [
+        "9/3-6 KB금융 골든라이프 챔피언십",
+        "9/11-13 OK저축은행 읏맨 오픈",
+        "9/17-20 하나금융그룹 챔피언십",
+        "9/25-27 K-FOOD 놀부·화미 마스터즈"
+      ],
+      "KPGA": [
+        "9/3-6 인스앤코 인비테이셔널",
+        "9/10-13 신한동해오픈",
+        "9/17-20 골프존 오픈"
+      ],
+      "LPGA": [
+        "9/11-13 Solheim Cup",
+        "9/25-27 Walmart NW Arkansas Championship"
+      ],
+      "PGA TOUR": [
+        "9/17-20 Biltmore Championship Asheville",
+        "9/24-27 Presidents Cup",
+        "9/28-10/4 Bank of Utah Championship"
+      ]
+    },
+    "2026-10": {
+      "KLPGA": [
+        "10/1-4 하이트진로 챔피언십",
+        "10/8-11 동부건설·한국토지신탁 챔피언십",
+        "10/15-18 미정 대회",
+        "10/22-25 광남일보·해피니스 오픈",
+        "10/29-11/1 S-OIL 챔피언십"
+      ],
+      "KPGA": [
+        "10/1-4 현대해상 최경주 인비테이셔널",
+        "10/8-11 미정 대회",
+        "10/15-18 더채리티클래식",
+        "10/22-25 제네시스 챔피언십",
+        "10/29-11/1 렉서스 마스터즈"
+      ],
+      "LPGA": [
+        "10/1-4 LOTTE Championship",
+        "10/15-18 Buick LPGA Shanghai",
+        "10/22-25 BMW Ladies Championship",
+        "10/29-11/1 Maybank Championship"
+      ],
+      "PGA TOUR": [
+        "10/1-4 Bank of Utah Championship",
+        "10/8-11 Baycurrent Classic",
+        "10/22-25 Butterfield Bermuda Championship",
+        "10/29-11/1 VidantaWorld Mexico Open"
+      ]
+    }
+  }
+}

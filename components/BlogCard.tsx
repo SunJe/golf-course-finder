@@ -22,6 +22,8 @@ function getCategoryBadge(post: BlogPost): { label: string; className: string } 
       return { label: "장비 가이드", className: "bg-sky-100 text-sky-700" };
     case "beginner-guide":
       return { label: "초보 가이드", className: "bg-amber-100 text-amber-800" };
+    case "tournament-guide":
+      return { label: "대회 가이드", className: "bg-rose-100 text-rose-800" };
     default:
       return { label: post.categoryLabel, className: "bg-stone-100 text-stone-700" };
   }

@@ -91,6 +91,25 @@ const BEGINNER_ORDER = [
   "beginner-golf-essentials-checklist",
 ];
 
+/** 대회 가이드 노출 우선순위 */
+const TOURNAMENT_ORDER = [
+  "2026-golf-tournament-schedule-august-october",
+  "2026-august-golf-tournament-schedule",
+  "2026-september-golf-tournament-schedule",
+  "2026-october-golf-tournament-schedule",
+  "2026-mediheal-hankook-ilbo-montvert-guide",
+  "2026-bmw-ladies-championship-guide",
+];
+
+const TOURNAMENT_META: Record<string, string> = {
+  "2026-golf-tournament-schedule-august-october": "허브 · 8~10월",
+  "2026-august-golf-tournament-schedule": "8월 · 일정표",
+  "2026-september-golf-tournament-schedule": "9월 · 일정표",
+  "2026-october-golf-tournament-schedule": "10월 · 일정표",
+  "2026-mediheal-hankook-ilbo-montvert-guide": "관전 · 몽베르",
+  "2026-bmw-ladies-championship-guide": "관전 · 해남",
+};
+
 function gearSubLabel(post: BlogPost): string {
   if (post.slug.includes("loft-shaft")) return "로프트·샤프트";
   if (post.slug.includes("driver")) return "드라이버";
@@ -120,6 +139,8 @@ function categoryBadge(post: BlogPost): { label: string; className: string } {
       return { label: "장비 가이드", className: "bg-sky-100 text-sky-700" };
     case "beginner-guide":
       return { label: "초보 가이드", className: "bg-amber-100 text-amber-800" };
+    case "tournament-guide":
+      return { label: "대회 가이드", className: "bg-rose-100 text-rose-800" };
     default:
       return { label: post.categoryLabel, className: "bg-stone-100 text-stone-700" };
   }
@@ -286,6 +307,10 @@ export default function BlogPage() {
     posts.filter((post) => post.category === "beginner-guide"),
     BEGINNER_ORDER,
   );
+  const tournamentPosts = orderByPreference(
+    posts.filter((post) => post.category === "tournament-guide"),
+    TOURNAMENT_ORDER,
+  );
 
   const allPostsByDate = [...posts].sort((a, b) =>
     b.date.localeCompare(a.date),
@@ -328,6 +353,12 @@ export default function BlogPage() {
               className="inline-flex items-center rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-sm font-semibold text-stone-700 transition hover:bg-stone-50"
             >
               초보 가이드
+            </a>
+            <a
+              href="#tournament-guide"
+              className="inline-flex items-center rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-sm font-semibold text-stone-700 transition hover:bg-stone-50"
+            >
+              대회 가이드
             </a>
           </nav>
         </div>
@@ -420,7 +451,27 @@ export default function BlogPage() {
         </PortalSection>
       ) : null}
 
-      {/* 5. 전체 글 (최신순, compact) */}
+      {/* 5. 대회 가이드 */}
+      {tournamentPosts.length > 0 ? (
+        <PortalSection
+          id="tournament-guide"
+          title="대회 가이드"
+          description="2026년 8~10월 PGA·LPGA·KPGA·KLPGA 일정과 국내 관전 가이드를 모았습니다."
+        >
+          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {tournamentPosts.map((post) => (
+              <li key={post.slug} className="h-full">
+                <CompactCard
+                  post={post}
+                  meta={TOURNAMENT_META[post.slug]}
+                />
+              </li>
+            ))}
+          </ul>
+        </PortalSection>
+      ) : null}
+
+      {/* 6. 전체 글 (최신순, compact) */}
       <PortalSection
         id="all-posts"
         title="전체 글"

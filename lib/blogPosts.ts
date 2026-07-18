@@ -1,7 +1,12 @@
 import { blogThumbnailAlt, blogThumbnailPath } from "@/lib/blogThumbnailRules";
+import { TOURNAMENT_BLOG_POSTS } from "@/lib/blogTournamentPosts";
 import { VISIT_KOREA_IMAGE_CREDIT } from "@/lib/visitKoreaAttribution";
 
-export type BlogPostCategory = "course-guide" | "gear-guide" | "beginner-guide";
+export type BlogPostCategory =
+  | "course-guide"
+  | "gear-guide"
+  | "beginner-guide"
+  | "tournament-guide";
 
 export type BlogPostComparisonTable = {
   caption?: string;
@@ -108,6 +113,7 @@ const CATEGORY_LABELS: Record<BlogPostCategory, string> = {
   "course-guide": "코스 가이드",
   "gear-guide": "장비 가이드",
   "beginner-guide": "초보 가이드",
+  "tournament-guide": "대회 가이드",
 };
 
 export const BLOG_POSTS: BlogPost[] = [
@@ -3626,6 +3632,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
     ],
   },
+  ...TOURNAMENT_BLOG_POSTS,
 ];
 
 export function getAllBlogPosts(): BlogPost[] {

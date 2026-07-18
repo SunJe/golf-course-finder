@@ -2,6 +2,7 @@ import Link from "next/link";
 import {
   TOUR_COLORS,
   TOUR_LABELS,
+  TOURNAMENT_SCHEDULE_LAST_CHECKED,
   buildMonthGrid,
   eventOverlapsYmd,
   formatEventDateRange,
@@ -15,6 +16,12 @@ import { TournamentLegend } from "@/components/tournament/TournamentLegend";
 import { TournamentAgendaList } from "@/components/tournament/TournamentAgendaList";
 
 const WEEKDAYS = ["일", "월", "화", "수", "목", "금", "토"];
+
+function formatCheckedAtKo(ymd: string): string {
+  const [y, m, d] = ymd.split("-").map(Number);
+  if (!y || !m || !d) return ymd;
+  return `${y}년 ${m}월 ${d}일`;
+}
 
 type TournamentMonthCalendarProps = {
   monthKey: TournamentMonthKey;
@@ -59,8 +66,14 @@ export function TournamentMonthCalendar({
         <h3 className="text-base font-bold text-stone-900 sm:text-lg">
           {title}
         </h3>
-        <p className="text-xs text-stone-500">데이터 기반 일정 · 이미지 아님</p>
+        <p className="text-xs text-stone-500">
+          공식 투어 일정 기준 · {formatCheckedAtKo(TOURNAMENT_SCHEDULE_LAST_CHECKED)} 확인
+        </p>
       </div>
+      <p className="mt-2 text-xs leading-relaxed text-stone-500">
+        대회명, 개최 장소와 운영 일정은 변경될 수 있으므로 관람·시청 전 공식
+        페이지를 다시 확인하세요.
+      </p>
       <TournamentLegend />
 
       {/* Mobile: agenda only */}

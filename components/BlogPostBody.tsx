@@ -308,10 +308,7 @@ export function BlogPostBody({ post }: { post: BlogPost }) {
             <TournamentOfficialGallery
               eventSlug={section.officialPhotoEventSlug}
               photoIds={section.officialPhotoIds}
-              creditLine={
-                section.officialPhotoCredit ??
-                "사진: 공식 대회 갤러리 · 원문 보기"
-              }
+              creditLine={section.officialPhotoCredit}
             />
           ) : null}
 

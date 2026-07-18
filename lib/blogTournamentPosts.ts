@@ -207,7 +207,6 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
         body: [
           "2026년 8월은 PGA TOUR의 시즌 결산 구간과 KLPGA의 국내 대회가 동시에 이어지는 달입니다. 아래 일정은 2026년 7월 18일 기준이며, 해외 대회는 현지 날짜 기준입니다.",
           "한국 중계 시간은 아직 고정하지 않습니다. 방송사 편성과 현지 티타임에 따라 바뀔 수 있습니다.",
-          "최종 확인일: 2026년 7월 18일. 일정은 변경될 수 있습니다.",
         ],
       },
       {
@@ -455,7 +454,6 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
         heading: "2026년 9월 골프 시즌 개요",
         body: [
           "2026년 9월에는 일반 스트로크플레이 대회뿐 아니라 Solheim Cup과 Presidents Cup 같은 팀 대항전이 예정돼 있습니다. 국내 투어도 가을 일정이 이어지지만 일부 장소는 최종 발표를 다시 확인해야 합니다.",
-          "최종 확인일: 2026년 7월 18일. 일정은 변경될 수 있습니다.",
         ],
       },
       {
@@ -659,7 +657,7 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
         heading: "2026년 10월 골프 시즌 개요",
         body: [
           "2026년 10월은 LPGA 아시아 일정과 국내 투어 종반전이 겹치는 달입니다. 특히 BMW Ladies Championship이 전남 해남에서 열릴 예정이라 국내 관람 수요가 예상됩니다.",
-          "최종 확인일: 2026년 7월 18일. 대회명이 아직 확정되지 않은 국내 일정은 공식 표기 그대로 ‘미정’으로 남겼습니다. 일정은 변경될 수 있습니다.",
+          "대회명이 아직 확정되지 않은 국내 일정은 공식 표기 그대로 ‘미정’으로 남겼습니다.",
         ],
       },
       {
@@ -927,20 +925,28 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
             ["지역", "경기도 포천시"],
           ],
         },
+      },
+      {
+        heading: "몽베르와 대회 코스",
+        body: [
+          "아래는 2025 메디힐·한국일보 챔피언십 공식 사진입니다. 2026 대회 세팅과 다를 수 있습니다.",
+        ],
         officialPhotoEventSlug: "2026-mediheal-hankook-ilbo-montvert-guide",
-        officialPhotoIds: ["mediheal-2025-02"],
-        officialPhotoCredit:
-          "사진: KLPGA 공식 사진 · 2025 메디힐·한국일보 챔피언십",
+        officialPhotoIds: ["mediheal-2025-05"],
       },
       {
         heading: "대회 주간 일정",
         body: [
           "KLPGA 공식 페이지에는 8월 10일과 11일 프로암, 12일 공식 연습일, 13일부터 16일까지 본 대회 일정이 표시돼 있습니다. 일반 갤러리가 참여할 수 있는 범위와 입장 시간은 티켓·셔틀 공지를 따릅니다.",
         ],
+      },
+      {
+        heading: "2025 공식 경기 사진",
+        body: [
+          "공식 갤러리에서 확인한 2025 대회 경기 장면입니다.",
+        ],
         officialPhotoEventSlug: "2026-mediheal-hankook-ilbo-montvert-guide",
-        officialPhotoIds: ["mediheal-2025-03", "mediheal-2025-04"],
-        officialPhotoCredit:
-          "사진: KLPGA 공식 사진 · 2025 메디힐·한국일보 챔피언십",
+        officialPhotoIds: ["mediheal-2025-03", "mediheal-2025-01"],
       },
       {
         heading: "몽베르와 포천 골프장 함께 보기",
@@ -991,6 +997,14 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
         ],
       },
       {
+        heading: "갤러리 관람 현장",
+        body: [
+          "2025 대회 현장에서 촬영된 공식 갤러리 사진입니다. 2026 관람 동선과 다를 수 있습니다.",
+        ],
+        officialPhotoEventSlug: "2026-mediheal-hankook-ilbo-montvert-guide",
+        officialPhotoIds: ["mediheal-2025-06"],
+      },
+      {
         heading: "관람 전 확인할 것",
         body: [
           "우산보다 관람 동선을 방해하지 않는 우비 준비",
@@ -1000,16 +1014,6 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
           "입장 가능 가방과 음식물 규정 확인",
           "기상으로 인한 출발 시간 변경 확인",
         ],
-      },
-      {
-        heading: "2025 우승·시상 공식 사진",
-        body: [
-          "아래 사진은 2025 메디힐·한국일보 챔피언십 공식 갤러리입니다. 2026 대회 현장과 다를 수 있습니다.",
-        ],
-        officialPhotoEventSlug: "2026-mediheal-hankook-ilbo-montvert-guide",
-        officialPhotoIds: ["mediheal-2025-01"],
-        officialPhotoCredit:
-          "사진: KLPGA 공식 사진 · 2025 메디힐·한국일보 챔피언십",
       },
       {
         heading: "자주 묻는 질문",
@@ -1074,20 +1078,20 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
             ["총상금", "235만 달러"],
           ],
         },
+      },
+      {
+        heading: "2025 공식 경기 사진",
+        body: [
+          "아래는 BMW Group PressClub의 2025 BMW Ladies Championship 공식 경기 사진입니다. 2026 대회 현장과 다를 수 있습니다.",
+        ],
         officialPhotoEventSlug: "2026-bmw-ladies-championship-guide",
-        officialPhotoIds: ["bmw-ladies-2025-02"],
-        officialPhotoCredit:
-          "사진: BMW Group PressClub · BMW Ladies Championship 2025",
+        officialPhotoIds: ["bmw-ladies-2025-03"],
       },
       {
         heading: "왜 별도 관전 가이드가 필요한가요?",
         body: [
           "한국에서 열리는 LPGA 대회이고, 수도권에서 이동할 경우 숙박과 장거리 교통을 함께 계획해야 하기 때문입니다. 단순 일정표보다 티켓, 셔틀, 숙박권역과 기상 확인 정보가 필요합니다.",
         ],
-        officialPhotoEventSlug: "2026-bmw-ladies-championship-guide",
-        officialPhotoIds: ["bmw-ladies-2025-03"],
-        officialPhotoCredit:
-          "사진: BMW Group PressClub · BMW Ladies Championship 2025",
         items: [
           {
             title: "파인비치골프링크스",
@@ -1129,10 +1133,14 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
         body: [
           "LPGA 공식 Entries 페이지가 갱신되기 전에는 특정 선수가 반드시 출전한다고 표현하지 않습니다. 출전 명단과 1·2라운드 조 편성은 대회 직전에 다시 확인합니다.",
         ],
+      },
+      {
+        heading: "갤러리 관람 현장",
+        body: [
+          "2025 대회 현장에서 촬영된 공식 갤러리 사진입니다. 2026 관람 동선과 다를 수 있습니다.",
+        ],
         officialPhotoEventSlug: "2026-bmw-ladies-championship-guide",
         officialPhotoIds: ["bmw-ladies-2025-04"],
-        officialPhotoCredit:
-          "사진: BMW Group PressClub · BMW Ladies Championship 2025",
       },
       {
         heading: "관람 준비물",
@@ -1146,14 +1154,20 @@ export const TOURNAMENT_BLOG_POSTS: BlogPost[] = [
         ],
       },
       {
-        heading: "2025 우승·시상 공식 사진",
+        heading: "2025 우승·시상",
         body: [
-          "아래 사진은 BMW Group PressClub의 2025 BMW Ladies Championship 공식 사진입니다. 2026 대회 현장과 다를 수 있습니다.",
+          "BMW Group PressClub에 공개된 2025 우승 세리머니 공식 사진입니다.",
+        ],
+        officialPhotoEventSlug: "2026-bmw-ladies-championship-guide",
+        officialPhotoIds: ["bmw-ladies-2025-05"],
+      },
+      {
+        heading: "대회 현장과 스폰서 전시",
+        body: [
+          "대회장에 전시된 스폰서 차량 등 현장 분위기 사진입니다. 우승·시상 장면과는 별개입니다.",
         ],
         officialPhotoEventSlug: "2026-bmw-ladies-championship-guide",
         officialPhotoIds: ["bmw-ladies-2025-01"],
-        officialPhotoCredit:
-          "사진: BMW Group PressClub · BMW Ladies Championship 2025",
       },
       {
         heading: "함께 볼 글",

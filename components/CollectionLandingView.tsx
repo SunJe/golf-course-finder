@@ -429,6 +429,18 @@ export default function CollectionLandingView({
           <p className="mt-5 max-w-3xl text-base leading-[1.75] text-region-muted sm:text-lg sm:leading-[1.8]">
             {buildCollectionHeroDescription(config, stats)}
           </p>
+          {config.slug === "near-seoul-beginner" ? (
+            <div className="mt-4 flex flex-wrap gap-2">
+              {["서울 근교", "초보 친화", "참고 요금", "대중제 우선"].map((chip) => (
+                <span
+                  key={chip}
+                  className="inline-flex min-h-[36px] items-center rounded-full border border-brand-200 bg-white px-3 text-xs font-semibold text-brand-900"
+                >
+                  {chip}
+                </span>
+              ))}
+            </div>
+          ) : null}
           <div className="mt-6 flex flex-wrap gap-2.5">
             {heroPills.map((pill) => (
               <HeroPill key={pill.suffix} suffix={pill.suffix} value={pill.value} />
@@ -440,7 +452,7 @@ export default function CollectionLandingView({
               title={`${config.h1} 지도에서 보기`}
               className={`inline-flex min-h-[48px] items-center justify-center rounded-xl bg-brand-700 px-6 py-3 text-base font-bold text-white shadow-sm transition hover:bg-brand-800 ${FOCUS_RING}`}
             >
-              지도에서 보기
+              이 조건으로 전체 지도 보기
             </Link>
             <Link
               href="/map"
@@ -450,6 +462,46 @@ export default function CollectionLandingView({
             </Link>
           </div>
         </header>
+
+        {config.slug === "near-seoul-beginner" && courses.length > 0 ? (
+          <SectionShell className="mt-8">
+            <SectionHeading
+              title="상위 3곳 한눈에 보기"
+              description="지역·홀 수·참고 요금·서울 기준 거리를 먼저 비교하세요."
+            />
+            <ul className="grid gap-3 sm:grid-cols-3">
+              {courses.slice(0, 3).map((course) => {
+                const meta = course as CourseWithMeta;
+                const { value } = formatCollectionCardPrice(course);
+                return (
+                  <li key={course.id}>
+                    <Link
+                      href={`/courses/${course.id}`}
+                      className={`block rounded-2xl border border-region-soft-border bg-white p-4 transition hover:border-brand-500 ${FOCUS_RING}`}
+                    >
+                      <p className="line-clamp-2 text-sm font-extrabold text-region-ink">
+                        {course.name}
+                      </p>
+                      <p className="mt-2 text-xs text-region-muted">
+                        {formatCourseLocationLabel(course)}
+                      </p>
+                      <p className="mt-1 text-xs text-region-muted">
+                        {formatHoleCount(course.holeCount)}
+                        {typeof meta.distanceKm === "number"
+                          ? ` · 서울 ${Math.round(meta.distanceKm)}km`
+                          : ""}
+                      </p>
+                      <p className="mt-2 text-sm font-bold text-brand-800">{value}</p>
+                      <span className="mt-3 inline-flex text-xs font-bold text-brand-700">
+                        상세보기 →
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </SectionShell>
+        ) : null}
 
         <SectionShell className="mt-8 border-l-4 border-l-amber-400">
           <p className="text-sm font-semibold text-region-ink sm:text-base">
@@ -520,9 +572,9 @@ export default function CollectionLandingView({
               <Link
                 href={mapHref}
                 title={`${config.h1} 전체 목록 지도에서 보기`}
-                className={`mt-6 inline-flex items-center gap-1.5 rounded-xl border border-brand-300 bg-region-soft px-5 py-3 text-sm font-bold text-brand-800 transition hover:border-brand-500 hover:bg-brand-100 ${FOCUS_RING}`}
+                className={`mt-6 inline-flex min-h-[44px] items-center gap-1.5 rounded-xl border border-brand-300 bg-region-soft px-5 py-3 text-sm font-bold text-brand-800 transition hover:border-brand-500 hover:bg-brand-100 ${FOCUS_RING}`}
               >
-                {config.h1} 지도에서 더 보기 →
+                이 조건으로 전체 지도 보기 →
               </Link>
             </>
           ) : (

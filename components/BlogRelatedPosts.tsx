@@ -12,12 +12,25 @@ export function BlogRelatedPosts({ slugs }: BlogRelatedPostsProps) {
 
   if (posts.length === 0) return null;
 
+  const mobilePosts = posts.slice(0, 3);
+  const desktopExtra = posts.slice(3);
+
   return (
     <section className="mt-12 border-t border-stone-200 pt-10">
       <h2 className="text-xl font-bold text-stone-900">함께 보면 좋은 글</h2>
       <ul className="mt-4 grid gap-3 sm:grid-cols-2">
-        {posts.map((post) => (
+        {mobilePosts.map((post) => (
           <li key={post.slug}>
+            <Link
+              href={`/blog/${post.slug}`}
+              className="block rounded-xl border border-stone-200/90 bg-white px-4 py-3 text-sm font-medium text-stone-800 shadow-sm transition hover:border-brand-300 hover:bg-brand-50/40 hover:text-brand-900"
+            >
+              {post.title}
+            </Link>
+          </li>
+        ))}
+        {desktopExtra.map((post) => (
+          <li key={post.slug} className="hidden sm:list-item">
             <Link
               href={`/blog/${post.slug}`}
               className="block rounded-xl border border-stone-200/90 bg-white px-4 py-3 text-sm font-medium text-stone-800 shadow-sm transition hover:border-brand-300 hover:bg-brand-50/40 hover:text-brand-900"

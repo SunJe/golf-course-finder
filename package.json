@@ -55,6 +55,8 @@
     "generate:course-price-update": "tsx scripts/generateCoursePriceUpdateSql.ts",
     "verify:map-search-name": "tsx scripts/verifyMapSearchName.ts",
     "verify:price-filter": "tsx scripts/verifyPriceFilter.ts",
+    "verify:mobile-map-url": "tsx scripts/verifyMobileMapUrlState.ts",
+    "generate:responsive-images": "tsx scripts/generateResponsiveLocalImages.ts",
     "test:search": "tsx scripts/verifyCourseSearch.ts",
     "generate:teescanner-price-sql": "tsx scripts/generateTeescannerPriceUpdateSql.ts",
     "apply:teescanner-price-supabase": "tsx scripts/applyTeescannerPriceToSupabase.ts",

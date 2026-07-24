@@ -153,10 +153,31 @@ function isGearItem(
 
 
 export function BlogPostBody({ post }: { post: BlogPost }) {
+  const tocItems = post.sections
+    .map((section) => section.heading)
+    .filter(Boolean);
 
   return (
-
     <div className="w-full max-w-none">
+      {tocItems.length > 2 ? (
+        <details className="mb-8 rounded-xl border border-stone-200 bg-stone-50/70 px-4 py-3">
+          <summary className="cursor-pointer text-sm font-semibold text-stone-800">
+            목차
+          </summary>
+          <ol className="mt-3 list-decimal space-y-1.5 pl-5 text-sm leading-relaxed text-stone-600">
+            {tocItems.map((heading) => (
+              <li key={heading}>
+                <a
+                  href={`#${encodeURIComponent(heading)}`}
+                  className="underline-offset-2 hover:text-brand-800 hover:underline"
+                >
+                  {heading}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </details>
+      ) : null}
 
       {post.sections.map((section, sectionIndex) => {
         const faqItems = isBlogFaqSection(section.heading)
@@ -175,8 +196,10 @@ export function BlogPostBody({ post }: { post: BlogPost }) {
         return (
         <Fragment key={section.heading}>
 
-        <section className="mt-10 first:mt-0">
-
+        <section
+          id={section.heading}
+          className="mt-10 scroll-mt-24 first:mt-0"
+        >
           {section.image ? (
             <BlogSectionHeroImage
               src={section.image}
@@ -196,7 +219,7 @@ export function BlogPostBody({ post }: { post: BlogPost }) {
 
                   key={paragraph.slice(0, 40)}
 
-                  className="text-base leading-relaxed text-stone-700"
+                  className="text-base leading-[1.7] text-stone-700 sm:text-[1.05rem]"
 
                 >
 

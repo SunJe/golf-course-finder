@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getCoursesForStaticPages } from "@/lib/courseRepository";
 import { selectRecommendedCourses } from "@/lib/recommendedCourses";
 import { resolveHomeRecommendedThumbnail } from "@/lib/homeThumbnails";
@@ -16,7 +17,7 @@ export default async function HomeRecommendedSection() {
 
   if (recommended.length === 0) return null;
 
-  const carouselItems = recommended.map((meta) => {
+  const carouselItems = recommended.slice(0, 4).map((meta) => {
     const { course } = meta;
     const priceLabel = hasPrice(course)
       ? formatHomeCarouselPrice(course)
@@ -35,11 +36,17 @@ export default async function HomeRecommendedSection() {
       id="recommended"
       title="추천 골프장"
       description="처음 방문하신 분들을 위해 접근성, 정보 완성도, 가격 정보를 기준으로 골라봤어요."
-      actionHref="/recommended"
-      actionLabel="전체보기"
       containerVariant="narrow"
     >
       <RecommendedCourseCarousel courses={carouselItems} />
+      <div className="mt-5">
+        <Link
+          href="/recommended"
+          className="inline-flex min-h-[44px] w-full items-center justify-center rounded-xl border border-stone-200 bg-white px-4 text-sm font-semibold text-stone-800 shadow-sm transition hover:border-brand-300 hover:text-brand-800 sm:w-auto"
+        >
+          추천 골프장 더 보기
+        </Link>
+      </div>
     </PortalSection>
   );
 }

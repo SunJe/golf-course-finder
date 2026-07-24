@@ -7,9 +7,6 @@ import {
   truncateMetaDescription,
 } from "@/lib/courseSeoCopy";
 import { getCourseContentEnrichment } from "@/lib/enrichment/courseContentEnrichmentStore";
-import {
-  resolveCourseSearchAliases,
-} from "@/lib/seo/courseNameAliases";
 import type { RegionLandingConfig } from "@/lib/regionLanding";
 import {
   getCollectionSeoImagePath,
@@ -117,9 +114,9 @@ function buildTwitter(
 }
 
 export function buildHomeMetadata(): Metadata {
-  const title = "GolfMap Korea | 전국 골프장 지도·가격·추천 코스";
+  const title = "전국 골프장 지도·그린피·예약 링크 | 골프맵";
   const description =
-    "전국 골프장을 지도에서 찾고, 서울 근교·저렴한 골프장·대중제·9홀·파3 골프장을 조건별로 비교해 보세요.";
+    "전국 골프장을 지도에서 찾고, 그린피·홀 수·대중제 조건으로 비교한 뒤 전화·네이버지도·예약 링크로 바로 이동하세요.";
   const url = absoluteUrl("/");
 
   return {
@@ -185,9 +182,9 @@ export function buildBlogPostMetadata(post: {
 }
 
 export function buildMapMetadata(): Metadata {
-  const title = "골프장 지도 | GolfMap Korea";
+  const title = "전국 골프장 지도 | 지역·그린피·9홀·대중제 검색";
   const description =
-    "전국 골프장을 지도에서 확인하고 지역, 가격, 운영 형태 기준으로 필터링해 보세요.";
+    "지역, 그린피, 9홀, 대중제 조건으로 전국 골프장을 지도와 목록에서 검색하세요.";
   const url = absoluteUrl("/map");
 
   return {
@@ -202,12 +199,7 @@ export function buildMapMetadata(): Metadata {
 
 export function buildCourseDetailTitle(course: Course): string {
   const name = course.name.trim() || "골프장";
-  const aliases = resolveCourseSearchAliases(course);
-  const primaryAlias = aliases.find((alias) => alias !== name);
-  if (primaryAlias) {
-    return `${name} ${primaryAlias} | 위치·요금 | ${siteConfig.siteName}`;
-  }
-  return `${name} | 위치·요금 | ${siteConfig.siteName}`;
+  return `${name} 그린피·예약·전화번호·지도 | 골프맵`;
 }
 
 export function buildCourseMetadata(course: Course): Metadata {

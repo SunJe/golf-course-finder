@@ -33,25 +33,27 @@ export default function MobileFilterSheet({
   onToggleVisitedOnly,
 }: MobileFilterSheetProps) {
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    if (!open) return;
+    document.body.style.overflow = "hidden";
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKeyDown);
     return () => {
       document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKeyDown);
     };
-  }, [open]);
+  }, [open, onClose]);
 
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[60] md:hidden">
+    <div className="fixed inset-0 z-[60] md:hidden" role="dialog" aria-modal="true" aria-label="필터">
       <div
         className="absolute inset-0 bg-stone-900/30 animate-fade-in"
         onClick={onClose}
       />
-      <div className="absolute inset-x-0 bottom-0 flex max-h-[88vh] flex-col rounded-t-[24px] bg-white shadow-sheet animate-slide-up">
+      <div className="absolute inset-x-0 bottom-0 flex max-h-[85dvh] flex-col rounded-t-[24px] bg-white shadow-sheet animate-slide-up">
         <div className="flex shrink-0 items-center justify-center pt-2.5">
           <div className="h-1 w-9 rounded-full bg-stone-300/90" />
         </div>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import { resolveResponsiveLocalImage } from "@/lib/responsiveLocalImage";
 
 export type RecommendedCarouselItem = {
   id: string;
@@ -17,6 +17,10 @@ interface RecommendedCourseCarouselProps {
 }
 
 function RecommendedCourseCard({ course }: { course: RecommendedCarouselItem }) {
+  const image = resolveResponsiveLocalImage(course.imagePath, {
+    sizes: "(max-width: 1024px) 50vw, 180px",
+  });
+
   return (
     <Link
       href={`/courses/${course.id}`}
@@ -25,12 +29,17 @@ function RecommendedCourseCard({ course }: { course: RecommendedCarouselItem }) 
     >
       <article className="flex h-full flex-col">
         <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-emerald-50">
-          <Image
-            src={course.imagePath}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={image.src}
+            srcSet={image.srcSet}
+            sizes={image.sizes}
             alt=""
-            fill
-            sizes="(max-width: 1024px) 50vw, 180px"
-            className="object-cover object-center transition duration-300 group-hover:scale-[1.02]"
+            width={480}
+            height={300}
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover object-center transition duration-300 group-hover:scale-[1.02]"
             draggable={false}
           />
         </div>

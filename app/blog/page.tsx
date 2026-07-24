@@ -329,34 +329,37 @@ export default function BlogPage() {
           </p>
 
           {/* 카테고리 바로가기 */}
-          <nav className="mt-6 flex flex-wrap gap-2" aria-label="블로그 카테고리">
+          <nav
+            className="mt-6 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            aria-label="블로그 카테고리"
+          >
             <a
               href="#reading-order"
-              className="inline-flex items-center rounded-full border border-brand-200 bg-white px-3.5 py-1.5 text-sm font-semibold text-brand-800 transition hover:bg-brand-50"
+              className="inline-flex min-h-[44px] shrink-0 items-center rounded-full border border-brand-200 bg-brand-50 px-3.5 py-1.5 text-sm font-semibold text-brand-800 transition hover:bg-brand-100"
             >
               읽기 순서
             </a>
             <a
               href="#course-guide"
-              className="inline-flex items-center rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-sm font-semibold text-stone-700 transition hover:bg-stone-50"
+              className="inline-flex min-h-[44px] shrink-0 items-center rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-sm font-semibold text-stone-700 transition hover:bg-stone-50"
             >
               코스 가이드
             </a>
             <a
               href="#gear-guide"
-              className="inline-flex items-center rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-sm font-semibold text-stone-700 transition hover:bg-stone-50"
+              className="inline-flex min-h-[44px] shrink-0 items-center rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-sm font-semibold text-stone-700 transition hover:bg-stone-50"
             >
               장비·피팅 가이드
             </a>
             <a
               href="#beginner-guide"
-              className="inline-flex items-center rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-sm font-semibold text-stone-700 transition hover:bg-stone-50"
+              className="inline-flex min-h-[44px] shrink-0 items-center rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-sm font-semibold text-stone-700 transition hover:bg-stone-50"
             >
               초보 가이드
             </a>
             <a
               href="#tournament-guide"
-              className="inline-flex items-center rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-sm font-semibold text-stone-700 transition hover:bg-stone-50"
+              className="inline-flex min-h-[44px] shrink-0 items-center rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-sm font-semibold text-stone-700 transition hover:bg-stone-50"
             >
               대회·일정
             </a>

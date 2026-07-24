@@ -55,7 +55,9 @@ import {
 import HomeResetLink from "@/components/HomeResetLink";
 import CourseMap from "@/components/maps/CourseMap";
 import CourseDetailHeroImage from "@/components/CourseDetailHeroImage";
+import CourseStickyActionBar from "@/components/CourseStickyActionBar";
 import { getCourseSeoImagePath } from "@/lib/seoImages";
+import { trackEvent } from "@/lib/analytics";
 
 const TYPE_STYLES: Record<string, string> = {
   대중제: "bg-brand-50 text-brand-700 ring-brand-100",
@@ -205,7 +207,15 @@ export default function CourseDetail({
   const priceBadge = formatPriceBadge(course);
   const priceSummary = formatPriceRange(course);
   const naverMapUrl = getNaverMapSearchUrl(course);
-  const bookingHref = showHomepage ? course.homepageUrl : naverMapUrl;
+  const reservationHref =
+    course.bookingUrl?.trim() ||
+    (showHomepage ? course.homepageUrl : undefined);
+  const reservationLabel = course.bookingUrl?.trim()
+    ? "예약 확인"
+    : showHomepage
+      ? "공식 홈페이지"
+      : "예약 확인";
+  const bookingHref = reservationHref || naverMapUrl;
   const naverSearchUrl = getNaverSearchUrl(course);
 
   const mapCourses = useMemo(
@@ -248,7 +258,7 @@ export default function CourseDetail({
   );
 
   return (
-    <div className="mx-auto max-w-3xl bg-app-warm px-4 pb-12 pt-4 sm:px-6 sm:pb-16 sm:pt-6 md:max-w-4xl">
+    <div className="mx-auto max-w-3xl bg-app-warm px-4 pb-28 pt-4 sm:px-6 sm:pb-16 sm:pt-6 md:max-w-4xl">
       <HomeResetLink className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 transition hover:text-gray-800">
         <ArrowLeft className="h-4 w-4" />
         목록으로 돌아가기
@@ -296,16 +306,45 @@ export default function CourseDetail({
           >
             {priceBadge}
           </span>
+          {course.updatedAt ? (
+            <span className="inline-flex items-center rounded-full bg-stone-50 px-3 py-1 text-xs font-medium text-stone-500 ring-1 ring-inset ring-stone-200">
+              업데이트 {formatDate(course.updatedAt)}
+            </span>
+          ) : null}
         </div>
 
-        <div className="border-b border-gray-100 px-4 py-3 sm:px-6">
-          <p className="text-xs text-stone-500 sm:text-sm">
-            연락처·지도·예약 확인은 아래 보조 링크에서 이용할 수 있습니다.
-          </p>
+        <div className="grid grid-cols-2 gap-2 px-4 py-3 sm:grid-cols-3 sm:px-6">
+          {showPhone ? (
+            <a
+              href={`tel:${course.phone!.replace(/\s/g, "")}`}
+              onClick={() => trackEvent("course_call_click")}
+              className={`${actionButtonClass} border-stone-200 bg-stone-50 text-stone-900`}
+            >
+              전화
+            </a>
+          ) : null}
+          <a
+            href={naverMapUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackEvent("course_map_click")}
+            className={`${actionButtonClass} border-emerald-200 bg-emerald-50 text-emerald-900`}
+          >
+            네이버지도
+          </a>
+          <a
+            href={bookingHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackEvent("course_reservation_click")}
+            className={`${actionButtonClass} col-span-2 border-brand-700 bg-brand-800 text-white sm:col-span-1`}
+          >
+            {reservationLabel}
+          </a>
         </div>
       </header>
 
-      <p className="mt-4 rounded-xl border border-gray-100 bg-white/90 px-4 py-3 text-sm leading-relaxed text-gray-600 shadow-sm sm:px-5">
+      <p className="mt-4 line-clamp-3 rounded-xl border border-gray-100 bg-white/90 px-4 py-3 text-sm leading-relaxed text-gray-600 shadow-sm sm:line-clamp-none sm:px-5">
         {seoIntro}
       </p>
 
@@ -630,6 +669,14 @@ export default function CourseDetail({
       </p>
 
       {regionSlot}
+
+      <CourseStickyActionBar
+        courseName={course.name}
+        phone={showPhone ? course.phone : undefined}
+        naverMapUrl={naverMapUrl}
+        reservationHref={reservationHref || bookingHref}
+        reservationLabel={reservationLabel}
+      />
     </div>
   );
 }

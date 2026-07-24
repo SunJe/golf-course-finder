@@ -117,7 +117,6 @@ export const HOME_BLOG_SLUGS = [
   "seoul-beginner-golf-best-5",
   "seoul-par3-practice-range-top-10",
   "golf-ball-type-guide",
-  "pro-tour-driver-brands-men",
 ] as const;
 
 const CATEGORY_LABELS: Record<BlogPostCategory, string> = {

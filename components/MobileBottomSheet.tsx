@@ -20,8 +20,8 @@ const COLLAPSED_HEIGHT_PX = 80;
 const HALF_VH_RATIO = 0.42;
 const EXPANDED_VH_RATIO = 0.74;
 const EXPANDED_MAX_PX = 580;
-const MOBILE_LIST_INITIAL = 25;
-const MOBILE_LIST_STEP = 25;
+const MOBILE_LIST_INITIAL = 20;
+const MOBILE_LIST_STEP = 20;
 
 function getViewportHeight(): number {
   if (typeof window === "undefined") return 700;

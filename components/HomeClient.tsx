@@ -38,6 +38,8 @@ import {
   consumeHomeResetPending,
   clearHomeUrlState,
 } from "@/lib/homeResetState";
+import { serializeMapUrlState } from "@/lib/mapUrlState";
+import { trackEvent } from "@/lib/analytics";
 import {
   filterCoursesByRegion,
   getRegionLandingBySlug,
@@ -295,10 +297,14 @@ export default function HomeClient({
   courses,
   initialRegionSlug,
   initialCollectionSlug,
+  initialFilters,
+  initialView,
 }: {
   courses: Course[];
   initialRegionSlug?: string;
   initialCollectionSlug?: CollectionSlug;
+  initialFilters?: CourseFilters;
+  initialView?: "map" | "list";
 }) {
   return (
     <CourseCollectionsProvider>
@@ -306,6 +312,8 @@ export default function HomeClient({
         courses={courses}
         initialRegionSlug={initialRegionSlug}
         initialCollectionSlug={initialCollectionSlug}
+        initialFilters={initialFilters}
+        initialView={initialView}
       />
     </CourseCollectionsProvider>
   );
@@ -315,10 +323,14 @@ function HomeClientInner({
   courses,
   initialRegionSlug,
   initialCollectionSlug,
+  initialFilters,
+  initialView = "map",
 }: {
   courses: Course[];
   initialRegionSlug?: string;
   initialCollectionSlug?: CollectionSlug;
+  initialFilters?: CourseFilters;
+  initialView?: "map" | "list";
 }) {
   const { registerHomeReset } = useHomeReset();
   const isMobile = useIsMobile();
@@ -328,7 +340,9 @@ function HomeClientInner({
   const [visitedOnly, setVisitedOnly] = useState(false);
   const [collectionFitIds, setCollectionFitIds] = useState<string[]>([]);
   const [collectionFitSignal, setCollectionFitSignal] = useState(0);
-  const [filters, setFilters] = useState<CourseFilters>(EMPTY_FILTERS);
+  const [filters, setFilters] = useState<CourseFilters>(
+    () => initialFilters ?? EMPTY_FILTERS,
+  );
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [visibleCourseIds, setVisibleCourseIds] = useState<string[] | null>(
@@ -355,8 +369,12 @@ function HomeClientInner({
   const [userMapInteracted, setUserMapInteracted] = useState(false);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [mobileSheetSnap, setMobileSheetSnap] =
-    useState<MobileSheetSnap>("half");
+    useState<MobileSheetSnap>(initialView === "list" ? "expanded" : "half");
+  const [mobileViewMode, setMobileViewMode] = useState<"map" | "list">(
+    initialView,
+  );
   const [searchFitSignal, setSearchFitSignal] = useState(0);
+  const skipUrlSyncRef = useRef(true);
 
   const collectionCounts = useMemo(
     () => computeCollectionCounts(courses),
@@ -709,6 +727,53 @@ function HomeClientInner({
 
   const resetFilters = useCallback(() => setFilters(EMPTY_FILTERS), []);
 
+  // Keep map URL query in sync with filter/view state (back navigation friendly)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (skipUrlSyncRef.current) {
+      skipUrlSyncRef.current = false;
+      return;
+    }
+    const next = serializeMapUrlState({
+      filters,
+      regionSlug: landingRegionSlug,
+      collectionSlug: landingCollectionSlug,
+      view: mobileViewMode,
+    });
+    const current = `${window.location.pathname}${window.location.search}`;
+    const target = `/map${next}`;
+    if (current !== target) {
+      window.history.replaceState(null, "", target);
+    }
+  }, [filters, landingRegionSlug, landingCollectionSlug, mobileViewMode]);
+
+  const viewModeSyncedRef = useRef(false);
+  useEffect(() => {
+    if (!viewModeSyncedRef.current) {
+      viewModeSyncedRef.current = true;
+      if (mobileViewMode === "list") setMobileSheetSnap("expanded");
+      return;
+    }
+    if (mobileViewMode === "list") {
+      setMobileSheetSnap("expanded");
+    } else {
+      setMobileSheetSnap("half");
+    }
+    trackEvent("map_list_toggle", { view: mobileViewMode });
+  }, [mobileViewMode]);
+
+  const openFilterSheet = useCallback(() => {
+    setSheetOpen(true);
+    trackEvent("map_filter_open");
+  }, []);
+
+  const applyFilterSheet = useCallback(() => {
+    setSheetOpen(false);
+    trackEvent("map_filter_apply", {
+      active_count: countActiveFilters(filters),
+    });
+  }, [filters]);
+
   const resetHomeState = useCallback(() => {
     applyHomeResetState({
       setFilters,
@@ -745,7 +810,10 @@ function HomeClientInner({
 
     const filterRegion = getRegionMapFilterRegion(initialRegionSlug);
     if (filterRegion) {
-      setFilters({ ...EMPTY_FILTERS, regions: [filterRegion] });
+      setFilters((prev) => ({
+        ...prev,
+        regions: prev.regions.length > 0 ? prev.regions : [filterRegion],
+      }));
     } else {
       setLandingRegionSlug(initialRegionSlug);
     }
@@ -1155,7 +1223,7 @@ function HomeClientInner({
   };
 
   /** 모바일: 허브만 보일 때 Kakao SDK/지도 번들 로드 지연 */
-  const shouldMountMobileMap = mapSectionInView;
+  const shouldMountMobileMap = mapSectionInView && mobileViewMode === "map";
 
   return (
     <>
@@ -1223,17 +1291,57 @@ function HomeClientInner({
           <MobileHomeHubToolbar
             query={filters.query}
             onQueryChange={(query) => updateFilters({ query })}
-            onFilterOpen={() => setSheetOpen(true)}
+            onFilterOpen={openFilterSheet}
             activeFilterCount={activeCount}
             suggestions={searchSuggestions}
             onSuggestionSelect={handleSuggestionSelect}
           />
 
+          <div className="flex items-center gap-2 bg-[#F3F2EA] px-4 pb-2">
+            <div
+              className="inline-flex min-h-[44px] flex-1 rounded-xl border border-stone-200 bg-white p-1"
+              role="tablist"
+              aria-label="지도 또는 목록"
+            >
+              <button
+                type="button"
+                role="tab"
+                aria-selected={mobileViewMode === "map"}
+                onClick={() => setMobileViewMode("map")}
+                className={`min-h-[40px] flex-1 rounded-lg text-sm font-semibold transition ${
+                  mobileViewMode === "map"
+                    ? "bg-brand-800 text-white"
+                    : "text-stone-600"
+                }`}
+              >
+                지도
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={mobileViewMode === "list"}
+                onClick={() => setMobileViewMode("list")}
+                className={`min-h-[40px] flex-1 rounded-lg text-sm font-semibold transition ${
+                  mobileViewMode === "list"
+                    ? "bg-brand-800 text-white"
+                    : "text-stone-600"
+                }`}
+              >
+                목록
+              </button>
+            </div>
+            <p className="shrink-0 text-xs font-semibold text-stone-600">
+              {listHeaderCount.toLocaleString()}곳
+            </p>
+          </div>
+
           <section
             id="mobile-home-map"
             ref={mapSectionRef}
             aria-label="전국 골프장 지도"
-            className="bg-[#F3F2EA] px-4 pb-2"
+            className={`bg-[#F3F2EA] px-4 pb-2 ${
+              mobileViewMode === "list" ? "hidden" : ""
+            }`}
           >
             <div className="mobile-map-area relative h-[min(52vh,420px)] min-h-[280px] overflow-hidden rounded-2xl border border-stone-200/40 shadow-[0_2px_12px_rgba(0,0,0,0.06)] ring-1 ring-black/[0.02]">
               {shouldMountMobileMap ? (
@@ -1301,7 +1409,7 @@ function HomeClientInner({
 
       <MobileFilterSheet
         open={sheetOpen}
-        onClose={() => setSheetOpen(false)}
+        onClose={applyFilterSheet}
         filters={filters}
         onChange={updateFilters}
         onReset={resetFilters}

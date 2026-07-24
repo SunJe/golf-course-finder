@@ -3,6 +3,12 @@ import type { GolfCourseRow } from "@/types/database";
 import { unstable_noStore as noStore } from "next/cache";
 import { mapGolfCourseRowToCourse } from "@/lib/courseMapper";
 import { MOCK_COURSES } from "@/lib/mock";
+import {
+  assertProductionCourseDataset,
+  isProductionDataMode,
+  PRODUCTION_MIN_COURSE_COUNT,
+  rejectMockFallback,
+} from "@/lib/productionDataGuard";
 import { getSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 
 function getMockCourses(): Course[] {
@@ -31,13 +37,29 @@ function mapRows(rows: GolfCourseRow[]): Course[] {
   return rows.map(mapGolfCourseRowToCourse);
 }
 
-async function fetchCoursesFromSupabase(options?: { static?: boolean }): Promise<Course[] | null> {
+function finalizeCourses(courses: Course[], context: string): Course[] {
+  if (isProductionDataMode()) {
+    assertProductionCourseDataset(courses, context);
+  }
+  return courses;
+}
+
+function fallbackOrReject(context: string, reason: string): Course[] {
+  if (isProductionDataMode()) {
+    rejectMockFallback(context, reason);
+  }
+  warnFallback(reason);
+  return getMockCourses();
+}
+
+async function fetchCoursesFromSupabase(options?: {
+  static?: boolean;
+}): Promise<Course[] | null> {
   if (!options?.static) {
     noStore();
   }
   const supabase = getSupabaseClient();
   if (!isSupabaseConfigured || !supabase) {
-    warnFallback("Supabase env not configured");
     return null;
   }
 
@@ -47,14 +69,23 @@ async function fetchCoursesFromSupabase(options?: { static?: boolean }): Promise
     .order("name", { ascending: true });
 
   if (error) {
-    warnFallback(`Supabase fetch failed: ${error.message}`);
     warnRlsIfNeeded(error.message);
+    if (isProductionDataMode()) {
+      rejectMockFallback(
+        "fetchCoursesFromSupabase",
+        `Supabase fetch failed: ${error.message}`,
+      );
+    }
+    warnFallback(`Supabase fetch failed: ${error.message}`);
     return null;
   }
 
   if (!data || data.length === 0) {
-    warnFallback("Supabase returned 0 rows");
     warnRlsIfNeeded("empty result — check RLS SELECT policy");
+    if (isProductionDataMode()) {
+      rejectMockFallback("fetchCoursesFromSupabase", "Supabase returned 0 rows");
+    }
+    warnFallback("Supabase returned 0 rows");
     return null;
   }
 
@@ -64,13 +95,28 @@ async function fetchCoursesFromSupabase(options?: { static?: boolean }): Promise
 
 export async function getCourses(): Promise<Course[]> {
   const fromSupabase = await fetchCoursesFromSupabase();
-  return fromSupabase ?? getMockCourses();
+  if (fromSupabase) {
+    return finalizeCourses(fromSupabase, "getCourses");
+  }
+  return finalizeCourses(
+    fallbackOrReject("getCourses", "Supabase env not configured or fetch failed"),
+    "getCourses",
+  );
 }
 
 /** SSG/ISR region landing 등 정적 생성용 — noStore 없이 fetch */
 export async function getCoursesForStaticPages(): Promise<Course[]> {
   const fromSupabase = await fetchCoursesFromSupabase({ static: true });
-  return fromSupabase ?? getMockCourses();
+  if (fromSupabase) {
+    return finalizeCourses(fromSupabase, "getCoursesForStaticPages");
+  }
+  return finalizeCourses(
+    fallbackOrReject(
+      "getCoursesForStaticPages",
+      "Supabase env not configured or fetch failed",
+    ),
+    "getCoursesForStaticPages",
+  );
 }
 
 export async function getCourseById(id: string): Promise<Course | undefined> {
@@ -88,9 +134,20 @@ export async function getCourseById(id: string): Promise<Course | undefined> {
     }
 
     if (error) {
-      warnFallback(`getCourseById("${id}") failed: ${error.message}`);
       warnRlsIfNeeded(error.message);
+      if (isProductionDataMode()) {
+        rejectMockFallback(
+          "getCourseById",
+          `getCourseById("${id}") failed: ${error.message}`,
+        );
+      }
+      warnFallback(`getCourseById("${id}") failed: ${error.message}`);
+    } else if (isProductionDataMode()) {
+      // Missing row is a normal 404 — do not fall back to mock.
+      return undefined;
     }
+  } else if (isProductionDataMode()) {
+    rejectMockFallback("getCourseById", "Supabase env not configured");
   }
 
   return getMockCourses().find((course) => course.id === id);
@@ -106,16 +163,33 @@ export async function getAllCourseIds(): Promise<string[]> {
       console.log(
         `[courseRepository] Loaded ${data.length} course ids from Supabase`,
       );
+      if (isProductionDataMode() && data.length < PRODUCTION_MIN_COURSE_COUNT) {
+        rejectMockFallback(
+          "getAllCourseIds",
+          `course id count ${data.length} below production floor`,
+        );
+      }
       return data.map((row) => row.id as string);
     }
 
     if (error) {
-      warnFallback(`getAllCourseIds failed: ${error.message}`);
       warnRlsIfNeeded(error.message);
+      if (isProductionDataMode()) {
+        rejectMockFallback(
+          "getAllCourseIds",
+          `getAllCourseIds failed: ${error.message}`,
+        );
+      }
+      warnFallback(`getAllCourseIds failed: ${error.message}`);
     } else if (!data || data.length === 0) {
-      warnFallback("getAllCourseIds returned 0 rows");
       warnRlsIfNeeded("empty result — check RLS SELECT policy");
+      if (isProductionDataMode()) {
+        rejectMockFallback("getAllCourseIds", "returned 0 rows");
+      }
+      warnFallback("getAllCourseIds returned 0 rows");
     }
+  } else if (isProductionDataMode()) {
+    rejectMockFallback("getAllCourseIds", "Supabase env not configured");
   } else {
     warnFallback("Supabase env not configured");
   }
@@ -137,6 +211,12 @@ export async function getSitemapEntries(): Promise<SitemapCourseEntry[]> {
       .select("id, updated_at");
 
     if (!error && data && data.length > 0) {
+      if (isProductionDataMode() && data.length < PRODUCTION_MIN_COURSE_COUNT) {
+        rejectMockFallback(
+          "getSitemapEntries",
+          `course id count ${data.length} below production floor`,
+        );
+      }
       return data.map((row) => ({
         id: row.id as string,
         updatedAt: (row.updated_at as string | null) ?? undefined,
@@ -144,8 +224,16 @@ export async function getSitemapEntries(): Promise<SitemapCourseEntry[]> {
     }
 
     if (error) {
+      if (isProductionDataMode()) {
+        rejectMockFallback(
+          "getSitemapEntries",
+          `getSitemapEntries failed: ${error.message}`,
+        );
+      }
       warnFallback(`getSitemapEntries failed: ${error.message}`);
     }
+  } else if (isProductionDataMode()) {
+    rejectMockFallback("getSitemapEntries", "Supabase env not configured");
   } else {
     warnFallback("Supabase env not configured for sitemap");
   }

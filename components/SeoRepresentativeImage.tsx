@@ -21,6 +21,7 @@ export default function SeoRepresentativeImage({
         height={SEO_IMAGE_HEIGHT}
         priority={priority}
         loading={priority ? undefined : "eager"}
+        unoptimized
         className="aspect-square h-auto w-full object-cover"
       />
     </figure>

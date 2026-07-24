@@ -24,6 +24,10 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env.cloudflare-preview.local
+.dev.vars
+# Cloudflare preview public env export (never commit values)
+.env.cloudflare*.local
 
 # naver ultra-safe collector runtime outputs (do not commit)
 data/enrichment/*.log
@@ -73,3 +77,7 @@ next-env.d.ts
 .wrangler/
 .dev.vars
 cloudflare-env.d.ts
+.cf-build.log
+.cf-deploy.log
+.cf-sync.log
+.wrangler-secrets-sync.*.json

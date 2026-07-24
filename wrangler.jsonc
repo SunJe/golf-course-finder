@@ -5,6 +5,12 @@
   "compatibility_date": "2026-07-24",
   "compatibility_flags": ["nodejs_compat"],
   "workers_dev": true,
+  // Dashboard plaintext vars survive wrangler deploy; Supabase public keys
+  // stay in Dashboard / .dev.vars — not committed here.
+  "keep_vars": true,
+  "vars": {
+    "GOLFMAP_DATA_MODE": "production"
+  },
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS",

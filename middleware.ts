@@ -1,12 +1,21 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 /**
- * Preview-only robots header for workers.dev.
- * Production hosts (golfmap.kr) must never receive noindex.
+ * - workers.dev: preview-only noindex
+ * - www.golfmap.kr → https://golfmap.kr (308, path/query preserved)
+ * Production apex must never receive noindex.
  */
 export function middleware(request: NextRequest) {
-  const response = NextResponse.next();
   const hostname = request.nextUrl.hostname.toLowerCase();
+
+  if (hostname === "www.golfmap.kr") {
+    const url = request.nextUrl.clone();
+    url.hostname = "golfmap.kr";
+    url.protocol = "https:";
+    return NextResponse.redirect(url, 308);
+  }
+
+  const response = NextResponse.next();
 
   if (hostname.endsWith(".workers.dev")) {
     response.headers.set(

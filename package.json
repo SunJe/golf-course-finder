@@ -116,7 +116,10 @@
     "cf:typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "cf:check-build": "node scripts/check-cloudflare-build.mjs",
     "cf:smoke": "node scripts/smoke-cloudflare.mjs",
-    "cf:data-parity": "node scripts/check-cloudflare-data-parity.mjs"
+    "cf:data-parity": "node scripts/check-cloudflare-data-parity.mjs",
+    "cf:cutover-smoke": "node scripts/smoke-cloudflare-cutover.mjs",
+    "cf:backup-dns": "node scripts/backup-dns-pre-cutover.mjs",
+    "cf:audit-zone": "node scripts/audit-cloudflare-zone.mjs"
   },
   "dependencies": {
     "@next/third-parties": "^16.2.10",

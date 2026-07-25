@@ -1,0 +1,140 @@
+{
+  "backedUpAt": "2026-07-25T09:03:37.538Z",
+  "domain": "golfmap.kr",
+  "dns": {
+    "NS": [
+      "ns4.hosting.co.kr",
+      "ns3.hosting.co.kr",
+      "ns1.hosting.co.kr",
+      "ns2.hosting.co.kr"
+    ],
+    "A": [
+      "216.198.79.1"
+    ],
+    "AAAA": {
+      "error": "ENODATA"
+    },
+    "WWW_CNAME": [
+      "6d570a1bc5749edb.vercel-dns-017.com"
+    ],
+    "WWW_A": [
+      "216.198.79.1",
+      "64.29.17.1"
+    ],
+    "MX": {
+      "error": "ENODATA"
+    },
+    "TXT": [
+      [
+        "google-site-verification=pckZA68xtmu4xLgkeSUhRuKx5tUckg4KcmwcvYJj-jc"
+      ]
+    ],
+    "SOA": {
+      "nsname": "ns1.hosting.co.kr",
+      "hostmaster": "admin.golfmap.kr",
+      "serial": 4,
+      "refresh": 21600,
+      "retry": 1800,
+      "expire": 1209600,
+      "minttl": 180
+    },
+    "DS": {
+      "error": "ERR_INVALID_ARG_VALUE"
+    },
+    "DNSKEY": {
+      "error": "ERR_INVALID_ARG_VALUE"
+    }
+  },
+  "http": {
+    "apex": {
+      "url": "https://golfmap.kr/",
+      "status": 200,
+      "server": "Vercel",
+      "location": null,
+      "vercelId": "icn1::xnrtt-1784970217727-d0620c926007",
+      "cfRay": null,
+      "robots": null,
+      "cache": "HIT"
+    },
+    "www": {
+      "url": "https://www.golfmap.kr/",
+      "status": 308,
+      "server": "Vercel",
+      "location": "https://golfmap.kr/",
+      "vercelId": "icn1::jrjfk-1784970217933-cc7b62268535",
+      "cfRay": null,
+      "robots": null,
+      "cache": null
+    },
+    "map": {
+      "url": "https://golfmap.kr/map",
+      "status": 200,
+      "server": "Vercel",
+      "location": null,
+      "vercelId": "icn1::iad1::6r78f-1784970217949-ea507b2ecde4",
+      "cfRay": null,
+      "robots": null,
+      "cache": "MISS"
+    },
+    "robots": {
+      "url": "https://golfmap.kr/robots.txt",
+      "status": 200,
+      "server": "Vercel",
+      "location": null,
+      "vercelId": "icn1::7bg4z-1784970220378-bd71c210d543",
+      "cfRay": null,
+      "robots": null,
+      "cache": "HIT"
+    },
+    "adsTxt": {
+      "url": "https://golfmap.kr/ads.txt",
+      "status": 200,
+      "server": "Vercel",
+      "location": null,
+      "vercelId": "icn1::7bg4z-1784970220494-88d7d43c9101",
+      "cfRay": null,
+      "robots": null,
+      "cache": "HIT"
+    },
+    "preview": {
+      "url": "https://golfmap-korea-preview.sun15002000.workers.dev/",
+      "status": 200,
+      "server": "cloudflare",
+      "location": null,
+      "vercelId": null,
+      "cfRay": "a209fe2768db7161-HKG",
+      "robots": "noindex, nofollow, noarchive",
+      "cache": null
+    },
+    "vercelCandidates": {
+      "golfCourseFinder": {
+        "url": "https://golf-course-finder.vercel.app/",
+        "status": 200,
+        "server": "Vercel",
+        "location": null,
+        "vercelId": "icn1::tdbcp-1784970222077-cb3276c24f79",
+        "cfRay": null,
+        "robots": null,
+        "cache": "HIT"
+      },
+      "golfmap": {
+        "url": "https://golfmap.vercel.app/",
+        "status": 200,
+        "server": "Vercel",
+        "location": null,
+        "vercelId": "icn1::6rl9p-1784970222140-a098e49586cf",
+        "cfRay": null,
+        "robots": null,
+        "cache": "HIT"
+      }
+    }
+  },
+  "notes": [
+    "Authoritative nameservers are hosting.co.kr — NOT Cloudflare.",
+    "No Cloudflare zone exists in account yet (see cloudflare-zone-audit.json).",
+    "Do not delete google-site-verification TXT.",
+    "No MX records currently.",
+    "www already 308 → https://golfmap.kr/ on Vercel.",
+    "Rollback: restore apex A 216.198.79.1 and www CNAME 6d570a1bc5749edb.vercel-dns-017.com at hosting.co.kr DNS."
+  ]
+}

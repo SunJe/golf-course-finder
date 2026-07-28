@@ -45,7 +45,7 @@ const BLOG_GUIDES: Record<string, GuideLink> = {
   },
   "seoul-nine-hole-beginner-golf-top-5": {
     href: "/blog/seoul-nine-hole-beginner-golf-top-5",
-    label: "서울 근교 9홀 골프장 추천",
+    label: "서울 근교 6·9홀 골프장 8곳 비교",
   },
   "beginner-golf-essentials-checklist": {
     href: "/blog/beginner-golf-essentials-checklist",

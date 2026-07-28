@@ -62,7 +62,7 @@ const COURSE_META: Record<string, string> = {
   "goyang-golf-best-5": "고양 · 9홀·6홀",
   "gapyeong-golf-best-6": "가평 · 코스 추천",
   "incheon-golf-top-5": "인천 · 코스 추천",
-  "seoul-nine-hole-beginner-golf-top-5": "서울 근교 · 9홀",
+  "seoul-nine-hole-beginner-golf-top-5": "서울 근교 · 6·9홀 비교",
   "seoul-par3-practice-range-top-10": "서울 근교 · 파3",
   "seoul-budget-golf-best-5": "서울 근교 · 가성비",
 };

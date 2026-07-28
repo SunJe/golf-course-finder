@@ -35,6 +35,7 @@ interface BlogCourseCardProps {
   item: BlogCourseItem;
   rank: number;
   variant?: "default" | "tournament";
+  reasonsHeading?: string;
   tournamentContext?: {
     eventName?: string;
     eventDates?: string;
@@ -47,6 +48,7 @@ export function BlogCourseCard({
   item,
   rank,
   variant = "default",
+  reasonsHeading,
   tournamentContext,
 }: BlogCourseCardProps) {
   const isTournament = variant === "tournament";
@@ -194,7 +196,9 @@ export function BlogCourseCard({
                 : "text-sm font-bold text-emerald-800"
             }
           >
-            {isTournament ? "대회 코스 확인 포인트" : "이 코스를 추천하는 이유"}
+            {isTournament
+              ? "대회 코스 확인 포인트"
+              : reasonsHeading?.trim() || "이 코스를 추천하는 이유"}
           </h4>
           {isTournament &&
           (tournamentContext?.eventName || tournamentContext?.eventDates) ? (

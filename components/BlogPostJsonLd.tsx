@@ -1,4 +1,5 @@
 import type { BlogPost } from "@/lib/blogPosts";
+import { parseBlogFaqItems, isBlogFaqSection } from "@/lib/blogFaq";
 import { absoluteUrl, siteConfig } from "@/lib/siteConfig";
 
 function compactJsonLd(value: Record<string, unknown>): Record<string, unknown> {
@@ -40,15 +41,26 @@ function collectCourseItems(post: BlogPost) {
   return items;
 }
 
+function collectFaqItems(post: BlogPost) {
+  const items: Array<{ question: string; answer: string }> = [];
+  for (const section of post.sections) {
+    if (!isBlogFaqSection(section.heading)) continue;
+    items.push(...parseBlogFaqItems(section.body));
+  }
+  return items;
+}
+
 interface BlogPostJsonLdProps {
   post: BlogPost;
 }
 
-/** 블로그 상세 BlogPosting + 추천 골프장 ItemList JSON-LD */
+/** 블로그 상세 BlogPosting + FAQPage + 추천 골프장 ItemList JSON-LD */
 export default function BlogPostJsonLd({ post }: BlogPostJsonLdProps) {
   const pageUrl = absoluteUrl(`/blog/${post.slug}`);
   const imageUrl = absoluteUrl(post.thumbnail);
   const courseItems = collectCourseItems(post);
+  const faqItems = collectFaqItems(post);
+  const dateModified = post.modifiedAt ?? post.dataCheckedAt ?? post.date;
 
   const articleLd = compactJsonLd({
     "@context": "https://schema.org",
@@ -56,7 +68,7 @@ export default function BlogPostJsonLd({ post }: BlogPostJsonLdProps) {
     headline: post.title,
     description: post.description,
     datePublished: post.date,
-    dateModified: post.date,
+    dateModified,
     url: pageUrl,
     mainEntityOfPage: {
       "@type": "WebPage",
@@ -79,12 +91,32 @@ export default function BlogPostJsonLd({ post }: BlogPostJsonLdProps) {
 
   const graph: Record<string, unknown>[] = [articleLd];
 
+  if (faqItems.length > 0) {
+    graph.push(
+      compactJsonLd({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "@id": `${pageUrl}#faq`,
+        mainEntity: faqItems.map((item) =>
+          compactJsonLd({
+            "@type": "Question",
+            name: item.question,
+            acceptedAnswer: compactJsonLd({
+              "@type": "Answer",
+              text: item.answer,
+            }),
+          }),
+        ),
+      }),
+    );
+  }
+
   if (courseItems.length > 0) {
     graph.push(
       compactJsonLd({
         "@context": "https://schema.org",
         "@type": "ItemList",
-        name: `${post.title} 추천 골프장`,
+        name: `${post.title} 비교 골프장`,
         description: post.description,
         numberOfItems: courseItems.length,
         itemListElement: courseItems.map((item, index) =>

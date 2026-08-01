@@ -271,15 +271,17 @@ export function BlogCourseCard({
               전화 문의
             </a>
           ) : null}
-          <a
-            href={homepageLink.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={HOMEPAGE_BUTTON_CLASS}
-          >
-            <span aria-hidden>🏠</span>
-            {homepageLink.label}
-          </a>
+          {homepageLink ? (
+            <a
+              href={homepageLink.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={HOMEPAGE_BUTTON_CLASS}
+            >
+              <span aria-hidden>🏠</span>
+              {homepageLink.label}
+            </a>
+          ) : null}
           <a
             href={naverMapUrl}
             target="_blank"

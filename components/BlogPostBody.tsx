@@ -207,6 +207,8 @@ export function BlogPostBody({ post }: { post: BlogPost }) {
               src={section.image}
               alt={section.imageAlt ?? ""}
               mobileSrc={section.imageMobile}
+              layout={section.imageLayout}
+              enableLightbox={section.imageLightbox}
             />
           ) : null}
 

@@ -58,6 +58,8 @@ export const SEOUL_ONE_HOUR_PUBLIC_12_POST: BlogPost = {
       image:
         "/images/blog/seoul-one-hour-public-golf-courses-12/seoul-one-hour-public-golf-courses-12-comparison.webp",
       imageAlt: "서울 근교 퍼블릭 골프장 12곳 지역 홀수 접근시간 후기 비교표",
+      imageLayout: "natural",
+      imageLightbox: true,
       body: [
         "시간만 보면 9홀 코스가 유리하지만, 9홀을 두 번 도는 라운드는 서로 다른 18홀을 도는 경험과 다릅니다. 반대로 서원힐스·스마트KU처럼 규모가 큰 코스는 이동시간이 조금 더 들더라도 하루 라운드의 만족도를 우선하는 골퍼에게 맞습니다. 그린피 숫자는 요일·시즌·티오프·채널에 따라 달라 표에 넣지 않았습니다.",
       ],
@@ -264,7 +266,7 @@ export const SEOUL_ONE_HOUR_PUBLIC_12_POST: BlogPost = {
           holeCount: 27,
           courseType: "대중제",
           priceLabel: "공식 예약창 확인",
-          homepage: "https://www.smartkugolf.com/",
+          homepage: "https://kugolf.co.kr/",
         },
       ],
     },
@@ -357,7 +359,8 @@ export const SEOUL_ONE_HOUR_PUBLIC_12_POST: BlogPost = {
           holeCount: 9,
           courseType: "대중제",
           priceLabel: "공식 예약창 확인",
-          homepage: "https://namyangjucc.co.kr/",
+          // namyangjucc.co.kr → CLUB LONGE(남양주CC 운영·예약 공식)
+          homepage: "https://www.clublonge.com/",
         },
         {
           title: "베스트밸리GC",
@@ -374,7 +377,7 @@ export const SEOUL_ONE_HOUR_PUBLIC_12_POST: BlogPost = {
           holeCount: 9,
           courseType: "대중제",
           priceLabel: "공식 예약창 확인",
-          homepage: "https://www.bestvalley.co.kr/",
+          homepage: "https://www.bestvalleygc.com/",
         },
       ],
     },

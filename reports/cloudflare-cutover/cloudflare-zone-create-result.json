@@ -1,0 +1,13 @@
+{
+  "attemptedAt": "2026-08-01T07:12:00.000Z",
+  "accountId": "208630068c7c4124a52d62fc6d9039b0",
+  "zoneName": "golfmap.kr",
+  "success": false,
+  "errors": [
+    {
+      "code": 0,
+      "message": "Requires permission \"com.cloudflare.api.account.zone.create\" to create zones for the selected account"
+    }
+  ],
+  "actionRequired": "Create zone in Cloudflare Dashboard (Full setup) for golfmap.kr, then change registrar nameservers from hosting.co.kr to Cloudflare-assigned NS."
+}

@@ -11,6 +11,12 @@
   "vars": {
     "GOLFMAP_DATA_MODE": "production"
   },
+  // Production hostnames — requires Active Cloudflare zone for golfmap.kr.
+  // Do not deploy these routes until zone status=active and NS cutover approved.
+  "routes": [
+    { "pattern": "golfmap.kr", "custom_domain": true },
+    { "pattern": "www.golfmap.kr", "custom_domain": true }
+  ],
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS",

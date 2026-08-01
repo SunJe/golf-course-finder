@@ -1,0 +1,30 @@
+{
+  "inspectedAt": "2026-08-01T07:12:48.724Z",
+  "accountId": "208630068c7c4124a52d62fc6d9039b0",
+  "oauthConfigPath": "C:\\Users\\이선제\\AppData\\Roaming\\xdg.config\\.wrangler\\config\\default.toml",
+  "tokenPresent": true,
+  "tokenLength": 93,
+  "zoneProbe": {
+    "status": 200,
+    "contentType": "application/json",
+    "success": true,
+    "count": 0,
+    "errors": [],
+    "result": []
+  },
+  "accountZones": {
+    "status": 200,
+    "success": true,
+    "names": [],
+    "errors": []
+  },
+  "worker": {
+    "status": 200
+  },
+  "workerDomains": {
+    "status": 200,
+    "success": true,
+    "result": [],
+    "errors": null
+  }
+}

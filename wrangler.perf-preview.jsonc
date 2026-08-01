@@ -1,0 +1,25 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  // Isolated Preview Worker for PR #22 validation — NO custom domains.
+  // Never point golfmap.kr / www at this script.
+  "name": "golfmap-korea-map-opt",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-07-24",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "keep_vars": true,
+  "vars": {
+    "GOLFMAP_DATA_MODE": "production"
+  },
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS",
+    "run_worker_first": false
+  },
+  "observability": {
+    "enabled": true
+  },
+  "limits": {
+    "cpu_ms": 2000
+  }
+}

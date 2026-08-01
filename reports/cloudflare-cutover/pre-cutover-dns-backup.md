@@ -1,12 +1,12 @@
 # GolfMap DNS backup (pre-Cloudflare cutover)
 
-Backed up at: 2026-07-25T09:03:37.538Z
+Backed up at: 2026-08-01T07:12:41.516Z
 
 ## Authoritative NS
 - ns4.hosting.co.kr
-- ns3.hosting.co.kr
 - ns1.hosting.co.kr
 - ns2.hosting.co.kr
+- ns3.hosting.co.kr
 
 ## Apex (golfmap.kr)
 - A: 216.198.79.1

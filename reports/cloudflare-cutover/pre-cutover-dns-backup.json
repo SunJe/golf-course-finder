@@ -1,12 +1,12 @@
 {
-  "backedUpAt": "2026-07-25T09:03:37.538Z",
+  "backedUpAt": "2026-08-01T07:12:41.516Z",
   "domain": "golfmap.kr",
   "dns": {
     "NS": [
       "ns4.hosting.co.kr",
-      "ns3.hosting.co.kr",
       "ns1.hosting.co.kr",
-      "ns2.hosting.co.kr"
+      "ns2.hosting.co.kr",
+      "ns3.hosting.co.kr"
     ],
     "A": [
       "216.198.79.1"
@@ -51,7 +51,7 @@
       "status": 200,
       "server": "Vercel",
       "location": null,
-      "vercelId": "icn1::xnrtt-1784970217727-d0620c926007",
+      "vercelId": "icn1::t9dlg-1785568362047-77d0c2c092d0",
       "cfRay": null,
       "robots": null,
       "cache": "HIT"
@@ -61,7 +61,7 @@
       "status": 308,
       "server": "Vercel",
       "location": "https://golfmap.kr/",
-      "vercelId": "icn1::jrjfk-1784970217933-cc7b62268535",
+      "vercelId": "icn1::bd592-1785568362180-ac34bdbfb4f6",
       "cfRay": null,
       "robots": null,
       "cache": null
@@ -71,7 +71,7 @@
       "status": 200,
       "server": "Vercel",
       "location": null,
-      "vercelId": "icn1::iad1::6r78f-1784970217949-ea507b2ecde4",
+      "vercelId": "icn1::iad1::xqbsm-1785568362194-09f497965bc5",
       "cfRay": null,
       "robots": null,
       "cache": "MISS"
@@ -81,7 +81,7 @@
       "status": 200,
       "server": "Vercel",
       "location": null,
-      "vercelId": "icn1::7bg4z-1784970220378-bd71c210d543",
+      "vercelId": "icn1::lf9kc-1785568364846-85ff3c59080b",
       "cfRay": null,
       "robots": null,
       "cache": "HIT"
@@ -91,7 +91,7 @@
       "status": 200,
       "server": "Vercel",
       "location": null,
-      "vercelId": "icn1::7bg4z-1784970220494-88d7d43c9101",
+      "vercelId": "icn1::g8hkp-1785568364973-31761215e8b8",
       "cfRay": null,
       "robots": null,
       "cache": "HIT"
@@ -102,7 +102,7 @@
       "server": "cloudflare",
       "location": null,
       "vercelId": null,
-      "cfRay": "a209fe2768db7161-HKG",
+      "cfRay": "a243094a7e2075cb-HKG",
       "robots": "noindex, nofollow, noarchive",
       "cache": null
     },
@@ -112,7 +112,7 @@
         "status": 200,
         "server": "Vercel",
         "location": null,
-        "vercelId": "icn1::tdbcp-1784970222077-cb3276c24f79",
+        "vercelId": "icn1::xjzhb-1785568366362-9bbbacad7287",
         "cfRay": null,
         "robots": null,
         "cache": "HIT"
@@ -122,7 +122,7 @@
         "status": 200,
         "server": "Vercel",
         "location": null,
-        "vercelId": "icn1::6rl9p-1784970222140-a098e49586cf",
+        "vercelId": "icn1::xqbsm-1785568366726-63289d6260f4",
         "cfRay": null,
         "robots": null,
         "cache": "HIT"

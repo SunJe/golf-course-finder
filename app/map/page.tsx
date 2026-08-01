@@ -1,4 +1,4 @@
-import { getCourses } from "@/lib/courseRepository";
+import { getMapCourses } from "@/lib/courseRepository";
 import { toHomeCourses } from "@/lib/homeCourse";
 import HomeClient from "@/components/HomeClient";
 import { buildMapMetadata } from "@/lib/seoMetadata";
@@ -11,7 +11,7 @@ export default async function MapPage({
 }: {
   searchParams?: Record<string, string | string[] | undefined>;
 }) {
-  const courses = toHomeCourses(await getCourses());
+  const courses = toHomeCourses(await getMapCourses());
   const parsed = parseMapUrlState(searchParams ?? {});
 
   return (

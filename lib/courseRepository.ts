@@ -10,6 +10,7 @@ import {
   rejectMockFallback,
 } from "@/lib/productionDataGuard";
 import { getSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
+import { getNearbyCourses } from "@/lib/nearbyCourses";
 
 function getMockCourses(): Course[] {
   return MOCK_COURSES;
@@ -102,6 +103,157 @@ export async function getCourses(): Promise<Course[]> {
     fallbackOrReject("getCourses", "Supabase env not configured or fetch failed"),
     "getCourses",
   );
+}
+
+/** /map 전용 — select("*")·description 등 대형 필드 제외 */
+const MAP_COURSE_COLUMNS = [
+  "id",
+  "name",
+  "region",
+  "city",
+  "address",
+  "latitude",
+  "longitude",
+  "course_type",
+  "hole_count",
+  "phone",
+  "homepage_url",
+  "tags",
+  "price_min",
+  "price_max",
+  "price_text",
+  "weekday_green_fee_min",
+  "night_round",
+  "no_caddie",
+  "two_player_allowed",
+  "resort",
+  "source",
+  "updated_at",
+].join(",");
+
+/** nearby 카드·마커용 (전체 카탈로그 로드 금지) */
+const NEARBY_COURSE_COLUMNS = [
+  "id",
+  "name",
+  "region",
+  "city",
+  "address",
+  "latitude",
+  "longitude",
+  "course_type",
+  "hole_count",
+  "phone",
+  "homepage_url",
+  "booking_url",
+  "tags",
+  "price_min",
+  "price_max",
+  "price_text",
+  "weekday_green_fee_min",
+  "weekend_green_fee_min",
+  "night_round",
+  "no_caddie",
+  "two_player_allowed",
+  "resort",
+  "image_url",
+  "source",
+  "updated_at",
+].join(",");
+
+export async function getMapCourses(): Promise<Course[]> {
+  noStore();
+  const supabase = getSupabaseClient();
+  if (isSupabaseConfigured && supabase) {
+    const { data, error } = await supabase
+      .from("golf_courses")
+      .select(MAP_COURSE_COLUMNS)
+      .order("name", { ascending: true });
+
+    if (!error && data && data.length > 0) {
+      console.log(
+        `[courseRepository] Loaded ${data.length} map courses from Supabase`,
+      );
+      return finalizeCourses(
+        mapRows(data as unknown as GolfCourseRow[]),
+        "getMapCourses",
+      );
+    }
+
+    if (error) {
+      warnRlsIfNeeded(error.message);
+      if (isProductionDataMode()) {
+        rejectMockFallback(
+          "getMapCourses",
+          `Supabase fetch failed: ${error.message}`,
+        );
+      }
+      warnFallback(`getMapCourses failed: ${error.message}`);
+    } else if (isProductionDataMode()) {
+      rejectMockFallback("getMapCourses", "Supabase returned 0 rows");
+    }
+  } else if (isProductionDataMode()) {
+    rejectMockFallback("getMapCourses", "Supabase env not configured");
+  }
+
+  return finalizeCourses(
+    fallbackOrReject("getMapCourses", "Supabase env not configured or fetch failed"),
+    "getMapCourses",
+  );
+}
+
+/**
+ * 상세 nearby용: bbox로 후보만 조회한 뒤 거리순 상위 limit.
+ * 532개 전체 getCourses()를 호출하지 않는다.
+ */
+export async function getNearbyCoursesForCourse(
+  course: Course,
+  limit = 6,
+  preferredRadiusKm = 50,
+): Promise<Course[]> {
+  noStore();
+  if (
+    course.latitude == null ||
+    course.longitude == null ||
+    !Number.isFinite(course.latitude) ||
+    !Number.isFinite(course.longitude)
+  ) {
+    return [];
+  }
+
+  const supabase = getSupabaseClient();
+  if (isSupabaseConfigured && supabase) {
+    // ~50km pad (위도 1°≈111km, 경도 37°N≈88km)
+    const latDelta = preferredRadiusKm / 111 + 0.15;
+    const lngDelta = preferredRadiusKm / 88 + 0.2;
+
+    const { data, error } = await supabase
+      .from("golf_courses")
+      .select(NEARBY_COURSE_COLUMNS)
+      .neq("id", course.id)
+      .gte("latitude", course.latitude - latDelta)
+      .lte("latitude", course.latitude + latDelta)
+      .gte("longitude", course.longitude - lngDelta)
+      .lte("longitude", course.longitude + lngDelta);
+
+    if (!error && data) {
+      const candidates = mapRows(data as unknown as GolfCourseRow[]);
+      return getNearbyCourses(candidates, course, limit);
+    }
+
+    if (error) {
+      warnRlsIfNeeded(error.message);
+      console.warn(
+        `[courseRepository] getNearbyCoursesForCourse bbox failed: ${error.message}`,
+      );
+    }
+  }
+
+  // Fallback: never pull full catalog in production for nearby alone.
+  if (isProductionDataMode()) {
+    return [];
+  }
+  const all = await getCourses();
+  return getNearbyCourses(all, course, limit);
 }
 
 /** SSG/ISR region landing 등 정적 생성용 — noStore 없이 fetch */

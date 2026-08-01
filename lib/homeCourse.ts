@@ -26,12 +26,11 @@ export type HomeCourse = Pick<
   | "noCaddie"
   | "twoPlayerAllowed"
   | "resort"
-  | "description"
   | "source"
   | "updatedAt"
 >;
 
-/** 상세·컬렉션 필터에 불필요한 대용량/미사용 필드 제외 */
+/** 상세·컬렉션 필터에 불필요한 대용량/미사용 필드 제외 (description 제외) */
 export function toHomeCourse(course: Course): HomeCourse {
   return {
     id: course.id,
@@ -54,7 +53,6 @@ export function toHomeCourse(course: Course): HomeCourse {
     noCaddie: course.noCaddie,
     twoPlayerAllowed: course.twoPlayerAllowed,
     resort: course.resort,
-    description: course.description,
     source: course.source,
     updatedAt: course.updatedAt,
   };

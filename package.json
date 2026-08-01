@@ -119,7 +119,10 @@
     "cf:data-parity": "node scripts/check-cloudflare-data-parity.mjs",
     "cf:cutover-smoke": "node scripts/smoke-cloudflare-cutover.mjs",
     "cf:backup-dns": "node scripts/backup-dns-pre-cutover.mjs",
-    "cf:audit-zone": "node scripts/audit-cloudflare-zone.mjs"
+    "cf:audit-zone": "node scripts/audit-cloudflare-zone.mjs",
+    "cf:health:24h": "node scripts/cloudflare-health-report.mjs --window 24h",
+    "cf:health:7d": "node scripts/cloudflare-health-report.mjs --window 7d",
+    "cf:health:incident": "node scripts/cloudflare-health-report.mjs --window incident"
   },
   "dependencies": {
     "@next/third-parties": "^16.2.10",

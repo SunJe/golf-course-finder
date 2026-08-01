@@ -68,6 +68,32 @@ export const BLOG_GEOGRAPHIC_SCOPE_BY_SLUG: Record<string, BlogGeographicScope> 
     regions: ["서울", "경기"],
     cities: ["서울"],
   },
+  "pocheon-golf-best-7": {
+    type: "regional",
+    regions: ["경기"],
+    cities: ["포천"],
+  },
+  "yongin-golf-best-10": {
+    type: "regional",
+    regions: ["경기"],
+    cities: ["용인"],
+  },
+  "hwaseong-golf-best-7": {
+    type: "regional",
+    regions: ["경기"],
+    cities: ["화성"],
+  },
+  "paju-golf-courses-6": {
+    type: "regional",
+    regions: ["경기"],
+    cities: ["파주"],
+  },
+  // 본문 등장 시군 중심. 인천·가평 등은 relatedCourseId 직접 매칭으로만 연결
+  "seoul-one-hour-public-golf-courses-12": {
+    type: "regional",
+    regions: ["서울", "경기"],
+    cities: ["시흥", "파주", "고양", "남양주"],
+  },
 };
 
 /**
@@ -82,6 +108,11 @@ export const BLOG_CONTENT_PURPOSE_BY_SLUG: Record<string, BlogContentPurpose> = 
   "goyang-golf-best-5": "regional-course-guide",
   "seoul-nine-hole-beginner-golf-top-5": "regional-course-guide",
   "seoul-par3-practice-range-top-10": "regional-course-guide",
+  "pocheon-golf-best-7": "regional-course-guide",
+  "yongin-golf-best-10": "regional-course-guide",
+  "hwaseong-golf-best-7": "regional-course-guide",
+  "paju-golf-courses-6": "regional-course-guide",
+  "seoul-one-hour-public-golf-courses-12": "regional-course-guide",
   "beginner-golf-essentials-checklist": "course-visit-guide",
   "first-golf-round-checklist": "course-visit-guide",
   "golf-ball-type-guide": "equipment-guide",
@@ -94,6 +125,12 @@ export const BLOG_CONTENT_PURPOSE_BY_SLUG: Record<string, BlogContentPurpose> = 
   "driver-loft-shaft-guide-women": "equipment-guide",
   "pro-tour-driver-brands-men": "tour-equipment",
   "pro-tour-driver-brands-women": "tour-equipment",
+  "2026-golf-tournament-schedule-august-october": "tour-equipment",
+  "2026-august-golf-tournament-schedule": "tour-equipment",
+  "2026-september-golf-tournament-schedule": "tour-equipment",
+  "2026-october-golf-tournament-schedule": "tour-equipment",
+  "2026-mediheal-hankook-ilbo-montvert-guide": "tour-equipment",
+  "2026-bmw-ladies-championship-guide": "tour-equipment",
 };
 
 export function getBlogContentPurpose(post: BlogPost): BlogContentPurpose {

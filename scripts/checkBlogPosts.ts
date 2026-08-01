@@ -20,6 +20,7 @@ const REQUIRED_SLUGS = [
   "yongin-golf-best-10",
   "hwaseong-golf-best-7",
   "paju-golf-courses-6",
+  "seoul-one-hour-public-golf-courses-12",
   "seoul-nine-hole-beginner-golf-top-5",
   "seoul-par3-practice-range-top-10",
   "golf-ball-type-guide",
@@ -91,8 +92,8 @@ function checkThumbnailExists(thumbnail: string): void {
 function main(): void {
   console.log("[check:blog-posts] Validating blog posts…");
 
-  if (BLOG_POSTS.length !== 29) {
-    fail(`Expected 29 posts, got ${BLOG_POSTS.length}`);
+  if (BLOG_POSTS.length !== 30) {
+    fail(`Expected 30 posts, got ${BLOG_POSTS.length}`);
   }
 
   const slugs = new Set(BLOG_POSTS.map((p) => p.slug));
@@ -108,8 +109,13 @@ function main(): void {
       fail(`${post.slug}: content too short (${chars} < ${MIN_CHARS})`);
     }
 
-    if (!post.thumbnail.startsWith("/promo-assets/blog/")) {
-      fail(`${post.slug}: thumbnail must be under /promo-assets/blog/`);
+    const thumbOk =
+      post.thumbnail.startsWith("/promo-assets/blog/") ||
+      post.thumbnail.startsWith("/images/blog/");
+    if (!thumbOk) {
+      fail(
+        `${post.slug}: thumbnail must be under /promo-assets/blog/ or /images/blog/`,
+      );
     }
     checkThumbnailExists(post.thumbnail);
 
@@ -125,8 +131,8 @@ function main(): void {
     }
   }
 
-  if (CATEGORY_COUNTS["course-guide"] !== 11) {
-    fail(`Expected 11 course-guide posts, got ${CATEGORY_COUNTS["course-guide"]}`);
+  if (CATEGORY_COUNTS["course-guide"] !== 12) {
+    fail(`Expected 12 course-guide posts, got ${CATEGORY_COUNTS["course-guide"]}`);
   }
   if (CATEGORY_COUNTS["gear-guide"] !== 10) {
     fail(`Expected 10 gear-guide posts, got ${CATEGORY_COUNTS["gear-guide"]}`);
@@ -146,7 +152,7 @@ function main(): void {
     if (!slugs.has(slug)) fail(`Home blog slug missing from posts: ${slug}`);
   }
 
-  console.log("[check:blog-posts] OK — 29 posts, categories, thumbnails, content length");
+  console.log("[check:blog-posts] OK — 30 posts, categories, thumbnails, content length");
   for (const post of BLOG_POSTS) {
     console.log(`  · ${post.slug} (${postCharCount(post)} chars, ${post.category})`);
   }

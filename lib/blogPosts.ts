@@ -1,3 +1,4 @@
+import { SEOUL_ONE_HOUR_PUBLIC_12_POST } from "@/lib/blogContent/seoulOneHourPublic12";
 import { blogThumbnailAlt, blogThumbnailPath } from "@/lib/blogThumbnailRules";
 import { TOURNAMENT_BLOG_POSTS } from "@/lib/blogTournamentPosts";
 import { VISIT_KOREA_IMAGE_CREDIT } from "@/lib/visitKoreaAttribution";
@@ -4163,6 +4164,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
     ],
   },
+  SEOUL_ONE_HOUR_PUBLIC_12_POST,
   ...TOURNAMENT_BLOG_POSTS,
 ];
 

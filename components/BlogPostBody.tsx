@@ -24,6 +24,8 @@ function itemHref(item: NonNullable<BlogPostSection["items"]>[number]): string |
 
   if (item.relatedRegionSlug) return `/regions/${item.relatedRegionSlug}`;
 
+  if (item.relatedHref) return item.relatedHref;
+
   return null;
 
 }

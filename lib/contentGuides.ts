@@ -43,6 +43,10 @@ const BLOG_GUIDES: Record<string, GuideLink> = {
     href: "/blog/goyang-golf-best-5",
     label: "고양시 골프장 추천",
   },
+  "paju-golf-courses-6": {
+    href: "/blog/paju-golf-courses-6",
+    label: "파주 대중제 골프장 6곳 비교",
+  },
   "seoul-nine-hole-beginner-golf-top-5": {
     href: "/blog/seoul-nine-hole-beginner-golf-top-5",
     label: "서울 근교 6·9홀 골프장 8곳 비교",
@@ -95,6 +99,7 @@ const COLLECTION_BLOG_MAP: Partial<Record<CollectionSlug, string[]>> = {
   "near-seoul-public": [
     "seoul-beginner-golf-best-5",
     "seoul-budget-golf-best-5",
+    "paju-golf-courses-6",
   ],
   par3: ["seoul-par3-practice-range-top-10", "seoul-beginner-golf-best-5"],
   beginner: [
@@ -116,8 +121,9 @@ const REGION_BLOG_MAP: Record<string, string[]> = {
     "seoul-par3-practice-range-top-10",
   ],
   gyeonggi: [
-    "gapyeong-golf-best-6",
+    "paju-golf-courses-6",
     "goyang-golf-best-5",
+    "gapyeong-golf-best-6",
     "seoul-beginner-golf-best-5",
   ],
   incheon: ["incheon-golf-top-5", "seoul-budget-golf-best-5"],

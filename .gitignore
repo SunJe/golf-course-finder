@@ -81,3 +81,10 @@ cloudflare-env.d.ts
 .cf-deploy.log
 .cf-sync.log
 .wrangler-secrets-sync.*.json
+
+# Generated Cloudflare health reports (keep setup docs tracked)
+reports/analytics/*-cloudflare-health.md
+reports/analytics/*-cloudflare-health.json
+reports/analytics/*-cloudflare-health-*.md
+reports/analytics/*-cloudflare-health-*.json
+reports/analytics/_permission-audit.json

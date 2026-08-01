@@ -1,0 +1,12 @@
+{
+  "zone": {
+    "id": "e48bdfb7e100858f8f391a4b2338ec63",
+    "name": "golfmap.kr",
+    "status": "active",
+    "name_servers": [
+      "anton.ns.cloudflare.com",
+      "priscilla.ns.cloudflare.com"
+    ]
+  },
+  "dnsRecords": []
+}

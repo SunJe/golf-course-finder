@@ -24,5 +24,10 @@
   },
   "observability": {
     "enabled": true
+  },
+  // Workers Paid required. Caps runaway CPU while allowing OpenNext SSR
+  // above Free's ~10ms kill (measured request-weighted P50 ~54–63ms).
+  "limits": {
+    "cpu_ms": 2000
   }
 }

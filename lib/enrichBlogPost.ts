@@ -184,14 +184,14 @@ function enrichCourseItem(
   const visitKoreaImages = resolveVisitKoreaImages(meta);
   const tourApiImages = resolveTourApiCourseImages(item.relatedCourseId);
 
-  // Visit Korea 메타 우선, 없으면 TourAPI 지역형(최대 3장), 없으면 수동 item 이미지
+  // 수동 images가 있으면 우선 (다른 Visit Korea 폴더 재사용 등)
   const images =
-    visitKoreaImages.length > 0
-      ? visitKoreaImages
-      : tourApiImages.length > 0
-        ? tourApiImages.map((entry) => entry.path)
-        : item.images && item.images.length > 0
-          ? item.images
+    item.images && item.images.length > 0
+      ? item.images
+      : visitKoreaImages.length > 0
+        ? visitKoreaImages
+        : tourApiImages.length > 0
+          ? tourApiImages.map((entry) => entry.path)
           : [item.image, item.image2].filter((src): src is string =>
               Boolean(src),
             );

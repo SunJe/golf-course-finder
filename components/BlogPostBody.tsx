@@ -24,6 +24,8 @@ function itemHref(item: NonNullable<BlogPostSection["items"]>[number]): string |
 
   if (item.relatedRegionSlug) return `/regions/${item.relatedRegionSlug}`;
 
+  if (item.relatedHref) return item.relatedHref;
+
   return null;
 
 }
@@ -204,6 +206,7 @@ export function BlogPostBody({ post }: { post: BlogPost }) {
             <BlogSectionHeroImage
               src={section.image}
               alt={section.imageAlt ?? ""}
+              mobileSrc={section.imageMobile}
             />
           ) : null}
 
@@ -290,6 +293,7 @@ export function BlogPostBody({ post }: { post: BlogPost }) {
                     <BlogCourseCard
                       item={item}
                       rank={index + 1}
+                      reasonsHeading={post.reasonsHeading}
                       variant={
                         item.courseCardVariant === "tournament" ||
                         post.category === "tournament-guide"

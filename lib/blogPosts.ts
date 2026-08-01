@@ -20,6 +20,8 @@ export type BlogPostSection = {
   /** 본문 섹션 상단 이미지 (h2 직전) */
   image?: string;
   imageAlt?: string;
+  /** 모바일 전용 비교 이미지 (picture source, max-width 640px) */
+  imageMobile?: string;
   /** 제품·코스 비교 표 (items 위에 노출) */
   table?: BlogPostComparisonTable;
   items?: {
@@ -51,6 +53,8 @@ export type BlogPostSection = {
     relatedPostSlug?: string;
     relatedCollectionSlug?: string;
     relatedRegionSlug?: string;
+    /** 지도·외부 경로 등 직접 링크 */
+    relatedHref?: string;
     address?: string;
     phone?: string;
     homepage?: string;
@@ -85,9 +89,13 @@ export type BlogPost = {
   slug: string;
   title: string;
   description: string;
+  /** document title / OG (없으면 title | GolfMap Korea) */
+  seoTitle?: string;
   category: BlogPostCategory;
   categoryLabel: string;
   date: string;
+  /** BlogPosting dateModified·sitemap lastmod (없으면 date) */
+  modifiedAt?: string;
   /** blog list / home preview용 1:1 image */
   thumbnail: string;
   thumbnailAlt: string;
@@ -95,6 +103,8 @@ export type BlogPost = {
   relatedRegionSlug?: string;
   /** 포스팅 하단 관련 글 */
   relatedPostSlugs?: string[];
+  /** 코스 카드 하단 체크리스트 제목 (기본: 이 코스를 추천하는 이유) */
+  reasonsHeading?: string;
   /** 도입부 아래 '빠른 결론' 박스 */
   quickConclusion?: {
     title: string;
@@ -277,7 +287,8 @@ export const BLOG_POSTS: BlogPost[] = [
       "golf-ball-type-guide",
       "seoul-beginner-golf-best-5",
       "seoul-par3-practice-range-top-10",
-    ],
+    
+      "paju-golf-courses-6",],
     quickConclusion: {
       title: "표시 요금 ≠ 최종 결제 금액",
       items: [
@@ -714,7 +725,8 @@ export const BLOG_POSTS: BlogPost[] = [
       "incheon-golf-top-5",
       "first-golf-round-checklist",
       "seoul-beginner-golf-best-5",
-    ],
+    
+      "paju-golf-courses-6",],
     quickConclusion: {
       title: "빠른 정리",
       items: [
@@ -1656,86 +1668,262 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
   },
   {
-    slug: "seoul-nine-hole-beginner-golf-top-5",
-    title: "서울 근교 초보자 추천 9홀 골프장 BEST 5",
+    slug: "paju-golf-courses-6",
+    title: "파주 대중제 골프장 6곳 비교",
+    seoTitle: "파주 골프장 6곳 비교 | 홀 수·그린피·예약",
     description:
-      "정규홀 첫 라운드가 부담스러운 입문 골퍼를 위해 서울 근교에서 접근성이 좋고 6~9홀로 연습 라운드를 하기 좋은 골프장 5곳을 정리했습니다.",
+      "파주 대중제 골프장 6곳을 홀 수, 확인일 기준 그린피, 예약 오픈과 2·3·4인 조건으로 비교했습니다. 서원힐스·노스팜·스마트KU·파주CC·타이거CC·제이퍼블릭 공식 정보를 확인하세요.",
     category: "course-guide",
     categoryLabel: CATEGORY_LABELS["course-guide"],
-    date: "2026-06-26",
-    thumbnail: blogThumbnailPath("seoul-nine-hole-beginner-golf-top-5"),
-    thumbnailAlt: blogThumbnailAlt("seoul-nine-hole-beginner-golf-top-5"),
-    relatedCollectionSlug: "near-seoul-nine-hole",
-    visitKoreaMetaDir: "near-seoul-nine-hole",
-    blogRegionLabel: "서울 근교",
+    date: "2026-08-01",
+    modifiedAt: "2026-08-01",
+    dataCheckedAt: "2026-08-01",
+    thumbnail: blogThumbnailPath("paju-golf-courses-6"),
+    thumbnailAlt: blogThumbnailAlt("paju-golf-courses-6"),
+    relatedRegionSlug: "gyeonggi",
+    relatedCollectionSlug: "near-seoul-public",
+    blogRegionLabel: "파주",
+    reasonsHeading: "예약 전 비교 포인트",
     relatedPostSlugs: [
-      "seoul-beginner-golf-best-5",
-      "seoul-par3-practice-range-top-10",
+      "seoul-nine-hole-beginner-golf-top-5",
       "seoul-budget-golf-best-5",
-      "beginner-golf-essentials-checklist",
-      "golf-ball-type-guide",
+      "goyang-golf-best-5",
     ],
+    references: [
+      {
+        title: "자료 확인 원칙",
+        checkedAt: "2026-08-01",
+        note: "골프장 공식 홈페이지 → GolfMap 저장 데이터 → 공개 예약 정보. 후기의 난이도·잔디·경관·가성비는 본문 사실로 일반화하지 않음.",
+      },
+    ],
+    quickConclusion: {
+      title: "빠른 정리",
+      items: [
+        "27홀 규모: 서원힐스, 스마트KU (일반 예약은 보통 18홀 코스 조합)",
+        "정규 18홀: 노스팜CC, 원더클럽 파주CC, 타이거CC",
+        "6홀·파24 / 12홀 상품: 파주제이퍼블릭",
+        "기간형 공식 요금표: 노스팜 2026.07.13~08.23",
+        "2~3인 조건: 타이거CC 3부 노캐디, 파주제이퍼블릭 인원별 캐디피",
+      ],
+    },
     sections: [
       {
-        heading: "서울 근교 9홀 골프장을 고를 때",
+        heading: "파주 골프장을 고를 때 먼저 볼 것",
         body: [
-          "초보자에게 9홀 골프장은 첫 정규 라운드 전 부담을 줄이는 좋은 중간 단계입니다. 18홀보다 시간이 짧고, 비용 부담도 비교적 낮아 필드 매너와 진행 흐름을 익히기 좋습니다.",
-          "이번 글에서는 서울·경기권에서 당일 이동하기 좋고, 6홀 또는 9홀 구성으로 연습 라운드에 활용하기 좋은 코스를 중심으로 정리했습니다. 요금과 운영 방식은 시즌·요일·티타임에 따라 달라질 수 있으니 예약 전 공식 채널을 확인해 주세요.",
+          "서울 서북권에서 파주 라운드를 계획할 때 비교할 수 있는 대중제 골프장 6곳을 홀 수, 공식 요금 안내 방식, 예약 시점과 인원 조건 중심으로 정리했습니다.",
+          "이 글은 골프장 순위가 아닙니다. 서원힐스·스마트KU는 27홀, 노스팜·파주CC·타이거CC는 18홀, 파주제이퍼블릭은 6홀 코스를 반복하는 12홀 상품으로 운영 구조가 다릅니다. 서로 다른 홀 수와 티타임의 가격을 같은 기준으로 단순 비교하지 마세요.",
+          "자료 확인일은 2026년 8월 1일입니다. 최종 그린피·카트비·캐디피·인원 조건은 각 골프장의 공식 예약 화면을 우선하세요.",
+          "정규 18홀과 단축 상품을 구분하세요. 파주제이퍼블릭은 공식 코스가 6홀·파24이고 현재 6홀을 두 번 도는 12홀 상품을 안내합니다. 다른 다섯 곳은 18홀 정규 라운드 후보이므로 가격과 소요 시간을 직접 비교하면 오해가 생길 수 있습니다.",
+          "27홀 골프장도 일반 예약은 보통 18홀입니다. 서원힐스와 스마트KU는 각각 3개 9홀 코스를 갖춘 27홀 골프장입니다. 27홀 규모라는 뜻이지 모든 예약이 27홀 상품이라는 뜻은 아닙니다.",
+          "서원힐스, 파주CC, 타이거CC는 공식 안내에서 날짜·시간대별 실시간 그린피 확인을 우선합니다. 특정 블로그의 과거 결제 가격을 현재 고정 가격처럼 사용하지 않습니다.",
+          "서원힐스와 파주CC는 인원 미달 시 추가 비용 조건이 있고, 타이거CC는 1·2부와 3부 노캐디의 인원 규칙이 다릅니다. 파주제이퍼블릭은 2인과 3~4인의 캐디피가 다르게 안내됩니다.",
         ],
       },
       {
-        heading: "이런 분께 추천합니다",
+        heading: "빠른 비교",
+        image:
+          "/promo-assets/blog/content/paju-golf-courses/paju-golf-courses-6-comparison-desktop.webp",
+        imageMobile:
+          "/promo-assets/blog/content/paju-golf-courses/paju-golf-courses-6-comparison-mobile.webp",
+        imageAlt:
+          "파주 대중제 골프장 6곳의 홀 수, 확인일 기준 요금, 예약 방식 비교",
         body: [
-          "정규 18홀 라운드 전에 실전 감각을 익히고 싶은 분",
-          "드라이버·아이언·퍼팅을 모두 경험할 수 있는 짧은 코스를 찾는 분",
-          "서울 근교에서 이동 부담이 적은 6~9홀 코스를 비교하고 싶은 분",
+          "숫자가 포함된 요금은 2026년 8월 1일 재확인 기준입니다. 노스팜 기간 요금은 2026.07.13~08.23에만 적용됩니다.",
         ],
+        table: {
+          caption: "파주 대중제 골프장 6곳 빠른 비교",
+          columns: ["골프장", "규모", "그린피 확인", "예약·인원 핵심"],
+          rows: [
+            ["서원힐스", "27홀", "실시간 예약", "3주 전 10시, 자체 조인 미운영"],
+            [
+              "노스팜CC",
+              "18홀",
+              "기간별 공식 요금",
+              "3주 전 10시 · 홈페이지·모바일, 3인 추가금",
+            ],
+            [
+              "스마트KU",
+              "27홀",
+              "실시간·공지 요금",
+              "해당일 3주 전 10시, 바른·미쁨·혼솔",
+            ],
+            [
+              "원더클럽 파주CC",
+              "18홀",
+              "실시간·월별 공지",
+              "4주 전 월요일 9시, 3인 시 4인 요금 안내",
+            ],
+            [
+              "타이거CC",
+              "18홀",
+              "실시간 예약",
+              "3주 전 월요일 10시, 3부 노캐디 2~4인",
+            ],
+            [
+              "파주제이퍼블릭",
+              "6홀·파24",
+              "12홀 정액 안내",
+              "6홀×2회, 2인·3~4인 캐디피 구분",
+            ],
+          ],
+        },
       },
       {
-        heading: "9홀 코스 선택 기준",
+        heading: "파주 대중제 골프장 6곳",
         body: [
-          "홀 수와 반복 라운드 가능 여부: 6홀은 2바퀴 운영인지, 9홀은 추가 라운드가 가능한지 확인합니다.",
-          "드라이버 사용 가능 여부: Par 3 위주인지, 티샷에서 드라이버를 칠 수 있는 홀 구성이 있는지 확인합니다.",
-          "서울 접근성: 퇴근 후·주말 오전 라운드라면 이동 시간과 귀가 동선이 중요합니다.",
-          "초보 친화도: 코스가 짧아도 그린 난이도나 해저드 배치가 부담스러울 수 있으니 후기를 함께 참고하세요.",
-        ],
-      },
-      {
-        heading: "서울 근교 초보자 추천 9홀 골프장 BEST 5",
-        body: [
-          "서울·경기권에서 6~9홀로 연습 라운드하기 좋은 코스 후보 5곳을 이동 거리, 홀 구성, 참고 요금 기준으로 정리했습니다.",
+          "아래 6곳은 순위가 아니라 비교 순서입니다. 코스 카드의 주소·전화·홈페이지는 GolfMap 등록 데이터를 기준으로 채우고, 홀 수·예약·요금 설명은 공식 페이지 재확인 결과를 반영했습니다.",
         ],
         items: [
           {
-            title: "코리아퍼블릭CC",
+            title: "서원힐스",
             description:
-              "용인 기흥권에 있는 9홀 대중제 코스로, 서울 남부·경기권에서 접근성이 좋습니다. 9홀 코스지만 드라이버를 칠 수 있는 구성이 있어 Par 3보다 실전 라운드 감각을 익히기 좋고, GolfMap 기준 참고 요금도 비교적 낮은 편입니다.",
-            relatedCourseId: "gc-4487ee52808c",
+              "파주시 광탄면에 있는 27홀 대중제 골프장입니다. 공식 코스 안내는 웨스트·사우스·이스트 세 코스를 구분하고, 이스트를 9홀 퍼블릭 코스로 설명합니다. 일반 예약은 코스 조합에 따른 18홀을 기준으로 보고, 그린피는 실시간 예약 캘린더에서 확인하세요.",
+            recommendationReasons: [
+              "27홀·3개 9홀 코스 (웨스트·사우스·이스트)",
+              "주중 해당일 기준 3주 전 오전 10시 오픈",
+              "자체 조인 예약 미운영",
+              "공식 카트비 일반 팀당 10만원 · 캐디피 팀당 15만원",
+              "3인 내장 시 주중 1인당 2만원·주말 1인당 3만원 추가",
+            ],
+            relatedCourseId: "gc-fabeaa53a815",
+            regionLabel: "파주 광탄면",
+            holeCount: 27,
+            courseType: "대중제",
+            priceLabel: "실시간 그린피",
+            address: "경기도 파주시 광탄면 서원길 333",
+            phone: "031-940-9400",
+            homepage: "https://www.seowongolf.co.kr/hills/main",
           },
           {
-            title: "올림픽 골프장",
+            title: "노스팜CC",
             description:
-              "고양시에 위치한 9홀 대중제 코스입니다. 서울 서북부에서 이동하기 좋고, 첫 9홀 라운드 후보로 검토하기 좋습니다. 그린이 다소 까다롭다는 의견도 있지만 전체 코스 난이도는 입문자가 도전하기 어려운 수준은 아닙니다.",
-            relatedCourseId: "gc-18640b625b94",
+              "파주시 광탄면의 18홀 대중제 골프장입니다. 공식 코스 안내에는 전체 전장 6,510m와 연못·벙커 배치가 공개돼 있으며, 예약은 인터넷 회원이 홈페이지 또는 모바일에서 진행합니다. 2026년 7월 13일부터 8월 23일까지 공식 요금표는 평일 시간대별 15만~17만원, 토요일·공휴일 20만~22만원, 일요일 19만~21만원을 안내합니다.",
+            recommendationReasons: [
+              "18홀 대중제",
+              "공식 기간 요금: 2026.07.13~08.23",
+              "예약일 3주 전 오전 10시 실시간 오픈",
+              "3인 내장 시 1인당 추가금 존재",
+              "카트비 팀당 10만원 · 캐디피 팀당 15만원",
+              "예약자 본인 내장 원칙",
+            ],
+            relatedCourseId: "gc-d5cd483c8c94",
+            regionLabel: "파주 광탄면",
+            holeCount: 18,
+            courseType: "대중제",
+            priceLabel: "기간 15만~22만원",
+            address: "경기도 파주시 광탄면 쇠장이길 265",
+            phone: "031-950-6900",
+            homepage: "https://www.npcc.co.kr/",
+          },
+          {
+            title: "스마트KU 골프파빌리온",
+            description:
+              "파주시 법원읍의 27홀 대중제 골프장입니다. 공식 홈페이지에서 바른·미쁨·혼솔 세 코스와 예약 오픈(해당일 3주 전 10시)을 안내합니다. 그린피와 캐디·카트 조건은 공지·예약 화면을 기준으로 확인하세요.",
+            recommendationReasons: [
+              "27홀·3개 9홀 코스 (바른·미쁨·혼솔)",
+              "공식 예약 오픈: 해당일 3주 전 10시",
+              "전화예약 가능 시간 10시~18시 안내",
+              "그린피·카트·캐디 조건은 공지·예약 화면에서 최종 확인",
+              "특가·이벤트 상품의 4인·18홀 조건 확인",
+            ],
+            relatedCourseId: "gc-d0e431ff250c",
+            regionLabel: "파주 법원읍",
+            holeCount: 27,
+            courseType: "대중제",
+            priceLabel: "실시간·공지 확인",
+            address: "경기도 파주시 법원읍 보광로 1616",
+            phone: "031-930-1600",
+            homepage: "https://kugolf.co.kr/",
+          },
+          {
+            title: "원더클럽 파주CC",
+            description:
+              "파주시 법원읍에 있는 18홀 대중제 골프장입니다. 공식 코스는 동코스와 서코스 각 9홀·파36으로 구성됩니다. 그린피는 통합예약의 실시간 가격과 월별 공지를 기준으로 확인합니다. 원더클럽 공식 예약 안내는 신라CC·파주CC 예약을 이용일 기준 4주 전 월요일 오전 9시에 여는 것으로 안내합니다.",
+            recommendationReasons: [
+              "동·서 코스 총 18홀",
+              "예약일 기준 4주 전 월요일 오전 9시",
+              "실시간·월별 그린피",
+              "3인 플레이 시 4인 요금 적용 안내",
+              "예약자 본인 내장·취소 시점별 패널티 확인",
+            ],
+            relatedCourseId: "gc-34f4d067cfc2",
+            regionLabel: "파주 법원읍",
+            holeCount: 18,
+            courseType: "대중제",
+            priceLabel: "실시간 그린피",
+            address: "경기도 파주시 법원읍 화합로 306",
+            phone: "031-959-9999",
+            homepage: "https://www.onetheclub.com/paju",
+          },
+          {
+            title: "타이거CC",
+            description:
+              "파주시 법원읍의 18홀 대중제 골프장입니다. 공식 코스는 가온과 누리 각 9홀로 구성됩니다. 1·2부는 4인 필수이고, 3부 노캐디는 2~4인 플레이가 가능합니다. 예약은 3주 전 월요일 오전 10시에 해당 주차 일괄 오픈됩니다.",
+            recommendationReasons: [
+              "가온·누리 총 18홀",
+              "예약 오픈: 3주 전 월요일 오전 10시",
+              "1·2부 4인 필수 · 3부 노캐디 2~4인",
+              "일반 카트비 팀당 10만원 · 노캐디 카트비 팀당 11만원",
+              "캐디피 팀당 15만원 · 인터넷 미가입 시 추가 그린피 확인",
+            ],
+            relatedCourseId: "gc-9eb46dae9c9d",
+            regionLabel: "파주 법원읍",
+            holeCount: 18,
+            courseType: "대중제",
+            priceLabel: "실시간 그린피",
+            address: "경기도 파주시 법원읍 술이홀로 1803",
+            phone: "031-958-8900",
+            homepage: "https://www.tigercc.co.kr/",
           },
           {
             title: "파주제이퍼블릭골프클럽",
             description:
-              "파주 조리읍에 있는 6홀 대중제 코스로, 2바퀴를 돌며 짧은 실전 라운드를 경험하기 좋습니다. 정규홀에서 머리 올리기 전에 진행 속도, 티샷, 어프로치, 퍼팅 흐름을 익히는 연습 라운드 후보로 추천할 만합니다.",
+              "파주시 조리읍의 6홀·파24 대중제 코스입니다. 공식 요금표는 6홀을 두 번 도는 12홀 상품을 기준으로 주중 9만원, 주말 10만5천원을 안내합니다. 다른 다섯 곳의 정규 18홀과 가격을 직접 비교하기보다, 짧은 일정과 12홀 상품을 원하는 경우에 따로 판단해야 합니다.",
+            recommendationReasons: [
+              "6홀·파24 · 현재 공식 상품 12홀",
+              "12홀 주중 그린피 9만원 · 주말 10만5천원",
+              "카트비 12홀 1인 1만5천원",
+              "캐디피 2인 팀 9만원 · 3~4인 팀 10만원",
+              "실제 이용 인원과 반복 운영 확인",
+            ],
             relatedCourseId: "gc-81becbdb274e",
+            regionLabel: "파주 조리읍",
+            holeCount: 6,
+            courseType: "대중제",
+            priceLabel: "12홀 9만~10.5만원",
+            address: "경기도 파주시 조리읍 장곡로 100",
+            phone: "031-8071-0808",
+            homepage: "http://www.jpublic.co.kr/",
           },
-          {
-            title: "화성골프클럽",
-            description:
-              "화성 남양읍에 위치한 9홀 대중제 코스입니다. 경기 남부와 서울 남부권에서 접근성이 좋고, 9홀 라운드로 코스 난이도와 필드 흐름을 부담 없이 점검하기 좋습니다. 시즌별 요금과 예약 가능 시간은 공식 홈페이지 확인이 필요합니다.",
-            relatedCourseId: "gc-5ec5b76d3c22",
-          },
-          {
-            title: "남양주CC",
-            description:
-              "남양주 오남읍에 있는 9홀 대중제 코스입니다. 서울 동북부·경기 북동부에서 접근성이 좋아 짧은 라운드를 계획하기 좋습니다. 참고 요금과 홈페이지 정보가 등록되어 있어 예약 전 비교가 수월합니다.",
-            relatedCourseId: "gc-29fa36946d15",
-          },
+        ],
+      },
+      {
+        heading: "상황별로 좁히기",
+        body: [
+          "정규 27홀 규모에서 코스 조합을 보고 싶을 때는 서원힐스와 스마트KU를 비교하세요. 실제 예약은 보통 18홀 코스 조합이므로 예약 화면의 출발 코스와 후반 코스를 확인해야 합니다.",
+          "기간별 공식 가격표를 먼저 보고 싶다면 노스팜을 확인하세요. 해당 기간이 지난 뒤에는 새 요금표를 다시 확인해야 합니다.",
+          "2~3인 가능성을 보고 싶다면 타이거CC 3부 노캐디와 파주제이퍼블릭의 인원별 조건을 확인하세요. 파주CC·서원힐스는 인원 미달 추가 비용을 주의해야 합니다.",
+          "짧은 라운드를 원한다면 파주제이퍼블릭의 12홀 상품을 따로 보세요. 18홀 정규 코스와 일정·가격을 같은 기준으로 비교하지 마세요.",
+        ],
+      },
+      {
+        heading: "다른 후기에서 반복적으로 확인된 내용",
+        body: [
+          "네이버와 구글의 실제 라운드 글에서는 서원힐스, 노스팜, 스마트KU, 파주CC, 타이거CC가 파주권 정규 코스 비교 대상으로 반복해서 등장합니다. 파주제이퍼블릭은 짧은 6홀 반복 코스로 별도 다뤄집니다.",
+          "다만 후기의 다음 내용은 작성자와 방문 시점에 따라 달라 본문 사실로 사용하지 않습니다. 초보자에게 쉽다는 평가, 잔디와 그린 관리 상태, 페어웨이 폭 체감, 경관과 서비스 만족도, 가성비 순위, 실제 운전시간은 제외했습니다.",
+        ],
+      },
+      {
+        heading: "예약 전 공통 체크리스트",
+        body: [
+          "실제 이용 홀 수가 12홀인지 18홀인지",
+          "코스 조합과 출발 코스",
+          "그린피 기준일과 시간대",
+          "카트비·캐디피 포함 여부",
+          "2·3인 추가 비용",
+          "조인 또는 노캐디 여부",
+          "예약자 본인 내장 조건",
+          "취소 기한과 위약 규정",
         ],
       },
       {
@@ -1743,12 +1931,320 @@ export const BLOG_POSTS: BlogPost[] = [
         body: [],
         items: [
           {
-            title: "서울 근교 9홀 골프장",
+            title: "파주 골프장 지도·목록",
+            description: "GolfMap에서 파주 검색 결과 보기",
+            relatedHref: "/map?q=%ED%8C%8C%EC%A3%BC&view=list",
+          },
+          {
+            title: "경기 지역 골프장",
+            description: "GolfMap 경기 지역 페이지",
+            relatedRegionSlug: "gyeonggi",
+          },
+          {
+            title: "서울 근교 대중제 골프장",
+            description: "수도권 대중제 컬렉션",
+            relatedCollectionSlug: "near-seoul-public",
+          },
+          {
+            title: "서울 근교 6·9홀 골프장 비교",
+            description: "단축 코스·12홀 상품 비교",
+            relatedPostSlug: "seoul-nine-hole-beginner-golf-top-5",
+          },
+          {
+            title: "서울 근교 저렴한 골프장",
+            description: "가격 중심 비교 글",
+            relatedPostSlug: "seoul-budget-golf-best-5",
+          },
+          {
+            title: "고양 골프장 5곳 비교",
+            description: "인접 서북권 지역 비교",
+            relatedPostSlug: "goyang-golf-best-5",
+          },
+        ],
+      },
+      {
+        heading: "자주 묻는 질문",
+        body: [
+          "파주에 27홀 대중제 골프장이 있나요? — 서원힐스와 스마트KU가 3개 9홀 코스로 구성된 27홀 대중제 골프장입니다. 실제 예약 상품은 18홀 코스 조합일 수 있으므로 예약 화면을 확인하세요.",
+          "2인 라운드가 가능한 곳은 어디인가요? — 타이거CC는 공식 안내상 3부 노캐디에서 2~4인 플레이를 허용합니다. 파주제이퍼블릭도 인원별 캐디피를 안내하지만, 가능한 티타임과 최종 조건은 예약 전에 확인해야 합니다.",
+          "파주제이퍼블릭은 18홀 골프장인가요? — 아닙니다. 공식 코스는 6홀·파24이고 현재 6홀을 두 번 도는 12홀 상품을 안내합니다.",
+          "그린피가 가장 저렴한 곳은 어디인가요? — 홀 수와 이용 조건이 달라 단순 순위를 만들 수 없습니다. 파주제이퍼블릭은 12홀 상품이고, 정규 18홀 골프장들은 날짜·시간대별 실시간 가격을 운영합니다.",
+          "공식 가격과 블로그 가격이 다르면 무엇을 따라야 하나요? — 골프장 공식 예약 화면의 이용일·티타임 가격을 기준으로 보세요. 다른 블로그의 결제 가격은 방문 시점의 사례일 뿐 현재 가격을 보장하지 않습니다.",
+        ],
+      },
+      {
+        heading: "마무리",
+        body: [
+          "파주 골프장은 27홀 대중제, 정규 18홀, 6홀 반복 12홀 상품이 함께 있어 이름만으로는 직접 비교하기 어렵습니다. 먼저 원하는 이용 홀 수와 인원 조건을 정한 뒤, 공식 예약 화면에서 실시간 그린피와 카트·캐디 비용을 확인하세요.",
+          "이 글의 정보 확인 기준일은 2026년 8월 1일입니다. 운영 방식과 요금은 변경될 수 있으므로 예약 전 공식 홈페이지에서 최신 정보를 확인하시기 바랍니다.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "seoul-nine-hole-beginner-golf-top-5",
+    title: "서울 근교 초보자 6·9홀 골프장 8곳 비교",
+    seoTitle: "서울 근교 6·9홀 골프장 8곳 비교 | 초보자 요금·예약",
+    description:
+      "서울 근교 6홀·9홀 대중제 골프장 8곳을 홀 수, 서울 기준 거리, 참고 요금과 예약 방식으로 비교했습니다. 공식 페이지와 실제 후기 교차 확인 기준입니다.",
+    category: "course-guide",
+    categoryLabel: CATEGORY_LABELS["course-guide"],
+    date: "2026-06-26",
+    modifiedAt: "2026-07-28",
+    dataCheckedAt: "2026-07-28",
+    thumbnail: blogThumbnailPath("seoul-nine-hole-beginner-golf-top-5"),
+    thumbnailAlt: blogThumbnailAlt("seoul-nine-hole-beginner-golf-top-5"),
+    relatedCollectionSlug: "near-seoul-nine-hole",
+    visitKoreaMetaDir: "near-seoul-nine-hole",
+    blogRegionLabel: "서울 근교",
+    reasonsHeading: "예약 전 비교 포인트",
+    relatedPostSlugs: [
+      "goyang-golf-best-5",
+      "seoul-beginner-golf-best-5",
+      "first-golf-round-checklist",
+      "seoul-par3-practice-range-top-10",
+      "seoul-budget-golf-best-5",
+    
+      "paju-golf-courses-6",],
+    references: [
+      {
+        title: "자료 확인 원칙",
+        checkedAt: "2026-07-28",
+        note: "골프장 공식 페이지 → GolfMap 데이터 → 예약 플랫폼·다른 블로그 교차 확인. 후기의 난이도·잔디·서비스 평가는 본문 사실로 일반화하지 않음.",
+      },
+    ],
+    sections: [
+      {
+        heading: "서울 근교 6·9홀 골프장을 고를 때",
+        body: [
+          "정규 18홀 첫 라운드가 아직 부담스러운 골퍼를 위해 서울 근교의 6홀 또는 9홀 대중제 골프장 8곳을 비교했습니다. 기존 다섯 곳에 고양CC, 일산스프링힐스CC, 아세코밸리GC를 추가하고, 홀 수와 공식 예약 방식, 서울 기준 거리, 예약 전 확인할 점을 다시 검증했습니다.",
+          "이 글은 객관적인 순위가 아닙니다. 짧은 코스라고 반드시 쉽거나 저렴한 것도 아닙니다. GolfMap의 참고 요금은 최저가 보장이 아니며, 최종 티타임·그린피·카트비·캐디피·인원 조건은 각 골프장의 공식 예약 페이지에서 확인하세요.",
+          "최초 작성일은 2026-06-26을 유지하고, 최종 수정·자료 확인일은 2026년 7월 28일입니다.",
+          "6홀과 9홀 코스는 정규 18홀보다 짧은 상품을 운영할 수 있어 실제 필드 진행과 티샷, 어프로치, 퍼팅 흐름을 익히려는 골퍼가 비교하기 좋습니다. 다만 코스 규모와 실제 판매 상품은 다를 수 있습니다. 파주제이퍼블릭처럼 6홀 코스를 두 번 도는 12홀 상품, 9홀만 예약하는 상품, 같은 9홀을 반복하는 18홀 상품이 따로 운영됩니다.",
+          "따라서 골프장 이름이나 등록 홀 수만 보고 예상 시간과 비용을 정하면 안 됩니다. 예약 화면에 표시되는 실제 이용 홀 수와 그린피, 카트·캐디 조건을 함께 확인해야 합니다.",
+        ],
+      },
+      {
+        heading: "이런 분께 비교용으로 적합합니다",
+        body: [
+          "첫 정규 18홀 전에 실제 코스 진행을 경험하고 싶은 분",
+          "서울 근교에서 6홀 또는 9홀 일정을 찾는 분",
+          "파3 연습장이 아니라 파4·파5가 포함된 짧은 코스를 비교하려는 분",
+          "요금보다 홀 수와 운영 방식을 먼저 확인하고 싶은 분",
+        ],
+      },
+      {
+        heading: "예약 전 확인할 선택 기준",
+        body: [
+          "등록 홀 수와 실제 예약 상품: 코스 자체가 6홀 또는 9홀이더라도 판매 상품은 9홀, 12홀, 18홀로 나뉠 수 있습니다. 공식 예약 화면의 상품명을 기준으로 판단하세요.",
+          "파 구성과 드라이버 사용: 파3 연습장과 파4·파5가 포함된 대중제 코스는 목적이 다릅니다. 코리아퍼블릭CC, 남양주CC, 일산스프링힐스CC, 아세코밸리GC는 공개된 코스 정보에서 9홀·파36으로 확인됩니다. 파주제이퍼블릭은 공식 안내 기준 6홀·파24입니다.",
+          "최종 비용: 그린피만 비교하지 말고 카트비·캐디피·조인 조건까지 확인하세요. 6홀, 9홀, 12홀, 18홀 상품의 가격은 같은 기준이 아니므로 단순 최저가 순위를 만들지 않습니다.",
+          "거리의 의미: 이 글의 거리는 GolfMap에서 사용하는 서울시청 기준 직선거리입니다. 실제 운전시간은 출발지, 요일과 시간대에 따라 달라집니다.",
+          "짧은 코스도 쉽다고 단정하지 않기: 다른 블로그 후기에서도 짧은 코스의 반복 운영, 좁은 홀, 도그레그, 해저드와 진행 속도가 자주 언급됩니다. 본문에서는 난이도를 확정하지 않고, 예약 전에 코스 제원과 로컬룰을 확인하도록 안내합니다.",
+        ],
+      },
+      {
+        heading: "8곳 빠른 비교",
+        image:
+          "/promo-assets/blog/content/seoul-nine-hole/seoul-nine-hole-8-comparison-desktop.webp",
+        imageMobile:
+          "/promo-assets/blog/content/seoul-nine-hole/seoul-nine-hole-8-comparison-mobile.webp",
+        imageAlt:
+          "서울 근교 6홀·9홀 골프장 8곳의 지역, 홀 수, 거리와 예약 확인 항목 비교",
+        body: [
+          "숫자가 포함된 요금은 2026년 7월 28일 확인 기준입니다. 월별 탄력 요금과 할인 티타임은 달라질 수 있습니다.",
+        ],
+        table: {
+          caption: "서울 근교 6·9홀 골프장 8곳 빠른 비교",
+          columns: ["골프장", "지역", "코스 규모", "요금 확인", "공식 예약·운영 포인트"],
+          rows: [
+            ["코리아퍼블릭CC", "용인", "9홀·파36", "GolfMap 참고 6만원~", "전 타임 9홀 여부와 노캐디·조인 조건 확인"],
+            ["올림픽CC", "고양", "9홀", "실시간 티타임", "공식 페이지가 9·18홀, 1~2인 조인을 구분"],
+            ["파주제이퍼블릭", "파주", "6홀·파24", "공식 12홀 주중 9만원·주말 10만5천원", "6홀을 반복하는 12홀 상품"],
+            ["화성골프클럽", "화성", "9홀", "공식 9홀 평일 6만5천원·주말 8만5천원", "9·18홀 그린피·카트·캐디 구분"],
+            ["남양주CC", "남양주", "현재 9홀·파36", "월별 공식 공지", "공식 홈페이지의 18홀 전환 진행 상태 확인"],
+            ["고양CC", "고양", "9홀", "GolfMap 참고 6만원~", "9·18홀 선택, 4주 전 오전 9시 예약 오픈"],
+            ["일산스프링힐스CC", "고양", "9홀·파36", "공식 요금표·GolfMap 참고 6만원~", "9·18홀 요금과 예약 상품 구분"],
+            ["아세코밸리GC", "시흥", "9홀·파36", "공식 요금표·GolfMap 참고 8만원~", "3주 전 오전 9시, 9·18홀 구분"],
+          ],
+        },
+      },
+      {
+        heading: "서울 근교 초보자 6·9홀 골프장 8곳",
+        body: [
+          "아래 8곳은 등록 홀 수·공식 예약 방식·서울시청 기준 직선거리·예약 전 확인 항목을 중심으로 정리했습니다. 기존 1~5번 순서는 유지하고 6~8번을 추가했습니다.",
+        ],
+        items: [
+          {
+            title: "코리아퍼블릭CC",
+            description:
+              "용인시 기흥구의 9홀·파36 대중제 코스입니다. 한국관광 데이터와 여러 예약·후기 페이지에서 9홀 코스로 반복 확인됩니다. 현재 예약 플랫폼 안내에는 전 타임 9홀 상품, 조인 우선 원칙과 노캐디 운영 정보가 표시되지만 운영 조건은 바뀔 수 있으므로 공식 예약 화면을 우선하세요.",
+            relatedCourseId: "gc-4487ee52808c",
+            regionLabel: "용인",
+            holeCount: 9,
+            distanceFromSeoulKm: 40.1,
+            recommendationReasons: [
+              "GolfMap 등록: 9홀·대중제",
+              "서울시청 기준 직선거리 약 40.1km",
+              "공개 코스 정보: 9홀·파36",
+              "18홀을 원하면 두 개의 9홀 티타임이 필요한지 확인",
+              "2·3인 예약과 조인, 노캐디 운영의 최신 조건 확인",
+            ],
+          },
+          {
+            title: "올림픽CC",
+            description:
+              "고양시 덕양구의 9홀 대중제 골프장입니다. 공식 홈페이지는 인터넷·모바일·전화 예약과 1~2인 조인을 안내하며, 9홀과 18홀의 카트비·캐디피를 구분합니다. 조인이 성사되지 않을 때의 비용 조건도 예약 전에 확인해야 합니다.",
+            relatedCourseId: "gc-18640b625b94",
+            regionLabel: "고양",
+            holeCount: 9,
+            distanceFromSeoulKm: 18.6,
+            recommendationReasons: [
+              "GolfMap 등록: 9홀·대중제",
+              "서울시청 기준 직선거리 약 18.6km",
+              "공식 예약: 주중·주말 3주 전, 홈페이지·모바일·전화",
+              "공식 9홀 카트비: 팀당 5만원",
+              "공식 9홀 캐디피: 4인 팀 기준 7만5천원",
+              "1~2인 조인과 미성사 시 비용 조건 확인",
+            ],
+          },
+          {
+            title: "파주제이퍼블릭골프클럽",
+            description:
+              "파주시 조리읍의 6홀 대중제 코스입니다. 공식 코스는 6홀·파24이며 현재 공식 요금표는 6홀을 두 번 도는 12홀 상품을 기준으로 합니다. 네이버와 구글의 후기·안내 글에서도 6홀 반복, 파3·파4·파5 혼합과 2인 이용 정보가 반복되지만, 실제 인원 조건은 공식 예약 페이지를 기준으로 봅니다.",
+            relatedCourseId: "gc-81becbdb274e",
+            regionLabel: "파주",
+            holeCount: 6,
+            distanceFromSeoulKm: 23.5,
+            recommendationReasons: [
+              "GolfMap 등록: 6홀·대중제",
+              "서울시청 기준 직선거리 약 23.5km",
+              "공식 코스: 6홀·파24",
+              "공식 12홀 그린피: 주중 9만원, 주말 10만5천원",
+              "공식 카트비: 12홀 1인 1만5천원",
+              "공식 캐디피: 2인 팀 9만원, 3~4인 팀 10만원",
+            ],
+          },
+          {
+            title: "화성골프클럽",
+            description:
+              "화성시 남양읍의 9홀 대중제 골프장입니다. 공식 홈페이지는 9홀과 18홀 그린피, 카트피, 캐디피를 각각 구분합니다. 네이버의 실제 라운드 글에서도 9홀을 반복해 이용한 경험이 확인되지만 코스 상태와 체감 평가는 시점에 따라 달라 본문 사실로 일반화하지 않습니다.",
+            relatedCourseId: "gc-5ec5b76d3c22",
+            regionLabel: "화성",
+            holeCount: 9,
+            distanceFromSeoulKm: 40.0,
+            recommendationReasons: [
+              "GolfMap 등록: 9홀·대중제",
+              "서울시청 기준 직선거리 약 40.0km",
+              "공식 9홀 그린피: 평일 6만5천원, 주말·공휴일 8만5천원",
+              "공식 9홀 카트피: 팀당 5만원",
+              "공식 9홀 캐디피: 팀당 8만원",
+              "9홀과 18홀 중 실제 예약 상품 확인",
+            ],
+          },
+          {
+            title: "남양주CC",
+            description:
+              "남양주시 오남읍의 9홀·파36 대중제 골프장입니다. 공식 코스 소개는 퍼블릭 9홀·파36으로 안내하고, 공식 홈페이지는 2026년 중 18홀 예정이라고 표시합니다. 확장 진행에 따라 코스 규모와 예약 상품이 달라질 수 있으므로 현재 시점의 공지와 예약 화면을 확인해야 합니다.",
+            relatedCourseId: "gc-29fa36946d15",
+            regionLabel: "남양주",
+            holeCount: 9,
+            distanceFromSeoulKm: 24.4,
+            recommendationReasons: [
+              "GolfMap 현재 등록: 9홀·대중제",
+              "서울시청 기준 직선거리 약 24.4km",
+              "공식 코스 소개: 9홀·파36",
+              "공식 홈페이지: 2026년 중 18홀 예정",
+              "최신 그린피는 월별 공식 공지 확인",
+              "전화·인터넷 예약과 조인 조건의 최신 안내 확인",
+            ],
+          },
+          {
+            title: "고양CC",
+            description:
+              "고양시 덕양구의 9홀 대중제 골프장입니다. 공식 실시간 예약 페이지는 9홀과 18홀을 구분하며, 이용일 4주 전 같은 요일 오전 9시에 예약을 여는 것으로 안내합니다. 본문 가격은 GolfMap 참고값으로만 표시하고 최종 가격은 공식 티타임에서 확인합니다. 고양 지역 글과 중복되는 설명은 줄이고 이 글에서는 6·9홀 비교에 집중합니다.",
+            relatedCourseId: "gc-8fbc2ee961a0",
+            regionLabel: "고양",
+            holeCount: 9,
+            distanceFromSeoulKm: 13.1,
+            images: [
+              "/promo-assets/blog/goyang/goyang-cc.jpg",
+              "/promo-assets/blog/goyang/goyang-cc-2.jpg",
+              "/promo-assets/blog/goyang/goyang-cc-3.jpg",
+            ],
+            imageCredit: VISIT_KOREA_IMAGE_CREDIT,
+            recommendationReasons: [
+              "GolfMap 등록: 9홀·대중제",
+              "서울시청 기준 직선거리 약 13.1km",
+              "공식 예약 페이지: 9홀·18홀 구분",
+              "예약 오픈: 4주 전 같은 요일 오전 9시",
+              "예약 취소·조인과 캐디 조건은 공식 규정 확인",
+            ],
+          },
+          {
+            title: "일산스프링힐스CC",
+            description:
+              "고양시 일산동구의 9홀·파36 대중제 골프장입니다. 공식 홈페이지에 9홀과 18홀 요금표가 따로 있으며, 여러 라운드 후기에서도 같은 9홀을 반복하는 운영이 다뤄집니다. 다만 후기의 코스 난이도와 관리 평가는 서로 다를 수 있어 본문에서는 사실로 고정하지 않습니다.",
+            relatedCourseId: "gc-41b5c15f44da",
+            regionLabel: "고양",
+            holeCount: 9,
+            distanceFromSeoulKm: 17.7,
+            images: [
+              "/promo-assets/blog/goyang/spring-hills.jpg",
+              "/promo-assets/blog/goyang/spring-hills-2.jpg",
+              "/promo-assets/blog/goyang/spring-hills-3.jpg",
+            ],
+            imageCredit: VISIT_KOREA_IMAGE_CREDIT,
+            recommendationReasons: [
+              "GolfMap 등록: 9홀·대중제",
+              "서울시청 기준 직선거리 약 17.7km",
+              "공개 코스 정보: 9홀·파36",
+              "공식 페이지의 9홀·18홀 요금과 티타임 확인",
+              "반복 18홀을 원하면 예약 상품의 홀 수 확인",
+            ],
+          },
+          {
+            title: "아세코밸리GC",
+            description:
+              "시흥시 거모동의 9홀·파36 대중제 골프장입니다. 공식 코스 표는 파3 2홀, 파4 5홀, 파5 2홀의 총 파36을 안내합니다. 공식 예약 안내는 주중·주말 모두 3주 전 오전 9시에 열리고 홈페이지와 전화로 예약할 수 있다고 설명합니다. 공식 매너 안내의 9홀 운영 기준 시간은 2시간 10분입니다.",
+            relatedCourseId: "gc-d5533edff8e8",
+            regionLabel: "시흥",
+            holeCount: 9,
+            distanceFromSeoulKm: 28.6,
+            recommendationReasons: [
+              "GolfMap 등록: 9홀·대중제",
+              "서울시청 기준 직선거리 약 28.6km",
+              "공식 코스: 9홀·파36",
+              "공식 예약 오픈: 3주 전 오전 9시",
+              "공식 예약 수단: 홈페이지·전화",
+              "공식 진행 기준: 9홀 2시간 10분",
+              "9홀·18홀 요금과 인원 조건 확인",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "예약 전에 공통으로 확인할 5가지",
+        body: [
+          "예약 상품이 6홀, 9홀, 12홀, 18홀 중 무엇인지",
+          "같은 코스를 반복하는 운영인지",
+          "그린피 외 카트비와 캐디피",
+          "최소 인원과 조인 여부",
+          "취소 기한, 도착 권장 시간과 로컬룰",
+          "6만원~ 같은 GolfMap 숫자는 특정 홀 수·요일·티타임의 참고 하한일 수 있습니다. 최종 결제 금액으로 해석하지 마세요.",
+        ],
+      },
+      {
+        heading: "관련 링크",
+        body: [],
+        items: [
+          {
+            title: "서울 근교 나인홀 골프장 전체",
             description: "수도권 접근성 기준 9홀·짧은 코스 모음",
             relatedCollectionSlug: "near-seoul-nine-hole",
           },
           {
-            title: "9홀 골프장 전국",
+            title: "전국 나인홀 골프장",
             description: "짧은 홀 수 코스 전체 비교",
             relatedCollectionSlug: "nine-hole",
           },
@@ -1757,12 +2253,37 @@ export const BLOG_POSTS: BlogPost[] = [
             description: "첫 라운드 후보로 볼 만한 코스",
             relatedCollectionSlug: "near-seoul-beginner",
           },
+          {
+            title: "9홀 조건으로 전체 지도 보기",
+            description: "전국 나인홀 컬렉션에서 이어서 /map?holes=9&view=list 로 지도·목록을 확인할 수 있습니다.",
+            relatedCollectionSlug: "nine-hole",
+          },
+          {
+            title: "고양 골프장 5곳 비교",
+            description: "고양권 지역 비교 글",
+            relatedPostSlug: "goyang-golf-best-5",
+          },
+          {
+            title: "첫 골프장 준비물 체크리스트",
+            description: "첫 라운드 전 준비물 확인",
+            relatedPostSlug: "first-golf-round-checklist",
+          },
+        ],
+      },
+      {
+        heading: "자주 묻는 질문",
+        body: [
+          "9홀 골프장은 초보자에게 항상 쉬운가요? — 아닙니다. 홀 수는 짧지만 코스 폭, 해저드, 그린과 진행 속도는 골프장마다 다릅니다. 짧은 일정의 비교 후보라는 의미이지 난이도가 낮다는 보장은 아닙니다.",
+          "6홀 골프장과 9홀 골프장의 가격을 직접 비교해도 되나요? — 파주제이퍼블릭은 현재 공식 12홀 상품이고, 다른 코스는 9홀 또는 반복 18홀 상품을 판매합니다. 이용 홀 수가 다르므로 그린피만 단순 비교하지 마세요.",
+          "9홀을 예약하면 18홀을 칠 수 있나요? — 골프장마다 다릅니다. 별도의 18홀 상품을 예약하거나 9홀 티타임을 추가로 예약해야 할 수 있습니다. 공식 예약 화면의 상품명을 확인하세요.",
+          "2인 예약이나 조인이 가능한가요? — 코리아퍼블릭, 올림픽CC, 파주제이퍼블릭 등은 공개 예약 안내에서 2인 또는 조인을 다루지만, 시간대와 미성사 조건이 다릅니다. 예약 직전에 공식 규정을 확인하세요.",
+          "표시된 요금이 최종 결제 금액인가요? — 아닙니다. GolfMap 참고 요금과 본문 공식 요금은 확인일 기준이며, 카트비·캐디피·할인·인원 조건에 따라 달라집니다.",
         ],
       },
       {
         heading: "마무리",
         body: [
-          "9홀 코스는 초보자에게 부담을 줄여 주지만, 짧다고 해서 무조건 쉬운 것은 아닙니다. 첫 라운드 전에는 티오프 시간, 카트·캐디 운영, 복장 규정, 추가 라운드 가능 여부를 공식 홈페이지나 예약 채널에서 확인해 주세요.",
+          "서울 근교 6·9홀 골프장을 고를 때는 가까운가보다 먼저 실제 예약 상품의 홀 수를 확인해야 합니다. 파주제이퍼블릭은 6홀을 반복하는 12홀 상품이고, 다수의 9홀 골프장은 9홀과 반복 18홀을 따로 운영합니다. 예약 전 공식 페이지에서 최종 가격과 인원·카트·캐디 조건을 확인한 뒤 GolfMap 지도와 상세 페이지로 위치를 비교하세요.",
         ],
       },
     ],

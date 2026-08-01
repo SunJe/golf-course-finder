@@ -65,6 +65,9 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
               </p>
               <p className="mt-4 text-sm text-stone-400">
                 {formatBlogDate(post.date)}
+                {post.modifiedAt && post.modifiedAt !== post.date
+                  ? ` · 수정 ${formatBlogDate(post.modifiedAt)}`
+                  : ""}
               </p>
             </div>
             <div className="hidden justify-end lg:flex">

@@ -149,12 +149,14 @@ export function buildBlogMetadata(): Metadata {
 
 export function buildBlogPostMetadata(post: {
   title: string;
+  seoTitle?: string;
   description: string;
   slug: string;
   thumbnail: string;
   thumbnailAlt: string;
 }): Metadata {
-  const pageTitle = `${post.title} | GolfMap Korea`;
+  const pageTitle =
+    post.seoTitle?.trim() || `${post.title} | GolfMap Korea`;
   const description = truncateMetaDescription(
     post.description,
     META_DESCRIPTION_MAX_LENGTH,

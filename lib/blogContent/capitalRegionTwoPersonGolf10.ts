@@ -22,7 +22,7 @@ const IMG =
 export const CAPITAL_REGION_TWO_PERSON_GOLF_10_POST: BlogPost = {
   slug: "capital-region-two-person-golf-courses-10",
   title: "수도권 2인 플레이 골프장 10곳｜단독·노캐디·조인 조건 비교",
-  seoTitle: "수도권 2인 플레이 골프장 10곳 | 노캐디·조인·추가요금",
+  seoTitle: "수도권 2인 플레이 골프장 10곳 | 단독·노캐디·조인 조건 비교",
   description:
     "수도권에서 2인 예약이 가능한 골프장 10곳을 정리했습니다. 둘만 플레이할 수 있는지, 노캐디로 운영되는지, 추가요금이나 조인 조건이 있는지를 공식 안내를 기준으로 비교합니다.",
   category: "course-guide",

@@ -24,5 +24,9 @@
   },
   "observability": {
     "enabled": true
+  },
+  // Workers Paid: keep request CPU budget at 2000ms (Production baseline).
+  "limits": {
+    "cpu_ms": 2000
   }
 }

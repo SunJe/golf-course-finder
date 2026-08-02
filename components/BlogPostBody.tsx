@@ -30,6 +30,21 @@ function itemHref(item: NonNullable<BlogPostSection["items"]>[number]): string |
 
 }
 
+/** Lightweight inline emphasis for blog body (`**bold**` only). */
+function renderInlineMarkup(text: string) {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((part, index) => {
+    if (part.startsWith("**") && part.endsWith("**") && part.length > 4) {
+      return (
+        <strong key={`b-${index}`} className="font-semibold text-stone-900">
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    return <Fragment key={`t-${index}`}>{part}</Fragment>;
+  });
+}
+
 
 
 function BlogLinkCard({
@@ -218,21 +233,27 @@ export function BlogPostBody({ post }: { post: BlogPost }) {
 
             <div className="mt-4 space-y-3">
 
-              {section.body.map((paragraph) => (
+              {section.body.map((paragraph) => {
+                if (paragraph.startsWith("### ")) {
+                  return (
+                    <h3
+                      key={paragraph.slice(0, 40)}
+                      className="pt-2 text-lg font-bold text-stone-900"
+                    >
+                      {renderInlineMarkup(paragraph.slice(4))}
+                    </h3>
+                  );
+                }
 
-                <p
-
-                  key={paragraph.slice(0, 40)}
-
-                  className="text-base leading-[1.7] text-stone-700 sm:text-[1.05rem]"
-
-                >
-
-                  {paragraph}
-
-                </p>
-
-              ))}
+                return (
+                  <p
+                    key={paragraph.slice(0, 40)}
+                    className="text-base leading-[1.7] text-stone-700 sm:text-[1.05rem]"
+                  >
+                    {renderInlineMarkup(paragraph)}
+                  </p>
+                );
+              })}
 
             </div>
 

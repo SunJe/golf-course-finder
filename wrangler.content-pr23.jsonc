@@ -1,0 +1,25 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  // Isolated Preview Worker for PR #23 content QA only.
+  // No custom domains / DNS / Production routes.
+  "name": "golfmap-korea-content-pr23",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-07-24",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "keep_vars": true,
+  "vars": {
+    "GOLFMAP_DATA_MODE": "production"
+  },
+  "limits": {
+    "cpu_ms": 2000
+  },
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS",
+    "run_worker_first": false
+  },
+  "observability": {
+    "enabled": true
+  }
+}

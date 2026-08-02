@@ -38,21 +38,20 @@ export function getBlogCourseNaverSearchUrl(
   return `https://search.naver.com/search.naver?query=${encodeURIComponent(buildBlogCourseSearchQuery(name, address))}`;
 }
 
+/**
+ * 확인된 공식 홈페이지 URL만 반환한다.
+ * 검색 결과·비공식 링크로 대체하지 않으며, 없으면 null → CTA 숨김.
+ */
 export function resolveBlogCourseHomepageLink(
   homepage: string | undefined,
-  name: string,
-  address?: string,
-): { href: string; label: string } {
+  _name?: string,
+  _address?: string,
+): { href: string; label: string } | null {
   const trimmed = homepage?.trim();
-  if (trimmed) {
-    const href =
-      trimmed.startsWith("http://") || trimmed.startsWith("https://")
-        ? trimmed
-        : `https://${trimmed}`;
-    return { href, label: "공식 홈페이지" };
-  }
-  return {
-    href: getBlogCourseNaverSearchUrl(name, address),
-    label: "공식 홈페이지 검색",
-  };
+  if (!trimmed) return null;
+  const href =
+    trimmed.startsWith("http://") || trimmed.startsWith("https://")
+      ? trimmed
+      : `https://${trimmed}`;
+  return { href, label: "공식 홈페이지" };
 }

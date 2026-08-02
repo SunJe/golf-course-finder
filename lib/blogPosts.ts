@@ -1,3 +1,4 @@
+import { SEOUL_ONE_HOUR_PUBLIC_12_POST } from "@/lib/blogContent/seoulOneHourPublic12";
 import { blogThumbnailAlt, blogThumbnailPath } from "@/lib/blogThumbnailRules";
 import { TOURNAMENT_BLOG_POSTS } from "@/lib/blogTournamentPosts";
 import { VISIT_KOREA_IMAGE_CREDIT } from "@/lib/visitKoreaAttribution";
@@ -22,6 +23,10 @@ export type BlogPostSection = {
   imageAlt?: string;
   /** 모바일 전용 비교 이미지 (picture source, max-width 640px) */
   imageMobile?: string;
+  /** cover(기본 4:3 crop) | natural(원본 비율, width 100% / height auto) */
+  imageLayout?: "cover" | "natural";
+  /** natural 이미지 클릭 확대 */
+  imageLightbox?: boolean;
   /** 제품·코스 비교 표 (items 위에 노출) */
   table?: BlogPostComparisonTable;
   items?: {
@@ -4163,6 +4168,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
     ],
   },
+  SEOUL_ONE_HOUR_PUBLIC_12_POST,
   ...TOURNAMENT_BLOG_POSTS,
 ];
 

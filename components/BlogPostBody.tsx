@@ -445,12 +445,16 @@ export function BlogPostBody({ post }: { post: BlogPost }) {
           {post.references && post.references.length > 0 ? (
             <ul className="mt-3 space-y-2 text-sm text-stone-700">
               {post.references.map((ref) => (
-                <li key={`${ref.title}-${ref.checkedAt ?? ""}`}>
-                  <span className="font-semibold text-stone-900">{ref.title}</span>
+                <li key={`${ref.title}-${ref.checkedAt ?? ""}-${ref.note?.slice(0, 24) ?? ""}`}>
+                  {ref.title.trim() ? (
+                    <span className="font-semibold text-stone-900">{ref.title}</span>
+                  ) : null}
                   {ref.publisher ? ` · ${ref.publisher}` : ""}
                   {ref.checkedAt ? ` · 확인일 ${ref.checkedAt}` : ""}
                   {ref.note ? (
-                    <span className="mt-1 block text-stone-500">{ref.note}</span>
+                    <span className="mt-1 block whitespace-pre-line text-stone-500">
+                      {ref.note}
+                    </span>
                   ) : null}
                   {ref.url ? (
                     <a

@@ -38,6 +38,7 @@ export const CAPITAL_REGION_TWO_PERSON_GOLF_10_POST: BlogPost = {
   blogRegionLabel: "수도권",
   reasonsHeading: "조건 요약",
   relatedPostSlugs: [
+    "capital-region-no-caddie-golf-courses-10",
     "seoul-one-hour-public-golf-courses-12",
     "paju-golf-courses-6",
     "pocheon-golf-best-7",
@@ -414,6 +415,11 @@ export const CAPITAL_REGION_TWO_PERSON_GOLF_10_POST: BlogPost = {
       heading: "관련 링크",
       body: [],
       items: [
+        {
+          title: "수도권 노캐디 골프장 비교",
+          description: "상시·3부·기간 한정 셀프 라운드",
+          relatedPostSlug: "capital-region-no-caddie-golf-courses-10",
+        },
         {
           title: "서울에서 1시간 안팎 퍼블릭 골프장 12곳",
           description: "출발권역별 가까운 퍼블릭 비교",

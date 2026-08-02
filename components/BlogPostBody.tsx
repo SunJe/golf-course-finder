@@ -239,10 +239,12 @@ export function BlogPostBody({ post }: { post: BlogPost }) {
           )}
 
           {section.table && (
-            <div className="mt-5 overflow-x-auto">
+            <div className="mt-5 overflow-x-auto rounded-xl border border-stone-200">
               <table className="w-full min-w-[560px] border-collapse text-sm">
                 {section.table.caption ? (
-                  <caption className="sr-only">{section.table.caption}</caption>
+                  <caption className="border-b border-stone-100 bg-stone-50 px-3 py-2.5 text-left text-sm font-semibold text-stone-800">
+                    {section.table.caption}
+                  </caption>
                 ) : null}
                 <thead>
                   <tr className="border-b-2 border-stone-200 bg-stone-50 text-left">
@@ -281,6 +283,28 @@ export function BlogPostBody({ post }: { post: BlogPost }) {
               </table>
             </div>
           )}
+
+          {section.callout ? (
+            <aside className="mt-5 rounded-2xl border border-amber-200/80 bg-amber-50/70 p-5 sm:p-6">
+              <h3 className="text-base font-bold text-stone-900 sm:text-lg">
+                {section.callout.title}
+              </h3>
+              <ul className="mt-3 space-y-2.5">
+                {section.callout.items.map((entry) => (
+                  <li
+                    key={entry}
+                    className="flex gap-2.5 text-sm leading-relaxed text-stone-700"
+                  >
+                    <span
+                      className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-amber-600"
+                      aria-hidden
+                    />
+                    <span>{entry}</span>
+                  </li>
+                ))}
+              </ul>
+            </aside>
+          ) : null}
 
           {section.items && section.items.length > 0 && (
 

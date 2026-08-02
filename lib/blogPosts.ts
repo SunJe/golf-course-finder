@@ -30,6 +30,11 @@ export type BlogPostSection = {
   imageLightbox?: boolean;
   /** 제품·코스 비교 표 (items 위에 노출) */
   table?: BlogPostComparisonTable;
+  /** 섹션 본문 아래 강조 체크리스트/콜아웃 패널 */
+  callout?: {
+    title: string;
+    items: string[];
+  };
   items?: {
     title: string;
     description: string;

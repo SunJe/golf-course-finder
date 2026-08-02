@@ -1,3 +1,4 @@
+import { CAPITAL_REGION_TWO_PERSON_GOLF_10_POST } from "@/lib/blogContent/capitalRegionTwoPersonGolf10";
 import { SEOUL_ONE_HOUR_PUBLIC_12_POST } from "@/lib/blogContent/seoulOneHourPublic12";
 import { blogThumbnailAlt, blogThumbnailPath } from "@/lib/blogThumbnailRules";
 import { TOURNAMENT_BLOG_POSTS } from "@/lib/blogTournamentPosts";
@@ -29,6 +30,11 @@ export type BlogPostSection = {
   imageLightbox?: boolean;
   /** 제품·코스 비교 표 (items 위에 노출) */
   table?: BlogPostComparisonTable;
+  /** 섹션 본문 아래 강조 체크리스트/콜아웃 패널 */
+  callout?: {
+    title: string;
+    items: string[];
+  };
   items?: {
     title: string;
     description: string;
@@ -4169,6 +4175,7 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
   },
   SEOUL_ONE_HOUR_PUBLIC_12_POST,
+  CAPITAL_REGION_TWO_PERSON_GOLF_10_POST,
   ...TOURNAMENT_BLOG_POSTS,
 ];
 

@@ -94,6 +94,11 @@ export const BLOG_GEOGRAPHIC_SCOPE_BY_SLUG: Record<string, BlogGeographicScope> 
     regions: ["서울", "경기"],
     cities: ["시흥", "파주", "고양", "남양주"],
   },
+  "capital-region-two-person-golf-courses-10": {
+    type: "regional",
+    regions: ["서울", "경기", "인천"],
+    cities: ["포천", "파주", "용인", "안성", "고양", "강서"],
+  },
 };
 
 /**
@@ -113,6 +118,7 @@ export const BLOG_CONTENT_PURPOSE_BY_SLUG: Record<string, BlogContentPurpose> = 
   "hwaseong-golf-best-7": "regional-course-guide",
   "paju-golf-courses-6": "regional-course-guide",
   "seoul-one-hour-public-golf-courses-12": "regional-course-guide",
+  "capital-region-two-person-golf-courses-10": "regional-course-guide",
   "beginner-golf-essentials-checklist": "course-visit-guide",
   "first-golf-round-checklist": "course-visit-guide",
   "golf-ball-type-guide": "equipment-guide",

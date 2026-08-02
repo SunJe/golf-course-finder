@@ -219,7 +219,7 @@ export function BlogCourseCard({
                   }
                   aria-hidden
                 >
-                  {isTournament ? "•" : "✅"}
+                  •
                 </span>
                 <span>{reason}</span>
               </li>

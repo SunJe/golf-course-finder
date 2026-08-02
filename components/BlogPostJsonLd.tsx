@@ -89,7 +89,33 @@ export default function BlogPostJsonLd({ post }: BlogPostJsonLdProps) {
     inLanguage: "ko-KR",
   });
 
-  const graph: Record<string, unknown>[] = [articleLd];
+  const breadcrumbLd = compactJsonLd({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "@id": `${pageUrl}#breadcrumb`,
+    itemListElement: [
+      compactJsonLd({
+        "@type": "ListItem",
+        position: 1,
+        name: "홈",
+        item: absoluteUrl("/"),
+      }),
+      compactJsonLd({
+        "@type": "ListItem",
+        position: 2,
+        name: "블로그",
+        item: absoluteUrl("/blog"),
+      }),
+      compactJsonLd({
+        "@type": "ListItem",
+        position: 3,
+        name: post.title,
+        item: pageUrl,
+      }),
+    ],
+  });
+
+  const graph: Record<string, unknown>[] = [articleLd, breadcrumbLd];
 
   if (faqItems.length > 0) {
     graph.push(

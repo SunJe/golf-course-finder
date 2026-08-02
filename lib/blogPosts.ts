@@ -1,3 +1,4 @@
+import { CAPITAL_REGION_TWO_PERSON_GOLF_10_POST } from "@/lib/blogContent/capitalRegionTwoPersonGolf10";
 import { SEOUL_ONE_HOUR_PUBLIC_12_POST } from "@/lib/blogContent/seoulOneHourPublic12";
 import { blogThumbnailAlt, blogThumbnailPath } from "@/lib/blogThumbnailRules";
 import { TOURNAMENT_BLOG_POSTS } from "@/lib/blogTournamentPosts";
@@ -4169,6 +4170,7 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
   },
   SEOUL_ONE_HOUR_PUBLIC_12_POST,
+  CAPITAL_REGION_TWO_PERSON_GOLF_10_POST,
   ...TOURNAMENT_BLOG_POSTS,
 ];
 

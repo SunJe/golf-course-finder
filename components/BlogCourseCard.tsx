@@ -75,7 +75,8 @@ export function BlogCourseCard({
     : undefined;
 
   const holeLabel =
-    item.holeCount != null ? formatHoleCount(item.holeCount) : undefined;
+    item.holeLabel?.trim() ||
+    (item.holeCount != null ? formatHoleCount(item.holeCount) : undefined);
 
   const tournamentCheckPoints =
     tournamentContext?.checkPoints &&

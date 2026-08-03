@@ -72,6 +72,8 @@ export type BlogPostSection = {
     homepage?: string;
     regionLabel?: string;
     holeCount?: number;
+    /** 카드 홀수 칩 표시값 (있으면 holeCount 숫자 포맷 대신 사용) */
+    holeLabel?: string;
     priceLabel?: string;
     operatingInfo?: string;
     courseType?: string;

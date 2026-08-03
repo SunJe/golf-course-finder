@@ -1,3 +1,4 @@
+import { CAPITAL_REGION_NO_CADDIE_GOLF_10_POST } from "@/lib/blogContent/capitalRegionNoCaddieGolf10";
 import { CAPITAL_REGION_TWO_PERSON_GOLF_10_POST } from "@/lib/blogContent/capitalRegionTwoPersonGolf10";
 import { SEOUL_ONE_HOUR_PUBLIC_12_POST } from "@/lib/blogContent/seoulOneHourPublic12";
 import { blogThumbnailAlt, blogThumbnailPath } from "@/lib/blogThumbnailRules";
@@ -71,6 +72,8 @@ export type BlogPostSection = {
     homepage?: string;
     regionLabel?: string;
     holeCount?: number;
+    /** 카드 홀수 칩 표시값 (있으면 holeCount 숫자 포맷 대신 사용) */
+    holeLabel?: string;
     priceLabel?: string;
     operatingInfo?: string;
     courseType?: string;
@@ -4176,6 +4179,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   SEOUL_ONE_HOUR_PUBLIC_12_POST,
   CAPITAL_REGION_TWO_PERSON_GOLF_10_POST,
+  CAPITAL_REGION_NO_CADDIE_GOLF_10_POST,
   ...TOURNAMENT_BLOG_POSTS,
 ];
 

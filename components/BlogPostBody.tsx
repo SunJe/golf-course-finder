@@ -443,28 +443,51 @@ export function BlogPostBody({ post }: { post: BlogPost }) {
             </p>
           ) : null}
           {post.references && post.references.length > 0 ? (
-            <ul className="mt-3 space-y-2 text-sm text-stone-700">
-              {post.references.map((ref) => (
-                <li key={`${ref.title}-${ref.checkedAt ?? ""}`}>
-                  <span className="font-semibold text-stone-900">{ref.title}</span>
-                  {ref.publisher ? ` · ${ref.publisher}` : ""}
-                  {ref.checkedAt ? ` · 확인일 ${ref.checkedAt}` : ""}
-                  {ref.note ? (
-                    <span className="mt-1 block text-stone-500">{ref.note}</span>
-                  ) : null}
-                  {ref.url ? (
-                    <a
-                      href={ref.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-1 inline-block text-brand-800 underline-offset-2 hover:underline"
-                    >
-                      원문 보기
-                    </a>
-                  ) : null}
-                </li>
-              ))}
-            </ul>
+            post.references.every(
+              (ref) =>
+                !ref.title.trim() &&
+                !ref.publisher &&
+                !ref.checkedAt &&
+                !ref.url &&
+                Boolean(ref.note?.trim()),
+            ) ? (
+              <div className="mt-3 space-y-3 text-sm text-stone-500">
+                {post.references.map((ref, index) => (
+                  <p key={`ref-note-${index}`}>{ref.note}</p>
+                ))}
+              </div>
+            ) : (
+              <ul className="mt-3 space-y-2 text-sm text-stone-700">
+                {post.references.map((ref) => (
+                  <li
+                    key={`${ref.title}-${ref.checkedAt ?? ""}-${ref.note?.slice(0, 24) ?? ""}`}
+                  >
+                    {ref.title.trim() ? (
+                      <span className="font-semibold text-stone-900">
+                        {ref.title}
+                      </span>
+                    ) : null}
+                    {ref.publisher ? ` · ${ref.publisher}` : ""}
+                    {ref.checkedAt ? ` · 확인일 ${ref.checkedAt}` : ""}
+                    {ref.note ? (
+                      <span className="mt-1 block whitespace-pre-line text-stone-500">
+                        {ref.note}
+                      </span>
+                    ) : null}
+                    {ref.url ? (
+                      <a
+                        href={ref.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-1 inline-block text-brand-800 underline-offset-2 hover:underline"
+                      >
+                        원문 보기
+                      </a>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            )
           ) : null}
         </aside>
       ) : null}

@@ -224,6 +224,7 @@ export function BlogPostBody({ post }: { post: BlogPost }) {
               mobileSrc={section.imageMobile}
               layout={section.imageLayout}
               enableLightbox={section.imageLightbox}
+              caption={section.imageCaption}
             />
           ) : null}
 

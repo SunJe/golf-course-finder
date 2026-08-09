@@ -1,6 +1,7 @@
 import type { BlogPost } from "@/lib/blogPosts";
 
 const CHECKED_AT = "2026-08-09" as const;
+const IMG = "/images/blog/seoul-nine-hole-beginner-golf-top-5" as const;
 
 export const SEOUL_NEAR_NINE_HOLE_PHASE2_POST: BlogPost = {
   slug: "seoul-nine-hole-beginner-golf-top-5",
@@ -13,9 +14,8 @@ export const SEOUL_NEAR_NINE_HOLE_PHASE2_POST: BlogPost = {
   date: "2026-06-26",
   modifiedAt: CHECKED_AT,
   dataCheckedAt: CHECKED_AT,
-  thumbnail: "/promo-assets/blog/seoul-nine-hole-8-thumbnail.webp",
-  thumbnailAlt:
-    "서울 근교 9홀 골프장의 홀 구성과 2인·캐디 조건을 비교하는 가이드 표지",
+  thumbnail: `${IMG}/thumbnail.webp`,
+  thumbnailAlt: "서울 근교 9홀 골프장에서 두 골퍼가 라운드하는 일러스트",
   relatedCollectionSlug: "near-seoul-nine-hole",
   blogRegionLabel: "서울 근교",
   reasonsHeading: "이용 조건 요약",
@@ -110,6 +110,11 @@ export const SEOUL_NEAR_NINE_HOLE_PHASE2_POST: BlogPost = {
       checkedAt: CHECKED_AT,
       note: "9홀 카트·캐디 정산표는 있으나 현재 2026년 8월 그린피 표에는 18홀 상품만 표시되어 독립 9홀 예약 티타임을 확인하지 못했습니다. 사전 기준에 따라 올림픽CC로 교체했습니다.",
     },
+    {
+      title: "이미지 안내",
+      checkedAt: CHECKED_AT,
+      note: "썸네일과 본문 도입 이미지는 일반적인 9홀 라운드 상황을 표현한 AI 생성 일러스트이며, 특정 골프장의 실제 전경이 아닙니다.",
+    },
   ],
   sections: [
     {
@@ -122,6 +127,11 @@ export const SEOUL_NEAR_NINE_HOLE_PHASE2_POST: BlogPost = {
     },
     {
       heading: "9홀 골프장을 볼 때 먼저 구분할 것",
+      image: `${IMG}/intro.webp`,
+      imageAlt: "서울 근교 9홀 골프장에서 카트와 함께 라운드하는 두 골퍼 일러스트",
+      imageLayout: "natural",
+      imageCaption:
+        "9홀 코스도 운영 방식에 따라 9홀 단독, 18홀 반복, 2인·조인, 노캐디 조건이 달라질 수 있습니다.",
       body: [
         "### 실제 예약 홀 수",
         "코스 규모가 9홀이어도 예약 화면에는 9홀과 18홀이 함께 보일 수 있습니다. 18홀 상품이 같은 9홀의 반복인지, 별도 코스 조합인지 확인해야 예상 시간과 동선을 판단할 수 있습니다.",

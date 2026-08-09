@@ -24,6 +24,8 @@ export type BlogPostSection = {
   /** 본문 섹션 상단 이미지 (h2 직전) */
   image?: string;
   imageAlt?: string;
+  /** 섹션 히어로 이미지 캡션 */
+  imageCaption?: string;
   /** 모바일 전용 비교 이미지 (picture source, max-width 640px) */
   imageMobile?: string;
   /** cover(기본 4:3 crop) | natural(원본 비율, width 100% / height auto) */

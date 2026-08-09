@@ -11,6 +11,7 @@ export function BlogSectionHeroImage({
   mobileSrc,
   layout = "cover",
   enableLightbox = false,
+  caption,
 }: {
   src: string;
   alt: string;
@@ -19,6 +20,8 @@ export function BlogSectionHeroImage({
   layout?: BlogSectionImageLayout;
   /** natural 레이아웃에서 클릭 확대 (기본 false — region-guide 등 기존 표시 유지) */
   enableLightbox?: boolean;
+  /** 섹션 히어로 이미지 캡션 */
+  caption?: string;
 }) {
   const [failed, setFailed] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -26,28 +29,36 @@ export function BlogSectionHeroImage({
   if (!src.trim() || failed) return null;
 
   const isContentAsset = src.includes("/promo-assets/blog/content/");
+  const captionText = caption?.trim() || "";
 
   if (isContentAsset) {
     const desktop = src;
     const mobile = mobileSrc?.trim() || src;
     return (
-      <div className="mb-6 overflow-x-auto overflow-y-hidden rounded-2xl border border-stone-200/80 bg-white">
-        <picture>
-          <source media="(max-width: 640px)" srcSet={mobile} />
-          <source media="(min-width: 641px)" srcSet={desktop} />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={desktop}
-            alt={alt}
-            width={1600}
-            height={1080}
-            className="mx-auto h-auto max-h-[520px] w-full max-w-full object-contain"
-            loading="lazy"
-            decoding="async"
-            onError={() => setFailed(true)}
-          />
-        </picture>
-      </div>
+      <figure className="mb-6 overflow-hidden rounded-2xl border border-stone-200/80 bg-white">
+        <div className="overflow-x-auto overflow-y-hidden">
+          <picture>
+            <source media="(max-width: 640px)" srcSet={mobile} />
+            <source media="(min-width: 641px)" srcSet={desktop} />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={desktop}
+              alt={alt}
+              width={1600}
+              height={1080}
+              className="mx-auto h-auto max-h-[520px] w-full max-w-full object-contain"
+              loading="lazy"
+              decoding="async"
+              onError={() => setFailed(true)}
+            />
+          </picture>
+        </div>
+        {captionText ? (
+          <figcaption className="border-t border-stone-100 px-3 py-2 text-center text-sm text-stone-500">
+            {captionText}
+          </figcaption>
+        ) : null}
+      </figure>
     );
   }
 
@@ -83,7 +94,11 @@ export function BlogSectionHeroImage({
               onImageError={() => setFailed(true)}
             />
           )}
-          {enableLightbox ? (
+          {captionText ? (
+            <figcaption className="border-t border-stone-100 px-3 py-2 text-center text-sm text-stone-500">
+              {captionText}
+            </figcaption>
+          ) : enableLightbox ? (
             <figcaption className="border-t border-stone-100 px-3 py-2 text-center text-xs text-stone-500">
               이미지를 누르면 원본 크기로 확대됩니다
             </figcaption>
@@ -102,16 +117,23 @@ export function BlogSectionHeroImage({
   }
 
   return (
-    <div className="relative mb-6 aspect-[4/3] overflow-hidden rounded-2xl border border-stone-200/80 bg-stone-100">
-      <SafeContentImage
-        src={src}
-        alt={alt}
-        fill
-        className="object-cover"
-        sizes="(max-width: 768px) 100vw, 900px"
-        onImageError={() => setFailed(true)}
-      />
-    </div>
+    <figure className="relative mb-6 overflow-hidden rounded-2xl border border-stone-200/80 bg-stone-100">
+      <div className="relative aspect-[4/3]">
+        <SafeContentImage
+          src={src}
+          alt={alt}
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, 900px"
+          onImageError={() => setFailed(true)}
+        />
+      </div>
+      {captionText ? (
+        <figcaption className="border-t border-stone-100 bg-white px-3 py-2 text-center text-sm text-stone-500">
+          {captionText}
+        </figcaption>
+      ) : null}
+    </figure>
   );
 }
 

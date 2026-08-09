@@ -128,7 +128,7 @@ export const BLOG_THUMBNAIL_ALT_BY_SLUG: Record<string, string> = {
   "seoul-beginner-golf-best-5": "서울 근교 초보자 골프장 추천",
   "seoul-par3-golf-top-5": "서울 근교 파3 골프장 추천",
   "seoul-par3-practice-range-top-10": "서울 근교 파3 연습장 추천",
-  "seoul-nine-hole-beginner-golf-top-5": "서울 근교 6홀·9홀 골프장 8곳 비교 가이드 표지",
+  "seoul-nine-hole-beginner-golf-top-5": "서울 근교 9홀 골프장 10곳의 2인·노캐디·반복 18홀 비교 가이드 표지",
   "seoul-budget-golf-best-5": "서울 근교 가성비 골프장 추천",
   "incheon-golf-top-5": "인천 골프장 추천",
   "gapyeong-golf-best-6": "가평 골프장 추천",

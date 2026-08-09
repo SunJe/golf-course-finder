@@ -339,7 +339,7 @@ export function BlogPostBody({ post }: { post: BlogPost }) {
 
                     <BlogCourseCard
                       item={item}
-                      rank={index + 1}
+                      rank={post.showItemRank === false ? undefined : index + 1}
                       reasonsHeading={post.reasonsHeading}
                       variant={
                         item.courseCardVariant === "tournament" ||

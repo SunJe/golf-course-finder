@@ -134,6 +134,8 @@ export type BlogPost = {
   /** 카드 alt·추천 문구용 지역 라벨 (예: 가평, 인천) */
   blogRegionLabel?: string;
   /** 통계·추천 기준일 (YYYY-MM-DD) */
+  /** When true, do not inject DB price into course card chips for this post */
+  hidePrice?: boolean;
   dataCheckedAt?: string;
   /** 참고 자료 (가짜 URL 금지 — 확인된 항목만) */
   references?: BlogPostReference[];

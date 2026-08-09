@@ -20,6 +20,7 @@ export const SEOUL_NEAR_NINE_HOLE_PHASE2_POST: BlogPost = {
   blogRegionLabel: "서울 근교",
   reasonsHeading: "이용 조건 요약",
   showItemRank: false,
+  hidePrice: true,
   relatedPostSlugs: [
     "capital-region-two-person-golf-courses-10",
     "capital-region-no-caddie-golf-courses-10",
@@ -101,7 +102,7 @@ export const SEOUL_NEAR_NINE_HOLE_PHASE2_POST: BlogPost = {
     {
       title: "후기 반영 원칙",
       checkedAt: CHECKED_AT,
-      note: "Google 후기 10건 이상과 Naver 블로그 10건 이상을 교차해 두 개 이상의 독립 후기에서 반복된 이용 경험만 보조적으로 요약했습니다. 후기 문장은 복사하지 않았고 공식 운영 조건과 구분했습니다.",
+      note: "여러 이용 후기(검색·블로그·지도 후기)를 교차해 두 개 이상의 독립 후기에서 반복된 이용 경험만 보조적으로 요약했습니다. 후기 문장은 복사하지 않았고 공식 운영 조건과 구분했습니다.",
     },
     {
       title: "아세코밸리GC 교체 확인",
@@ -407,7 +408,7 @@ export const SEOUL_NEAR_NINE_HOLE_PHASE2_POST: BlogPost = {
     {
       heading: "실제 후기에서 반복된 이용 팁",
       body: [
-        "Google 후기와 Naver 블로그를 교차하면 9홀×2는 익숙해진 홀을 다시 공략하는 재미가 있지만 정규 18홀과 코스 변화의 체감이 다르다는 경험이 반복됩니다.",
+        "여러 이용 후기를 함께 보면, 9홀을 두 번 도는 방식은 익숙해진 홀을 다시 공략하는 재미가 있지만 정규 18홀과는 코스 변화의 체감이 다르다는 의견이 반복됩니다.",
         "2인 이용에서는 ‘예약 가능’보다 조인 여부와 인원 미달 비용이 만족도에 더 큰 영향을 줬다는 후기가 많았습니다. 예약 화면의 가능 인원만 보지 말고 3인·4인 기준 추가 비용까지 확인하는 편이 안전합니다.",
         "노캐디·셀프 라운드는 동반자끼리 편한 반면 카트 조작, 거리 판단, 클럽 준비와 진행 속도를 직접 관리해야 한다는 점이 반복해서 언급됩니다. 처음 이용하는 곳이라면 출발 전 카트와 로컬룰 설명을 충분히 듣는 것이 좋습니다.",
         "짧은 일정, 야간, 연습 라운드 수요가 자주 언급되지만 9홀이라고 무조건 쉽지는 않습니다. 좁은 홀, 해저드와 진행 압박은 코스마다 다르므로 난이도는 홀 수만으로 판단하지 마세요.",
@@ -437,7 +438,7 @@ export const SEOUL_NEAR_NINE_HOLE_PHASE2_POST: BlogPost = {
       heading: "마무리",
       body: [
         "서울 근교 9홀 골프장을 고를 때는 가까운 순서나 단순 가격보다 ‘9홀만’, ‘9홀 반복 18홀’, ‘2인·조인’, ‘캐디·노캐디’를 먼저 구분하세요. 같은 골프장도 날짜와 티타임에 따라 조건이 달라질 수 있습니다.",
-        "GolfMap의 `/collections/nine-hole`은 전국 9홀 코스를 넓게 찾는 목록이고, `/collections/near-seoul-nine-hole`은 서울 근교 후보를 위치 중심으로 좁히는 컬렉션입니다. 이 비교 글에서 운영 방식을 이해한 뒤 컬렉션과 각 GolfMap 상세 페이지에서 위치를 비교하세요.",
+        "GolfMap의 전국 9홀 골프장 컬렉션에서는 지역별 9홀 코스를 넓게 찾아볼 수 있고, 서울 근교 9홀 골프장 컬렉션에서는 접근성을 기준으로 후보를 좁혀볼 수 있습니다. 이 글에서 운영 방식을 확인한 뒤 컬렉션과 각 GolfMap 상세 페이지에서 위치를 비교해보세요.",
       ],
       items: [
         {

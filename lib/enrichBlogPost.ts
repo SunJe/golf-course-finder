@@ -238,9 +238,10 @@ function enrichCourseItem(
     post.blogRegionLabel ??
     resolveRegionLabel(post, course);
   const holeCount = item.holeCount ?? course?.holeCount;
-  const priceLabel =
-    item.priceLabel ??
-    (course && hasPrice(course) ? formatPriceRange(course) : undefined);
+  const priceLabel = post.hidePrice
+    ? undefined
+    : item.priceLabel ??
+      (course && hasPrice(course) ? formatPriceRange(course) : undefined);
   const operatingInfo =
     item.operatingInfo ?? (course ? formatOperatingInfo(course) : undefined);
   const courseType = course?.courseType;

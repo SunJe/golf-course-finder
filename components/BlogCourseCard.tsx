@@ -33,7 +33,7 @@ const NAVER_SEARCH_BUTTON_CLASS = `${BUTTON_BASE} border-emerald-200 bg-emerald-
 
 interface BlogCourseCardProps {
   item: BlogCourseItem;
-  rank: number;
+  rank?: number;
   variant?: "default" | "tournament";
   reasonsHeading?: string;
   tournamentContext?: {
@@ -113,11 +113,15 @@ export function BlogCourseCard({
     <article className="w-full overflow-hidden rounded-2xl border border-stone-200/90 bg-white shadow-sm">
       {/* 1. 순번 + 이름 + 주소/전화 */}
       <div className="px-4 pb-4 pt-4 sm:px-5 sm:pt-5">
-        <span className="inline-flex rounded-full bg-brand-100 px-2.5 py-0.5 text-xs font-bold text-brand-800">
-          #{rank}
-        </span>
+        {rank != null ? (
+          <span className="inline-flex rounded-full bg-brand-100 px-2.5 py-0.5 text-xs font-bold text-brand-800">
+            #{rank}
+          </span>
+        ) : null}
 
-        <h3 className="mt-3 text-lg font-bold leading-snug text-stone-900 sm:text-xl">
+        <h3
+          className={`${rank != null ? "mt-3" : ""} text-lg font-bold leading-snug text-stone-900 sm:text-xl`}
+        >
           {item.title}
         </h3>
 

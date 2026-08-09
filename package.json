@@ -91,6 +91,7 @@
     "generate:promo-images:sample": "tsx scripts/generatePromoImages.ts -- --sample",
     "render:promo-sample": "tsx scripts/renderPromoFromLayers.ts",
     "check:blog-posts": "tsx scripts/checkBlogPosts.ts",
+    "check:nine-hole-phase2": "tsx scripts/checkNineHolePhase2.ts",
     "generate:blog-thumbnails": "tsx scripts/generateBlogThumbnails.ts",
     "generate:blog-thumbnail-sources": "tsx scripts/generateBlogThumbnailSourcesOpenAI.ts",
     "normalize:blog-thumbnails": "tsx scripts/normalizeBlogThumbnails.ts",

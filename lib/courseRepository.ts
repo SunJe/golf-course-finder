@@ -1,8 +1,19 @@
 import type { Course } from "@/types/course";
 import type { GolfCourseRow } from "@/types/database";
 import { unstable_noStore as noStore } from "next/cache";
-import { mapGolfCourseRowToCourse } from "@/lib/courseMapper";
+import * as React from "react";
+import {
+  mapGolfCourseRowToCourse,
+  mapNearbyGolfCourseRowToCourse,
+  type NearbyGolfCourseRow,
+} from "@/lib/courseMapper";
 import { MOCK_COURSES } from "@/lib/mock";
+import {
+  getNearbyCourses,
+  searchNearbyCoursesAdaptive,
+  type NearbyCourseSearchDiagnostics,
+  type SphericalBoundingBox,
+} from "@/lib/nearbyCourses";
 import {
   assertProductionCourseDataset,
   isProductionDataMode,
@@ -10,6 +21,24 @@ import {
   rejectMockFallback,
 } from "@/lib/productionDataGuard";
 import { getSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
+
+const NEARBY_COURSE_SELECT = [
+  "id",
+  "name",
+  "region",
+  "city",
+  "address",
+  "latitude",
+  "longitude",
+  "hole_count",
+  "course_type",
+  "weekday_green_fee_min",
+  "tags",
+  "image_url",
+  "source",
+  "updated_at",
+  "price_min",
+].join(",");
 
 function getMockCourses(): Course[] {
   return MOCK_COURSES;
@@ -119,7 +148,7 @@ export async function getCoursesForStaticPages(): Promise<Course[]> {
   );
 }
 
-export async function getCourseById(id: string): Promise<Course | undefined> {
+async function getCourseByIdUncached(id: string): Promise<Course | undefined> {
   noStore();
   const supabase = getSupabaseClient();
   if (isSupabaseConfigured && supabase) {
@@ -151,6 +180,114 @@ export async function getCourseById(id: string): Promise<Course | undefined> {
   }
 
   return getMockCourses().find((course) => course.id === id);
+}
+
+/** Request-local React memoization shared by metadata and the page render. */
+export const getCourseById =
+  typeof React.cache === "function"
+    ? React.cache(getCourseByIdUncached)
+    : getCourseByIdUncached;
+
+function mapNearbyRows(rows: unknown[]): Course[] {
+  return rows.map((row) =>
+    mapNearbyGolfCourseRowToCourse(row as NearbyGolfCourseRow),
+  );
+}
+
+async function fetchNearbyRowsWithinBounds(
+  currentId: string,
+  bounds: SphericalBoundingBox,
+): Promise<Course[]> {
+  const supabase = getSupabaseClient();
+  if (!supabase) return [];
+
+  const rowsById = new Map<string, unknown>();
+  for (const longitudeRange of bounds.longitudeRanges) {
+    const { data, error } = await supabase
+      .from("golf_courses")
+      .select(NEARBY_COURSE_SELECT)
+      .neq("id", currentId)
+      .gte("latitude", bounds.minLatitude)
+      .lte("latitude", bounds.maxLatitude)
+      .gte("longitude", longitudeRange.min)
+      .lte("longitude", longitudeRange.max)
+      .order("name", { ascending: true });
+
+    if (error) throw new Error(error.message);
+    for (const row of (data ?? []) as unknown[]) {
+      rowsById.set(String((row as { id: unknown }).id), row);
+    }
+  }
+
+  return mapNearbyRows([...rowsById.values()]);
+}
+
+async function fetchAllNearbyRows(currentId: string): Promise<Course[]> {
+  const supabase = getSupabaseClient();
+  if (!supabase) return [];
+
+  const { data, error } = await supabase
+    .from("golf_courses")
+    .select(NEARBY_COURSE_SELECT)
+    .neq("id", currentId)
+    .order("name", { ascending: true });
+
+  if (error) throw new Error(error.message);
+  return mapNearbyRows((data ?? []) as unknown[]);
+}
+
+export interface NearbyCoursesForCourseResult {
+  courses: Course[];
+  diagnostics: NearbyCourseSearchDiagnostics;
+}
+
+export async function getNearbyCoursesForCourseWithDiagnostics(
+  current: Course,
+  limit = 6,
+): Promise<NearbyCoursesForCourseResult> {
+  noStore();
+  const supabase = getSupabaseClient();
+
+  if (isSupabaseConfigured && supabase) {
+    try {
+      return await searchNearbyCoursesAdaptive(current, {
+        fetchWithinBounds: (bounds) =>
+          fetchNearbyRowsWithinBounds(current.id, bounds),
+        fetchAll: () => fetchAllNearbyRows(current.id),
+      }, limit);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      warnRlsIfNeeded(message);
+      if (isProductionDataMode()) {
+        rejectMockFallback(
+          "getNearbyCoursesForCourse",
+          `Supabase fetch failed: ${message}`,
+        );
+      }
+      warnFallback(`Nearby course fetch failed: ${message}`);
+    }
+  } else if (isProductionDataMode()) {
+    rejectMockFallback("getNearbyCoursesForCourse", "Supabase env not configured");
+  } else {
+    warnFallback("Supabase env not configured for nearby courses");
+  }
+
+  return {
+    courses: getNearbyCourses(getMockCourses(), current, limit),
+    diagnostics: {
+      queryCount: 0,
+      candidateRows: [],
+      completedRadiusKm: null,
+      usedGlobalFallback: false,
+    },
+  };
+}
+
+export async function getNearbyCoursesForCourse(
+  current: Course,
+  limit = 6,
+): Promise<Course[]> {
+  return (await getNearbyCoursesForCourseWithDiagnostics(current, limit)).courses;
 }
 
 export async function getAllCourseIds(): Promise<string[]> {

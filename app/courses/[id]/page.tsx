@@ -1,8 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getCourseById, getAllCourseIds, getCourses } from "@/lib/courseRepository";
-import { getNearbyCourses } from "@/lib/nearbyCourses";
+import {
+  getCourseById,
+  getAllCourseIds,
+  getNearbyCoursesForCourse,
+} from "@/lib/courseRepository";
 import {
   buildCourseMetadata,
   buildNotFoundCourseMetadata,
@@ -47,8 +50,7 @@ export default async function CourseDetailPage({
   const pageOverride = getCoursePageOverride(course.id);
   const displayCourse = applyCoursePageOverride(course);
 
-  const allCourses = await getCourses();
-  const nearbyCourses = getNearbyCourses(allCourses, course, 6);
+  const nearbyCourses = await getNearbyCoursesForCourse(course, 6);
 
   const enrichment = getDisplayableCourseContentEnrichment(course.id);
   const visitKoreaGallery = resolveCourseVisitKoreaImages(course.id, enrichment);

@@ -48,15 +48,15 @@ export const COURSE_PAGE_OVERRIDES: Readonly<
     ],
   },
   "gc-9655898af6a6": {
-    seoTitle: "포웰CC 프린세스 18홀 그린피·예약·코스 안내 | 골프맵",
+    seoTitle: "포웰CC 프린세스 그린피·예약·코스 안내 | 골프맵",
     metaDescription:
-      "포웰CC 프린세스는 충남 공주의 EAST·WEST 18홀 대중제입니다. 공식 예약 일정과 그린피, 주소·전화번호, 코스 정보를 확인하세요.",
+      "포웰CC 프린세스의 EAST·WEST 코스와 공식 예약 일정, 변동 그린피, 주소·전화번호를 확인하세요.",
     bookingUrl: "https://www.princessgc.co.kr/reservation/golf",
     faq: [
       {
         question: "포웰CC 프린세스는 몇 홀인가요?",
         answer:
-          "공식 코스 안내에 EAST와 WEST 코스가 소개된 18홀 대중제 골프장입니다. 당일 운영 코스와 티잉 구역은 예약 정보에서 확인하세요.",
+          "공식 코스 안내에는 EAST와 WEST 코스가 소개됩니다. 실제 이용 홀 수와 당일 운영 코스는 예약 정보에서 확인하세요.",
       },
       {
         question: "포웰CC 프린세스는 어떻게 예약하나요?",
@@ -76,15 +76,15 @@ export const COURSE_PAGE_OVERRIDES: Readonly<
     ],
   },
   "gc-0665bc0c6cce": {
-    seoTitle: "고령 유니밸리CC 9홀 그린피·예약·코스 안내 | 골프맵",
+    seoTitle: "고령 유니밸리CC 그린피·예약·코스 안내 | 골프맵",
     metaDescription:
-      "고령 유니밸리CC는 경북 고령의 9홀 대중제입니다. 공식 예약 화면의 18홀 상품과 당일 전화 예약, 변동 그린피, 위치·전화번호를 확인하세요.",
+      "고령 유니밸리CC는 GolfMap에 9홀 대중제로 등록되어 있습니다. 공식 예약 화면에서 현재 18홀 상품과 이용 홀 수·그린피를 확인하세요.",
     bookingUrl: "https://www.univalley.co.kr/reservation/golf",
     faq: [
       {
         question: "고령 유니밸리CC는 몇 홀인가요?",
         answer:
-          "GolfMap 등록 코스는 9홀 대중제입니다. 공식 예약 화면에는 18홀 상품이 표시될 수 있으므로 동일 코스 반복 여부와 실제 이용 홀 수를 예약 전에 확인하세요.",
+          "GolfMap에는 9홀 대중제로 등록되어 있습니다. 공식 예약 화면에는 18홀 상품이 표시될 수 있으니 실제 이용 홀 수와 운영 방식은 예약 전에 확인하세요.",
       },
       {
         question: "고령 유니밸리CC는 어떻게 예약하나요?",
@@ -94,7 +94,7 @@ export const COURSE_PAGE_OVERRIDES: Readonly<
       {
         question: "고령 유니밸리CC 그린피는 얼마인가요?",
         answer:
-          "그린피는 시즌·요일·시간대와 이벤트에 따라 변동됩니다. 공식 예약 화면에서 선택한 티타임의 그린피와 카트비·노캐디 조건을 확인하세요.",
+          "그린피는 시즌·요일·시간대와 이벤트에 따라 변동됩니다. 공식 예약 화면에서 선택한 티타임의 그린피와 카트비·운영 조건을 확인하세요.",
       },
       {
         question: "고령 유니밸리CC 주소와 전화번호는 무엇인가요?",

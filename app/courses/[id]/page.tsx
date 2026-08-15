@@ -15,6 +15,11 @@ import { resolveCourseVisitKoreaImages } from "@/lib/enrichment/courseVisitKorea
 import RegionLinks from "@/components/RegionLinks";
 import HomeBlogCarousel from "@/components/portal/HomeBlogCarousel";
 import { getRelatedBlogPostsForCourse } from "@/lib/relatedBlogPosts";
+import CourseSeoFaq, { CourseFaqJsonLd } from "@/components/CourseSeoFaq";
+import {
+  applyCoursePageOverride,
+  getCoursePageOverride,
+} from "@/lib/seo/coursePageOverrides";
 
 export async function generateStaticParams() {
   const ids = await getAllCourseIds();
@@ -38,6 +43,9 @@ export default async function CourseDetailPage({
 }) {
   const course = await getCourseById(params.id);
   if (!course) notFound();
+
+  const pageOverride = getCoursePageOverride(course.id);
+  const displayCourse = applyCoursePageOverride(course);
 
   const allCourses = await getCourses();
   const nearbyCourses = getNearbyCourses(allCourses, course, 6);
@@ -66,13 +74,19 @@ export default async function CourseDetailPage({
 
   return (
     <>
-      <CourseJsonLd course={course} />
+      <CourseJsonLd course={displayCourse} />
+      {pageOverride ? (
+        <CourseFaqJsonLd courseId={course.id} items={pageOverride.faq} />
+      ) : null}
       <CourseDetail
-        course={toPublicCourse(course)}
+        course={toPublicCourse(displayCourse)}
         nearbyCourses={toPublicCourses(nearbyCourses)}
         enrichment={enrichment}
         visitKoreaGallery={visitKoreaGallery}
         blogSlot={blogSlot}
+        faqSlot={
+          pageOverride ? <CourseSeoFaq items={pageOverride.faq} /> : null
+        }
         regionSlot={<RegionLinks variant="card" className="mt-6" />}
       />
     </>

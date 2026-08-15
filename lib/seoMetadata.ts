@@ -17,6 +17,7 @@ import {
   SEO_IMAGE_WIDTH,
 } from "@/lib/seoImages";
 import { absoluteUrl, getNaverSiteVerification, getSiteUrl, siteConfig } from "@/lib/siteConfig";
+import { getCoursePageOverride } from "@/lib/seo/coursePageOverrides";
 
 const HOME_KEYWORDS = [
   "전국 골프장",
@@ -206,8 +207,11 @@ export function buildCourseDetailTitle(course: Course): string {
 
 export function buildCourseMetadata(course: Course): Metadata {
   const enrichment = getCourseContentEnrichment(course.id);
-  const title = buildCourseDetailTitle(course);
-  const description = buildCourseDetailDescription(course, enrichment);
+  const override = getCoursePageOverride(course.id);
+  const title = override?.seoTitle ?? buildCourseDetailTitle(course);
+  const description =
+    override?.metaDescription ??
+    buildCourseDetailDescription(course, enrichment);
   const url = absoluteUrl(`/courses/${course.id}`);
   const imagePath = getCourseSeoImagePath(course.id);
   const imageAlt = `${course.name} 골프장 정보 | ${siteConfig.siteName}`;

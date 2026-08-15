@@ -187,6 +187,7 @@ interface CourseDetailProps {
   enrichment?: CourseContentEnrichment | null;
   visitKoreaGallery?: CourseVisitKoreaImageSet | null;
   blogSlot?: React.ReactNode;
+  faqSlot?: React.ReactNode;
   regionSlot?: React.ReactNode;
 }
 
@@ -196,6 +197,7 @@ export default function CourseDetail({
   enrichment = null,
   visitKoreaGallery = null,
   blogSlot = null,
+  faqSlot = null,
   regionSlot = null,
 }: CourseDetailProps) {
   const router = useRouter();
@@ -452,6 +454,8 @@ export default function CourseDetail({
           </p>
         </div>
       </section>
+
+      {faqSlot}
 
       {/* 연락·지도·예약 */}
       <section className="mt-6 rounded-2xl border border-gray-200/80 bg-white p-4 shadow-sm sm:p-6">

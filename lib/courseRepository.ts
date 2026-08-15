@@ -21,6 +21,13 @@ import {
   rejectMockFallback,
 } from "@/lib/productionDataGuard";
 import { getSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
+import {
+  MAP_COURSE_SELECT,
+  mapGolfCourseRowToMapCourse,
+  toMapCourses,
+  type MapCourse,
+  type MapGolfCourseRow,
+} from "@/lib/mapCourse";
 
 const NEARBY_COURSE_SELECT = [
   "id",
@@ -131,6 +138,45 @@ export async function getCourses(): Promise<Course[]> {
     fallbackOrReject("getCourses", "Supabase env not configured or fetch failed"),
     "getCourses",
   );
+}
+
+/** Dynamic, narrow catalog for the browser-owned `/map` data request. */
+export async function getMapCourses(): Promise<MapCourse[]> {
+  noStore();
+  const supabase = getSupabaseClient();
+
+  if (isSupabaseConfigured && supabase) {
+    const { data, error } = await supabase
+      .from("golf_courses")
+      .select(MAP_COURSE_SELECT)
+      .order("name", { ascending: true });
+
+    if (error) {
+      warnRlsIfNeeded(error.message);
+      if (isProductionDataMode()) {
+        rejectMockFallback(
+          "getMapCourses",
+          `Supabase fetch failed: ${error.message}`,
+        );
+      }
+      warnFallback(`Map course fetch failed: ${error.message}`);
+    } else if (data && data.length > 0) {
+      const courses = (data as unknown as MapGolfCourseRow[]).map(
+        mapGolfCourseRowToMapCourse,
+      );
+      return finalizeCourses(courses, "getMapCourses");
+    } else if (isProductionDataMode()) {
+      rejectMockFallback("getMapCourses", "Supabase returned 0 rows");
+    } else {
+      warnFallback("Map course query returned 0 rows");
+    }
+  } else if (isProductionDataMode()) {
+    rejectMockFallback("getMapCourses", "Supabase env not configured");
+  } else {
+    warnFallback("Supabase env not configured for map courses");
+  }
+
+  return finalizeCourses(toMapCourses(getMockCourses()), "getMapCourses");
 }
 
 /** SSG/ISR region landing 등 정적 생성용 — noStore 없이 fetch */

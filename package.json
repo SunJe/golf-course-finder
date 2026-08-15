@@ -98,6 +98,7 @@
     "import:blog-thumbnail-sources": "tsx scripts/importBlogThumbnailSources.ts",
     "check:blog-thumbnails": "tsx scripts/checkBlogThumbnailDimensions.ts",
     "check:course-page-overrides": "tsx scripts/checkCoursePageOverrides.ts",
+    "check:course-detail-fetch-phase1": "tsx scripts/checkCourseDetailFetchPhase1.ts",
     "fetch:visit-korea-incheon-golf": "tsx scripts/fetchVisitKoreaIncheonGolf.ts",
     "fetch:visit-korea-gapyeong-golf": "tsx scripts/fetchVisitKoreaGapyeongGolf.ts",
     "fetch:visit-korea-goyang-golf": "tsx scripts/fetchVisitKoreaGoyangGolf.ts",

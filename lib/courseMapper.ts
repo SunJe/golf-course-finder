@@ -96,6 +96,48 @@ export function mapGolfCourseRowToCourse(row: GolfCourseRow): Course {
   };
 }
 
+export type NearbyGolfCourseRow = Pick<
+  GolfCourseRow,
+  | "id"
+  | "name"
+  | "region"
+  | "city"
+  | "address"
+  | "latitude"
+  | "longitude"
+  | "hole_count"
+  | "course_type"
+  | "weekday_green_fee_min"
+  | "tags"
+  | "image_url"
+  | "source"
+  | "updated_at"
+  | "price_min"
+>;
+
+/** Maps only the columns required by course-detail nearby cards and markers. */
+export function mapNearbyGolfCourseRowToCourse(
+  row: NearbyGolfCourseRow,
+): Course {
+  return {
+    id: row.id,
+    name: row.name,
+    region: row.region,
+    city: row.city?.trim() || row.region,
+    address: row.address,
+    latitude: row.latitude,
+    longitude: row.longitude,
+    holeCount: toOptionalNumber(row.hole_count),
+    courseType: toCourseType(row.course_type),
+    weekdayGreenFeeMin: toOptionalNumber(row.weekday_green_fee_min),
+    tags: toTags(row.tags),
+    imageUrl: toOptionalString(row.image_url),
+    source: toCourseSource(row.source),
+    updatedAt: toUpdatedAt(row.updated_at),
+    priceMin: toOptionalNumber(row.price_min),
+  };
+}
+
 /** Course → DB insert/update row */
 export function mapCourseToGolfCourseRow(course: Course): GolfCourseRow {
   return {

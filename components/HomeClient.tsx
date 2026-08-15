@@ -3,6 +3,7 @@
 import { useMemo, useState, useCallback, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import type { Course, CourseFilters } from "@/types/course";
+import type { MapCourse } from "@/lib/mapCourse";
 import type { MapFocusTarget } from "@/types/map";
 import { EMPTY_FILTERS } from "@/types/course";
 import { filterCourses, countActiveFilters } from "@/lib/filterCourses";
@@ -300,7 +301,7 @@ export default function HomeClient({
   initialFilters,
   initialView,
 }: {
-  courses: Course[];
+  courses: MapCourse[];
   initialRegionSlug?: string;
   initialCollectionSlug?: CollectionSlug;
   initialFilters?: CourseFilters;
@@ -326,7 +327,7 @@ function HomeClientInner({
   initialFilters,
   initialView = "map",
 }: {
-  courses: Course[];
+  courses: MapCourse[];
   initialRegionSlug?: string;
   initialCollectionSlug?: CollectionSlug;
   initialFilters?: CourseFilters;

@@ -1,22 +1,18 @@
-import { getCourses } from "@/lib/courseRepository";
-import { toHomeCourses } from "@/lib/homeCourse";
-import HomeClient from "@/components/HomeClient";
+import MapDataLoader from "@/components/MapDataLoader";
 import { buildMapMetadata } from "@/lib/seoMetadata";
 import { parseMapUrlState } from "@/lib/mapUrlState";
 
 export const metadata = buildMapMetadata();
 
-export default async function MapPage({
+export default function MapPage({
   searchParams,
 }: {
   searchParams?: Record<string, string | string[] | undefined>;
 }) {
-  const courses = toHomeCourses(await getCourses());
   const parsed = parseMapUrlState(searchParams ?? {});
 
   return (
-    <HomeClient
-      courses={courses}
+    <MapDataLoader
       initialRegionSlug={parsed.regionSlug}
       initialCollectionSlug={parsed.collectionSlug}
       initialFilters={parsed.filters}

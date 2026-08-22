@@ -11,6 +11,14 @@ const wwwBase = (process.env.WWW_URL || "https://www.golfmap.kr").replace(
   /\/$/,
   "",
 );
+const expectedMapCount = Number(process.env.EXPECTED_MAP_COUNT || "532");
+
+if (!Number.isInteger(expectedMapCount) || expectedMapCount <= 0) {
+  console.error(
+    `cf:cutover-smoke: invalid EXPECTED_MAP_COUNT=${process.env.EXPECTED_MAP_COUNT}`,
+  );
+  process.exit(1);
+}
 
 const paths = [
   "/",
@@ -40,11 +48,8 @@ async function fetchOnce(url, { redirect = "manual" } = {}) {
   return { response, body, type };
 }
 
-function extractMapTotal(html) {
-  const match = html.match(/전체 골프장[^0-9]*([0-9]{2,4})곳/);
-  if (match) return Number(match[1]);
-  const ids = html.match(/gc-[a-f0-9]{12}/gi) || [];
-  return new Set(ids.map((x) => x.toLowerCase())).size || null;
+function containsCourseId(html) {
+  return /gc-[a-f0-9]{12}/i.test(html);
 }
 
 for (const pathname of paths) {
@@ -72,8 +77,9 @@ for (const pathname of paths) {
     }
   }
   if (pathname === "/map") {
-    const count = extractMapTotal(body);
-    if (count !== 532) errors.push(`mapCount=${count}`);
+    if (containsCourseId(body)) {
+      errors.push("initial course catalog present");
+    }
     if (body.includes("강남 센트럴 골프클럽")) {
       errors.push("fallback mock present");
     }
@@ -87,6 +93,66 @@ for (const pathname of paths) {
     status: response.status,
     server,
     cfRay: Boolean(cfRay),
+    errors: errors.join("; "),
+  });
+  if (errors.length) failures.push(`${pathname}: ${errors.join("; ")}`);
+}
+
+// PR #30: /map starts without the course catalog and loads its narrow DTOs
+// from this API. Keep the Production dataset expectation configurable through
+// the same EXPECTED_MAP_COUNT convention used by the parity smoke.
+{
+  const pathname = "/api/map/courses";
+  const { response, body, type } = await fetchOnce(
+    `${productionBase}${pathname}`,
+    { redirect: "follow" },
+  );
+  const errors = [];
+  let courses = null;
+
+  if (response.status !== 200) {
+    errors.push(`status=${response.status}`);
+  }
+  if (!type.includes("json")) {
+    errors.push(`content-type=${type || "missing"}`);
+  }
+
+  try {
+    courses = JSON.parse(body);
+  } catch {
+    errors.push("invalid JSON");
+  }
+
+  if (courses !== null && !Array.isArray(courses)) {
+    errors.push("JSON root is not an array");
+  }
+
+  if (Array.isArray(courses)) {
+    if (courses.length !== expectedMapCount) {
+      errors.push(
+        `courseCount=${courses.length} expected=${expectedMapCount}`,
+      );
+    }
+
+    const ids = courses.map((course) => course?.id);
+    const validIds = ids.filter(
+      (id) => typeof id === "string" && id.length > 0,
+    );
+    if (validIds.length !== courses.length) {
+      errors.push(`invalidIds=${courses.length - validIds.length}`);
+    }
+
+    const duplicateCount = validIds.length - new Set(validIds).size;
+    if (duplicateCount > 0) {
+      errors.push(`duplicateIds=${duplicateCount}`);
+    }
+  }
+
+  rows.push({
+    pathname,
+    status: response.status,
+    server: response.headers.get("server") || "",
+    cfRay: Boolean(response.headers.get("cf-ray")),
     errors: errors.join("; "),
   });
   if (errors.length) failures.push(`${pathname}: ${errors.join("; ")}`);

@@ -61,11 +61,6 @@ const GEAR_SLUGS = new Set([
 
 const PRICE_DISCLAIMER = "가격과 재고는 변동될 수 있습니다";
 const BLOG_POST_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
-const EXPECTED_HOME_BLOG_SLUGS = [
-  "capital-region-two-person-golf-courses-10",
-  "capital-region-no-caddie-golf-courses-10",
-  "seoul-one-hour-public-golf-courses-12",
-] as const;
 
 function postCharCount(post: BlogPost): number {
   let total = post.title.length + post.description.length;
@@ -104,6 +99,13 @@ function isValidBlogPostDate(value: string): boolean {
     !Number.isNaN(parsed.valueOf()) &&
     parsed.toISOString().slice(0, 10) === value
   );
+}
+
+function compareHomeBlogPriority(a: BlogPost, b: BlogPost): number {
+  const dateOrder = b.date.localeCompare(a.date);
+  if (dateOrder !== 0) return dateOrder;
+  if (a.slug === b.slug) return 0;
+  return a.slug < b.slug ? 1 : -1;
 }
 
 function main(): void {
@@ -169,13 +171,26 @@ function main(): void {
     );
   }
 
-  const originalOrder = BLOG_POSTS.map((post) => post.slug);
+  const originalOrder = [...BLOG_POSTS];
   const homePosts = getHomeBlogPosts();
   const repeatedHomePosts = getHomeBlogPosts();
   const homeSlugs = homePosts.map((post) => post.slug);
+  const selectedPosts = new Set(homePosts);
+  const selectedSlugs = new Set(homeSlugs);
+  const expectedHomePostCount = Math.min(3, BLOG_POSTS.length);
 
-  if (homePosts.length !== 3) {
-    fail(`Expected 3 home blog posts, got ${homePosts.length}`);
+  if (homePosts.length !== expectedHomePostCount) {
+    fail(
+      `Expected ${expectedHomePostCount} home blog posts, got ${homePosts.length}`,
+    );
+  }
+  for (const post of homePosts) {
+    if (!BLOG_POSTS.includes(post)) {
+      fail(`Home blog post is not in BLOG_POSTS: ${post.slug}`);
+    }
+  }
+  if (selectedSlugs.size !== homePosts.length) {
+    fail("Home blog posts contain duplicate slugs");
   }
   for (let index = 1; index < homePosts.length; index += 1) {
     if (homePosts[index - 1].date < homePosts[index].date) {
@@ -188,17 +203,29 @@ function main(): void {
       fail("Same-date home blog posts are not sorted by slug descending");
     }
   }
-  if (homeSlugs.join("|") !== EXPECTED_HOME_BLOG_SLUGS.join("|")) {
-    fail(`Unexpected home blog posts: ${homeSlugs.join(", ")}`);
+
+  const lastSelectedPost = homePosts.at(-1);
+  if (lastSelectedPost) {
+    const omittedHigherPriorityPost = BLOG_POSTS.find(
+      (post) =>
+        !selectedPosts.has(post) &&
+        compareHomeBlogPriority(post, lastSelectedPost) < 0,
+    );
+    if (omittedHigherPriorityPost) {
+      fail(
+        `Higher-priority post omitted from home: ${omittedHigherPriorityPost.slug}`,
+      );
+    }
   }
   if (
-    repeatedHomePosts.map((post) => post.slug).join("|") !==
-    homeSlugs.join("|")
+    repeatedHomePosts.length !== homePosts.length ||
+    repeatedHomePosts.some((post, index) => post !== homePosts[index])
   ) {
     fail("Home blog post selection is not deterministic");
   }
   if (
-    BLOG_POSTS.map((post) => post.slug).join("|") !== originalOrder.join("|")
+    BLOG_POSTS.length !== originalOrder.length ||
+    BLOG_POSTS.some((post, index) => post !== originalOrder[index])
   ) {
     fail("getHomeBlogPosts mutated BLOG_POSTS order");
   }

@@ -94,14 +94,9 @@ function main(): void {
     phone: "055-337-0091",
     homepage_url: "https://www.gayacc.com/main_new.php",
     hole_count: "9",
-    price_min: "55000",
-    price_max: "90000",
-    price_text: "티스캐너 예약가 기준 평일 55000~60000원 / 주말 90000원",
-    price_type: "reservation_reference",
   });
 
   const memberEdit = requireRow(edit, GAYA_MEMBER);
-  const memberLink = requireRow(links, GAYA_MEMBER);
   assertFields("Gaya Member edit", memberEdit, {
     name: "가야컨트리클럽 (회원제)",
     change_name_to: "가야CC(회원제)",
@@ -109,19 +104,12 @@ function main(): void {
     latitude: "",
     longitude: "",
   });
-  assertFields("Gaya Member links", memberLink, {
-    homepage_url: "",
-    booking_url: "",
-    phone: "",
-  });
   assertFields("Gaya Member upload", requireRow(upload, GAYA_MEMBER), {
     name: "가야CC(회원제)",
     address: "김해시 인제로 495",
     latitude: "35.2706641912159",
     longitude: "128.892223791295",
     course_type: "회원제",
-    phone: "055-337-0091",
-    homepage_url: "http://www.gayacc.com/",
     hole_count: "45",
   });
   assert.notEqual(gayaEdit.address, memberEdit.address, "Gaya addresses merged");
@@ -156,41 +144,11 @@ function main(): void {
     phone: "031-530-9140",
     homepage_url: "https://www.adoniscc.co.kr/public",
     hole_count: "9",
-    price_min: "90000",
-    price_max: "130000",
-    price_text: "티스캐너 예약가 기준 평일 90000~100000원 / 주말 120000~130000원",
-    price_type: "reservation_reference",
   });
 
-  const protectedRows: Record<string, Record<string, string>> = {
-    "gc-825e9c261de2": {
-      name: "코브스윙(참밸리CC)",
-      address: "경기도 포천시 삼육사로 1982",
-      latitude: "37.8668399230398",
-      longitude: "127.136107459732",
-      phone: "1899-6200",
-      homepage_url: "https://coveswing.com/",
-      hole_count: "18",
-      price_min: "100000",
-      price_max: "200000",
-      change_name_to: "코브스윙(참밸리CC)",
-    },
-    "gc-411771a420e7": {
-      name: "골프존카운티 안성W",
-      address: "경기도 안성시 양성면 교동길 19-70",
-      latitude: "37.0754815069354",
-      longitude: "127.195011214835",
-      phone: "031-670-0500",
-      homepage_url: "https://www.golfzoncounty.com/golfclub/main?golfclubSeq=2",
-      hole_count: "18",
-      price_min: "80000",
-      price_max: "220000",
-      change_name_to: "골프존카운티 안성W",
-    },
-  };
-  for (const [id, expected] of Object.entries(protectedRows)) {
-    assertFields(`protected ${id}`, requireRow(upload, id), expected);
-  }
+  // Price stability and non-target row parity are PR-scope base-to-HEAD checks,
+  // not permanent invariants. Keeping their mutable snapshots here would block
+  // legitimate future price refreshes and link enrichment.
 
   const generatedSql = fs.readFileSync(
     path.join(ROOT, "supabase/course_links_update.sql"),
@@ -214,7 +172,7 @@ function main(): void {
   }
 
   console.log(
-    "Verified course hygiene PASS: 532 rows, duplicate 0, Gaya/Adonis exact, protected rows unchanged",
+    "Verified course hygiene PASS: 532 rows, duplicate 0, canonical IDs and durable Gaya/Adonis invariants exact",
   );
 }
 

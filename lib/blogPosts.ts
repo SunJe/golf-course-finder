@@ -144,11 +144,7 @@ export type BlogPost = {
   sections: BlogPostSection[];
 };
 
-export const HOME_BLOG_SLUGS = [
-  "seoul-beginner-golf-best-5",
-  "seoul-par3-practice-range-top-10",
-  "golf-ball-type-guide",
-] as const;
+const HOME_BLOG_POST_LIMIT = 3;
 
 const CATEGORY_LABELS: Record<BlogPostCategory, string> = {
   "course-guide": "코스 가이드",
@@ -3893,13 +3889,14 @@ export function getBlogPostBySlug(slug: string): BlogPost | undefined {
 }
 
 export function getHomeBlogPosts(): BlogPost[] {
-  return HOME_BLOG_SLUGS.map((slug) => {
-    const post = getBlogPostBySlug(slug);
-    if (!post) {
-      throw new Error(`Home blog post not found: ${slug}`);
-    }
-    return post;
-  });
+  return [...BLOG_POSTS]
+    .sort((a, b) => {
+      const dateOrder = b.date.localeCompare(a.date);
+      if (dateOrder !== 0) return dateOrder;
+      if (a.slug === b.slug) return 0;
+      return a.slug < b.slug ? 1 : -1;
+    })
+    .slice(0, HOME_BLOG_POST_LIMIT);
 }
 
 /** @deprecated use getAllBlogPosts */

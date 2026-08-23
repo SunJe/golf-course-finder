@@ -13,7 +13,7 @@ export default function HomeBlogSection() {
       className="border-t border-stone-100 bg-stone-50/30"
       containerVariant="narrow"
     >
-      <HomeBlogCarousel posts={posts.slice(0, 3)} />
+      <HomeBlogCarousel posts={posts} />
       <div className="mt-5">
         <Link
           href="/blog"

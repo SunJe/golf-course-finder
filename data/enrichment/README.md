@@ -474,6 +474,29 @@ npm run generate:course-enrichment-edit
 
 | 빈 row (url/phone 없음) | SQL UPDATE skip |
 
+### 가격 데이터 소유권과 재현 가능한 full-set build
+
+- `course_enrichment_edit.csv`의 `price_min`, `price_max`, `price_text`,
+  `price_type`이 승인된 가격의 **tracked durable source-of-truth**입니다.
+- `teescanner_price_daily_results.csv`,
+  `teescanner_price_course_summary.csv`, 실행 로그와 스크린샷은 collector의
+  **runtime output**이며 Production build 입력이 아닙니다.
+- TeeScanner 결과는 `collect → human review → apply review decisions →
+  merge:teescanner-prices --apply-csv` 절차로 승인된 뒤 반드시
+  `course_enrichment_edit.csv`에 저장해야 합니다.
+- `npm run build:golf-full-set`은 Git에 tracked된 입력만 사용해야 합니다.
+  ignored runtime output의 존재 여부가
+  `golf_courses_supabase_upload.csv`를 바꾸면 안 됩니다.
+- `golf_courses_full_set.csv`의 TeeScanner 수집 진단 열은 Production upload에
+  사용하지 않으며, 재현할 tracked source가 없는 값은 빈 값으로 정규화합니다.
+- clean clone에서도 같은 commit과 같은 tracked inputs는 byte-identical output을
+  생성해야 합니다. 아래 guard로 532 rows, duplicate ID, 두 번 build 결과와
+  ignored summary 유무의 무관성을 확인합니다.
+
+```bash
+npm run check:golf-full-set-reproducibility
+```
+
 ## 업로드용 CSV / Supabase SQL 생성
 
 ```bash

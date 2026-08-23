@@ -11,6 +11,7 @@ const ROOT = getProjectRoot();
 
 const PATHS = {
   master: path.join(ROOT, "data/enrichment/course_enrichment_edit.csv"),
+  courseLinks: path.join(ROOT, "data/enrichment/course_links.csv"),
   importGeocoded: path.join(ROOT, "data/golf_courses_import_geocoded_final.csv"),
   import: path.join(ROOT, "data/golf_courses_import.csv"),
   publicRaw: path.join(ROOT, "data/raw/golf_courses_public.csv"),
@@ -159,6 +160,7 @@ function buildRows(): {
   };
   const importMap = loadCsvById(PATHS.importGeocoded) ?? loadCsvById(PATHS.import);
   const importByName = loadCsvByNormalizedName(PATHS.importGeocoded);
+  const courseLinksMap = loadCsvById(PATHS.courseLinks);
 
   const fullSetRows: string[][] = [];
   const supabaseRows: string[][] = [];
@@ -166,6 +168,7 @@ function buildRows(): {
   for (const master of masterRows) {
     const importRow =
       importMap?.get(master.id) ?? importByName.get(normalizeCourseName(master.name));
+    const courseLinksRow = courseLinksMap?.get(master.id);
     // Approved prices are durable data owned by course_enrichment_edit.csv.
     // Ignored collector outputs must never affect tracked build artifacts.
     const priceMin = master.priceMin;
@@ -185,8 +188,10 @@ function buildRows(): {
       region: getField(importRow, ["region"]),
       city: getField(importRow, ["city"]),
       address: master.address || getField(importRow, ["address"]),
-      latitude: getField(importRow, ["latitude"]),
-      longitude: getField(importRow, ["longitude"]),
+      latitude:
+        getMasterCell(master.id, "latitude") || getField(importRow, ["latitude"]),
+      longitude:
+        getMasterCell(master.id, "longitude") || getField(importRow, ["longitude"]),
       courseType: getField(importRow, ["course_type", "courseType"]),
       holes: getField(importRow, ["holes", "hole_count", "total_holes"]),
       hole_count: getField(importRow, ["hole_count", "holes", "total_holes"]),
@@ -196,8 +201,12 @@ function buildRows(): {
         "course_type",
         "public_private",
       ]),
-      phone: getMasterCell(master.id, "phone") || getField(importRow, ["phone"]),
+      phone:
+        getField(courseLinksRow, ["phone"]) ||
+        getMasterCell(master.id, "phone") ||
+        getField(importRow, ["phone"]),
       website:
+        getField(courseLinksRow, ["homepage_url"]) ||
         getMasterCell(master.id, "homepage_url") ||
         getField(importRow, ["homepage_url", "website"]),
       difficulty:

@@ -21,6 +21,7 @@ const TRACKED_UPLOAD = path.join(
 );
 const TRACKED_INPUTS = [
   "data/enrichment/course_enrichment_edit.csv",
+  "data/enrichment/course_links.csv",
   "data/golf_courses_import_geocoded_final.csv",
   "data/golf_courses_import.csv",
 ] as const;

@@ -459,6 +459,10 @@ npm run generate:course-enrichment-edit
 ```
 
 - `data/enrichment/course_enrichment_edit.csv` — **532 rows**, 단일 편집용
+- 기존 canonical ID는 immutable입니다. 검증된 name/address/coordinate 교정은
+  ID를 다시 hash하지 않고 enrichment overlay로 적용합니다.
+- `address`와 optional `latitude` / `longitude`는 이 파일이 소유합니다.
+  좌표가 비어 있으면 immutable import baseline 좌표를 사용합니다.
 - `candidate_*` / `manual_*` 컬럼 **없음**
 - `change_name_to` — 최종 표시 이름 변경용 (비어 있으면 `name` 사용)
 - 크롤링 후보값이 `phone`, `homepage_url`, `price_*`, `difficulty`, `avg_score` 등에 이미 채워짐
@@ -496,6 +500,19 @@ npm run generate:course-enrichment-edit
 ```bash
 npm run check:golf-full-set-reproducibility
 ```
+
+### Core와 link/contact field ownership
+
+- `data/golf_courses_import_geocoded_final.csv`: 기존 532개 identity/geocode
+  baseline. 기존 row 교정을 위해 수정하거나 ID를 재생성하지 않습니다.
+- `course_enrichment_edit.csv`: name/change_name_to, address, optional verified
+  latitude/longitude, difficulty, price 및 core/manual enrichment 소유자입니다.
+- `course_links.csv`: phone, homepage_url, booking_url의 authoritative owner입니다.
+- Full-set builder의 phone/homepage 우선순위는 `course_links → legacy
+  course_enrichment_edit → import baseline`입니다.
+- booking_url은 full 532-row upload에 추가하지 않고 기존
+  `course_links.csv → generate:course-links-sql` 전용 경로를 유지합니다.
+- Production Supabase는 runtime state이며 authoring source가 아닙니다.
 
 ## 업로드용 CSV / Supabase SQL 생성
 

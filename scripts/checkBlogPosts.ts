@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import {
   BLOG_POSTS,
-  HOME_BLOG_SLUGS,
+  getHomeBlogPosts,
   type BlogPost,
   type BlogPostCategory,
 } from "../lib/blogPosts";
@@ -60,6 +60,12 @@ const GEAR_SLUGS = new Set([
 ]);
 
 const PRICE_DISCLAIMER = "가격과 재고는 변동될 수 있습니다";
+const BLOG_POST_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+const EXPECTED_HOME_BLOG_SLUGS = [
+  "capital-region-two-person-golf-courses-10",
+  "capital-region-no-caddie-golf-courses-10",
+  "seoul-one-hour-public-golf-courses-12",
+] as const;
 
 function postCharCount(post: BlogPost): number {
   let total = post.title.length + post.description.length;
@@ -91,6 +97,15 @@ function checkThumbnailExists(thumbnail: string): void {
   }
 }
 
+function isValidBlogPostDate(value: string): boolean {
+  if (!BLOG_POST_DATE_PATTERN.test(value)) return false;
+  const parsed = new Date(`${value}T00:00:00Z`);
+  return (
+    !Number.isNaN(parsed.valueOf()) &&
+    parsed.toISOString().slice(0, 10) === value
+  );
+}
+
 function main(): void {
   console.log("[check:blog-posts] Validating blog posts…");
 
@@ -105,6 +120,10 @@ function main(): void {
 
   for (const post of BLOG_POSTS) {
     CATEGORY_COUNTS[post.category] += 1;
+
+    if (!isValidBlogPostDate(post.date)) {
+      fail(`${post.slug}: invalid date ${post.date}; expected YYYY-MM-DD`);
+    }
 
     const chars = postCharCount(post);
     if (chars < MIN_CHARS) {
@@ -150,8 +169,38 @@ function main(): void {
     );
   }
 
-  for (const slug of HOME_BLOG_SLUGS) {
-    if (!slugs.has(slug)) fail(`Home blog slug missing from posts: ${slug}`);
+  const originalOrder = BLOG_POSTS.map((post) => post.slug);
+  const homePosts = getHomeBlogPosts();
+  const repeatedHomePosts = getHomeBlogPosts();
+  const homeSlugs = homePosts.map((post) => post.slug);
+
+  if (homePosts.length !== 3) {
+    fail(`Expected 3 home blog posts, got ${homePosts.length}`);
+  }
+  for (let index = 1; index < homePosts.length; index += 1) {
+    if (homePosts[index - 1].date < homePosts[index].date) {
+      fail("Home blog posts are not sorted by date descending");
+    }
+    if (
+      homePosts[index - 1].date === homePosts[index].date &&
+      homePosts[index - 1].slug < homePosts[index].slug
+    ) {
+      fail("Same-date home blog posts are not sorted by slug descending");
+    }
+  }
+  if (homeSlugs.join("|") !== EXPECTED_HOME_BLOG_SLUGS.join("|")) {
+    fail(`Unexpected home blog posts: ${homeSlugs.join(", ")}`);
+  }
+  if (
+    repeatedHomePosts.map((post) => post.slug).join("|") !==
+    homeSlugs.join("|")
+  ) {
+    fail("Home blog post selection is not deterministic");
+  }
+  if (
+    BLOG_POSTS.map((post) => post.slug).join("|") !== originalOrder.join("|")
+  ) {
+    fail("getHomeBlogPosts mutated BLOG_POSTS order");
   }
 
   console.log("[check:blog-posts] OK — 32 posts, categories, thumbnails, content length");

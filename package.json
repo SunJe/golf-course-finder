@@ -40,6 +40,7 @@
     "audit:teescanner-crawl-plan": "tsx scripts/auditTeescannerCrawlPlan.ts",
     "approve:teescanner-manual-prices": "tsx scripts/approveTeescannerManualReviewPrices.ts",
     "build:golf-full-set": "tsx scripts/buildGolfCourseFullSetCsv.ts",
+    "check:golf-full-set-reproducibility": "tsx scripts/checkGolfFullSetReproducibility.ts",
     "audit:golf-supabase-upload": "tsx scripts/auditGolfCoursesSupabaseUpload.ts",
     "backup:supabase-golf-courses": "tsx scripts/backupSupabaseGolfCourses.ts",
     "apply:golf-supabase-upload": "tsx scripts/applyGolfCoursesSupabaseUpload.ts",

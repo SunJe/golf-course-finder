@@ -38,6 +38,18 @@ const EXPECTED_OVERRIDES = {
     courseName: "고령 유니밸리CC",
     bookingHostname: "www.univalley.co.kr",
   },
+  "gc-496303f3c77c": {
+    courseName: "영종 오렌지듄스CC",
+    bookingHostname: "www.orangedunesyj.com",
+  },
+  "gc-f7e7bf534d31": {
+    courseName: "영천 오션힐스CC",
+    bookingHostname: "www.oceanhills.com",
+  },
+  "gc-783a937fe067": {
+    courseName: "엠스클럽 의성CC",
+    bookingHostname: "www.clublonge.com",
+  },
 } as const;
 
 const LEGACY_OVERRIDE_SHA256 = {
@@ -58,6 +70,9 @@ const MUTABLE_PRICE_TARGET_IDS = [
   "gc-e2614722e86e",
   "gc-9bd0f98bfdee",
   "gc-411771a420e7",
+  "gc-496303f3c77c",
+  "gc-f7e7bf534d31",
+  "gc-783a937fe067",
 ] as const;
 
 const NON_TARGET_REGRESSION_IDS = [
@@ -142,7 +157,7 @@ if (
   actualIds.length !== expectedIds.length ||
   actualIds.some((id, index) => id !== expectedIds[index])
 ) {
-  errors.push("기대 override ID 7개와 실제 override ID 집합이 다릅니다.");
+  errors.push("기대 override ID 10개와 실제 override ID 집합이 다릅니다.");
 }
 
 for (const [id, expectedHash] of Object.entries(LEGACY_OVERRIDE_SHA256)) {
@@ -193,6 +208,46 @@ if (
   )
 ) {
   errors.push("안성W에 상시 노캐디/셀프를 주장하는 문구가 있습니다.");
+}
+
+const orange = COURSE_PAGE_OVERRIDES["gc-496303f3c77c"];
+if (
+  orange.address !== "인천광역시 영종구 영종해안남로321번길 184" ||
+  orange.phone !== "032-745-3000" ||
+  orange.homepageUrl !== "https://www.orangedunesyj.com/"
+) {
+  errors.push("오렌지듄스 영종의 공식 주소·전화·홈페이지가 기대값과 다릅니다.");
+}
+const orangeText = JSON.stringify(orange);
+if (!orangeText.includes("18홀") || !orangeText.includes("추첨")) {
+  errors.push("오렌지듄스 영종 copy에는 18홀과 추첨 예약 안내가 필요합니다.");
+}
+
+const oceanHillsText = JSON.stringify(
+  COURSE_PAGE_OVERRIDES["gc-f7e7bf534d31"],
+);
+if (
+  !oceanHillsText.includes("27홀") ||
+  !oceanHillsText.includes("회원제") ||
+  !oceanHillsText.includes("정회원")
+) {
+  errors.push("오션힐스 영천 copy에는 27홀·회원제·정회원 예약 조건이 필요합니다.");
+}
+if (/대중제|퍼블릭/.test(oceanHillsText)) {
+  errors.push("오션힐스 영천을 대중제 또는 퍼블릭으로 표현하면 안 됩니다.");
+}
+
+const msClubText = JSON.stringify(
+  COURSE_PAGE_OVERRIDES["gc-783a937fe067"],
+);
+if (
+  !msClubText.includes("27홀") ||
+  !msClubText.includes("챔피언") ||
+  !msClubText.includes("마스터") ||
+  !msClubText.includes("챌린저") ||
+  !msClubText.includes("CLUB LONGE")
+) {
+  errors.push("엠스클럽 의성 copy에는 27홀 코스 구성과 통합예약 안내가 필요합니다.");
 }
 
 for (const id of MUTABLE_PRICE_TARGET_IDS) {

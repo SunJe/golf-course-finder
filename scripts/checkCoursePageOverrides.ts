@@ -7,6 +7,15 @@ import {
 import type { Course } from "@/types/course";
 
 const EXPECTED_OVERRIDES = {
+  "gc-63e74643a178": {
+    courseName: "더헤븐CC",
+    bookingHostname: "www.theheavenresort.com",
+  },
+  "gc-88fd5807de80": {
+    courseName: "알펜시아 700CC",
+    bookingHostname: "www.alpensia.com",
+    displayName: "알펜시아 700GC",
+  },
   "gc-825e9c261de2": {
     courseName: "코브스윙",
     bookingHostname: "www.coveswing.com",
@@ -66,6 +75,8 @@ const EXPECTED_IDS = Object.keys(EXPECTED_OVERRIDES) as Array<
 >;
 
 const MUTABLE_PRICE_TARGET_IDS = [
+  "gc-63e74643a178",
+  "gc-88fd5807de80",
   "gc-825e9c261de2",
   "gc-e2614722e86e",
   "gc-9bd0f98bfdee",
@@ -157,7 +168,7 @@ if (
   actualIds.length !== expectedIds.length ||
   actualIds.some((id, index) => id !== expectedIds[index])
 ) {
-  errors.push("기대 override ID 10개와 실제 override ID 집합이 다릅니다.");
+  errors.push("기대 override ID 집합과 실제 override ID 집합이 다릅니다.");
 }
 
 for (const [id, expectedHash] of Object.entries(LEGACY_OVERRIDE_SHA256)) {
@@ -248,6 +259,32 @@ if (
   !msClubText.includes("CLUB LONGE")
 ) {
   errors.push("엠스클럽 의성 copy에는 27홀 코스 구성과 통합예약 안내가 필요합니다.");
+}
+
+const heaven = COURSE_PAGE_OVERRIDES["gc-63e74643a178"];
+const heavenText = JSON.stringify(heaven);
+if (
+  !heavenText.includes("27홀") ||
+  !heavenText.includes("1533-1001") ||
+  heaven.homepageUrl !==
+    "https://www.theheavenresort.com/ISLANDRESORT/main.asp"
+) {
+  errors.push("더헤븐CC copy에는 공식 27홀·예약 연락처·홈페이지가 필요합니다.");
+}
+
+const alpensia = COURSE_PAGE_OVERRIDES["gc-88fd5807de80"];
+const alpensiaText = JSON.stringify(alpensia);
+if (
+  !alpensiaText.includes("18홀") ||
+  !alpensiaText.includes("파72") ||
+  !alpensiaText.includes("4주 전") ||
+  !alpensiaText.includes("2~3인 플레이가 불가") ||
+  alpensia.homepageUrl !==
+    "https://www.alpensia.com/golf/gc700/course-info.do"
+) {
+  errors.push(
+    "알펜시아 700GC copy에는 18홀·파72·예약 오픈·인원 조건이 필요합니다.",
+  );
 }
 
 for (const id of MUTABLE_PRICE_TARGET_IDS) {

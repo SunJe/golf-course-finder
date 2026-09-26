@@ -24,6 +24,78 @@ export type CoursePageOverride = {
 export const COURSE_PAGE_OVERRIDES: Readonly<
   Record<string, CoursePageOverride>
 > = {
+  "gc-63e74643a178": {
+    seoTitle: "더헤븐CC 27홀 그린피·공식예약·코스 안내 | 골프맵",
+    metaDescription:
+      "안산 대부도의 더헤븐CC는 바다로 둘러싸인 27홀 골프장입니다. 공식 골프 예약, 변동 그린피, 코스와 예약 전화번호를 확인하세요.",
+    bookingUrl:
+      "https://www.theheavenresort.com/html/reserve/reserve01_new.asp",
+    homepageUrl: "https://www.theheavenresort.com/ISLANDRESORT/main.asp",
+    searchAliases: [
+      "더헤븐CC",
+      "더헤븐GC",
+      "더헤븐 컨트리클럽",
+      "더헤븐골프클럽",
+    ],
+    faq: [
+      {
+        question: "더헤븐CC는 몇 홀인가요?",
+        answer:
+          "공식 컨트리클럽 안내 기준 3면이 바다로 둘러싸인 총 27홀 코스입니다. 당일 운영 코스와 조합은 예약 정보에서 확인하세요.",
+      },
+      {
+        question: "더헤븐CC는 어떻게 예약하나요?",
+        answer:
+          "공식 홈페이지의 골프 예약 메뉴에서 로그인 후 예약할 수 있습니다. 예약 가능 날짜와 남은 티타임은 공식 예약 화면에서 확인하세요.",
+      },
+      {
+        question: "더헤븐CC 그린피는 얼마인가요?",
+        answer:
+          "그린피는 날짜와 시간대, 이용 조건에 따라 달라질 수 있습니다. 공식 그린피 안내와 예약 화면에서 선택한 티타임의 최종 금액을 확인하세요.",
+      },
+      {
+        question: "더헤븐CC 주소와 예약 전화번호는 무엇인가요?",
+        answer:
+          "공식 홈페이지 기준 주소는 경기도 안산시 단원구 대선로 466이며, 골프 예약 문의는 1533-1001 또는 032-884-1004입니다.",
+      },
+    ],
+  },
+  "gc-88fd5807de80": {
+    seoTitle: "평창 알펜시아 700CC 18홀 그린피·예약 안내 | 골프맵",
+    metaDescription:
+      "평창 알펜시아 700GC는 알프스·아시아 코스 18홀 파72입니다. 4주 전 월요일 9시 예약, 4인·캐디 조건과 변동 그린피를 확인하세요.",
+    bookingUrl: "https://www.alpensia.com/reservation/index.do",
+    homepageUrl: "https://www.alpensia.com/golf/gc700/course-info.do",
+    displayName: "알펜시아 700GC",
+    searchAliases: [
+      "알펜시아 700GC",
+      "알펜시아 700CC",
+      "알펜시아700cc",
+      "알펜시아 700골프클럽",
+    ],
+    faq: [
+      {
+        question: "알펜시아 700GC는 몇 홀인가요?",
+        answer:
+          "공식 코스 안내 기준 알프스 코스 9홀과 아시아 코스 9홀로 구성된 총 18홀 파72 코스입니다.",
+      },
+      {
+        question: "알펜시아 700GC 예약은 언제 열리나요?",
+        answer:
+          "공식 이용 안내상 예약일 기준 4주 전, 주 단위 월요일 오전 9시부터 홈페이지 실시간 예약이 선착순으로 열립니다.",
+      },
+      {
+        question: "알펜시아 700GC는 2인이나 3인 플레이가 가능한가요?",
+        answer:
+          "공식 이용 안내에는 2~3인 플레이가 불가하고 1팀 4인 기준이며 캐디 배정이 필수라고 안내되어 있습니다. 결원 시 과금 조건은 예약 전에 확인하세요.",
+      },
+      {
+        question: "알펜시아 700GC 그린피는 얼마인가요?",
+        answer:
+          "공식 안내는 통합예약의 실시간 그린피를 적용합니다. 날짜와 시간대에 따라 달라질 수 있으므로 예약 화면에서 최종 그린피와 부대비용을 확인하세요.",
+      },
+    ],
+  },
   "gc-825e9c261de2": {
     seoTitle: "코브스윙(구 참밸리CC) 그린피·예약·18홀 안내 | 골프맵",
     metaDescription:
